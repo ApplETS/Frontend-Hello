@@ -12,16 +12,16 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 			<div className={`absolute bottom-4 right-4 w-[141px] h-[79px] bg-[url('../public/ETS.svg')] bg-cover`} />
 			<div className='grid justify-items-center content-center bg-accent rounded-2xl mx-6 my-6 w-1/3 h-5/6 '>
 				<h1 className='py-10 text-4xl'>Bienvenue</h1>
-				{searchParams?.message && (
-					<Alert
-						customStyle={'flex flex-1 flex-col w-full px-8 pb-2 justify-center gap-2'}
-						text={searchParams.message}
-						alertType={searchParams.type}
-						icon={faTriangleExclamation}
-					/>
-				)}
 				<div className='flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2'>
 					<form className='flex-1 flex flex-col w-full justify-center gap-2 text-foreground' action={signIn}>
+						{searchParams?.message && (
+							<Alert
+								customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
+								text={searchParams.message}
+								alertType={searchParams.type}
+								icon={faTriangleExclamation}
+							/>
+						)}
 						<label className='text-md text-primary' htmlFor='email'>
 							Courriel
 						</label>

@@ -10,8 +10,8 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 	return (
 		<div className='animate-in relative flex justify-center items-center rounded-2xl w-screen h-screen'>
 			<div className={`absolute bottom-4 right-4 w-[141px] h-[79px] bg-[url('../public/ETS.svg')] bg-cover`} />
-			<div className='grid justify-items-center content-center bg-accent rounded-2xl mx-6 my-6 w-1/3 h-5/6 '>
-				<h1 className='py-10 text-4xl'>Bienvenue</h1>
+			<div className='grid justify-items-center content-center bg-accent rounded-2xl min-h-min min-w-min '>
+				<h1 className='py-10 text-4xl'>Bienvenue !</h1>
 				<div className='flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2'>
 					<form className='flex-1 flex flex-col w-full justify-center gap-2 text-foreground' action={signIn}>
 						{searchParams?.message && (
@@ -35,7 +35,13 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 							Mot de passe
 						</label>
 						<PasswordInput />
-						<Checkbox checked={true} style='self-end pb-6' text='Se souvenir de moi' textStyle='text-primary' />
+						<Checkbox
+							checked={true}
+							style='self-end pb-6'
+							text='Se souvenir de moi'
+							textStyle='text-primary'
+							checkboxStyle='checkbox-primary'
+						/>
 						<button className='btn btn-ghost bg-secondary rounded-md text-foreground text-base mb-2 hover:bg-secondary/75'>
 							Se connecter
 						</button>
@@ -44,7 +50,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 					<div className='flex justify-center'>
 						<p className='text-xs text-primary'>
 							Vous avez oublié vos informations?
-							<Link href={'/forgotPassword'} className='text-xs pl-1 underline text-white'>
+							<Link href={'/forgotPassword'} className='text-xs pl-1 underline text-secondary'>
 								Réinitialisez votre mot de passe
 							</Link>
 						</p>
@@ -52,7 +58,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 					<div className='flex justify-center'>
 						<p className='text-xs pb-10 text-primary'>
 							Vous n&apos;avez pas de compte?
-							<Link href={'/signUp'} className='text-xs pl-1 underline text-white'>
+							<Link href={'/signUp'} className='text-xs pl-1 underline text-secondary'>
 								Inscrivez-vous
 							</Link>
 						</p>

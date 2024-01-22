@@ -12,12 +12,11 @@ export default function PasswordInput() {
 	return (
 		<div className='relative flex items-center justify-center border rounded-md'>
 			<input
-				className={`${passwordShown ? 'text-base' : 'text-xs my-1'} rounded-md px-4 py-2 bg-inherit flex-1`}
+				className={`'text-xs rounded-md px-4 py-2 bg-inherit flex-1`}
 				type={passwordShown ? 'text' : 'password'}
 				name='password'
-				placeholder='••••••••'
+				placeholder='●●●●●●●●'
 				required
-				style={{ border: 'none', outline: 'none' }}
 			/>
 			<button onClick={togglePasswordVisibility} className='absolute right-0 mr-3' type='button'>
 				{passwordShown ? <Image src={Eye} alt={'eye'} /> : <Image src={Eye} alt={'eye'} />}

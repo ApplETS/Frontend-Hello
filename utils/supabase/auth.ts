@@ -59,7 +59,7 @@ export const forgotPassword = async (formData: FormData) => {
 		return redirect(`/forgotPassword?message=Erreur lors de l'envoi du courriel de réinitialisation, ${error.message}`);
 	}
 
-	return redirect('/updatePassword?message=Veuillez consulter votre email&email=' + email);
+	return redirect('/updatePassword?message=Veuillez consulter votre courriel&email=' + email);
 };
 
 export const updatePassword = async (formData: FormData) => {
@@ -71,13 +71,11 @@ export const updatePassword = async (formData: FormData) => {
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
 
-	const resOtp = await supabase.auth.verifyOtp(
-		{
-			email: email,
-			token: token,
-			type: 'recovery'
-		}
-	)
+	const resOtp = await supabase.auth.verifyOtp({
+		email: email,
+		token: token,
+		type: 'recovery',
+	});
 
 	if (resOtp.error) {
 		return redirect(`/updatePassword?message=Erreur lors de la mise à jour ${resOtp.error.message}`);

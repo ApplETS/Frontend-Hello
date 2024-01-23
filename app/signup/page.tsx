@@ -67,7 +67,7 @@ export default function SignUp({ searchParams }: { searchParams: { message: stri
 					<div className='flex flex-col col-span-2 mt-4 pb-4'>
 						<p className='text-foreground text-center text-primary'>
 							Vous avez déjà un compte ?{' '}
-							<Link href='/login' className='underline text-white'>
+							<Link href='/login' className='underline text-secondary'>
 								Connectez-vous
 							</Link>
 						</p>

@@ -49,7 +49,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 					<div className='flex justify-center'>
 						<p className='text-xs text-primary'>
 							Vous avez oublié vos informations?
-							<Link href={'/forgotpassword'} className='text-xs pl-1 underline text-white'>
+							<Link href={'/forgotpassword'} className='text-xs pl-1 underline text-secondary'>
 								Réinitialisez votre mot de passe
 							</Link>
 						</p>
@@ -57,7 +57,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 					<div className='flex justify-center'>
 						<p className='text-xs pb-10 text-primary'>
 							Vous n&apos;avez pas de compte?
-							<Link href={'/signup'} className='text-xs pl-1 underline text-white'>
+							<Link href={'/signup'} className='text-xs pl-1 underline text-secondary'>
 								Inscrivez-vous
 							</Link>
 						</p>

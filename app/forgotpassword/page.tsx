@@ -25,7 +25,6 @@ export default function ForgotPassword({ searchParams }: { searchParams: { messa
 						<input
 							className='input input-ghost input-primary input-bordered bg-inherit text-primary mb-4'
 							name='email'
-							placeholder='john.doe@hotmail.com'
 							required
 						/>
 						<button className='btn btn-ghost bg-secondary rounded-md text-foreground text-base mb-4 hover:bg-primary/75'>
@@ -35,7 +34,7 @@ export default function ForgotPassword({ searchParams }: { searchParams: { messa
 					<div className='flex justify-center pb-10'>
 						<p className='text-xs text-primary'>
 							Vous avez un compte?
-							<Link href={'/login'} className='text-xs text-white pl-1 underline'>
+							<Link href={'/login'} className='text-xs text-secondary pl-1 underline'>
 								Connectez-vous
 							</Link>
 						</p>

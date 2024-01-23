@@ -23,18 +23,18 @@ export default function ForgotPassword({ searchParams }: { searchParams: { messa
 							Courriel
 						</label>
 						<input
-							className='input input-ghost input-primary input-bordered bg-inherit text-primary mb-4'
+							className='input input-ghost input-primary input-bordered bg-inherit text-primary mb-10'
 							name='email'
 							required
 						/>
-						<button className='btn btn-ghost bg-secondary rounded-md text-foreground text-base mb-4 hover:bg-secondary/75'>
+						<button className='btn btn-ghost bg-secondary rounded-md text-foreground text-base mb-10 hover:bg-secondary/75'>
 							Envoyer
 						</button>
 					</form>
 					<div className='flex justify-center pb-10'>
-						<p className='text-xs text-primary'>
+						<p className='text-sm text-primary'>
 							Vous avez un compte?
-							<Link href={'/login'} className='text-xs text-secondary pl-1 underline'>
+							<Link href={'/login'} className='text-sm font-semibold text-secondary pl-1 underline'>
 								Connectez-vous
 							</Link>
 						</p>

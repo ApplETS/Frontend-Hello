@@ -4,6 +4,7 @@ import Alert from '@/components/Alert';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import PasswordInput from '@/components/PasswordInput';
 import Dropdown from '@/components/Dropdown';
+import Captcha from '@/components/Captcha';
 
 export default function SignUp({ searchParams }: { searchParams: { message: string; type: string } }) {
 	return (
@@ -59,15 +60,11 @@ export default function SignUp({ searchParams }: { searchParams: { message: stri
 						</label>
 						<PasswordInput />
 					</div>
-					<div className='flex flex-col col-span-2'>
-						<button className='btn btn-ghost bg-secondary rounded-md text-foreground text-base py-2 hover:bg-primary/75'>
-							S&apos;inscrire
-						</button>
-					</div>
+					<Captcha />
 					<div className='flex flex-col col-span-2 mt-4 pb-4'>
 						<p className='text-foreground text-center text-primary'>
 							Vous avez déjà un compte ?{' '}
-							<Link href='/login' className='underline text-secondary'>
+							<Link href='/login' className='underline text-secondary font-semibold'>
 								Connectez-vous
 							</Link>
 						</p>

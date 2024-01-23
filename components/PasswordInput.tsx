@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import Eye from '@/public/Eye.svg';
 import Image from 'next/image';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function PasswordInput() {
 	const [passwordShown, setPasswordShown] = useState(false);
@@ -18,7 +20,7 @@ export default function PasswordInput() {
 				required
 			/>
 			<button onClick={togglePasswordVisibility} className='absolute right-0 mr-3' type='button'>
-				{passwordShown ? <Image src={Eye} alt={'eye'} /> : <Image src={Eye} alt={'eye'} />}
+				{passwordShown ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
 			</button>
 		</div>
 	);

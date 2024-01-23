@@ -1,8 +1,8 @@
-import Checkbox from './components/Checkbox';
+import Checkbox from '@/components/Checkbox';
 import { signIn } from '@/utils/supabase/auth';
 import Link from 'next/link';
-import ETS from '../../public/ETS.svg';
-import PasswordInput from './components/PasswordInput';
+import ETS from '@/public/ETS.svg';
+import PasswordInput from '../../components/PasswordInput';
 import Alert from '@/components/Alert';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
@@ -25,7 +25,11 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 						<label className='text-md text-primary' htmlFor='email'>
 							Courriel
 						</label>
-						<input className='rounded-md px-4 py-2 bg-inherit border mb-6' name='email' required />
+						<input
+							className='input input-ghost input-primary input-bordered bg-inherit text-primary mb-4'
+							name='email'
+							required
+						/>
 						<label className='text-md text-primary' htmlFor='password'>
 							Mot de passe
 						</label>
@@ -45,7 +49,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 					<div className='flex justify-center'>
 						<p className='text-xs text-primary'>
 							Vous avez oublié vos informations?
-							<Link href={'/forgotPassword'} className='text-xs pl-1 underline text-secondary'>
+							<Link href={'/forgotpassword'} className='text-xs pl-1 underline text-white'>
 								Réinitialisez votre mot de passe
 							</Link>
 						</p>
@@ -53,7 +57,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
 					<div className='flex justify-center'>
 						<p className='text-xs pb-10 text-primary'>
 							Vous n&apos;avez pas de compte?
-							<Link href={'/signUp'} className='text-xs pl-1 underline text-secondary'>
+							<Link href={'/signup'} className='text-xs pl-1 underline text-white'>
 								Inscrivez-vous
 							</Link>
 						</p>

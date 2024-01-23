@@ -27,7 +27,7 @@ export default function ForgotPassword({ searchParams }: { searchParams: { messa
 							name='email'
 							required
 						/>
-						<button className='btn btn-ghost bg-secondary rounded-md text-foreground text-base mb-4 hover:bg-primary/75'>
+						<button className='btn btn-ghost bg-secondary rounded-md text-foreground text-base mb-4 hover:bg-secondary/75'>
 							Envoyer
 						</button>
 					</form>

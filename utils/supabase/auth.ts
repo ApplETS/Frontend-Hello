@@ -16,7 +16,7 @@ export const signIn = async (formData: FormData) => {
 	});
 
 	if (error) {
-		return redirect(`/login?message=Mauvaises informations de connexion, ${error.message}`);
+		return redirect(`/login?message=${error.message}&type=error`);
 	}
 
 	return redirect('/');
@@ -35,15 +35,15 @@ export const signUp = async (formData: FormData) => {
 		email,
 		password,
 		options: {
-			emailRedirectTo: `${origin}/auth/callback`,
+			emailRedirectTo: `${origin}/login?message=Parfait mon tchum&type=success`,
 		},
 	});
 
 	if (error) {
-		return redirect(`/signUp?message=Erreur lors de l'inscription, ${error.message}`);
+		return redirect(`/signup?message=${error.message}&type=error`);
 	}
 
-	return redirect("/signUp?message=Veuillez vérifier votre courriel afin de terminer l'inscription");
+	return redirect("/signup?message=Veuillez vérifier votre courriel afin de terminer l'inscription&type=success");
 };
 
 export const forgotPassword = async (formData: FormData) => {
@@ -56,10 +56,10 @@ export const forgotPassword = async (formData: FormData) => {
 	const { error } = await supabase.auth.resetPasswordForEmail(email);
 
 	if (error) {
-		return redirect(`/forgotPassword?message=Erreur lors de l'envoi du courriel de réinitialisation, ${error.message}`);
+		return redirect(`/forgotpassword?message=${error.message}, ${error.status}&type=error`);
 	}
 
-	return redirect('/updatePassword?message=Veuillez consulter votre courriel&email=' + email);
+	return redirect('/updatepassword?message=Veuillez consulter votre email&email=' + email + '&type=success');
 };
 
 export const updatePassword = async (formData: FormData) => {
@@ -78,7 +78,7 @@ export const updatePassword = async (formData: FormData) => {
 	});
 
 	if (resOtp.error) {
-		return redirect(`/updatePassword?message=Erreur lors de la mise à jour ${resOtp.error.message}`);
+		return redirect(`/updatepassword?message=${resOtp.error.message}, ${resOtp.error.status}&type=error`);
 	}
 
 	const { error } = await supabase.auth.updateUser({
@@ -86,7 +86,7 @@ export const updatePassword = async (formData: FormData) => {
 	});
 
 	if (error) {
-		return redirect(`/updatePassword?message=Erreur lors de la mise à jour ${error.message}`);
+		return redirect(`/updatepassword?message=${error.message}&type=error`);
 	}
 
 	return redirect('/');

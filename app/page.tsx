@@ -1,7 +1,6 @@
-import AuthButton from "../components/AuthButton";
+import {redirect} from 'next/navigation';
 
-export default async function Index() {
-  return (
-    <AuthButton />
-  );
+// This page only renders when the app is built statically (output: 'export')
+export default function RootPage() {
+  redirect('/fr');
 }

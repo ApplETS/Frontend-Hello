@@ -3,12 +3,21 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        light: {
-          // eslint-disable-next-line @typescript-eslint/no-var-requires
-          ...require("daisyui/src/theming/themes")["light"],
-          primary: "#9ca3af",
-          secondary: "#4338CA",
-          accent: "#18191B"
+        dark: {
+          ...require("daisyui/src/theming/themes")["dark"],
+          "base-content": "DCDCDC",
+          ".btn-primary": {
+            "color" : "#DCDCDC",
+          },
+          ".btn-ghost": {
+            "color" : "#DCDCDC",
+          }
+        },
+        corporate: {
+          ...require("daisyui/src/theming/themes")["corporate"],
+          ".btn-ghost": {
+            "color" : "#181A2A",
+          }
         },
       },
     ],

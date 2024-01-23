@@ -1,0 +1,16 @@
+{
+  "LocaleLayout": {
+    "title": "Frontend-PS"
+  },
+  "Login": {
+    "welcome": "Welcome !",
+    "email": "Email",
+    "password": "Password",
+    "remember-me": "Remember me",
+    "login": "Login",
+    "forgot-info": "Forgot your information?",
+    "reset-password": "Reset your password",
+    "no-account": "Don't have an account?",
+    "signup": "Sign up"
+  }
+}

@@ -1,5 +1,26 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/middleware";
+import createMiddleware from "next-intl/middleware";
+import {pathnames, locales, localePrefix} from './config';
+
+export default createMiddleware({
+  // A list of all locales that are supported
+  locales,
+  pathnames,
+  localePrefix,
+  // Used when no locale matches
+  defaultLocale: "fr",
+});
+
+export const config = {
+  // Match only internationalized pathnames
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico).*)",
+    "/",
+    "/(fr|en)/:path*",
+    '/((?!_next|_vercel|.*\\..*).*)'
+  ],
+};
 
 export async function middleware(request: NextRequest) {
   try {
@@ -23,16 +44,3 @@ export async function middleware(request: NextRequest) {
     });
   }
 }
-
-export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
-     */
-    "/((?!_next/static|_next/image|favicon.ico).*)",
-  ],
-};

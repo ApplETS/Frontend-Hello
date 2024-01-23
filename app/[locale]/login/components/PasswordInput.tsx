@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import Eye from '../../../public/Eye.svg';
+import Eye from '@/public/Eye.svg';
 import Image from 'next/image';
 
 export default function PasswordInput() {

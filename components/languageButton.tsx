@@ -18,7 +18,7 @@ export default function LanguageButton() {
   };
 
   return (
-    <label className="btn btn-circle btn-ghost swap swap-flip text-base text-base-content">
+    <label className="swap swap-flip text-base text-base-content">
       {/* This hidden checkbox controls the state */}
       <input
         type="checkbox"

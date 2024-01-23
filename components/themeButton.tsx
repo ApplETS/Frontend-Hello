@@ -12,7 +12,7 @@ export default function ThemeButton() {
   }, [isdark]);
 
   return (
-    <label className="swap swap-rotate btn btn-ghost btn-circle">
+    <label className="swap swap-rotate">
       {/* this hidden checkbox controls the state */}
       <input
         type="checkbox"

@@ -24,7 +24,7 @@ export default function Login({
   return (
     <>
       <div className="animate-in flex justify-center items-center h-screen">
-        <div className="grid justify-items-center content-center bg-base-300 rounded-2xl">
+        <div className="grid justify-items-center content-center bg-base-300 rounded-2xl w-[36rem] h-[40rem]">
           <h1 className="py-10 text-4xl">{t("welcome")}</h1>
           <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
             <form

@@ -1,3 +1,5 @@
+'use client';
+
 import { ChangeEvent, useTransition } from "react";
 import { useRouter, usePathname } from "../navigation";
 import { useLocale } from "next-intl";
@@ -25,8 +27,8 @@ export default function LanguageButton() {
         onChange={onSelectChange}
       />
 
-      <div className="swap-on">FR</div>
-      <div className="swap-off">EN</div>
+      <div className="swap-on">EN</div>
+      <div className="swap-off">FR</div>
     </label>
   );
 }

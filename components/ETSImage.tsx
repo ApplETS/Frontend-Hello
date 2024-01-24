@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import fr_dark from "@/public/ETS/dark/fr.png";
 import en_dark from "@/public/ETS/dark/en.png";
@@ -5,11 +7,13 @@ import fr_light from "@/public/ETS/light/fr.png";
 import en_light from "@/public/ETS/light/en.png";
 
 interface Props {
-  theme: string;
   lang: string;
+  isDarkTheme: boolean;
 }
 
-export default function ETSImage(prop: Props) {
+export default function ETSImage(props: Props) {
+  const theme = props.isDarkTheme ? "dark" : "light";
+
   const images = {
     dark: {
       fr: fr_dark,
@@ -23,14 +27,13 @@ export default function ETSImage(prop: Props) {
 
   const defaultImage = en_light;
 
-  const imageSrc = images[prop.theme]?.[prop.lang] || defaultImage;
+  const imageSrc = images[theme]?.[props.lang] || defaultImage;
 
   return (
     <Image
       src={imageSrc}
       alt="ETS Logo"
-      width={241}
-      height={79}
+      width={200}
     />
   );
 }

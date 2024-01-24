@@ -2,14 +2,24 @@
 
 import React, { useState, useEffect } from "react";
 
-export default function ThemeButton() {
+interface ThemeButtonProps {
+  onThemeChange: (isDark: boolean) => void;
+}
+
+export default function ThemeButton({ onThemeChange }: ThemeButtonProps) {
   const isDarkStoredValue = localStorage.getItem("isdark");
   const initialIsDark = isDarkStoredValue === "true";
 
   const [isdark, setIsdark] = useState(initialIsDark);
   useEffect(() => {
     localStorage.setItem("isdark", JSON.stringify(isdark));
-  }, [isdark]);
+    onThemeChange(isdark);
+  }, [isdark, onThemeChange]);
+
+  const handleThemeChange = (isDark: boolean) => {
+    setIsdark(!isdark)
+    onThemeChange(isDark);
+  };
 
   return (
     <label className="swap swap-rotate">
@@ -17,8 +27,8 @@ export default function ThemeButton() {
       <input
         type="checkbox"
         className="theme-controller"
-        checked={isdark}
-        onChange={() => setIsdark(!isdark)}
+        checked={!isdark}
+        onChange={() => handleThemeChange(!isdark)}
         value="light"
       />
 

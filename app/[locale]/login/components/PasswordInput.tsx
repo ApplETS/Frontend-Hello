@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import Eye from '../../../public/Eye.svg';
+import Eye from '@/public/Eye.svg';
 import Image from 'next/image';
 
 export default function PasswordInput() {
@@ -10,9 +10,9 @@ export default function PasswordInput() {
 		setPasswordShown(!passwordShown);
 	};
 	return (
-		<div className='relative flex items-center justify-center border rounded-md'>
+		<div className='relative flex items-center justify-center'>
 			<input
-				className={`'text-xs rounded-md px-4 py-2 bg-inherit flex-1`}
+				className={`'text-xs input input-ghost input-bordered px-4 py-2 bg-inherit flex-1`}
 				type={passwordShown ? 'text' : 'password'}
 				name='password'
 				required

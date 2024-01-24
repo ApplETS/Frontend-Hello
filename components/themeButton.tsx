@@ -19,7 +19,7 @@ export default function ThemeButton() {
         className="theme-controller"
         checked={isdark}
         onChange={() => setIsdark(!isdark)}
-        value="corporate"
+        value="light"
       />
 
       {/* sun icon */}

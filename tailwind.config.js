@@ -22,7 +22,7 @@ module.exports = {
       {
         dark: {
           ...require("daisyui/src/theming/themes")["dark"],
-          "base-content": "DCDCDC",
+          "base-content": "#DCDCDC",
           ".btn-primary": {
             color: "#DCDCDC",
           },
@@ -30,10 +30,17 @@ module.exports = {
             color: "#DCDCDC",
           },
         },
-        corporate: {
-          ...require("daisyui/src/theming/themes")["corporate"],
+        light: {
+          ...require("daisyui/src/theming/themes")["light"],
           ".btn-ghost": {
             color: "#181A2A",
+          },
+          ".btn-primary": {
+            color: "#FFFFFF",
+          },
+          "primary": "#4D6EFF",
+          ".input-bordered": {
+            "border-color": "#181A2A"
           },
         },
       },

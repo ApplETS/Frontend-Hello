@@ -14,14 +14,21 @@
     "signup": "Sign up"
   },
   "SignUp": {
-        "title": "Sign Up",
-        "register": "Register",
-        "name": "Organization Name",
-        "email": "Email",
-        "activity": "Activity field",
-        "password": "Password",
-        "confirm": "Confirm Password",
-        "already": "Already have an account?",
-        "alreadyLink": "Login here"
-    }
+    "title": "Sign Up",
+    "register": "Register",
+    "name": "Organization Name",
+    "email": "Email",
+    "activity": "Activity field",
+    "password": "Password",
+    "confirm": "Confirm Password",
+    "already": "Already have an account?",
+    "alreadyLink": "Login here"
+  },
+  "ForgotPassword": {
+      "title": "Reset your password",
+      "email": "Email",
+      "send": "Reset your password",
+      "remember": "Already have an account?",
+      "rememberLink": "Login here"
+  }
 }

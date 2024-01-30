@@ -19,17 +19,15 @@ export default function Captcha() {
 				sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
 				ref={recaptchaRef}
 				onChange={handleCaptchaSubmission}
-				className=''
+				className='pb-8'
 			/>
-			<div className='flex flex-col col-span-2 mt-2'>
-				<button
-					className={`btn ${
-						!isVerified ? 'btn-disabled' : ''
-					} btn-ghost bg-secondary rounded-md text-foreground text-base py-2 hover:bg-secondary/75`}
-				>
-					S&apos;inscrire
-				</button>
-			</div>
+			<button
+				className={`btn ${
+					!isVerified ? 'btn-disabled' : ''
+				} btn-ghost bg-primary rounded-md text-foreground text-base py-2 mb-4 font-normal w-[50%] hover:bg-primary/75`}
+			>
+				S&apos;inscrire
+			</button>
 		</>
 	);
 }

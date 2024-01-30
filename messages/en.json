@@ -12,5 +12,16 @@
     "reset-password": "Reset your password",
     "no-account": "Don't have an account?",
     "signup": "Sign up"
-  }
+  },
+  "SignUp": {
+        "title": "Sign Up",
+        "register": "Register",
+        "name": "Organization Name",
+        "email": "Email",
+        "activity": "Activity field",
+        "password": "Password",
+        "confirm": "Confirm Password",
+        "already": "Already have an account?",
+        "alreadyLink": "Login here"
+    }
 }

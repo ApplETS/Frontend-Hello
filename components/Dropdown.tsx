@@ -20,13 +20,13 @@ export default function Dropdown() {
 			<div
 				tabIndex={0}
 				role='button'
-				className='btn bg-inherit border-primary w-full text-primary hover:bg-inherit'
+				className='btn bg-inherit border-current w-full hover:bg-inherit'
 				onClick={toggleDropdown}
 			>
 				{selectedValue}
 			</div>
 			{isDropdownOpen && (
-				<ul tabIndex={0} className='dropdown-content z-[1] menu p-2 shadow bg-accent rounded-box w-max'>
+				<ul tabIndex={0} className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-max'>
 					<li>
 						<a onClick={(e) => onOptionClicked(e.currentTarget.text)}>Clubs scientifiques</a>
 					</li>

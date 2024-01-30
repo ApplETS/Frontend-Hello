@@ -14,11 +14,7 @@ export default function PasswordInput() {
 	return (
 		<div className='relative flex items-center justify-center'>
 			<input
-<<<<<<<< HEAD:components/PasswordInput.tsx
-				className={`'text-xs input input-ghost input-primary input-bordered bg-inherit text-primary flex-1`}
-========
-				className={`'text-xs input input-ghost input-bordered px-4 py-2 bg-inherit flex-1`}
->>>>>>>> main:app/[locale]/login/components/PasswordInput.tsx
+				className={`'text-xs input input-ghost input-bordered border-current px-4 py-2 bg-inherit flex-1`}
 				type={passwordShown ? 'text' : 'password'}
 				name='password'
 				required

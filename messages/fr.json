@@ -12,5 +12,16 @@
     "reset-password": "Réinitialisez votre mot de passe",
     "no-account": "Vous n'avez pas de compte?",
     "signup": "Inscrivez-vous"
-  }
+  },
+  "SignUp": {
+        "title": "Inscription",
+        "register": "S'inscrire",
+        "name": "Nom de l'organisation",
+        "email": "Courriel",
+        "activity": "Secteur d'activité",
+        "password": "Mot de passe",
+        "confirm": "Confirmation de mot de passe",
+        "already": "Vous avez déjà un compte?",
+        "alreadyLink": "Connectez-vous"
+    }
 }

@@ -42,13 +42,5 @@
 }
 
 .input-ghost:focus {
-  @apply focus:outline-secondary;
-  @apply focus:border-none;
-  @apply focus:text-primary;
-}
-
-.select-ghost:focus {
-  @apply focus:outline-secondary;
-  @apply focus:border-none;
-  @apply focus:text-primary;
+  @apply focus:outline-primary;
 }

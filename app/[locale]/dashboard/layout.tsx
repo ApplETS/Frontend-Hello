@@ -14,9 +14,9 @@ export default function Layout({ children, params: { locale } }: Props) {
   const t = useTranslations("Dashboard");
 
   const pages = {
-    dashboard: {
-      title: t("dashboard"),
-      link: `/${locale}/dashboard`,
+    news: {
+      title: t("news"),
+      link: `/${locale}/news`,
     },
     publications: {
       title: t("publications"),

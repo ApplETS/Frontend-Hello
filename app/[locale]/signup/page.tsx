@@ -8,12 +8,13 @@ import Captcha from '@/components/Captcha';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import Footer from '@/components/Footer';
+import SignUpActivity from '@/components/SignUpActivity';
 
 export default function SignUp({
 	searchParams,
 	params,
 }: {
-	searchParams: { message: string; type: string, code: string };
+	searchParams: { message: string; type: string; code: string };
 	params: { locale: string };
 }) {
 	unstable_setRequestLocale(params.locale);
@@ -43,7 +44,7 @@ export default function SignUp({
 							<label className='text-md mb-2' htmlFor='lastName'>
 								{t('activity')}
 							</label>
-							<Dropdown />
+							<SignUpActivity />
 						</div>
 						<div className='flex flex-col col-span-2'>
 							<label className='text-md mb-2' htmlFor='email'>

@@ -2,6 +2,11 @@
   "LocaleLayout": {
     "title": "Frontend-PS"
   },
+  "Dashboard": {
+    "news": "News",
+    "publications": "Publications",
+    "approbations": "Approbations"
+  },
   "Login": {
     "welcome": "Welcome !",
     "email": "Email",
@@ -12,5 +17,45 @@
     "reset-password": "Reset your password",
     "no-account": "Don't have an account?",
     "signup": "Sign up"
+  },
+  "Publications": {
+    "title": "Publications",
+    "search": "Search",
+    "table": {
+      "title": "Title",
+      "release-date": "Release date",
+      "event-date": "Event date",
+      "status": "Status",
+      "open": "Open"
+    },
+    "filters": {
+      "all": "All",
+      "published": "Published",
+      "draft": "Draft",
+      "on-hold": "On hold",
+      "refused": "Refused",
+      "approved": "Approved",
+      "deleted": "Deleted"
+    }
+  },
+  "Approbations": {
+    "title": "Approbations",
+    "search": "Search",
+    "table": {
+      "author": "Author",
+      "title": "Title",
+      "release-date": "Release date",
+      "status": "Status",
+      "open": "Open"
+    },
+    "filters": {
+      "all": "All",
+      "published": "Published",
+      "draft": "Draft",
+      "on-hold": "On hold",
+      "refused": "Refused",
+      "approved": "Approved",
+      "deleted": "Deleted"
+    }
   }
 }

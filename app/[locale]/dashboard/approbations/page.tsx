@@ -4,6 +4,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import Dropdown from '@/components/Dropdown';
 import Search from '@/components/Search';
 import Constants from '@/constants';
+import { formatDate } from '@/utils/supabase/formatDate';
 
 type Props = {
   params: { locale: string };
@@ -14,28 +15,15 @@ export default function Submissions({ params: { locale } }: Props) {
   const t = useTranslations('Approbations');
 
   const currentDate = new Date();
-
-  const dateInFrench = new Intl.DateTimeFormat('fr-FR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-  }).format(currentDate);
-
-  const dateInEnglish = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-  }).format(currentDate);
+  const formattedDate = formatDate(currentDate, locale);
 
   const approbations = [
-    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.approved },
-    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.deleted },
-    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.draft },
-    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.onHold },
-    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.published },
-    { author: 'Capra', activity: "Club scientique", title: 'Séance d\'informations', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.refused },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.approved },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.deleted },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.draft },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.onHold },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.published },
+    { author: 'Capra', activity: "Club scientique", title: 'Séance d\'informations', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.refused },
   ];
 
   const statusLabels = {

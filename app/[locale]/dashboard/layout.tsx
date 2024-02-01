@@ -18,13 +18,13 @@ export default function Layout({ children, params: { locale } }: Props) {
       title: t("dashboard"),
       link: `/${locale}/dashboard`,
     },
-    projects: {
-      title: t("projects"),
-      link: `/${locale}/dashboard/projects`,
+    publications: {
+      title: t("publications"),
+      link: `/${locale}/dashboard/publications`,
     },
-    submissions: {
-      title: t("submissions"),
-      link: `/${locale}/dashboard/submissions`,
+    approbations: {
+      title: t("approbations"),
+      link: `/${locale}/dashboard/approbations`,
     },
   };
 

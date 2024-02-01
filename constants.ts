@@ -1,9 +1,11 @@
 export default {
-    projectPhases: {
-        preproduction: 1,
-        production: 2,
-        postproduction: 3,
-        done: 4,
-        canceled: 5
+    newsStatuses: {
+        all: 1,
+        published: 2,
+        draft: 3,
+        onHold: 4,
+        refused: 5,
+        approved: 5,
+        deleted: 6
     }
 }

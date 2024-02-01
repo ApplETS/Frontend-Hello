@@ -28,6 +28,7 @@ export default function ForgotPassword({
 					/>
 				)}
 				<form className='w-full px-28' action={forgotPassword}>
+					<input type='hidden' name='locale' value={params.locale} />
 					<div className='grid grid-cols-1 gap-8 w-full'>
 						<div className='flex flex-col col-span-1'>
 							<label className='text-md mb-2' htmlFor='email'>

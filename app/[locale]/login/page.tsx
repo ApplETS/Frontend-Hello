@@ -27,6 +27,7 @@ export default function Login({
 				<div className='flex-1 flex flex-col w-full px-8 justify-center gap-2'>
 					<div className='mx-16'>
 						<form className='flex-1 flex flex-col w-full justify-center gap-2' action={signIn}>
+							<input type='hidden' name='locale' value={params.locale} />
 							{searchParams?.message && (
 								<Alert
 									customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}

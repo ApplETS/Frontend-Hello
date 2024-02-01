@@ -7,6 +7,7 @@ export const signIn = async (formData: FormData) => {
 
 	const email = formData.get('email') as string;
 	const password = formData.get('password') as string;
+	const locale = formData.get('locale') as string;
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
 
@@ -16,10 +17,10 @@ export const signIn = async (formData: FormData) => {
 	});
 
 	if (error) {
-		return redirect(`/login?message=${error.message}&type=error`);
+		return redirect(`/${locale}/login?message=${error.message}&type=error`);
 	}
 
-	return redirect('/');
+	return redirect(`/${locale}`);
 };
 
 export const signUp = async (formData: FormData) => {
@@ -28,6 +29,7 @@ export const signUp = async (formData: FormData) => {
 	const origin = headers().get('origin');
 	const email = formData.get('email') as string;
 	const password = formData.get('password') as string;
+	const locale = formData.get('locale') as string;
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
 
@@ -35,31 +37,32 @@ export const signUp = async (formData: FormData) => {
 		email,
 		password,
 		options: {
-			emailRedirectTo: `${origin}/login?message=Parfait mon tchum&type=success`,
+			emailRedirectTo: `${origin}/${locale}/login?message=Parfait mon tchum&type=success`,
 		},
 	});
 
 	if (error) {
-		return redirect(`/signup?message=${error.message}&type=error`);
+		return redirect(`/${locale}/signup?message=${error.message}&type=error`);
 	}
 
-	return redirect("/signup?message=Veuillez vérifier votre courriel afin de terminer l'inscription&type=success");
+	return redirect(`/${locale}`);
 };
 
 export const forgotPassword = async (formData: FormData) => {
 	'use server';
 
 	const email = formData.get('email') as string;
+	const locale = formData.get('locale') as string;
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
 
 	const { error } = await supabase.auth.resetPasswordForEmail(email);
 
 	if (error) {
-		return redirect(`/forgotpassword?message=${error.message}, ${error.status}&type=error`);
+		return redirect(`/${locale}/forgotpassword?message=${error.message}, ${error.status}&type=error`);
 	}
 
-	return redirect('/updatepassword?message=Veuillez consulter votre email&email=' + email + '&type=success');
+	return redirect(`/${locale}/updatepassword?message=Veuillez consulter votre email&email=${email}&type=success`);
 };
 
 export const updatePassword = async (formData: FormData) => {
@@ -68,6 +71,7 @@ export const updatePassword = async (formData: FormData) => {
 	const email = formData.get('email') as string;
 	const password = formData.get('password') as string;
 	const token = formData.get('token') as string;
+	const locale = formData.get('locale') as string;
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
 
@@ -78,7 +82,7 @@ export const updatePassword = async (formData: FormData) => {
 	});
 
 	if (resOtp.error) {
-		return redirect(`/updatepassword?message=${resOtp.error.message}, ${resOtp.error.status}&type=error`);
+		return redirect(`/${locale}/updatepassword?message=${resOtp.error.message}, ${resOtp.error.status}&type=error`);
 	}
 
 	const { error } = await supabase.auth.updateUser({
@@ -86,8 +90,8 @@ export const updatePassword = async (formData: FormData) => {
 	});
 
 	if (error) {
-		return redirect(`/updatepassword?message=${error.message}&type=error`);
+		return redirect(`/${locale}/updatepassword?message=${error.message}&type=error`);
 	}
 
-	return redirect('/');
+	return redirect(`/${locale}`);
 };

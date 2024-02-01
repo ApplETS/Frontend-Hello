@@ -3,9 +3,14 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function AuthButton() {
+interface Props {
+  locale: string;
+}
+
+export default async function AuthButton({ locale }: Props) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
+  const redirectLink = `/fr/login`;
 
   const {
     data: { user },
@@ -17,7 +22,7 @@ export default async function AuthButton() {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     await supabase.auth.signOut();
-    return redirect("/login");
+    return redirect(redirectLink);
   };
 
   return user ? (
@@ -31,7 +36,7 @@ export default async function AuthButton() {
     </div>
   ) : (
     <Link
-      href="/login"
+      href={redirectLink}
       className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
     >
       Login

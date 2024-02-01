@@ -31,6 +31,7 @@ export default function SignUp({
 					/>
 				)}
 				<form className='w-full px-24' action={signUp}>
+					<input type='hidden' name='locale' value={params.locale} />
 					<div className='grid grid-cols-2 gap-8 w-full'>
 						<div className='flex flex-col col-span-1'>
 							<label className='text-md mb-2' htmlFor='firstName'>

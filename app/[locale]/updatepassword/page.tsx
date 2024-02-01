@@ -1,6 +1,6 @@
 import { updatePassword } from '@/utils/supabase/auth';
 import PasswordInput from '@/components/PasswordInput';
-import Alert from '@/components/Alert';
+import Alert, { AlertType } from '@/components/Alert';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
@@ -23,7 +23,7 @@ export default function UpdatePassword({
 					<Alert
 						customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
 						text={searchParams.message ?? t(searchParams.code)}
-						alertType={searchParams.type}
+						alertType={AlertType[searchParams.type as keyof typeof AlertType] as AlertType}
 						icon={faTriangleExclamation}
 					/>
 				)}

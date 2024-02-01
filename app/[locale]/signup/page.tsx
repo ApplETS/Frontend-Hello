@@ -1,6 +1,6 @@
 import { signUp } from '@/utils/supabase/auth';
 import Link from 'next/link';
-import Alert from '@/components/Alert';
+import Alert, { AlertType } from '@/components/Alert';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import PasswordInput from '@/components/PasswordInput';
 import Dropdown from '@/components/Dropdown';
@@ -27,7 +27,7 @@ export default function SignUp({
 					<Alert
 						customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
 						text={searchParams.message ?? t(searchParams.code)}
-						alertType={searchParams.type}
+						alertType={AlertType[searchParams.type as keyof typeof AlertType] as AlertType}
 						icon={faTriangleExclamation}
 					/>
 				)}

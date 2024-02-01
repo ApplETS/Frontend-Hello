@@ -11,7 +11,9 @@
     "forgot-info": "Forgot your information?",
     "reset-password": "Reset your password",
     "no-account": "Don't have an account?",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "400": "Wrong credentials",
+    "200": "Verification successful"
   },
   "SignUp": {
     "title": "Sign Up",
@@ -22,7 +24,8 @@
     "password": "Password",
     "confirm": "Confirm Password",
     "already": "Already have an account?",
-    "alreadyLink": "Login here"
+    "alreadyLink": "Login here",
+    "422": "The password should be at least 6 characters"
   },
   "ForgotPassword": {
       "title": "Reset your password",
@@ -30,5 +33,15 @@
       "send": "Reset your password",
       "remember": "Already have an account?",
       "rememberLink": "Login here"
-  }
+  },
+  "UpdatePassword": {
+    "title": "Reset your password",
+    "token": "Token",
+    "email": "Email",
+    "password": "New password",
+    "update": "Update your password",
+    "remember": "Already have an account?",
+    "rememberLink": "Login here",
+    "401": "Invalid token"
+}
 }

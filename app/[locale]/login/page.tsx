@@ -16,7 +16,7 @@ export default function Login({
 	searchParams,
 	params,
 }: {
-	searchParams: { message: string; type: string };
+	searchParams: { message: string; type: string, code: string };
 	params: { locale: string };
 }) {
 	unstable_setRequestLocale(params.locale);
@@ -29,10 +29,10 @@ export default function Login({
 					<div className='mx-16'>
 						<form className='flex-1 flex flex-col w-full justify-center gap-2' action={signIn}>
 							<input type='hidden' name='locale' value={params.locale} />
-							{searchParams?.message && (
+							{(searchParams?.message || searchParams?.code) && (
 								<Alert
 									customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
-									text={searchParams.message}
+									text={searchParams.message ?? t(searchParams.code)}
 									alertType={searchParams.type}
 									icon={faTriangleExclamation}
 								/>

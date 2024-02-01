@@ -10,7 +10,7 @@ export default function ForgotPassword({
 	searchParams,
 	params,
 }: {
-	searchParams: { message: string; type: string };
+	searchParams: { message: string; type: string, code: string };
 	params: { locale: string };
 }) {
 	unstable_setRequestLocale(params.locale);
@@ -19,10 +19,10 @@ export default function ForgotPassword({
 		<div className='animate-in relative flex items-center justify-center rounded-2xl w-full h-screen'>
 			<div className='relative grid justify-items-center content-center bg-base-100 rounded-2xl w-[34rem] h-[26rem]'>
 				<h1 className='text-4xl mb-8 pt-4'>{t('title')}</h1>
-				{searchParams?.message && (
+				{(searchParams?.message || searchParams?.code) && (
 					<Alert
 						customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
-						text={searchParams.message}
+						text={searchParams.message ?? t(searchParams.code)}
 						alertType={searchParams.type}
 						icon={faTriangleExclamation}
 					/>

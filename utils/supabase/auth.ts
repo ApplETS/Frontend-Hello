@@ -17,7 +17,7 @@ export const signIn = async (formData: FormData) => {
 	});
 
 	if (error) {
-		return redirect(`/${locale}/login?message=${error.message}&type=error`);
+		return redirect(`/${locale}/login?code=${error.status}&type=error`);
 	}
 
 	return redirect(`/${locale}`);
@@ -37,12 +37,12 @@ export const signUp = async (formData: FormData) => {
 		email,
 		password,
 		options: {
-			emailRedirectTo: `${origin}/${locale}/login?message=Parfait mon tchum&type=success`,
+			emailRedirectTo: `${origin}/${locale}/login?code=200&type=success`,
 		},
 	});
 
 	if (error) {
-		return redirect(`/${locale}/signup?message=${error.message}&type=error`);
+		return redirect(`/${locale}/signup?code=${error.status}&type=error`);
 	}
 
 	return redirect(`/${locale}`);
@@ -59,7 +59,7 @@ export const forgotPassword = async (formData: FormData) => {
 	const { error } = await supabase.auth.resetPasswordForEmail(email);
 
 	if (error) {
-		return redirect(`/${locale}/forgotpassword?message=${error.message}, ${error.status}&type=error`);
+		return redirect(`/${locale}/forgotpassword?code=${error.status}&type=error`);
 	}
 
 	return redirect(`/${locale}/updatepassword?message=Veuillez consulter votre email&email=${email}&type=success`);
@@ -82,7 +82,7 @@ export const updatePassword = async (formData: FormData) => {
 	});
 
 	if (resOtp.error) {
-		return redirect(`/${locale}/updatepassword?message=${resOtp.error.message}, ${resOtp.error.status}&type=error`);
+		return redirect(`/${locale}/updatepassword?code=${resOtp.error.status}&type=error`);
 	}
 
 	const { error } = await supabase.auth.updateUser({
@@ -90,7 +90,7 @@ export const updatePassword = async (formData: FormData) => {
 	});
 
 	if (error) {
-		return redirect(`/${locale}/updatepassword?message=${error.message}&type=error`);
+		return redirect(`/${locale}/updatepassword?code=${error.status}&type=error`);
 	}
 
 	return redirect(`/${locale}`);

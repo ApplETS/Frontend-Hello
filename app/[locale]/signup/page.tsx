@@ -13,7 +13,7 @@ export default function SignUp({
 	searchParams,
 	params,
 }: {
-	searchParams: { message: string; type: string };
+	searchParams: { message: string; type: string, code: string };
 	params: { locale: string };
 }) {
 	unstable_setRequestLocale(params.locale);
@@ -22,10 +22,10 @@ export default function SignUp({
 		<div className='animate-in relative flex justify-center items-center rounded-2xl w-full h-screen'>
 			<div className='relative grid justify-items-center content-center bg-base-100 rounded-2xl w-[48rem]'>
 				<h1 className='text-4xl mb-8 mt-5'>{t('title')}</h1>
-				{searchParams?.message && (
+				{(searchParams?.message || searchParams?.code) && (
 					<Alert
-						customStyle={'flex flex-1 flex-col w-full pb-8 justify-center gap-2'}
-						text={searchParams.message}
+						customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
+						text={searchParams.message ?? t(searchParams.code)}
 						alertType={searchParams.type}
 						icon={faTriangleExclamation}
 					/>

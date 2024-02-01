@@ -10,7 +10,7 @@ type Props = {
   params: { locale: string };
 };
 
-export default function Projects({ params: { locale } }: Props) {
+export default function Publications({ params: { locale } }: Props) {
   unstable_setRequestLocale(locale);
   const t = useTranslations("Publications");
 

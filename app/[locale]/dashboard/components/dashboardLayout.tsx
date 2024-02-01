@@ -9,6 +9,7 @@ interface Props {
   pages: {
     [key: string]: Page
   },
+  signOut: (formData: FormData) => Promise<never>;
 }
 
 export interface Page {
@@ -16,7 +17,7 @@ export interface Page {
   link: string
 }
 
-export default function DashboardLayout({children, pages}: Props) {
+export default function DashboardLayout({ children, pages, signOut }: Props) {
   const pathname = usePathname()
   const activePage = pathname.split('/').pop() ?? "dashboard";
 
@@ -25,6 +26,7 @@ export default function DashboardLayout({children, pages}: Props) {
       <Navbar
         activePage={activePage}
         pages={pages}
+        signOut={signOut}
       />
       <div className="page-content animate-in m-7">
         <div className="text-2xl mb-7">

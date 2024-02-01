@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import DashboardLayout from "./components/dashboardLayout";
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { signOut } from "@/utils/supabase/auth";
 
 type Props = {
   children: ReactElement;
@@ -28,5 +29,5 @@ export default function Layout({ children, params: { locale } }: Props) {
     },
   };
 
-  return <DashboardLayout pages={pages}>{children}</DashboardLayout>;
+  return <DashboardLayout pages={pages} signOut={signOut}>{children}</DashboardLayout>;
 }

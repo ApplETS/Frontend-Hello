@@ -91,3 +91,14 @@ export const updatePassword = async (formData: FormData) => {
 
 	return redirect('/');
 };
+
+export const signOut = async (formData: FormData) => {
+	'use server';
+
+	const redirectLink = formData.get('redirectLink') as string;
+	const cookieStore = cookies();
+	const supabase = createClient(cookieStore);
+	await supabase.auth.signOut();
+
+	return redirect(redirectLink);
+};

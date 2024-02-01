@@ -4,7 +4,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import Search from "@/components/Search";
 import Dropdown from "@/components/Dropdown";
 import Constants from "@/constants";
-import { formatDate } from "@/utils/supabase/formatDate";
+import { formatDate } from "@/utils/formatDate";
 
 type Props = {
   params: { locale: string };

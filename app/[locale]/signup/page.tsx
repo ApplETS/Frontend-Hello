@@ -19,9 +19,9 @@ export default function SignUp({
 	unstable_setRequestLocale(params.locale);
 	const t = useTranslations('SignUp');
 	return (
-		<div className='animate-in relative flex justify-center items-center rounded-2xl w-screen h-screen'>
-			<div className='relative grid justify-items-center content-center bg-base-100 rounded-2xl min-h-[75%] min-w-[50%]'>
-				<h1 className='text-4xl mb-8 pt-4'>{t('title')}</h1>
+		<div className='animate-in relative flex justify-center items-center rounded-2xl w-full h-screen'>
+			<div className='relative grid justify-items-center content-center bg-base-100 rounded-2xl w-[48rem]'>
+				<h1 className='text-4xl mb-8 mt-5'>{t('title')}</h1>
 				{searchParams?.message && (
 					<Alert
 						customStyle={'flex flex-1 flex-col w-full pb-8 justify-center gap-2'}
@@ -30,7 +30,7 @@ export default function SignUp({
 						icon={faTriangleExclamation}
 					/>
 				)}
-				<form className='w-full px-24' action={signUp}>
+				<form className='w-full px-16' action={signUp}>
 					<input type='hidden' name='locale' value={params.locale} />
 					<div className='grid grid-cols-2 gap-8 w-full'>
 						<div className='flex flex-col col-span-1'>
@@ -64,9 +64,9 @@ export default function SignUp({
 							<PasswordInput />
 						</div>
 					</div>
-					<div className='flex flex-col justify-center items-center mt-4'>
+					<div className='flex flex-col justify-center items-center mt-6'>
 						<Captcha />
-						<div className='flex flex-col col-span-2 mt-4 pb-4'>
+						<div className='flex flex-col col-span-2 mt-2 mb-6'>
 							<p className='text-center'>
 								{t('already')}
 								<Link href={`/${params.locale}/login`} className='pl-1 underline text-primary font-semibold'>

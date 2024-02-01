@@ -14,7 +14,7 @@ export default function PasswordInput() {
 	return (
 		<div className='relative flex items-center justify-center'>
 			<input
-				className={`'text-xs input input-ghost input-bordered border-current px-4 py-2 bg-inherit flex-1`}
+				className={`'text-xs input input-ghost input-bordered border-current px-4 py-2 flex-1`}
 				type={passwordShown ? 'text' : 'password'}
 				name='password'
 				required

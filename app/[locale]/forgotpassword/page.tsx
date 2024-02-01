@@ -16,8 +16,8 @@ export default function ForgotPassword({
 	unstable_setRequestLocale(params.locale);
 	const t = useTranslations('ForgotPassword');
 	return (
-		<div className='animate-in relative flex items-center justify-center rounded-2xl w-screen h-screen'>
-			<div className='relative grid justify-items-center content-center bg-base-100 rounded-2xl min-h-[50%] min-w-[30%]'>
+		<div className='animate-in relative flex items-center justify-center rounded-2xl w-full h-screen'>
+			<div className='relative grid justify-items-center content-center bg-base-100 rounded-2xl w-[34rem] h-[26rem]'>
 				<h1 className='text-4xl mb-8 pt-4'>{t('title')}</h1>
 				{searchParams?.message && (
 					<Alert
@@ -34,10 +34,10 @@ export default function ForgotPassword({
 							<label className='text-md mb-2' htmlFor='email'>
 								{t('email')}
 							</label>
-							<input className='input input-ghost input-bordered border-current bg-inherit' name='email' required />
+							<input className='input input-ghost input-bordered border-current' name='email' required />
 						</div>
 						<div className='flex flex-col col-span-1'>
-							<button className='btn btn-ghost bg-primary rounded-md font-normal mb-8 hover:bg-primary/75'>
+							<button className='btn btn-primary text-base mb-8'>
 								{t('send')}
 							</button>
 						</div>

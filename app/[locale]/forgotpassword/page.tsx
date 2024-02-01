@@ -10,7 +10,7 @@ export default function ForgotPassword({
 	searchParams,
 	params,
 }: {
-	searchParams: { message: string; type: string, code: string };
+	searchParams: { message: string; type: string; code: string };
 	params: { locale: string };
 }) {
 	unstable_setRequestLocale(params.locale);
@@ -18,7 +18,7 @@ export default function ForgotPassword({
 	return (
 		<div className='animate-in relative flex items-center justify-center rounded-2xl w-full h-screen'>
 			<div className='relative grid justify-items-center content-center bg-base-100 rounded-2xl w-[34rem] h-[26rem]'>
-				<h1 className='text-4xl mb-8 pt-4'>{t('title')}</h1>
+				<h1 className='text-4xl mb-8 pt-4 font-semibold'>{t('title')}</h1>
 				{(searchParams?.message || searchParams?.code) && (
 					<Alert
 						customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
@@ -37,9 +37,7 @@ export default function ForgotPassword({
 							<input className='input input-ghost input-bordered border-current' name='email' required />
 						</div>
 						<div className='flex flex-col col-span-1'>
-							<button className='btn btn-primary text-base mb-8'>
-								{t('send')}
-							</button>
+							<button className='btn btn-primary text-base mb-8'>{t('send')}</button>
 						</div>
 					</div>
 				</form>

@@ -22,7 +22,7 @@ export default function SignUp({
 	return (
 		<div className='animate-in relative flex justify-center items-center rounded-2xl w-full h-screen'>
 			<div className='relative grid justify-items-center content-center bg-base-100 rounded-2xl w-[48rem]'>
-				<h1 className='text-4xl mb-8 mt-5'>{t('title')}</h1>
+				<h1 className='text-4xl py-16 font-semibold'>{t('title')}</h1>
 				{(searchParams?.message || searchParams?.code) && (
 					<Alert
 						customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
@@ -62,7 +62,7 @@ export default function SignUp({
 							<label className='text-md mb-2' htmlFor='confirmPassword'>
 								{t('confirm')}
 							</label>
-							<PasswordInput />
+							<PasswordInput inputName='confirmPassword' />
 						</div>
 					</div>
 					<div className='flex flex-col justify-center items-center mt-6'>

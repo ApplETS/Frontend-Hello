@@ -5,18 +5,23 @@ import Image from 'next/image';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function PasswordInput() {
+interface Props {
+	inputName?: string;
+	style?: string;
+}
+
+export default function PasswordInput({ inputName, style }: Props) {
 	const [passwordShown, setPasswordShown] = useState(false);
 
 	const togglePasswordVisibility = () => {
 		setPasswordShown(!passwordShown);
 	};
 	return (
-		<div className='relative flex items-center justify-center'>
+		<div className={`${style} relative flex items-center justify-center`}>
 			<input
 				className={`'text-xs input input-ghost input-bordered border-current px-4 py-2 bg-inherit flex-1`}
 				type={passwordShown ? 'text' : 'password'}
-				name='password'
+				name={inputName ?? 'password'}
 				required
 			/>
 			<button onClick={togglePasswordVisibility} className='absolute right-0 mr-3' type='button'>

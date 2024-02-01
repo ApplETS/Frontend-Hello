@@ -1,4 +1,4 @@
-import Checkbox from './components/Checkbox';
+import Checkbox from '@/components/Checkbox';
 import { signIn } from '@/utils/supabase/auth';
 import Link from 'next/link';
 import ETSImage from '@/components/ETSImage';
@@ -10,6 +10,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import ThemeButton from '@/components/themeButton';
 import LanguageButton from '@/components/languageButton';
 import Footer from '@/components/Footer';
+import EmailInput from '@/components/EmailInput';
 
 export default function Login({
 	searchParams,
@@ -39,12 +40,18 @@ export default function Login({
 							<label className='text-md' htmlFor='email'>
 								{t('email')}
 							</label>
-							<input className='input input-ghost input-bordered border-current px-4 py-2 mb-6' name='email' required />
+							<EmailInput />
 							<label className='text-md' htmlFor='password'>
 								{t('password')}
 							</label>
 							<PasswordInput />
-							<Checkbox checked={true} style='self-end pb-6 font-semibold' text={t('remember-me')} />
+							<Checkbox
+								inputName='remember'
+								checked={false}
+								style='self-end pb-6'
+								text={t('remember')}
+								textStyle='text-base'
+							/>
 							<button className='btn btn-primary rounded-md text-base mb-2'>{t('login')}</button>
 						</form>
 					</div>

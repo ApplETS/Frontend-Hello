@@ -2,6 +2,11 @@
   "LocaleLayout": {
     "title": "Frontend-PS"
   },
+  "Dashboard": {
+    "news": "Annonces",
+    "publications": "Publications",
+    "approbations": "Approbations"
+  },
   "Login": {
     "welcome": "Bienvenue !",
     "email": "Courriel",
@@ -43,5 +48,45 @@
     "remember": "Vous avez un compte?",
     "rememberLink": "Connectez-vous",
     "401": "Le code de réinitialisation est invalide ou a expiré"
-}
+},
+  "Publications": {
+    "title": "Publications",
+    "search": "Rechercher",
+    "table": {
+      "title": "Titre",
+      "release-date": "Date de publication",
+      "event-date": "Date de l'événement",
+      "status": "Statut",
+      "open": "Ouvrir"
+    },
+    "filters": {
+      "all": "Tous",
+      "published": "Publié",
+      "draft": "Brouillon",
+      "on-hold": "En attente",
+      "refused": "Refusé",
+      "approved": "Approuvé",
+      "deleted": "Supprimé"
+    }
+  },
+  "Approbations": {
+    "title": "Approbations",
+    "search": "Rechercher",
+    "table": {
+      "author": "Auteur",
+      "title": "Titre",
+      "release-date": "Date de publication",
+      "status": "Statut",
+      "open": "Ouvrir"
+    },
+    "filters": {
+      "all": "Tous",
+      "published": "Publié",
+      "draft": "Brouillon",
+      "on-hold": "En attente",
+      "refused": "Refusé",
+      "approved": "Approuvé",
+      "deleted": "Supprimé"
+    }
+  }
 }

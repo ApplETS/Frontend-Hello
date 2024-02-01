@@ -1,46 +1,50 @@
 'use client';
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
-export default function Dropdown() {
-	const [selectedValue, setSelectedValue] = useState('Clubs scientifiques');
-	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+interface Props {
+  title: string;
+  items: string[];
+}
 
-	const onOptionClicked = (value: string) => {
-		setSelectedValue(value);
-		setIsDropdownOpen(false);
-	};
+export default function Dropdown({ title, items }: Props) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-	// Toggle dropdown open/close
-	const toggleDropdown = () => {
-		setIsDropdownOpen(!isDropdownOpen);
-	};
+  const handleItemClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setIsDropdownOpen(false);
+  };
 
-	return (
-		<div className='dropdown'>
-			<div
-				tabIndex={0}
-				role='button'
-				className='btn bg-inherit border-current w-full hover:bg-inherit'
-				onClick={toggleDropdown}
-			>
-				{selectedValue}
-			</div>
-			{isDropdownOpen && (
-				<ul tabIndex={0} className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-max'>
-					<li>
-						<a onClick={(e) => onOptionClicked(e.currentTarget.text)}>Clubs scientifiques</a>
-					</li>
-					<li>
-						<a onClick={(e) => onOptionClicked(e.currentTarget.text)}>ÉTS</a>
-					</li>
-					<li>
-						<a onClick={(e) => onOptionClicked(e.currentTarget.text)}>Service à la Vie Étudiante</a>
-					</li>
-					<li>
-						<a onClick={(e) => onOptionClicked(e.currentTarget.text)}>AEETS</a>
-					</li>
-				</ul>
-			)}
-		</div>
-	);
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  return (
+    <div className='flex items-center space-x-4' ref={dropdownRef}>
+      <div className="dropdown relative">
+        <button className="m-1 btn flex items-center btn-outline btn-accent" onClick={toggleDropdown}>
+          {title}
+          <FontAwesomeIcon icon={isDropdownOpen ? faAngleUp : faAngleDown} className='w-5 ml-2' />
+        </button>
+        {isDropdownOpen && (
+          <ul className="p-2 shadow menu dropdown-content bg-base-100 rounded-box absolute z-10">
+            {items.map((item, index) => (
+              <li className="w-40" key={index} onClick={handleItemClick}><a>{item}</a></li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
 }

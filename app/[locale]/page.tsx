@@ -1,5 +1,9 @@
 import AuthButton from "../../components/AuthButton";
 
-export default function Index() {
-  return <AuthButton />;
+interface Props {
+  params: { locale: string };
+}
+
+export default function Index({ params: { locale } }: Props) {
+  return <AuthButton locale={locale} />;
 }

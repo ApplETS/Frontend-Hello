@@ -11,13 +11,44 @@
     "welcome": "Bienvenue !",
     "email": "Courriel",
     "password": "Mot de passe",
-    "remember-me": "Se souvenir de moi",
+    "remember": "Se souvenir de moi",
     "login": "Se connecter",
     "forgot-info": "Vous avez oublié vos informations?",
     "reset-password": "Réinitialisez votre mot de passe",
     "no-account": "Vous n'avez pas de compte?",
-    "signup": "Inscrivez-vous"
+    "signup": "Inscrivez-vous",
+    "400": "Mauvaises informations de connexion",
+    "200": "Vérification réussie"
   },
+  "SignUp": {
+    "title": "Inscription",
+    "register": "S'inscrire",
+    "name": "Nom de l'organisation",
+    "email": "Courriel",
+    "activity": "Secteur d'activité",
+    "password": "Mot de passe",
+    "confirm": "Confirmation de mot de passe",
+    "already": "Vous avez déjà un compte?",
+    "alreadyLink": "Connectez-vous",
+    "422": "Le mot de passe devrait contenir au moins 6 caractères"
+  },
+  "ForgotPassword": {
+      "title": "Mot de passe oublié",
+      "email": "Courriel",
+      "send": "Envoyer",
+      "remember": "Vous avez un compte?",
+      "rememberLink": "Connectez-vous"
+  },
+  "UpdatePassword": {
+    "title": "Réinitialiser votre mot de passe",
+    "token": "Code de réinitialisation",
+    "email": "Courriel",
+    "password": "Nouveau mot de passe",
+    "update": "Réinitialiser le mot de passe",
+    "remember": "Vous avez un compte?",
+    "rememberLink": "Connectez-vous",
+    "401": "Le code de réinitialisation est invalide ou a expiré"
+},
   "Publications": {
     "title": "Publications",
     "search": "Rechercher",

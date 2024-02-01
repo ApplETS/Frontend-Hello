@@ -31,7 +31,11 @@ export default function Submissions({ params: { locale } }: Props) {
 
   const approbations = [
     { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.approved },
-    { author: 'Capra', activity: "Club scientique", title: 'Séance d\'informations', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.deleted },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.deleted },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.draft },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.onHold },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.published },
+    { author: 'Capra', activity: "Club scientique", title: 'Séance d\'informations', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.refused },
   ];
 
   const statusLabels = {
@@ -60,8 +64,8 @@ export default function Submissions({ params: { locale } }: Props) {
     [statusLabels[Constants.newsStatuses.draft]]: 'bg-green',
     [statusLabels[Constants.newsStatuses.onHold]]: 'bg-pink',
     [statusLabels[Constants.newsStatuses.published]]: 'bg-purple',
-    [statusLabels[Constants.newsStatuses.refused]]: 'bg-red',
-    [statusLabels[Constants.newsStatuses.deleted]]: 'bg-red',
+    [statusLabels[Constants.newsStatuses.refused]]: 'bg-error',
+    [statusLabels[Constants.newsStatuses.deleted]]: 'bg-error',
   };
 
   return (
@@ -84,7 +88,7 @@ export default function Submissions({ params: { locale } }: Props) {
           {approbations.map((approbation, index) => (
             <tr key={index} className="border-b-2 border-base-300">
               <td className='text-base flex items-center space-x-2'>
-                <img src="https://example.com/path/to/image.jpg" alt="Description" className="w-10 h-10 rounded-full" />
+                <img src="https://placehold.co/500x500" alt="Placeholder" className="w-10 h-10 mr-3 rounded-full"></img>
                 <div>
                   <div>{approbation.author}</div>
                   <div className='text-secondary'>{approbation.activity}</div>

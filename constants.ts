@@ -5,7 +5,7 @@ export default {
         draft: 3,
         onHold: 4,
         refused: 5,
-        approved: 5,
-        deleted: 6
+        approved: 6,
+        deleted: 7
     }
 }

@@ -31,7 +31,11 @@ export default function Projects({ params: { locale } }: Props) {
 
   const publications = [
     { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.approved },
-    { author: 'Capra', activity: "Club scientique", title: 'Séance d\'informations', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.deleted },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.deleted },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.draft },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.onHold },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.published },
+    { author: 'Capra', activity: "Club scientique", title: 'Séance d\'informations', releasedDate: dateInFrench, eventdate: dateInFrench, status: Constants.newsStatuses.refused },
   ];
 
   const statusLabels = {
@@ -55,13 +59,13 @@ export default function Projects({ params: { locale } }: Props) {
   ];
   
   const statusColorMapping = {
-    [statusLabels[Constants.newsStatuses.all]]: 'badge-orange',
-    [statusLabels[Constants.newsStatuses.approved]]: 'badge-blue',
-    [statusLabels[Constants.newsStatuses.draft]]: 'badge-green',
-    [statusLabels[Constants.newsStatuses.onHold]]: 'badge-pink',
-    [statusLabels[Constants.newsStatuses.published]]: 'badge-purple',
-    [statusLabels[Constants.newsStatuses.refused]]: 'badge-red',
-    [statusLabels[Constants.newsStatuses.deleted]]: 'badge-red',
+    [statusLabels[Constants.newsStatuses.all]]: 'bg-orange',
+    [statusLabels[Constants.newsStatuses.approved]]: 'bg-blue',
+    [statusLabels[Constants.newsStatuses.draft]]: 'bg-green',
+    [statusLabels[Constants.newsStatuses.onHold]]: 'bg-pink',
+    [statusLabels[Constants.newsStatuses.published]]: 'bg-purple',
+    [statusLabels[Constants.newsStatuses.refused]]: 'bg-error',
+    [statusLabels[Constants.newsStatuses.deleted]]: 'bg-error',
   };
 
   return (

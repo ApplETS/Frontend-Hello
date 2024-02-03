@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 import Dropdown from "@/components/Dropdown";
 import Search from "@/components/Search";
-import Constants from "@/constants";
+import Constants from "@/utils/constants";
 import { formatDate } from "@/utils/formatDate";
 
 type Props = {
@@ -112,7 +112,7 @@ export default function Approbations({ params: { locale } }: Props) {
               <td>{approbation.releasedDate}</td>
               <td className="text-base">
                 <div
-                  className={`py-4 px-4 badge bg-${
+                  className={`py-4 px-4 badge ${
                     Constants.newsStatuses[approbation.status - 1].color ||
                     "badge-neutral"
                   } text-black`}

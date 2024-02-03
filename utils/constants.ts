@@ -2,37 +2,37 @@ export default {
     newsStatuses: [
         {
             id: 1,
-            color: "orange",
+            color: "bg-orange",
             label: "all",
         },
         {
             id: 2,
-            color: "blue",
+            color: "bg-blue",
             label: "published",
         },
         {
             id: 3,
-            color: "green",
+            color: "bg-green",
             label: "draft",
         },
         {
             id: 4,
-            color: "pink",
+            color: "bg-pink",
             label: "on-hold",
         },
         {
             id: 5,
-            color: "purple",
+            color: "bg-purple",
             label: "refused",
         },
         {
             id: 6,
-            color: "error",
+            color: "bg-error",
             label: "approved",
         },
         {
             id: 7,
-            color: "error",
+            color: "bg-error",
             label: "deleted",
         }
     ]

@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 import Search from "@/components/Search";
 import Dropdown from "@/components/Dropdown";
-import Constants from "@/constants";
+import Constants from "@/utils/constants";
 import { formatDate } from "@/utils/formatDate";
 
 type Props = {
@@ -93,7 +93,7 @@ export default function Publications({ params: { locale } }: Props) {
               <td>{publication.numberOfViews}</td>
               <td className="text-base">
                 <div
-                  className={`py-4 px-4 badge bg-${
+                  className={`py-4 px-4 badge ${
                     Constants.newsStatuses[publication.status - 1].color ||
                     "badge-neutral"
                   } text-black`}

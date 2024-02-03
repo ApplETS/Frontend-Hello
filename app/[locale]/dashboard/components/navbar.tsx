@@ -21,11 +21,11 @@ export default function Navbar({ activePage, pages }: Props) {
           <Link
             key={pageKey}
             className={`btn min-h-min h-min py-2 px-4 rounded-lg ${
-              activePage === pageKey ? "btn-primary" : "btn-ghost"
+              activePage === pageKey ? "btn-primary " : "btn-ghost"
             }`}
             href={pageValue.link}
           >
-            <span className={"px-4 text-base"}>{pageValue.title}</span>
+            <span className={`px-4 text-base ${activePage === pageKey ? "text-base-300" : ""}`}>{pageValue.title}</span>
           </Link>
         ))}
       </div>

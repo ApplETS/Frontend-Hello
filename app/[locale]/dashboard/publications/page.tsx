@@ -24,46 +24,34 @@ export default function Publications({ params: { locale } }: Props) {
       title: "Compétition AMC",
       releasedDate: formattedDate,
       eventdate: formattedDate,
+      numberOfViews: 0,
       status: Constants.newsStatuses[0].id,
     },
     {
       author: "App|ETS",
       activity: "Club scientique",
-      title: "Compétition AMC",
+      title: "Lancement de Hello",
       releasedDate: formattedDate,
       eventdate: formattedDate,
+      numberOfViews: 230,
       status: Constants.newsStatuses[1].id,
     },
     {
       author: "App|ETS",
       activity: "Club scientique",
-      title: "Compétition AMC",
+      title: "Conférence DevOps",
       releasedDate: formattedDate,
       eventdate: formattedDate,
+      numberOfViews: 0,
       status: Constants.newsStatuses[2].id,
     },
     {
       author: "App|ETS",
       activity: "Club scientique",
-      title: "Compétition AMC",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      status: Constants.newsStatuses[3].id,
-    },
-    {
-      author: "App|ETS",
-      activity: "Club scientique",
-      title: "Compétition AMC",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      status: Constants.newsStatuses[4].id,
-    },
-    {
-      author: "Capra",
-      activity: "Club scientique",
       title: "Séance d'informations",
       releasedDate: formattedDate,
       eventdate: formattedDate,
+      numberOfViews: 0,
       status: Constants.newsStatuses[5].id,
     },
   ];
@@ -74,9 +62,16 @@ export default function Publications({ params: { locale } }: Props) {
 
   return (
     <div>
-      <div className="mb-4 flex items-center space-x-4">
-        <Search search={t("search")} />
-        <Dropdown title={t("filters.all")} items={filters} />
+      <div className="mb-4 flex justify-between items-center space-x-4">
+        <div className="flex items-center space-x-4 flex-1">
+          <Search search={t("search")} />
+          <div className="w-56">
+            <Dropdown title={t("filters.all")} items={filters} />
+          </div>
+        </div>
+        <button className="btn btn-primary text-base-100">
+          {t("create-new-post")}
+        </button>
       </div>
       <table className="table w-full rounded-lg">
         <thead className="bg-base-300 rounded-t-lg h-17">
@@ -84,6 +79,7 @@ export default function Publications({ params: { locale } }: Props) {
             <th className="rounded-tl-lg">{t("table.title")}</th>
             <th>{t("table.release-date")}</th>
             <th>{t("table.event-date")}</th>
+            <th>{t("table.number-of-views")}</th>
             <th>{t("table.status")}</th>
             <th className="w-[10%] rounded-tr-lg"></th>
           </tr>
@@ -94,6 +90,7 @@ export default function Publications({ params: { locale } }: Props) {
               <td className="text-base">{publication.title} </td>
               <td>{publication.releasedDate}</td>
               <td>{publication.eventdate}</td>
+              <td>{publication.numberOfViews}</td>
               <td className="text-base">
                 <div
                   className={`py-4 px-4 badge bg-${

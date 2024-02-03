@@ -1,46 +1,45 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { createClient } from "@/utils/supabase/middleware";
-import createMiddleware from "next-intl/middleware";
-import {pathnames, locales, localePrefix} from './config';
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
+import { NextResponse } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
+
+import type { NextRequest } from 'next/server';
+import { localePrefix, locales, pathnames } from './config';
+
+export async function middleware(req: NextRequest) {
+	const res = NextResponse.next();
+	const supabase = createMiddlewareClient({ req, res });
+
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+
+	const url = req.nextUrl.clone();
+	const path = url.pathname;
+
+	const publicPaths = ['/login', '/signup', '/updatepassword', '/forgotpassword'];
+	const publicRoutes = locales.flatMap((locale) => publicPaths.map((path) => `/${locale}${path}`));
+
+	if (publicRoutes.includes(path)) {
+		return NextResponse.next();
+	}
+
+	// User check logic for non-public routes
+	if (!user) {
+		const locale = req.nextUrl.locale || 'fr';
+		const basePath = `/${locale}`;
+		return NextResponse.redirect(new URL(`${basePath}/login`, req.url));
+	}
+
+	return NextResponse.next();
+}
 
 export default createMiddleware({
-  // A list of all locales that are supported
-  locales,
-  pathnames,
-  localePrefix,
-  // Used when no locale matches
-  defaultLocale: "fr",
+	locales,
+	pathnames,
+	localePrefix,
+	defaultLocale: 'fr',
 });
 
 export const config = {
-  // Match only internationalized pathnames
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico).*)",
-    "/",
-    "/(fr|en)/:path*",
-    '/((?!_next|_vercel|.*\\..*).*)'
-  ],
+	matcher: ['/((?!api|_next|static|public|favicon.ico).*)'],
 };
-
-export async function middleware(request: NextRequest) {
-  try {
-    // This `try/catch` block is only here for the interactive tutorial.
-    // Feel free to remove once you have Supabase connected.
-    const { supabase, response } = createClient(request);
-
-    // Refresh session if expired - required for Server Components
-    // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
-    await supabase.auth.getSession();
-
-    return response;
-  } catch (e) {
-    // If you are here, a Supabase client could not be created!
-    // This is likely because you have not set up environment variables.
-    // Check out http://localhost:3000 for Next Steps.
-    return NextResponse.next({
-      request: {
-        headers: request.headers,
-      },
-    });
-  }
-}

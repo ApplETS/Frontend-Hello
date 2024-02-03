@@ -18,12 +18,12 @@ export default function Submissions({ params: { locale } }: Props) {
   const formattedDate = formatDate(currentDate, locale);
 
   const approbations = [
-    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.approved },
-    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.deleted },
-    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.draft },
-    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.onHold },
-    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.published },
-    { author: 'Capra', activity: "Club scientique", title: 'Séance d\'informations', releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.refused },
+    { author: 'App|ETS', activity: "Club scientique", title: 'Compétition AMC', numberOfViews: 0, releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.approved },
+    { author: 'Conjure', activity: "Club scientique", title: '5 @ 7 avec Intact', numberOfViews: 0, releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.deleted },
+    { author: 'Centre sportif', activity: "Club scientique", title: 'Soirée de remerciement', numberOfViews: 0, releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.draft },
+    { author: 'Cédille', activity: "Club scientique", title: 'Conférence DEVOPS', numberOfViews: 0, releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.onHold },
+    { author: 'RockÉTS', activity: "Club scientique", title: 'Lancement de la fusée', numberOfViews: 290, releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.published },
+    { author: 'Capra', activity: "Club scientique", title: 'Séance d\'informations', numberOfViews: 0, releasedDate: formattedDate, eventdate: formattedDate, status: Constants.newsStatuses.refused },
   ];
 
   const statusLabels = {

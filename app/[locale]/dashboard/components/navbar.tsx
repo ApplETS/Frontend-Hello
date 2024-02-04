@@ -25,7 +25,7 @@ export default function Navbar({ activePage, pages }: Props) {
             }`}
             href={pageValue.link}
           >
-            <span className={`px-4 text-base ${activePage === pageKey ? "text-base-300" : ""}`}>{pageValue.title}</span>
+            <span className={`px-4 text-base`}>{pageValue.title}</span>
           </Link>
         ))}
       </div>

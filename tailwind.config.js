@@ -30,7 +30,7 @@ module.exports = {
           ...require("daisyui/src/theming/themes")["dark"],
           "base-content": "DCDCDC",
           ".btn-primary": {
-            color: "#DCDCDC",
+            color: "#15191E",
           },
           ".btn-ghost": {
             color: "#DCDCDC",

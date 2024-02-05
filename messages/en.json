@@ -69,6 +69,11 @@
       "refused": "Refused",
       "approved": "Approved",
       "deleted": "Deleted"
+    },
+    "menu": {
+      "duplicate" : "Duplicate",
+      "delete" : "Delete",
+      "open": "Open"
     }
   },
   "Approbations": {

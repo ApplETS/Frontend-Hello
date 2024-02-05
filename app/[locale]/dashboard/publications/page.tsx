@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 import Search from "@/components/Search";
 import Dropdown from "@/components/Dropdown";
+import DropdownMenu from "@/components/DropdownMenu";
 import Constants from "@/utils/constants";
 import { formatDate } from "@/utils/formatDate";
 
@@ -60,6 +61,14 @@ export default function Publications({ params: { locale } }: Props) {
     t(`filters.${status.label}`)
   );
 
+  const menuItems = Constants.menuItems.map((item) => {
+    return {
+      text: t(`menu.${item.label}`),
+      icon: item.icon,
+      color: item.color
+    };
+  });
+
   return (
     <div>
       <div className="mb-4 flex justify-between items-center space-x-4">
@@ -81,7 +90,7 @@ export default function Publications({ params: { locale } }: Props) {
             <th>{t("table.event-date")}</th>
             <th>{t("table.number-of-views")}</th>
             <th>{t("table.status")}</th>
-            <th className="w-[10%] rounded-tr-lg"></th>
+            <th className="w-[5%] rounded-tr-lg"></th>
           </tr>
         </thead>
         <tbody>
@@ -105,10 +114,8 @@ export default function Publications({ params: { locale } }: Props) {
                   )}
                 </div>
               </td>
-              <td className="text-base">
-                <button className="btn btn-accent w-full">
-                  {t("table.open")}
-                </button>
+              <td>
+                <DropdownMenu items={menuItems} />
               </td>
             </tr>
           ))}

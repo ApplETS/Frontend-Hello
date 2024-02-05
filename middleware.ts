@@ -27,7 +27,7 @@ export async function middleware(req: NextRequest) {
 	if (!user) {
 		const locale = req.nextUrl.locale || 'fr';
 		const basePath = `/${locale}`;
-		return NextResponse.redirect(new URL(`${basePath}/login`, req.url));
+		// return NextResponse.redirect(new URL(`${basePath}/login`, req.url));
 	}
 
 	return NextResponse.next();

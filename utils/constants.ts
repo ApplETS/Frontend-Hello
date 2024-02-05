@@ -1,3 +1,5 @@
+import { faPenToSquare, faClone, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+
 export default {
     newsStatuses: [
         {
@@ -35,5 +37,26 @@ export default {
             color: "bg-error",
             label: "deleted",
         }
-    ]
+    ],
+    menuItems: [
+        {
+            id: 1,
+            label: "open",
+            icon: faPenToSquare,
+            color: "",
+        },
+        {
+            id: 2,
+            label: "duplicate",
+            icon: faClone,
+            color: "",
+        },
+        {
+            id: 3,
+            label: "delete",
+            icon: faTrashCan,
+            color: "text-error",
+        },
+    ],
+
 }

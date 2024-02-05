@@ -94,6 +94,10 @@
     "title": "Settings",
     "save": "Save",
     "400": "Password credentials do not match",
-    "200": "Settings updated"
+    "200": "Settings updated",
+    "socials": "Socials",
+    "appearance": "Display",
+    "password": "Password",
+    "profile": "Profile"
   }
 }

@@ -6,6 +6,8 @@ import LanguageButton from '@/components/languageButton';
 import { Page } from './dashboardLayout';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog, faSignOut } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
 	activePage: string;
@@ -57,16 +59,36 @@ export default function Navbar({ activePage, pages, signOut }: Props) {
 						</div>
 					</div>
 					{isDropdownOpen && (
-						<ul tabIndex={0} className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-max'>
+						<ul tabIndex={0} className='dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-box w-max'>
 							<li>
-								<form action={() => redirect('/fr/dashboard/settings')}>
-									<button>Paramètres</button>
+								<div className='flex flex-row pl-2'>
+									<div className='avatar placeholder'>
+										<div className='bg-neutral text-neutral-content rounded-full w-10'>
+											<span className='text-sm'>D</span>
+										</div>
+									</div>
+									<div className='flex flex-col gap-1'>
+										<p className='text-base font-bold ml-0'>Prénom Nom</p>
+										<p className='text-xs ml-0 text-secondary-content'>Club scientifique</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<form action={() => redirect('/fr/dashboard/settings/profile')}>
+									<div className='flex flex-row gap-2'>
+										<FontAwesomeIcon icon={faCog} className='pt-1' />
+										<button>Paramètres</button>
+									</div>
 								</form>
 							</li>
+							<div className='divider my-0'></div>
 							<li>
 								<form action={signOut}>
 									<input type='hidden' name='redirectLink' value={`/fr/login`} />
-									<button>Sign out</button>
+									<div className='flex flex-row gap-2'>
+										<FontAwesomeIcon icon={faSignOut} className='pt-1' />
+										<button>Sign out</button>
+									</div>
 								</form>
 							</li>
 						</ul>

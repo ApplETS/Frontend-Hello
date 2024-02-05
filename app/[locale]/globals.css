@@ -44,3 +44,7 @@
 .input-ghost:focus {
   @apply focus:outline-primary;
 }
+
+.textarea-ghost:focus {
+  @apply focus:outline-primary;
+}

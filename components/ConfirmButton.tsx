@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 interface Props {
 	buttonText: string;
 	style: string;
-	extraInputs: boolean;
+	extraInputs?: boolean;
 }
 
 export default function ConfirmButton({ buttonText, style, extraInputs }: Props) {

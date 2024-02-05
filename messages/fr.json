@@ -94,6 +94,10 @@
     "title": "Paramètres",
     "save": "Enregistrer",
     "400": "Les mots de passe ne correspondent pas",
-    "200": "Paramètres enregistrés"
+    "200": "Paramètres enregistrés",
+    "socials": "Réseaux sociaux",
+    "appearance": "Affichage",
+    "password": "Mot de passe",
+    "profile": "Profil"
   }
 }

@@ -18,6 +18,7 @@
     "no-account": "Vous n'avez pas de compte?",
     "signup": "Inscrivez-vous",
     "400": "Mauvaises informations de connexion",
+    "401": "Session expirée, veuillez vous reconnecter",
     "200": "Vérification réussie"
   },
   "SignUp": {
@@ -88,5 +89,11 @@
       "approved": "Approuvé",
       "deleted": "Supprimé"
     }
+  },
+  "Settings": {
+    "title": "Paramètres",
+    "save": "Enregistrer",
+    "400": "Les mots de passe ne correspondent pas",
+    "200": "Paramètres enregistrés"
   }
 }

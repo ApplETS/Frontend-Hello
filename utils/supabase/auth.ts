@@ -96,6 +96,47 @@ export const updatePassword = async (formData: FormData) => {
 	return redirect(`/${locale}/dashboard`);
 };
 
+export const updatePasswordSettings = async (formData: FormData) => {
+	'use server';
+
+	const email = formData.get('email') as string;
+	const password = formData.get('password') as string;
+	const confirmPassword = formData.get('confirmPassword') as string;
+	const oldPassword = formData.get('oldPassword') as string;
+	const confirmOldPassword = formData.get('oldConfirmPassword') as string;
+	const locale = formData.get('locale') as string;
+	const cookieStore = cookies();
+	const supabase = createClient(cookieStore);
+
+	if (password !== confirmPassword) {
+		return redirect(`/${locale}/dashboard/settings?code=400&type=error`);
+	}
+
+	if (oldPassword !== confirmOldPassword) {
+		return redirect(`/${locale}/dashboard/settings?code=400&type=error`);
+	}
+
+	const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+
+	if (sessionError) {
+		return redirect(`/${locale}/dashboard/settings?code=${sessionError.status}&type=error`);
+	}
+
+	if (!sessionData.session) {
+		return redirect(`/${locale}/login?code=401&type=error`);
+	}
+
+	const { error } = await supabase.auth.updateUser({
+		password: password,
+	});
+
+	if (error) {
+		return redirect(`/${locale}/dashboard/settings?code=${error.status}&type=error`);
+	}
+
+	return redirect(`/${locale}/dashboard/settings?code=200&type=success`);
+};
+
 export const signOut = async (formData: FormData) => {
 	'use server';
 

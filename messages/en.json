@@ -18,6 +18,7 @@
     "no-account": "Don't have an account?",
     "signup": "Sign up",
     "400": "Wrong credentials",
+    "401": "Session expired, please login again",
     "200": "Verification successful"
   },
   "SignUp": {
@@ -88,5 +89,11 @@
       "approved": "Approved",
       "deleted": "Deleted"
     }
+  },
+  "Settings": {
+    "title": "Settings",
+    "save": "Save",
+    "400": "Password credentials do not match",
+    "200": "Settings updated"
   }
 }

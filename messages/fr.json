@@ -63,12 +63,12 @@
     },
     "filters": {
       "all": "Tous",
-      "published": "Publié",
+      "published": "Publier",
       "draft": "Brouillon",
       "on-hold": "En attente",
-      "refused": "Refusé",
-      "approved": "Approuvé",
-      "deleted": "Supprimé"
+      "refused": "Refuser",
+      "approved": "Approuver",
+      "deleted": "Supprimer"
     },
     "menu": {
       "duplicate" : "Dupliquer",
@@ -88,12 +88,12 @@
     },
     "filters": {
       "all": "Tous",
-      "published": "Publié",
+      "published": "Publier",
       "draft": "Brouillon",
       "on-hold": "En attente",
-      "refused": "Refusé",
-      "approved": "Approuvé",
-      "deleted": "Supprimé"
+      "refused": "Refuser",
+      "approved": "Approuver",
+      "deleted": "Supprimer"
     }
   }
 }

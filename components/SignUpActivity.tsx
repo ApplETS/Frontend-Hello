@@ -1,12 +1,17 @@
-'use client';
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 
-export default function Dropdown() {
-	const [selectedValue, setSelectedValue] = useState('Clubs scientifiques');
+interface Props {
+	items: string[];
+	inputName?: string;
+}
+
+export default function Dropdown({ items, inputName }: Props) {
+	const [selectedValue, setSelectedValue] = useState(items[0]);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-	const onOptionClicked = (value: string) => {
-		setSelectedValue(value);
+	const onOptionClicked = (item: string) => {
+		setSelectedValue(item);
 		setIsDropdownOpen(false);
 	};
 
@@ -16,29 +21,24 @@ export default function Dropdown() {
 	};
 
 	return (
-		<div className='dropdown'>
+		<div className="dropdown">
 			<div
 				tabIndex={0}
-				role='button'
-				className='btn bg-inherit border-current w-full hover:bg-inherit'
-				onClick={toggleDropdown}
-			>
+				role="button"
+				id={inputName ?? "dropdown"}
+				className="btn bg-inherit border-current w-full hover:bg-inherit"
+				onClick={toggleDropdown}>
 				{selectedValue}
 			</div>
 			{isDropdownOpen && (
-				<ul tabIndex={0} className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-max'>
-					<li>
-						<a onClick={(e) => onOptionClicked(e.currentTarget.text)}>Clubs scientifiques</a>
-					</li>
-					<li>
-						<a onClick={(e) => onOptionClicked(e.currentTarget.text)}>ÉTS</a>
-					</li>
-					<li>
-						<a onClick={(e) => onOptionClicked(e.currentTarget.text)}>Service à la Vie Étudiante</a>
-					</li>
-					<li>
-						<a onClick={(e) => onOptionClicked(e.currentTarget.text)}>AEETS</a>
-					</li>
+				<ul
+					tabIndex={0}
+					className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-max">
+					{items.map((item) => (
+						<li key={item}>
+							<a onClick={(e) => onOptionClicked(item)}>{item}</a>
+						</li>
+					))}
 				</ul>
 			)}
 		</div>

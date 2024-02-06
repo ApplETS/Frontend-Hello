@@ -1,103 +1,132 @@
 {
-  "LocaleLayout": {
-    "title": "Frontend-PS"
-  },
-  "Dashboard": {
-    "news": "Annonces",
-    "publications": "Publications",
-    "approbations": "Approbations"
-  },
-  "Login": {
-    "welcome": "Bienvenue !",
-    "email": "Courriel",
-    "password": "Mot de passe",
-    "remember": "Se souvenir de moi",
-    "login": "Se connecter",
-    "forgot-info": "Vous avez oublié vos informations?",
-    "reset-password": "Réinitialisez votre mot de passe",
-    "no-account": "Vous n'avez pas de compte?",
-    "signup": "Inscrivez-vous",
-    "400": "Mauvaises informations de connexion",
-    "401": "Session expirée, veuillez vous reconnecter",
-    "200": "Vérification réussie"
-  },
-  "SignUp": {
-    "title": "Inscription",
-    "register": "S'inscrire",
-    "name": "Nom de l'organisation",
-    "email": "Courriel",
-    "activity": "Secteur d'activité",
-    "password": "Mot de passe",
-    "confirm": "Confirmation de mot de passe",
-    "already": "Vous avez déjà un compte?",
-    "alreadyLink": "Connectez-vous",
-    "422": "Le mot de passe devrait contenir au moins 6 caractères"
-  },
-  "ForgotPassword": {
-      "title": "Mot de passe oublié",
-      "email": "Courriel",
-      "send": "Envoyer",
-      "remember": "Vous avez un compte?",
-      "rememberLink": "Connectez-vous"
-  },
-  "UpdatePassword": {
-    "title": "Réinitialiser votre mot de passe",
-    "token": "Code de réinitialisation",
-    "email": "Courriel",
-    "password": "Nouveau mot de passe",
-    "update": "Réinitialiser le mot de passe",
-    "remember": "Vous avez un compte?",
-    "rememberLink": "Connectez-vous",
-    "401": "Le code de réinitialisation est invalide ou a expiré"
-},
-  "Publications": {
-    "title": "Publications",
-    "search": "Rechercher",
-    "table": {
-      "title": "Titre",
-      "release-date": "Date de publication",
-      "event-date": "Date de l'événement",
-      "status": "Statut",
-      "open": "Ouvrir"
-    },
-    "filters": {
-      "all": "Tous",
-      "published": "Publié",
-      "draft": "Brouillon",
-      "on-hold": "En attente",
-      "refused": "Refusé",
-      "approved": "Approuvé",
-      "deleted": "Supprimé"
-    }
-  },
-  "Approbations": {
-    "title": "Approbations",
-    "search": "Rechercher",
-    "table": {
-      "author": "Auteur",
-      "title": "Titre",
-      "release-date": "Date de publication",
-      "status": "Statut",
-      "open": "Ouvrir"
-    },
-    "filters": {
-      "all": "Tous",
-      "published": "Publié",
-      "draft": "Brouillon",
-      "on-hold": "En attente",
-      "refused": "Refusé",
-      "approved": "Approuvé",
-      "deleted": "Supprimé"
-    }
-  },
-  "Settings": {
-    "title": "Paramètres",
-    "save": "Enregistrer",
-    "400": "Les mots de passe ne correspondent pas",
-    "200": "Paramètres enregistrés",
-    "socials": "Réseaux sociaux",
-    "appearance": "Affichage",
-    "password": "Mot de passe",
-    "profile": "Profil"
-  }
+	"LocaleLayout": {
+		"title": "Frontend-PS"
+	},
+	"Dashboard": {
+		"news": "Annonces",
+		"publications": "Publications",
+		"approbations": "Approbations"
+	},
+	"Login": {
+		"welcome": "Bienvenue !",
+		"email": "Courriel",
+		"password": "Mot de passe",
+		"remember": "Se souvenir de moi",
+		"login": "Se connecter",
+		"forgot-info": "Vous avez oublié vos informations?",
+		"reset-password": "Réinitialisez votre mot de passe",
+		"no-account": "Vous n'avez pas de compte?",
+		"signup": "Inscrivez-vous",
+		"400": "Mauvaises informations de connexion",
+		"401": "Session expirée, veuillez vous reconnecter",
+		"200": "Vérification réussie"
+	},
+	"SignUp": {
+		"title": "Inscription",
+		"register": "S'inscrire",
+		"name": "Nom de l'organisation",
+		"email": "Courriel",
+		"activity": "Secteur d'activité",
+		"scientificClub": "Club scientifique",
+		"ets": "ETS",
+		"sve": "Service à la vie étudiante",
+		"aeets": "AEETS",
+		"password": "Mot de passe",
+		"confirm": "Confirmation de mot de passe",
+		"already": "Vous avez déjà un compte?",
+		"alreadyLink": "Connectez-vous",
+		"422": "Le mot de passe devrait contenir au moins 6 caractères"
+	},
+	"ForgotPassword": {
+		"title": "Mot de passe oublié",
+		"email": "Courriel",
+		"send": "Envoyer",
+		"remember": "Vous avez un compte?",
+		"rememberLink": "Connectez-vous"
+	},
+	"UpdatePassword": {
+		"title": "Réinitialiser votre mot de passe",
+		"token": "Code de réinitialisation",
+		"email": "Courriel",
+		"password": "Nouveau mot de passe",
+		"update": "Réinitialiser le mot de passe",
+		"remember": "Vous avez un compte?",
+		"rememberLink": "Connectez-vous",
+		"401": "Le code de réinitialisation est invalide ou a expiré"
+	},
+	"Publications": {
+		"title": "Publications",
+		"search": "Rechercher",
+		"table": {
+			"title": "Titre",
+			"release-date": "Date de publication",
+			"event-date": "Date de l'événement",
+			"status": "Statut",
+			"open": "Ouvrir"
+		},
+		"filters": {
+			"all": "Tous",
+			"published": "Publié",
+			"draft": "Brouillon",
+			"on-hold": "En attente",
+			"refused": "Refusé",
+			"approved": "Approuvé",
+			"deleted": "Supprimé"
+		}
+	},
+	"Approbations": {
+		"title": "Approbations",
+		"search": "Rechercher",
+		"table": {
+			"author": "Auteur",
+			"title": "Titre",
+			"release-date": "Date de publication",
+			"status": "Statut",
+			"open": "Ouvrir"
+		},
+		"filters": {
+			"all": "Tous",
+			"published": "Publié",
+			"draft": "Brouillon",
+			"on-hold": "En attente",
+			"refused": "Refusé",
+			"approved": "Approuvé",
+			"deleted": "Supprimé"
+		}
+	},
+	"Settings": {
+		"title": "Paramètres",
+		"save": "Enregistrer",
+		"400": "Les mots de passe ne correspondent pas",
+		"200": "Paramètres enregistrés",
+		"socials": "Réseaux sociaux",
+		"appearance": "Affichage",
+		"password": "Mot de passe",
+		"profile": "Profil",
+		"socials-section": {
+			"title": "Réseaux sociaux",
+			"save": "Enregistrer"
+		},
+		"profile-section": {
+			"title": "Profil",
+			"companyName": "Nom de l'organisation",
+			"email": "Courriel",
+			"activity": "Secteur d'activité",
+			"description": "Description",
+			"website": "Site web",
+			"save": "Enregistrer"
+		},
+		"password-section": {
+			"title": "Mot de passe",
+			"newPassword": "Nouveau mot de passe",
+			"confirmNewPassword": "Confirmer le nouveau mot de passe",
+			"save": "Enregistrer"
+		},
+		"display-section": {
+			"title": "Affichage",
+			"language": "Langue",
+			"theme": "Thème",
+			"save": "Enregistrer"
+		}
+	}
 }

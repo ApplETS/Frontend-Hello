@@ -1,103 +1,132 @@
 {
-  "LocaleLayout": {
-    "title": "Frontend-PS"
-  },
-  "Dashboard": {
-    "news": "News",
-    "publications": "Publications",
-    "approbations": "Approbations"
-  },
-  "Login": {
-    "welcome": "Welcome !",
-    "email": "Email",
-    "password": "Password",
-    "remember": "Remember me",
-    "login": "Login",
-    "forgot-info": "Forgot your information?",
-    "reset-password": "Reset your password",
-    "no-account": "Don't have an account?",
-    "signup": "Sign up",
-    "400": "Wrong credentials",
-    "401": "Session expired, please login again",
-    "200": "Verification successful"
-  },
-  "SignUp": {
-    "title": "Sign Up",
-    "register": "Register",
-    "name": "Organization Name",
-    "email": "Email",
-    "activity": "Activity field",
-    "password": "Password",
-    "confirm": "Confirm Password",
-    "already": "Already have an account?",
-    "alreadyLink": "Login here",
-    "422": "The password should be at least 6 characters"
-  },
-  "ForgotPassword": {
-      "title": "Reset your password",
-      "email": "Email",
-      "send": "Reset your password",
-      "remember": "Already have an account?",
-      "rememberLink": "Login here"
-  },
-  "UpdatePassword": {
-    "title": "Reset your password",
-    "token": "Token",
-    "email": "Email",
-    "password": "New password",
-    "update": "Update your password",
-    "remember": "Already have an account?",
-    "rememberLink": "Login here",
-    "401": "Invalid token"
-},
-  "Publications": {
-    "title": "Publications",
-    "search": "Search",
-    "table": {
-      "title": "Title",
-      "release-date": "Release date",
-      "event-date": "Event date",
-      "status": "Status",
-      "open": "Open"
-    },
-    "filters": {
-      "all": "All",
-      "published": "Published",
-      "draft": "Draft",
-      "on-hold": "On hold",
-      "refused": "Refused",
-      "approved": "Approved",
-      "deleted": "Deleted"
-    }
-  },
-  "Approbations": {
-    "title": "Approbations",
-    "search": "Search",
-    "table": {
-      "author": "Author",
-      "title": "Title",
-      "release-date": "Release date",
-      "status": "Status",
-      "open": "Open"
-    },
-    "filters": {
-      "all": "All",
-      "published": "Published",
-      "draft": "Draft",
-      "on-hold": "On hold",
-      "refused": "Refused",
-      "approved": "Approved",
-      "deleted": "Deleted"
-    }
-  },
-  "Settings": {
-    "title": "Settings",
-    "save": "Save",
-    "400": "Password credentials do not match",
-    "200": "Settings updated",
-    "socials": "Socials",
-    "appearance": "Display",
-    "password": "Password",
-    "profile": "Profile"
-  }
+	"LocaleLayout": {
+		"title": "Frontend-PS"
+	},
+	"Dashboard": {
+		"news": "News",
+		"publications": "Publications",
+		"approbations": "Approbations"
+	},
+	"Login": {
+		"welcome": "Welcome !",
+		"email": "Email",
+		"password": "Password",
+		"remember": "Remember me",
+		"login": "Login",
+		"forgot-info": "Forgot your information?",
+		"reset-password": "Reset your password",
+		"no-account": "Don't have an account?",
+		"signup": "Sign up",
+		"400": "Wrong credentials",
+		"401": "Session expired, please login again",
+		"200": "Verification successful"
+	},
+	"SignUp": {
+		"title": "Sign Up",
+		"register": "Register",
+		"name": "Organization Name",
+		"email": "Email",
+		"activity": "Activity field",
+		"scientificClub": "Scientific Club",
+		"ets": "ETS",
+		"sve": "Student Life Service",
+		"aeets": "AEETS",
+		"password": "Password",
+		"confirm": "Confirm Password",
+		"already": "Already have an account?",
+		"alreadyLink": "Login here",
+		"422": "The password should be at least 6 characters"
+	},
+	"ForgotPassword": {
+		"title": "Reset your password",
+		"email": "Email",
+		"send": "Reset your password",
+		"remember": "Already have an account?",
+		"rememberLink": "Login here"
+	},
+	"UpdatePassword": {
+		"title": "Reset your password",
+		"token": "Token",
+		"email": "Email",
+		"password": "New password",
+		"update": "Update your password",
+		"remember": "Already have an account?",
+		"rememberLink": "Login here",
+		"401": "Invalid token"
+	},
+	"Publications": {
+		"title": "Publications",
+		"search": "Search",
+		"table": {
+			"title": "Title",
+			"release-date": "Release date",
+			"event-date": "Event date",
+			"status": "Status",
+			"open": "Open"
+		},
+		"filters": {
+			"all": "All",
+			"published": "Published",
+			"draft": "Draft",
+			"on-hold": "On hold",
+			"refused": "Refused",
+			"approved": "Approved",
+			"deleted": "Deleted"
+		}
+	},
+	"Approbations": {
+		"title": "Approbations",
+		"search": "Search",
+		"table": {
+			"author": "Author",
+			"title": "Title",
+			"release-date": "Release date",
+			"status": "Status",
+			"open": "Open"
+		},
+		"filters": {
+			"all": "All",
+			"published": "Published",
+			"draft": "Draft",
+			"on-hold": "On hold",
+			"refused": "Refused",
+			"approved": "Approved",
+			"deleted": "Deleted"
+		}
+	},
+	"Settings": {
+		"title": "Settings",
+		"save": "Save",
+		"400": "Password credentials do not match",
+		"200": "Settings updated",
+		"socials": "Socials",
+		"appearance": "Display",
+		"password": "Password",
+		"profile": "Profile",
+		"socials-section": {
+			"title": "Socials",
+			"save": "Save"
+		},
+		"profile-section": {
+			"title": "Profile",
+			"companyName": "Company name",
+			"email": "Email",
+			"activity": "Activity field",
+			"description": "Description",
+			"website": "Website",
+			"save": "Save"
+		},
+		"password-section": {
+			"title": "Password",
+			"newPassword": "New password",
+			"confirmNewPassword": "Confirm new password",
+			"save": "Save"
+		},
+		"display-section": {
+			"title": "Display",
+			"language": "Language",
+			"theme": "Theme",
+			"save": "Save"
+		}
+	}
 }

@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function ETSImage(props: Props) {
-  const theme = props.isDarkTheme ? "dark" : "light";
+  const theme = !props.isDarkTheme ? "dark" : "light";
 
   const images: {
     dark: Record<string, StaticImageData>;

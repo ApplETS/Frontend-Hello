@@ -112,6 +112,10 @@
 			"companyName": "Nom de l'organisation",
 			"email": "Courriel",
 			"activity": "Secteur d'activité",
+			"scientificClub": "Club scientifique",
+			"ets": "ETS",
+			"sve": "Service à la vie étudiante",
+			"aeets": "AEETS",
 			"description": "Description",
 			"website": "Site web",
 			"save": "Enregistrer"

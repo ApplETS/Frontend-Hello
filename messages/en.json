@@ -112,6 +112,10 @@
 			"companyName": "Company name",
 			"email": "Email",
 			"activity": "Activity field",
+			"scientificClub": "Scientific Club",
+			"ets": "ETS",
+			"sve": "Student Life Service",
+			"aeets": "AEETS",
 			"description": "Description",
 			"website": "Website",
 			"save": "Save"

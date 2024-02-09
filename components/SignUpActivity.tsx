@@ -36,11 +36,13 @@ export default function Dropdown({ items, inputName }: Props) {
 					className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-max">
 					{items.map((item) => (
 						<li key={item}>
-							<a onClick={(e) => onOptionClicked(item)}>{item}</a>
+							<a onClick={() => onOptionClicked(item)}>{item}</a>
 						</li>
 					))}
 				</ul>
 			)}
+			{/* Hidden input to store the selected value */}
+			<input type="hidden" name={inputName} value={selectedValue} />
 		</div>
 	);
 }

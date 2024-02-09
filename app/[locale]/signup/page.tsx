@@ -40,12 +40,12 @@ export default function SignUp({
 					<input type="hidden" name="locale" value={params.locale} />
 					<div className="grid grid-cols-2 gap-8 w-full">
 						<div className="flex flex-col col-span-1">
-							<label className="text-md mb-2" htmlFor="firstName">
+							<label className="text-md mb-2" htmlFor="name">
 								{t("name")}
 							</label>
 							<input
 								className="input input-ghost input-bordered border-current"
-								name="firstName"
+								name="name"
 								required
 							/>
 						</div>
@@ -55,6 +55,7 @@ export default function SignUp({
 							</label>
 							<Dropdown
 								items={[t("scientificClub"), t("ets"), t("sve"), t("aeets")]}
+								inputName="activity"
 							/>
 						</div>
 						<div className="flex flex-col col-span-2">

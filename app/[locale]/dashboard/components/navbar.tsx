@@ -21,10 +21,10 @@ export default function Navbar({ activePage, pages, signOut }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-	const [isDarkTheme, setIsDarkTheme] = useState(localStorage.getItem('isdark') === 'true');
+	const [isLightTheme, setIsLightTheme] = useState(localStorage.getItem('isLight') === 'true');
 
-	const handleThemeChange = (isDark: boolean) => {
-		setIsDarkTheme(isDark);
+	const handleThemeChange = (isLight: boolean) => {
+		setIsLightTheme(isLight);
 	};
 
 	return (

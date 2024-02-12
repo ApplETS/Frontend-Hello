@@ -3,19 +3,19 @@ import Dropdown from '@/components/SignUpActivity';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
 export default function ThemeDropdown() {
-	const { isDark, toggleTheme } = useTheme();
+	const { isLight, toggleTheme } = useTheme();
 
 	const themeDropdownItems = [
 		{
 			title: 'Light',
 			onClick: () => {
-				if (!isDark) toggleTheme();
+				if (!isLight) toggleTheme();
 			},
 		},
 		{
 			title: 'Dark',
 			onClick: () => {
-				if (isDark) toggleTheme();
+				if (isLight) toggleTheme();
 			},
 		},
 	];
@@ -24,7 +24,7 @@ export default function ThemeDropdown() {
 		<Dropdown
 			items={themeDropdownItems}
 			inputName="theme"
-			defaultItem={isDark ? themeDropdownItems[1] : themeDropdownItems[0]}
+			defaultItem={isLight ? themeDropdownItems[1] : themeDropdownItems[0]}
 		/>
 	);
 }

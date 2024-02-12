@@ -8,12 +8,12 @@ interface ThemeButtonProps {
 }
 
 export default function ThemeButton({ customStyle }: ThemeButtonProps) {
-	const { isDark, toggleTheme } = useTheme();
+	const { isLight, toggleTheme } = useTheme();
 
 	return (
 		<label className={`swap swap-rotate btn btn-ghost btn-circle ${customStyle}`}>
 			{/* this hidden checkbox controls the state */}
-			<input type="checkbox" className="theme-controller" checked={isDark} onChange={toggleTheme} value="light" />
+			<input type="checkbox" className="theme-controller" checked={isLight} onChange={toggleTheme} value="light" />
 
 			{/* sun icon */}
 			<svg className="swap-off fill-current w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

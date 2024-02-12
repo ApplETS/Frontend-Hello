@@ -6,7 +6,7 @@ import LanguageButton from '@/components/languageButton';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
 export default function Footer({ locale }: { locale: string }) {
-	const { isDark } = useTheme();
+	const { isLight } = useTheme();
 	
 	return (
 		<>
@@ -19,7 +19,7 @@ export default function Footer({ locale }: { locale: string }) {
 				</div>
 			</div>
 			<div className={`absolute bottom-4 right-4 bg-cover`}>
-				<ETSImage lang={locale} isDarkTheme={isDark} />
+				<ETSImage lang={locale} isLightTheme={isLight} />
 			</div>
 		</>
 	);

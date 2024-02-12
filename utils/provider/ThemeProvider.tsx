@@ -13,25 +13,25 @@ type Props = {
 };
 
 interface ThemeContextType {
-  isDark: boolean;
+  isLight: boolean;
   toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export default function ThemeProvider({ children }: Props) {
-  const [isDark, setIsDark] = useState(false);
+  const [isLight, setIsLight] = useState(false);
 	useEffect(() => {
-		setIsDark(JSON.parse(localStorage?.getItem('isdark') ?? 'true'));
+		setIsLight(JSON.parse(localStorage?.getItem('isLight') ?? 'true'));
 	}, []);
 
 	const toggleTheme = () => {
-		setIsDark(!isDark);
-		localStorage.setItem('isdark', JSON.stringify(!isDark));
+		setIsLight(!isLight);
+		localStorage.setItem('isLight', JSON.stringify(!isLight));
 	};
 
   const theme = {
-    isDark,
+    isLight,
     toggleTheme,
   };
 

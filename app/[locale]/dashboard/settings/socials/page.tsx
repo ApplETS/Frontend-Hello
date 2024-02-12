@@ -12,6 +12,8 @@ import tiktokIcon from '@/public/socials/TikTok.svg';
 import redditIcon from '@/public/socials/Reddit.svg';
 import xIcon from '@/public/socials/X.svg';
 import Image from 'next/image';
+import CancelButton from '@/components/CancelButton';
+import SettingsFooter from '../components/SettingsFooter';
 
 type Props = {
 	params: { locale: string };
@@ -59,9 +61,7 @@ export default function Page({ params }: Props) {
 					<input type="text" className="input input-ghost input-bordered border-current" name="organisation" />
 				</div>
 			</div>
-			<footer className="sticky flex justify-end mt-auto">
-				<button className="btn btn-primary rounded-md text-base w-1/5 mt-auto">{t('save')}</button>
-			</footer>
+			<SettingsFooter locale={params.locale} buttonText={t('save')} errorText={t('changes')} inputsConfig={{}} />
 		</form>
 	);
 }

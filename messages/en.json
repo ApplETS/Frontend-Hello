@@ -106,7 +106,8 @@
 		"socials-section": {
 			"title": "Socials",
 			"info": "Your socials will be displayed on your profile page, which is accessible by other users. We will not share nor use your socials for any other purpose.",
-			"save": "Save"
+			"save": "Save",
+			"changes": "Changes detected, save to update"
 		},
 		"profile-section": {
 			"title": "Profile",
@@ -122,14 +123,16 @@
 			"description": "Description",
 			"website": "Website",
 			"save": "Save",
-			"200": "Profile updated"
+			"200": "Profile updated",
+			"changes": "Changes detected, save to update"
 		},
 		"password-section": {
 			"title": "Password",
 			"newPassword": "New password",
 			"confirmNewPassword": "Confirm new password",
 			"save": "Save",
-			"200": "Password saved"
+			"200": "Password saved",
+			"changes": "Changes detected, save to update"
 		},
 		"display-section": {
 			"title": "Display",

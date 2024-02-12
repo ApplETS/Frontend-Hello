@@ -106,7 +106,8 @@
 		"socials-section": {
 			"title": "Réseaux sociaux",
 			"info": "Les réseaux sociaux que vous choisissez seront affichées sur votre profil, lequel est accessible publiquement aux autres utilisateurs. Nous tenons à vous rassurer que nous ne publierons rien sur vos réseaux.",
-			"save": "Enregistrer"
+			"save": "Enregistrer",
+			"changes": "Changements détectés, enregistrez pour appliquer les modifications"
 		},
 		"profile-section": {
 			"title": "Profil",
@@ -122,14 +123,16 @@
 			"description": "Description",
 			"website": "Site web",
 			"save": "Enregistrer",
-			"200": "Profil enregistré"
+			"200": "Profil enregistré",
+			"changes": "Changements détectés, enregistrez pour appliquer les modifications"
 		},
 		"password-section": {
 			"title": "Mot de passe",
 			"newPassword": "Nouveau mot de passe",
 			"confirmNewPassword": "Confirmer le nouveau mot de passe",
 			"save": "Enregistrer",
-			"200": "Mot de passe enregistré"
+			"200": "Mot de passe enregistré",
+			"changes": "Changements détectés, enregistrez pour appliquer les modifications"
 		},
 		"display-section": {
 			"title": "Apparence",

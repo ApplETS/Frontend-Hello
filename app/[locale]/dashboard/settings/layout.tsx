@@ -4,6 +4,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { signOut } from '@/utils/supabase/auth';
 import SettingsLayout from './components/settingsLayout';
 import { faGear, faKey, faLink, faUser } from '@fortawesome/free-solid-svg-icons';
+import { SettingsProvider } from '@/utils/provider/SettingsProvider';
 
 type Props = {
 	children: ReactElement;
@@ -39,8 +40,10 @@ export default function Layout({ children, params: { locale } }: Props) {
 	};
 
 	return (
-		<SettingsLayout locale={locale} pages={pages}>
-			{children}
-		</SettingsLayout>
+		<SettingsProvider>
+			<SettingsLayout locale={locale} pages={pages}>
+				{children}
+			</SettingsLayout>
+		</SettingsProvider>
 	);
 }

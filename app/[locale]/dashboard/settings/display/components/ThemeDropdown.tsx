@@ -25,7 +25,7 @@ export default function ThemeDropdown({ lightTitle, darkTitle }: { lightTitle: s
 		<Dropdown
 			items={themeDropdownItems}
 			inputName="theme"
-			defaultItem={isLight ? themeDropdownItems[0] : themeDropdownItems[1]}
+			defaultItemTheme={isLight ? themeDropdownItems[0] : themeDropdownItems[1]}
 		/>
 	);
 }

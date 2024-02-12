@@ -1,5 +1,4 @@
 import { AlertType } from '@/components/Alert';
-import ConfirmButton from '@/components/ConfirmButton';
 import Dropzone from '@/components/Dropzone';
 import PasswordInput from '@/components/PasswordInput';
 import Toast from '@/components/Toast';
@@ -7,7 +6,7 @@ import { updatePasswordSettings } from '@/utils/supabase/auth';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import React, { useState } from 'react';
-import Profil from './profile/page';
+import Profil from './profile/Page.1';
 import MotDePasse from './password/page';
 import Apparence from './display/page';
 import ReseauxSociaux from './socials/page';

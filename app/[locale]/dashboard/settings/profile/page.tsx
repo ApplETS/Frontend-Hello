@@ -6,6 +6,10 @@ import { useTranslations } from 'next-intl';
 import Dropdown from '@/components/SignUpActivity';
 import { updateProfile } from '@/utils/supabase/auth';
 import { getUser } from '@/lib/getUser';
+import ConfirmButton from '@/components/ConfirmButton';
+import CancelButton from '@/components/CancelButton';
+import { useSettings } from '@/utils/provider/SettingsProvider';
+import SettingsFooter from '../components/SettingsFooter';
 
 type Props = {
 	searchParams: { message: string; type: string; code: string };
@@ -16,7 +20,6 @@ export default async function Page({ searchParams, params }: Props) {
 	unstable_setRequestLocale(params.locale);
 	const t = await getTranslations('Settings.profile-section');
 	const user = await getUser();
-	console.log(user);
 
 	return (
 		<form className="flex flex-col basis-3/4" action={updateProfile}>
@@ -76,9 +79,14 @@ export default async function Page({ searchParams, params }: Props) {
 					<div className="col-span-2" />
 				</div>
 			</div>
-			<footer className="sticky flex justify-end mt-auto">
-				<button className="btn btn-primary rounded-md text-base w-1/5 mt-auto">{t('save')}</button>
-			</footer>
+			<SettingsFooter
+				locale={params.locale}
+				buttonText={t('save')}
+				errorText={t('changes')}
+				inputsConfig={{
+					filled: ['organization', 'email', 'activity'],
+				}}
+			/>
 		</form>
 	);
 }

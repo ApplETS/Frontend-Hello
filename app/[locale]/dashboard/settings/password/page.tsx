@@ -1,10 +1,13 @@
-import { AlertType } from "@/components/Alert";
-import Dropzone from "@/components/Dropzone";
-import PasswordInput from "@/components/PasswordInput";
-import Toast from "@/components/Toast";
-import { updatePasswordSettings } from "@/utils/supabase/auth";
-import { useTranslations } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { AlertType } from '@/components/Alert';
+import CancelButton from '@/components/CancelButton';
+import ConfirmButton from '@/components/ConfirmButton';
+import Dropzone from '@/components/Dropzone';
+import PasswordInput from '@/components/PasswordInput';
+import Toast from '@/components/Toast';
+import { updatePasswordSettings } from '@/utils/supabase/auth';
+import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import SettingsFooter from '../components/SettingsFooter';
 
 type Props = {
 	searchParams: { message: string; type: string; code: string };
@@ -13,39 +16,36 @@ type Props = {
 
 export default function Page({ searchParams, params }: Props) {
 	unstable_setRequestLocale(params.locale);
-	const t = useTranslations("Settings.password-section");
+	const t = useTranslations('Settings.password-section');
 	return (
 		<form className="flex flex-col basis-3/4" action={updatePasswordSettings}>
 			{(searchParams.message || searchParams.code) && (
 				<>
 					<Toast
 						message={searchParams.message ?? t(searchParams.code)}
-						alertType={
-							AlertType[
-								searchParams.type as keyof typeof AlertType
-							] as AlertType
-						}
+						alertType={AlertType[searchParams.type as keyof typeof AlertType] as AlertType}
 					/>
 				</>
 			)}
 			<input type="hidden" name="locale" value={params.locale} />
 			<div className="flex-grow">
-				<label className="text-xl font-bold">{t("title")}</label>
+				<label className="text-xl font-bold">{t('title')}</label>
 				<div className="grid grid-cols-4 gap-6 justify-left items-center pt-10">
-					<label>{t("newPassword")}</label>
+					<label>{t('newPassword')}</label>
 					<PasswordInput />
 
-					<label className="justify-self-center text-center">
-						{t("confirmNewPassword")}
-					</label>
+					<label className="justify-self-center text-center">{t('confirmNewPassword')}</label>
 					<PasswordInput inputName="confirmPassword" />
 				</div>
 			</div>
-			<footer className="sticky flex justify-end mt-auto">
-				<button className="btn btn-primary rounded-md text-base w-1/5 mt-auto">
-					{t("save")}
-				</button>
-			</footer>
+			<SettingsFooter
+				locale={params.locale}
+				buttonText={t('save')}
+				errorText={t('changes')}
+				inputsConfig={{
+					match: ['password', 'confirmPassword'],
+				}}
+			/>
 		</form>
 	);
 }

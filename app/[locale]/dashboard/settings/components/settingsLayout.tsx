@@ -5,6 +5,7 @@ import { redirect, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSettings } from '@/utils/provider/SettingsProvider';
 
 interface Props {
 	children: ReactElement;
@@ -23,6 +24,7 @@ export interface Page {
 export default function SettingsLayout({ children, locale, pages }: Props) {
 	const pathname = usePathname();
 	const activePage = pathname.split('/').pop() ?? 'profile';
+	const { hasChanges } = useSettings();
 
 	return (
 		<div className="flex flex-row h-screen gap-8">
@@ -34,7 +36,8 @@ export default function SettingsLayout({ children, locale, pages }: Props) {
 						href={`/${locale}/dashboard/settings/${pageKey}`}
 						className={`btn min-h-min h-min py-2 px-4 rounded-lg justify-start ${
 							activePage === pageKey ? 'btn-primary' : 'btn-ghost'
-						}`}
+						} 
+						${hasChanges ? 'btn-disabled' : 'btn-primary'}`}
 					>
 						<div className="flex flex-row items-center gap-2">
 							<FontAwesomeIcon icon={pageValue.icon} className="w-6" size="2xl" />

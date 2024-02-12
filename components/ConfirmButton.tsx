@@ -1,53 +1,52 @@
 'use client';
+import { useSettings } from '@/utils/provider/SettingsProvider';
 import React, { useState, useEffect } from 'react';
 
 interface Props {
 	buttonText: string;
 	style: string;
-	extraInputs?: boolean;
+	inputsConfig: {
+		match?: string[]; // Names of inputs that need to match (optional)
+		filled?: string[]; // Names of inputs that just need to be filled (optional)
+	};
 }
 
-export default function ConfirmButton({ buttonText, style, extraInputs }: Props) {
-	const [isEnabled, setIsEnabled] = useState(false);
+export default function ConfirmButton({ buttonText, style, inputsConfig }: Props) {
+	const [isEnabled, setIsEnabled] = useState(true);
+	const { setHasChanges } = useSettings();
 
 	useEffect(() => {
-		const passwordInput = document.getElementsByName('password')[0];
-		const confirmPasswordInput = document.getElementsByName('confirmPassword')[0];
-		let oldPasswordInput: HTMLInputElement;
-		let oldConfirmPasswordInput: HTMLInputElement;
+		const { match = [], filled = [] } = inputsConfig; // Default to empty arrays if not provided
+
+		const allInputNames = Array.from(new Set([...match, ...filled])); // Combine and deduplicate names
+		const inputs = allInputNames
+			.map((name) => document.getElementsByName(name)[0])
+			.filter(Boolean) as HTMLInputElement[];
 
 		const validateInputs = () => {
-			const isMatch = (passwordInput as HTMLInputElement).value === (confirmPasswordInput as HTMLInputElement).value;
-			const isNotEmpty =
-				(passwordInput as HTMLInputElement).value !== '' && (confirmPasswordInput as HTMLInputElement).value !== '';
+			const matchValues = match.map((name) => (document.getElementsByName(name)[0] as HTMLInputElement)?.value);
+			const filledValues = filled.map((name) => (document.getElementsByName(name)[0] as HTMLInputElement)?.value);
 
-			if (extraInputs) {
-				const isOldMatch = oldPasswordInput.value === oldConfirmPasswordInput.value;
-				const isOldNotEmpty = oldPasswordInput.value !== '' && oldConfirmPasswordInput.value !== '';
-				setIsEnabled(isMatch && isNotEmpty && isOldMatch && isOldNotEmpty);
-				return;
-			} else {
-				setIsEnabled(isMatch && isNotEmpty);
-			}
+			// Check if all match inputs have the same value and are not empty
+			const allMatchValid = matchValues.every((value, _, arr) => value && value === arr[0]);
+			const allMatch = match.length > 0 ? allMatchValid : true;
+
+			// Check if all filled inputs are not empty
+			const allFilled = filledValues.every((value) => value !== '');
+
+			setHasChanges(true);
+
+			setIsEnabled(allMatch && allFilled);
 		};
 
-		if (extraInputs) {
-			oldPasswordInput = document.getElementsByName('oldPassword')[0] as HTMLInputElement;
-			oldConfirmPasswordInput = document.getElementsByName('oldConfirmPassword')[0] as HTMLInputElement;
-			oldPasswordInput.addEventListener('input', validateInputs);
-			oldConfirmPasswordInput.addEventListener('input', validateInputs);
-		}
-
 		// Add event listeners
-		passwordInput.addEventListener('input', validateInputs);
-		confirmPasswordInput.addEventListener('input', validateInputs);
+		inputs.forEach((input) => input.addEventListener('input', validateInputs));
 
 		// Remove event listeners on cleanup
 		return () => {
-			passwordInput.removeEventListener('input', validateInputs);
-			confirmPasswordInput.removeEventListener('input', validateInputs);
+			inputs.forEach((input) => input.removeEventListener('input', validateInputs));
 		};
-	}, []);
+	}, [inputsConfig]); // Depend on inputsConfig to re-run the effect if it changes
 
 	return (
 		<button className={`${style} ${!isEnabled ? 'btn-disabled' : ''}`} disabled={!isEnabled}>

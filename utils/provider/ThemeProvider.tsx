@@ -27,7 +27,7 @@ export default function ThemeProvider({ children }: Props) {
 
 	const toggleTheme = () => {
 		setIsDark(!isDark);
-		localStorage.setItem('isdark', JSON.stringify(isDark));
+		localStorage.setItem('isdark', JSON.stringify(!isDark));
 	};
 
   const theme = {

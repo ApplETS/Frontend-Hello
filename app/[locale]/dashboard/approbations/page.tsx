@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 import Dropdown from "@/components/Dropdown";
 import Search from "@/components/Search";
-import Constants from "@/constants";
+import Constants from "@/utils/constants";
 import { formatDate } from "@/utils/formatDate";
 
 type Props = {
@@ -24,38 +24,43 @@ export default function Approbations({ params: { locale } }: Props) {
       title: "Compétition AMC",
       releasedDate: formattedDate,
       eventdate: formattedDate,
+      numberOfViews: 0,
       status: Constants.newsStatuses[0].id,
     },
     {
-      author: "App|ETS",
+      author: "Conjure",
       activity: "Club scientique",
-      title: "Compétition AMC",
+      title: "Lancement du nouveau jeu",
       releasedDate: formattedDate,
       eventdate: formattedDate,
+      numberOfViews: 230,
       status: Constants.newsStatuses[1].id,
     },
     {
-      author: "App|ETS",
+      author: "Cédille",
       activity: "Club scientique",
-      title: "Compétition AMC",
+      title: "Conférence DevOps",
       releasedDate: formattedDate,
       eventdate: formattedDate,
+      numberOfViews: 0,
       status: Constants.newsStatuses[2].id,
     },
     {
-      author: "App|ETS",
+      author: "RockÉTS",
       activity: "Club scientique",
-      title: "Compétition AMC",
+      title: "Lancement de la fusée",
       releasedDate: formattedDate,
       eventdate: formattedDate,
+      numberOfViews: 0,
       status: Constants.newsStatuses[3].id,
     },
     {
-      author: "App|ETS",
+      author: "Centre sportif",
       activity: "Club scientique",
-      title: "Compétition AMC",
+      title: "Match de soccer",
       releasedDate: formattedDate,
       eventdate: formattedDate,
+      numberOfViews: 0,
       status: Constants.newsStatuses[4].id,
     },
     {
@@ -64,6 +69,7 @@ export default function Approbations({ params: { locale } }: Props) {
       title: "Séance d'informations",
       releasedDate: formattedDate,
       eventdate: formattedDate,
+      numberOfViews: 0,
       status: Constants.newsStatuses[5].id,
     },
   ];
@@ -106,7 +112,7 @@ export default function Approbations({ params: { locale } }: Props) {
               <td>{approbation.releasedDate}</td>
               <td className="text-base">
                 <div
-                  className={`py-4 px-4 badge bg-${
+                  className={`py-4 px-4 badge ${
                     Constants.newsStatuses[approbation.status - 1].color ||
                     "badge-neutral"
                   } text-black`}

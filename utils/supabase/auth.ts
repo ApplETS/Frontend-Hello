@@ -95,3 +95,16 @@ export const updatePassword = async (formData: FormData) => {
 
 	return redirect(`/${locale}/dashboard`);
 };
+
+export const getSession = async () => {
+	const cookieStore = cookies();
+	const supabase = createClient(cookieStore);
+	const { data, error } = await supabase.auth.getSession()
+
+	if (error) {
+		console.log('Error getting session', error);
+		return;
+	}
+
+	return data.session;
+};

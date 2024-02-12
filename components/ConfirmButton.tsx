@@ -49,7 +49,11 @@ export default function ConfirmButton({ buttonText, style, inputsConfig }: Props
 	}, [inputsConfig]); // Depend on inputsConfig to re-run the effect if it changes
 
 	return (
-		<button className={`${style} ${!isEnabled ? 'btn-disabled' : ''}`} disabled={!isEnabled}>
+		<button
+			className={`${style} ${!isEnabled ? 'btn-disabled' : ''}`}
+			disabled={!isEnabled}
+			onClick={() => setHasChanges(false)}
+		>
 			{buttonText}
 		</button>
 	);

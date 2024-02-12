@@ -100,15 +100,18 @@
 		"400": "Les mots de passe ne correspondent pas",
 		"200": "Paramètres enregistrés",
 		"socials": "Réseaux sociaux",
-		"appearance": "Affichage",
+		"appearance": "Apparence",
 		"password": "Mot de passe",
 		"profile": "Profil",
 		"socials-section": {
 			"title": "Réseaux sociaux",
+			"info": "Les réseaux sociaux que vous choisissez seront affichées sur votre profil, lequel est accessible publiquement aux autres utilisateurs. Nous tenons à vous rassurer que nous ne publierons rien sur vos réseaux.",
 			"save": "Enregistrer"
 		},
 		"profile-section": {
 			"title": "Profil",
+			"dropPicture": "Cliquez pour téléverser ou glissez-déposez une image ici",
+			"deletePicture": "Supprimer l'image",
 			"companyName": "Nom de l'organisation",
 			"email": "Courriel",
 			"activity": "Secteur d'activité",
@@ -118,19 +121,25 @@
 			"aeets": "AEETS",
 			"description": "Description",
 			"website": "Site web",
-			"save": "Enregistrer"
+			"save": "Enregistrer",
+			"200": "Profil enregistré"
 		},
 		"password-section": {
 			"title": "Mot de passe",
 			"newPassword": "Nouveau mot de passe",
 			"confirmNewPassword": "Confirmer le nouveau mot de passe",
-			"save": "Enregistrer"
+			"save": "Enregistrer",
+			"200": "Mot de passe enregistré"
 		},
 		"display-section": {
-			"title": "Affichage",
+			"title": "Apparence",
 			"language": "Langue",
 			"theme": "Thème",
-			"save": "Enregistrer"
+			"save": "Enregistrer",
+			"light": "Pâle",
+			"dark": "Foncé",
+			"english": "Anglais",
+			"french": "Français"
 		}
 	}
 }

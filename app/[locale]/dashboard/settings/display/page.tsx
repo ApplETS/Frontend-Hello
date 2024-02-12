@@ -23,11 +23,11 @@ export default function Page({ params }: Props) {
 			<input type="hidden" name="locale" value={params.locale} />
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>
-				<div className="grid grid-cols-4 gap-6 justify-left items-center pt-10">
+				<div className="grid grid-cols-2 gap-6 justify-left items-center pt-10 w-1/2">
 					<label className="">{t('theme')}</label>
-					<ThemeDropdown />
-					<label className="justify-self-center">{t('language')}</label>
-					<LanguageDropdown locale={params.locale} />
+					<ThemeDropdown lightTitle={t('light')} darkTitle={t('dark')} />
+					<label className="">{t('language')}</label>
+					<LanguageDropdown locale={params.locale} englishTitle={t('english')} frenchTitle={t('french')} />
 				</div>
 			</div>
 		</form>

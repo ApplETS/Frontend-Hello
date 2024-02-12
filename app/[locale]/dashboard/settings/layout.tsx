@@ -21,19 +21,19 @@ export default function Layout({ children, params: { locale } }: Props) {
 			link: `/${locale}/dashboard/settings/profile`,
 			icon: faUser,
 		},
+		socials: {
+			title: t('socials'),
+			link: `/${locale}/dashboard/settings/socials`,
+			icon: faLink,
+		},
 		password: {
 			title: t('password'),
 			link: `/${locale}/dashboard/settings/password`,
-			icon: faLink,
+			icon: faKey,
 		},
 		display: {
 			title: t('appearance'),
 			link: `/${locale}/dashboard/settings/display`,
-			icon: faKey,
-		},
-		socials: {
-			title: t('socials'),
-			link: `/${locale}/dashboard/settings/socials`,
 			icon: faGear,
 		},
 	};

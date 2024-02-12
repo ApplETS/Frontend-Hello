@@ -8,10 +8,11 @@ import { updateProfile } from '@/utils/supabase/auth';
 import { getUser } from '@/lib/getUser';
 
 type Props = {
+	searchParams: { message: string; type: string; code: string };
 	params: { locale: string };
 };
 
-export default async function Page({ params }: Props) {
+export default async function Page({ searchParams, params }: Props) {
 	unstable_setRequestLocale(params.locale);
 	const t = await getTranslations('Settings.profile-section');
 	const user = await getUser();
@@ -19,6 +20,14 @@ export default async function Page({ params }: Props) {
 
 	return (
 		<form className="flex flex-col basis-3/4" action={updateProfile}>
+			{(searchParams.message || searchParams.code) && (
+				<>
+					<Toast
+						message={searchParams.message ?? t(searchParams.code)}
+						alertType={AlertType[searchParams.type as keyof typeof AlertType] as AlertType}
+					/>
+				</>
+			)}
 			<input type="hidden" name="locale" value={params.locale} />
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>
@@ -28,7 +37,10 @@ export default async function Page({ params }: Props) {
 							<span className="text-3xl">D</span>
 						</div>
 					</div>
-					<Dropzone />
+					<div className="flex flex-col gap-2">
+						<Dropzone title={t('dropPicture')} />
+						<button className="btn btn-error bg-inherit text-error rounded-md">{t('deletePicture')}</button>
+					</div>
 					<div className="col-span-2" />
 					<label>{t('companyName')}</label>
 					<input

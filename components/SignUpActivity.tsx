@@ -34,7 +34,7 @@ export default function Dropdown({ items, inputName, defaultItem }: Props) {
 				{defaultItem ? defaultItem.title : selectedValue.title}
 			</div>
 			{isDropdownOpen && (
-				<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-max">
+				<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-full">
 					{items.map((item) => (
 						<li key={item.title}>
 							<a onClick={() => onOptionClicked(item)}>{item.title}</a>

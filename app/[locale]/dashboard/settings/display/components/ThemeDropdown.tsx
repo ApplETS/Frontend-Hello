@@ -2,19 +2,19 @@
 import Dropdown from '@/components/SignUpActivity';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
-export default function ThemeDropdown() {
+export default function ThemeDropdown({ lightTitle, darkTitle }: { lightTitle: string; darkTitle: string }) {
 	const { isLight, toggleTheme } = useTheme();
 	console.log(isLight);
 
 	const themeDropdownItems = [
 		{
-			title: 'Light',
+			title: lightTitle,
 			onClick: () => {
 				if (!isLight) toggleTheme();
 			},
 		},
 		{
-			title: 'Dark',
+			title: darkTitle,
 			onClick: () => {
 				if (isLight) toggleTheme();
 			},

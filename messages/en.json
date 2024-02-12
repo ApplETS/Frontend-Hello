@@ -105,10 +105,13 @@
 		"profile": "Profile",
 		"socials-section": {
 			"title": "Socials",
+			"info": "Your socials will be displayed on your profile page, which is accessible by other users. We will not share nor use your socials for any other purpose.",
 			"save": "Save"
 		},
 		"profile-section": {
 			"title": "Profile",
+			"dropPicture": "Drop a picture here or click to upload",
+			"deletePicture": "Delete picture",
 			"companyName": "Company name",
 			"email": "Email",
 			"activity": "Activity field",
@@ -118,19 +121,25 @@
 			"aeets": "AEETS",
 			"description": "Description",
 			"website": "Website",
-			"save": "Save"
+			"save": "Save",
+			"200": "Profile updated"
 		},
 		"password-section": {
 			"title": "Password",
 			"newPassword": "New password",
 			"confirmNewPassword": "Confirm new password",
-			"save": "Save"
+			"save": "Save",
+			"200": "Password saved"
 		},
 		"display-section": {
 			"title": "Display",
 			"language": "Language",
 			"theme": "Theme",
-			"save": "Save"
+			"save": "Save",
+			"light": "Light",
+			"dark": "Dark",
+			"english": "English",
+			"french": "French"
 		}
 	}
 }

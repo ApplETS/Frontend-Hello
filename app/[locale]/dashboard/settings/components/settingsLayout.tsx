@@ -25,9 +25,9 @@ export default function SettingsLayout({ children, locale, pages }: Props) {
 	const activePage = pathname.split('/').pop() ?? 'profile';
 
 	return (
-		<div className='flex flex-row h-screen gap-8'>
-			<div className='flex flex-col gap-2 basis-1/4'>
-				<p className='text-left font-bold text-3xl pb-10'>Settings</p>
+		<div className="flex flex-row h-screen gap-8">
+			<div className="flex flex-col gap-2 basis-1/4">
+				<p className="text-left font-bold text-3xl pb-10">Settings</p>
 				{Object.entries(pages).map(([pageKey, pageValue]) => (
 					<Link
 						key={pageKey}
@@ -36,9 +36,9 @@ export default function SettingsLayout({ children, locale, pages }: Props) {
 							activePage === pageKey ? 'btn-primary' : 'btn-ghost'
 						}`}
 					>
-						<div className='flex flex-row items-center gap-2'>
-							<FontAwesomeIcon icon={pageValue.icon} className='w-6' size='xl' />
-							<span className={'px-4 text-base'}>{pageValue.title}</span>
+						<div className="flex flex-row items-center gap-2">
+							<FontAwesomeIcon icon={pageValue.icon} className="w-6" size="2xl" />
+							<span className={'px-4 text-xl'}>{pageValue.title}</span>
 						</div>
 					</Link>
 				))}

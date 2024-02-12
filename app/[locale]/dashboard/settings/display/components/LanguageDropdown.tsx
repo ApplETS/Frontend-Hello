@@ -4,14 +4,22 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useState } from 'react';
 
-export default function LanguageDropdown({ locale }: { locale: string }) {
+export default function LanguageDropdown({
+	locale,
+	englishTitle,
+	frenchTitle,
+}: {
+	locale: string;
+	englishTitle: string;
+	frenchTitle: string;
+}) {
 	const languageDropdownItems = [
 		{
-			title: 'English',
+			title: englishTitle,
 			redirect: '/en/dashboard/settings/display',
 		},
 		{
-			title: 'French',
+			title: frenchTitle,
 			redirect: '/fr/dashboard/settings/display',
 		},
 	];
@@ -37,7 +45,7 @@ export default function LanguageDropdown({ locale }: { locale: string }) {
 				{selectedValue.title}
 			</div>
 			{isDropdownOpen && (
-				<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-max">
+				<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-full">
 					{languageDropdownItems.map((item) => (
 						<li key={item.title}>
 							<Link href={item.redirect}>{item.title}</Link>

@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useState } from 'react';
 
-export default function Dropzone() {
+export default function Dropzone({ title }: { title: string }) {
 	const [dragging, setDragging] = useState(false);
 
 	const handleDragOver = useCallback(
@@ -25,7 +25,7 @@ export default function Dropzone() {
 		console.log(e.dataTransfer.files);
 	}, []);
 	return (
-		<div className='col-span-1'>
+		<div className="col-span-1">
 			<div
 				className={`border-2 ${
 					dragging ? 'border-blue-300' : 'border-gray-300'
@@ -34,8 +34,8 @@ export default function Dropzone() {
 				onDragLeave={handleDragLeave}
 				onDrop={handleDrop}
 			>
-				<input type='file' className='file-input w-full max-w-xs hidden' />
-				Cliquez pour téléverser ou glisser-déposez
+				<input type="file" className="file-input w-full max-w-xs hidden" />
+				{title}
 			</div>
 		</div>
 	);

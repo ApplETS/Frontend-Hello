@@ -194,3 +194,16 @@ export const updateProfile = async (formData: FormData) => {
 
 	return redirect(`/${locale}/dashboard/settings/profile?code=200&type=success`);
 };
+
+export const getSession = async () => {
+	const cookieStore = cookies();
+	const supabase = createClient(cookieStore);
+	const { data, error } = await supabase.auth.getSession();
+
+	if (error) {
+		console.log('Error getting session', error);
+		return;
+	}
+
+	return data.session;
+};

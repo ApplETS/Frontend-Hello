@@ -1,18 +1,22 @@
 import Dropzone from '@/components/Dropzone';
 import Toast from '@/components/Toast';
 import { AlertType } from '@/components/Alert';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import Dropdown from '@/components/SignUpActivity';
 import { updateProfile } from '@/utils/supabase/auth';
+import { getUser } from '@/lib/getUser';
 
 type Props = {
 	params: { locale: string };
 };
 
-export default function Page({ params }: Props) {
+export default async function Page({ params }: Props) {
 	unstable_setRequestLocale(params.locale);
-	const t = useTranslations('Settings.profile-section');
+	const t = await getTranslations('Settings.profile-section');
+	const user = await getUser();
+	console.log(user);
+
 	return (
 		<form className="flex flex-col basis-3/4" action={updateProfile}>
 			<input type="hidden" name="locale" value={params.locale} />
@@ -27,13 +31,24 @@ export default function Page({ params }: Props) {
 					<Dropzone />
 					<div className="col-span-2" />
 					<label>{t('companyName')}</label>
-					<input type="text" className="input input-ghost input-bordered border-current" name="organization" />
+					<input
+						type="text"
+						className="input input-ghost input-bordered border-current"
+						name="organization"
+						defaultValue={user.organisation}
+					/>
 
 					<label className="justify-self-center">{t('description')}</label>
 					<textarea className="textarea textarea-ghost border-current row-span-2 h-full" name="description" />
 
 					<label>{t('email')}</label>
-					<input type="text" className="input input-ghost input-bordered border-current" name="email" required />
+					<input
+						type="text"
+						className="input input-ghost input-bordered border-current"
+						name="email"
+						required
+						defaultValue={user.email}
+					/>
 
 					<div />
 
@@ -41,6 +56,7 @@ export default function Page({ params }: Props) {
 					<Dropdown
 						items={[{ title: t('scientificClub') }, { title: t('ets') }, { title: t('sve') }, { title: t('aeets') }]}
 						inputName="activity"
+						defaultItem={{ title: user.activityArea }}
 					/>
 					<label className="justify-self-center">{t('website')}</label>
 					<input type="text" className="input input-ghost input-bordered border-current" name="website" />

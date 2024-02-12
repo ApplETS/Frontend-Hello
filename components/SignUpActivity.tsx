@@ -1,16 +1,18 @@
-"use client";
-import { useState } from "react";
+'use client';
+import { useState } from 'react';
 
 interface Props {
-	items: string[];
+	items: { title: string; onClick?: () => void }[];
 	inputName?: string;
+	defaultItem?: { title: string; onClick?: () => void };
 }
 
-export default function Dropdown({ items, inputName }: Props) {
-	const [selectedValue, setSelectedValue] = useState(items[0]);
+export default function Dropdown({ items, inputName, defaultItem }: Props) {
+	const [selectedValue, setSelectedValue] = useState(defaultItem ?? items[0]);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-	const onOptionClicked = (item: string) => {
+	const onOptionClicked = (item: { title: string; onClick?: () => void }) => {
+		if (item.onClick) item.onClick();
 		setSelectedValue(item);
 		setIsDropdownOpen(false);
 	};
@@ -25,24 +27,23 @@ export default function Dropdown({ items, inputName }: Props) {
 			<div
 				tabIndex={0}
 				role="button"
-				id={inputName ?? "dropdown"}
+				id={inputName ?? 'dropdown'}
 				className="btn bg-inherit border-current w-full hover:bg-inherit"
-				onClick={toggleDropdown}>
-				{selectedValue}
+				onClick={toggleDropdown}
+			>
+				{selectedValue.title}
 			</div>
 			{isDropdownOpen && (
-				<ul
-					tabIndex={0}
-					className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-max">
+				<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-max">
 					{items.map((item) => (
-						<li key={item}>
-							<a onClick={() => onOptionClicked(item)}>{item}</a>
+						<li key={item.title}>
+							<a onClick={() => onOptionClicked(item)}>{item.title}</a>
 						</li>
 					))}
 				</ul>
 			)}
 			{/* Hidden input to store the selected value */}
-			<input type="hidden" name={inputName} value={selectedValue} />
+			<input type="hidden" name={inputName} value={selectedValue.title} />
 		</div>
 	);
 }

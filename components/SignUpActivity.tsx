@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function Dropdown({ items, inputName, defaultItem }: Props) {
-	const [selectedValue, setSelectedValue] = useState(defaultItem ?? items[0]);
+	const [selectedValue, setSelectedValue] = useState(items[0]);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
 	const onOptionClicked = (item: { title: string; onClick?: () => void }) => {
@@ -31,7 +31,7 @@ export default function Dropdown({ items, inputName, defaultItem }: Props) {
 				className="btn bg-inherit border-current w-full hover:bg-inherit"
 				onClick={toggleDropdown}
 			>
-				{selectedValue.title}
+				{defaultItem ? defaultItem.title : selectedValue.title}
 			</div>
 			{isDropdownOpen && (
 				<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-max">

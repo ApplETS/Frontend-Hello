@@ -4,6 +4,7 @@ import { useTheme } from '@/utils/provider/ThemeProvider';
 
 export default function ThemeDropdown() {
 	const { isLight, toggleTheme } = useTheme();
+	console.log(isLight);
 
 	const themeDropdownItems = [
 		{
@@ -24,7 +25,7 @@ export default function ThemeDropdown() {
 		<Dropdown
 			items={themeDropdownItems}
 			inputName="theme"
-			defaultItem={isLight ? themeDropdownItems[1] : themeDropdownItems[0]}
+			defaultItem={isLight ? themeDropdownItems[0] : themeDropdownItems[1]}
 		/>
 	);
 }

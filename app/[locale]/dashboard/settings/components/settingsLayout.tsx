@@ -37,11 +37,11 @@ export default function SettingsLayout({ children, locale, pages }: Props) {
 						className={`btn min-h-min h-min py-2 px-4 rounded-lg justify-start ${
 							activePage === pageKey ? 'btn-primary' : 'btn-ghost'
 						} 
-						${hasChanges ? 'btn-disabled' : 'btn-primary'}`}
+						${hasChanges ? 'btn-disabled' : ''}`}
 					>
 						<div className="flex flex-row items-center gap-2">
 							<FontAwesomeIcon icon={pageValue.icon} className="w-6" size="2xl" />
-							<span className={'px-4 text-xl'}>{pageValue.title}</span>
+							<p className={'px-4 text-xl'}>{pageValue.title}</p>
 						</div>
 					</Link>
 				))}

@@ -57,10 +57,12 @@
 	"Publications": {
 		"title": "Publications",
 		"search": "Search",
+		"create-new-post": "Create a post",
 		"table": {
 			"title": "Title",
 			"release-date": "Release date",
 			"event-date": "Event date",
+			"number-of-views": "Number of views",
 			"status": "Status",
 			"open": "Open"
 		},
@@ -72,6 +74,11 @@
 			"refused": "Refused",
 			"approved": "Approved",
 			"deleted": "Deleted"
+		},
+		"menu": {
+			"duplicate": "Duplicate",
+			"delete": "Delete",
+			"open": "Open"
 		}
 	},
 	"Approbations": {

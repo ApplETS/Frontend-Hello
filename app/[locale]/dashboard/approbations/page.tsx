@@ -1,6 +1,5 @@
 import React from "react";
-import { useTranslations } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import Dropdown from "@/components/Dropdown";
 import Search from "@/components/Search";
 import Constants from "@/utils/constants";
@@ -10,9 +9,9 @@ type Props = {
   params: { locale: string };
 };
 
-export default function Approbations({ params: { locale } }: Props) {
+export default async function Approbations({ params: { locale } }: Props) {
   unstable_setRequestLocale(locale);
-  const t = useTranslations("Approbations");
+  const t = await getTranslations("Approbations");
 
   const currentDate = new Date();
   const formattedDate = formatDate(currentDate, locale);

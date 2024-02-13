@@ -8,7 +8,7 @@ import Captcha from '@/components/Captcha';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import Footer from '@/components/Footer';
-import SignUpActivity from '@/components/SignUpActivity';
+import SignUpActivity from '@/components/ActivityArea';
 
 export default function SignUp({
 	searchParams,

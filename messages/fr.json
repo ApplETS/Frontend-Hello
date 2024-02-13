@@ -74,6 +74,21 @@
       "duplicate" : "Dupliquer",
       "delete" : "Supprimer",
       "open": "Ouvrir"
+    },
+    "modal": {
+      "page-title": "Créer une publication",
+      "title": "Titre",
+      "activity-area": "Secteur d'activité",
+      "alt-text": "Texte alternatif de l'image",
+      "published-date": "Date et heure de publication",
+      "event-start-date": "Date et heure de début l'événement",
+      "event-end-date": "Date et heure de fin de l'événement",
+      "tags-title": "Étiquette(s) (Maximum de 5)",
+      "add-tag": "Ajouter ...",
+      "content": "Contenu",
+      "cancel-button": "Fermer",
+      "submit-button": "Envoyer pour approbation",
+      "tool-tip-text": "Elle retombera en attente d'approbation et votre publication précédente sera supprimé"
     }
   },
   "Approbations": {

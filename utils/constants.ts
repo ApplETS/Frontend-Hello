@@ -1,6 +1,13 @@
 import { faPenToSquare, faClone, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 export default {
+    publicationModalStatus: {
+        view: 1,
+        create: 2,
+        duplicate: 3,
+        modify: 4,
+        delete: 5,
+    },
     newsStatuses: [
         {
             id: 1,

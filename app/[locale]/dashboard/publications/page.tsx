@@ -2,10 +2,15 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 import Search from "@/components/Search";
+import PublicationsDetails from "@/components/modals/PublicationDetails";
 import Dropdown from "@/components/Dropdown";
 import DropdownMenu from "@/components/DropdownMenu";
 import Constants from "@/utils/constants";
 import { formatDate } from "@/utils/formatDate";
+let isModalOpen = true;
+const toggleModal = () => {
+  isModalOpen = !isModalOpen;
+};
 
 type Props = {
   params: { locale: string };
@@ -68,7 +73,7 @@ export default function Publications({ params: { locale } }: Props) {
       color: item.color
     };
   });
-
+  
   return (
     <div>
       <div className="mb-4 flex justify-between items-center space-x-4">
@@ -81,6 +86,25 @@ export default function Publications({ params: { locale } }: Props) {
         <button className="btn btn-primary text-base-100">
           {t("create-new-post")}
         </button>
+        {isModalOpen && <PublicationsDetails
+          props={{
+            pageTitle: t("modal.page-title"),
+            title: t("modal.title"),
+            activityArea: t("modal.activity-area"),
+            altText: t("modal.alt-text"),
+            publishedDate: t("modal.published-date"),
+            eventStartDate: t("modal.event-start-date"),
+            eventEndDate: t("modal.event-end-date"),
+            tagsTitle: t("modal.tags-title"),
+            addTag: t("modal.add-tag"),
+            content: t("modal.content"),
+            cancelButton: t("modal.cancel-button"),
+            submitButton: t("modal.submit-button"),
+            tags: ["Tag1", "Tag2", "Tag3"], // TODO: Replace with actual tags
+            toolTipText: t("modal.tool-tip-text"),
+          }}
+          modalMode={Constants.publicationModalStatus.modify}
+        />}
       </div>
       <table className="table w-full rounded-lg">
         <thead className="bg-base-300 rounded-t-lg h-17">

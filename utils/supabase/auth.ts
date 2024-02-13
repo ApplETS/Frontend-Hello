@@ -39,6 +39,9 @@ export const signUp = async (formData: FormData) => {
 		password,
 		options: {
 			emailRedirectTo: `${origin}/${locale}/login?code=200&type=success`,
+			data: {
+				role: 'organizer',
+			},
 		},
 	});
 

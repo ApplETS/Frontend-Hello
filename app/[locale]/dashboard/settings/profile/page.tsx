@@ -10,6 +10,7 @@ import ConfirmButton from '@/components/ConfirmButton';
 import CancelButton from '@/components/CancelButton';
 import { useSettings } from '@/utils/provider/SettingsProvider';
 import SettingsFooter from '../components/SettingsFooter';
+import ProfilePicture from './components/ProfilePicture';
 
 type Props = {
 	searchParams: { message: string; type: string; code: string };
@@ -35,17 +36,7 @@ export default async function Page({ searchParams, params }: Props) {
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>
 				<div className="grid grid-cols-6 gap-6 justify-left items-center pt-10">
-					<div className="avatar placeholder">
-						<div className="bg-neutral text-neutral-content rounded-full w-36">
-							<span className="text-3xl">D</span>
-						</div>
-					</div>
-					<div className="flex flex-col gap-2 col-span-2">
-						<Dropzone title={t('dropPicture')} />
-						<button type="button" className="btn btn-error bg-inherit text-error rounded-md">
-							{t('deletePicture')}
-						</button>
-					</div>
+					<ProfilePicture dropzoneText={t('dropPicture')} buttonText={t('deletePicture')} />
 					<div className="col-span-3" />
 					<label>{t('companyName')}</label>
 					<input

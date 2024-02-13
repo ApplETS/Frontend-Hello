@@ -21,12 +21,6 @@ export default function Navbar({ activePage, pages, signOut }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-	const [isLightTheme, setIsLightTheme] = useState(localStorage.getItem('isLight') === 'true');
-
-	const handleThemeChange = (isLight: boolean) => {
-		setIsLightTheme(isLight);
-	};
-
 	return (
 		<div className="navbar w-full bg-base-300">
 			<div className="flex-1 ml-5 gap-3">

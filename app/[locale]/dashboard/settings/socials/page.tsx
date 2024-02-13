@@ -8,7 +8,7 @@ import facebookIcon from '@/public/Socials/Facebook.svg';
 import discordIcon from '@/public/Socials/Discord.svg';
 import instagramIcon from '@/public/Socials/Instagram.svg';
 import linkedinIcon from '@/public/Socials/Linkedin.svg';
-import tiktokIcon from '@/public/Socials/TikTok.svg';
+import tiktokIcon from '@/public/Socials/Tiktok.svg';
 import redditIcon from '@/public/Socials/Reddit.svg';
 import xIcon from '@/public/Socials/X.svg';
 import Image from 'next/image';

@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./utils/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -30,7 +31,7 @@ module.exports = {
           "base-content": "DCDCDC",
           "secondary-content": "#BABABA",
           ".btn-primary": {
-            color: "#DCDCDC",
+            color: "#15191E",
           },
           ".btn-ghost": {
             color: "#DCDCDC",

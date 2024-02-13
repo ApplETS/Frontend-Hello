@@ -34,32 +34,37 @@ export default async function Page({ searchParams, params }: Props) {
 			<input type="hidden" name="locale" value={params.locale} />
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>
-				<div className="grid grid-cols-4 gap-6 justify-left items-center pt-10">
+				<div className="grid grid-cols-6 gap-6 justify-left items-center pt-10">
 					<div className="avatar placeholder">
 						<div className="bg-neutral text-neutral-content rounded-full w-36">
 							<span className="text-3xl">D</span>
 						</div>
 					</div>
-					<div className="flex flex-col gap-2">
+					<div className="flex flex-col gap-2 col-span-2">
 						<Dropzone title={t('dropPicture')} />
-						<button className="btn btn-error bg-inherit text-error rounded-md">{t('deletePicture')}</button>
+						<button type="button" className="btn btn-error bg-inherit text-error rounded-md">
+							{t('deletePicture')}
+						</button>
 					</div>
-					<div className="col-span-2" />
+					<div className="col-span-3" />
 					<label>{t('companyName')}</label>
 					<input
 						type="text"
-						className="input input-ghost input-bordered border-current"
+						className="input input-ghost input-bordered border-current col-span-2"
 						name="organization"
 						defaultValue={user.organisation}
 					/>
 
 					<label className="justify-self-center">{t('description')}</label>
-					<textarea className="textarea textarea-ghost border-current row-span-2 h-full" name="description" />
+					<textarea
+						className="textarea textarea-ghost border-current row-span-2 h-full self-start mt-3 col-span-2"
+						name="description"
+					/>
 
 					<label>{t('email')}</label>
 					<input
 						type="text"
-						className="input input-ghost input-bordered border-current"
+						className="input input-ghost input-bordered border-current col-span-2"
 						name="email"
 						required
 						defaultValue={user.email}
@@ -72,11 +77,12 @@ export default async function Page({ searchParams, params }: Props) {
 						items={[{ title: t('scientificClub') }, { title: t('ets') }, { title: t('sve') }, { title: t('aeets') }]}
 						inputName="activity"
 						defaultItem={{ title: user.activityArea }}
+						customStyle="col-span-2"
 					/>
 					<label className="justify-self-center">{t('website')}</label>
-					<input type="text" className="input input-ghost input-bordered border-current" name="website" />
+					<input type="text" className="input input-ghost input-bordered border-current col-span-2" name="website" />
 
-					<div className="col-span-2" />
+					<div className="col-span-3" />
 				</div>
 			</div>
 			<SettingsFooter

@@ -13,6 +13,7 @@ export enum Method {
 export async function fetchWithSession(routeSuffix: string, method: Method, body: any = null) {
 	// Get the current session, refreshes it if it's expired
 	const session = await getSession();
+	console.log('session', session);
 
 	const fetchOptions: RequestInit = {
 		method: method,

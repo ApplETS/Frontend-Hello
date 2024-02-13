@@ -6,9 +6,10 @@ interface Props {
 	inputName?: string;
 	defaultItem?: { title: string; onClick?: () => void };
 	defaultItemTheme?: { title: string; onClick?: () => void };
+	customStyle?: string;
 }
 
-export default function Dropdown({ items, inputName, defaultItem, defaultItemTheme }: Props) {
+export default function Dropdown({ items, inputName, defaultItem, defaultItemTheme, customStyle }: Props) {
 	const [selectedValue, setSelectedValue] = useState(defaultItem ?? items[0]);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -24,7 +25,7 @@ export default function Dropdown({ items, inputName, defaultItem, defaultItemThe
 	};
 
 	return (
-		<div className="dropdown">
+		<div className={`${customStyle} dropdown`}>
 			<div
 				tabIndex={0}
 				role="button"

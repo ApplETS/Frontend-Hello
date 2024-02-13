@@ -28,13 +28,13 @@ export default function Page({ searchParams, params }: Props) {
 				</>
 			)}
 			<input type="hidden" name="locale" value={params.locale} />
-			<div className="flex-grow">
+			<div className="flex-grow p-4">
 				<label className="text-xl font-bold">{t('title')}</label>
 				<div className="grid grid-cols-4 gap-6 justify-left items-center pt-10">
 					<label>{t('newPassword')}</label>
 					<PasswordInput />
 
-					<label className="justify-self-center text-center">{t('confirmNewPassword')}</label>
+					<label className="pl-10">{t('confirmNewPassword')}</label>
 					<PasswordInput inputName="confirmPassword" />
 				</div>
 			</div>

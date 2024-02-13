@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useState } from 'react';
 
-export default function Dropzone({ title }: { title: string }) {
+export default function Dropzone({ title, onFileDrop }: { title: string; onFileDrop: (file: File) => void }) {
 	const [dragging, setDragging] = useState(false);
 
 	const handleDragOver = useCallback(
@@ -18,12 +18,18 @@ export default function Dropzone({ title }: { title: string }) {
 		setDragging(false);
 	}, []);
 
-	const handleDrop = useCallback((e: { preventDefault: () => void; dataTransfer: { files: any } }) => {
-		e.preventDefault();
-		setDragging(false);
-		// Process files here
-		console.log(e.dataTransfer.files);
-	}, []);
+	const handleDrop = useCallback(
+		(e: { preventDefault: () => void; dataTransfer: { files: any } }) => {
+			e.preventDefault();
+			if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+				const file = e.dataTransfer.files[0]; // Assuming only one file is dropped
+				onFileDrop(file); // Call the callback with the file
+			}
+			setDragging(false);
+		},
+		[onFileDrop]
+	);
+
 	return (
 		<div className="col-span-1">
 			<div
@@ -34,7 +40,6 @@ export default function Dropzone({ title }: { title: string }) {
 				onDragLeave={handleDragLeave}
 				onDrop={handleDrop}
 			>
-				<input type="file" className="file-input w-full max-w-xs hidden" />
 				{title}
 			</div>
 		</div>

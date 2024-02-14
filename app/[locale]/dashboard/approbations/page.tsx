@@ -4,6 +4,7 @@ import Dropdown from "@/components/Dropdown";
 import Search from "@/components/Search";
 import Constants from "@/utils/constants";
 import { formatDate } from "@/utils/formatDate";
+import { getPendingEvents } from "@/lib/get-pending-events";
 
 type Props = {
   params: { locale: string };
@@ -12,70 +13,13 @@ type Props = {
 export default async function Approbations({ params: { locale } }: Props) {
   unstable_setRequestLocale(locale);
   const t = await getTranslations("Approbations");
+  const events = await getPendingEvents();
+  console.log(events)
 
   const currentDate = new Date();
   const formattedDate = formatDate(currentDate, locale);
 
-  const approbations = [
-    {
-      author: "App|ETS",
-      activity: "Club scientique",
-      title: "Compétition AMC",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      numberOfViews: 0,
-      status: Constants.newsStatuses[0].id,
-    },
-    {
-      author: "Conjure",
-      activity: "Club scientique",
-      title: "Lancement du nouveau jeu",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      numberOfViews: 230,
-      status: Constants.newsStatuses[1].id,
-    },
-    {
-      author: "Cédille",
-      activity: "Club scientique",
-      title: "Conférence DevOps",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      numberOfViews: 0,
-      status: Constants.newsStatuses[2].id,
-    },
-    {
-      author: "RockÉTS",
-      activity: "Club scientique",
-      title: "Lancement de la fusée",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      numberOfViews: 0,
-      status: Constants.newsStatuses[3].id,
-    },
-    {
-      author: "Centre sportif",
-      activity: "Club scientique",
-      title: "Match de soccer",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      numberOfViews: 0,
-      status: Constants.newsStatuses[4].id,
-    },
-    {
-      author: "Capra",
-      activity: "Club scientique",
-      title: "Séance d'informations",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      numberOfViews: 0,
-      status: Constants.newsStatuses[5].id,
-    },
-  ];
-
-  const filters = Constants.newsStatuses.map((status) =>
-    t(`filters.${status.label}`)
-  );
+  const filters = Object.values(Constants.newsStatuses).map(status => status.label);
 
   return (
     <div>
@@ -94,7 +38,7 @@ export default async function Approbations({ params: { locale } }: Props) {
           </tr>
         </thead>
         <tbody>
-          {approbations.map((approbation, index) => (
+          {events.map((event, index) => (
             <tr key={index} className="border-b-2 border-base-300">
               <td className="text-base flex items-center space-x-2">
                 <img
@@ -103,22 +47,22 @@ export default async function Approbations({ params: { locale } }: Props) {
                   className="w-10 h-10 mr-3 rounded-full"
                 ></img>
                 <div>
-                  <div>{approbation.author}</div>
-                  <div className="text-secondary">{approbation.activity}</div>
+                  <div>{event.organizer?.organisation}</div>
+                  <div className="text-secondary">{event.organizer?.activityArea}</div>
                 </div>
               </td>
-              <td>{approbation.title}</td>
-              <td>{approbation.releasedDate}</td>
+              <td>{event.title}</td>
+              <td>{event.publicationDate}</td>
               <td className="text-base">
                 <div
                   className={`py-4 px-4 badge ${
-                    Constants.newsStatuses[approbation.status - 1].color ||
+                    Constants.newsStatuses[event.state].color ||
                     "badge-neutral"
                   } text-black`}
                 >
                   {t(
                     `filters.${
-                      Constants.newsStatuses[approbation.status - 1].label
+                      Constants.newsStatuses[event.state].label
                     }`
                   )}
                 </div>

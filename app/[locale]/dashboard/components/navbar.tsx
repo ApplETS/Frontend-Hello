@@ -14,7 +14,7 @@ interface Props {
 	pages: {
 		[key: string]: Page;
 	};
-	signOut: (formData: FormData) => Promise<never>;
+	signOut?: (formData: FormData) => Promise<never>;
 }
 
 export default function Navbar({ activePage, pages, signOut }: Props) {

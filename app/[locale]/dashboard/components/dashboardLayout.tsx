@@ -9,7 +9,7 @@ interface Props {
 	pages: {
 		[key: string]: Page;
 	};
-	signOut: (formData: FormData) => Promise<never>;
+	signOut?: (formData: FormData) => Promise<never>;
 }
 
 export interface Page {
@@ -24,8 +24,8 @@ export default function DashboardLayout({ children, pages, signOut }: Props) {
 	return (
 		<>
 			<Navbar activePage={activePage} pages={pages} signOut={signOut} />
-			<div className='flex flex-col flex-grow overflow-auto page-content animate-in p-7 bg-base-100'>
-				{pages[activePage]?.title && <div className='text-2xl mb-7'>{pages[activePage].title}</div>}
+			<div className="flex flex-col flex-grow overflow-auto page-content animate-in p-7 bg-base-100">
+				{pages[activePage]?.title && <div className="text-2xl mb-7">{pages[activePage].title}</div>}
 				{children}
 			</div>
 		</>

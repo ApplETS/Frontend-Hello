@@ -28,8 +28,8 @@ export default function SettingsLayout({ children, locale, pages }: Props) {
 
 	return (
 		<div className="flex flex-row h-screen gap-8">
-			<div className="flex flex-col gap-2 basis-1/4">
-				<p className="text-left font-bold text-3xl pb-10">Settings</p>
+			<div className="flex flex-col gap-2 basis-1/5">
+				<p className="text-left text-2xl pb-10">Settings</p>
 				{Object.entries(pages).map(([pageKey, pageValue]) => (
 					<Link
 						key={pageKey}
@@ -40,8 +40,8 @@ export default function SettingsLayout({ children, locale, pages }: Props) {
 						${hasChanges ? 'btn-disabled' : ''}`}
 					>
 						<div className="flex flex-row items-center gap-2">
-							<FontAwesomeIcon icon={pageValue.icon} className="w-6" size="2xl" />
-							<p className={'px-4 text-xl'}>{pageValue.title}</p>
+							<FontAwesomeIcon icon={pageValue.icon} className="w-6" size="xl" />
+							<p className={'px-4 text-xl font-normal'}>{pageValue.title}</p>
 						</div>
 					</Link>
 				))}

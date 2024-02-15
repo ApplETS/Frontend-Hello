@@ -39,7 +39,7 @@ export default function LanguageDropdown({
 				tabIndex={0}
 				role="button"
 				id={'dropdown'}
-				className="btn bg-inherit border-current w-full hover:bg-inherit"
+				className="btn bg-inherit border-current w-full hover:bg-base-300"
 				onClick={toggleDropdown}
 			>
 				{selectedValue.title}

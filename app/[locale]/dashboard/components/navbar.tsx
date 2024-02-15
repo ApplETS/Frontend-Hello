@@ -63,7 +63,7 @@ export default function Navbar({ activePage, pages, signOut }: Props) {
 									</div>
 									<div className="flex flex-col gap-1">
 										<p className="text-base font-bold ml-0">Prénom Nom</p>
-										<p className="text-xs ml-0 text-secondary-content">Club scientifique</p>
+										<p className="text-xs ml-0 text-secondary">Club scientifique</p>
 									</div>
 								</div>
 							</li>

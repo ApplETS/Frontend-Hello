@@ -9,7 +9,7 @@ export default function CancelButton({ locale }: { locale: string }) {
 		<>
 			<button
 				type="button"
-				className="btn btn-secondary rounded-md text-black w-1/5 mt-auto ml-2"
+				className="btn rounded-md text-base-content w-1/5 mt-auto ml-2"
 				onClick={() => setShowConfirmDialog(true)}
 			>
 				Annuler

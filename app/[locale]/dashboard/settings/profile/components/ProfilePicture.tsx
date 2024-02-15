@@ -26,7 +26,7 @@ export default function ProfilePicture({ dropzoneText, buttonText }: { dropzoneT
 			</div>
 			<div className="flex flex-col gap-2 col-span-2">
 				<Dropzone title={dropzoneText} onFileDrop={handleFileDrop} />
-				<button type="button" className="btn btn-error bg-inherit text-error rounded-md">
+				<button type="button" className="btn btn-error bg-inherit text-error hover:text-white rounded-md">
 					{buttonText}
 				</button>
 			</div>

@@ -27,7 +27,7 @@ export default function Page({ params }: Props) {
 			<input type="hidden" name="locale" value={params.locale} />
 			<div className="flex-grow">
 				<div className="flex flex-col gap-2">
-					<label className="text-2xl font-bold">{t('title')}</label>
+					<label className="text-xl font-bold">{t('title')}</label>
 					<label className="text-md font-extralight">{t('info')}</label>
 				</div>
 				<div className="grid grid-cols-6 gap-6 justify-left items-center pt-10">

@@ -1,12 +1,5 @@
-import { AlertType } from '@/components/Alert';
-import Dropzone from '@/components/Dropzone';
-import PasswordInput from '@/components/PasswordInput';
-import Dropdown from '@/components/SignUpActivity';
-import Toast from '@/components/Toast';
-import { useTheme } from '@/utils/provider/ThemeProvider';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import { redirect } from 'next/navigation';
 import ThemeDropdown from './components/ThemeDropdown';
 import LanguageDropdown from './components/LanguageDropdown';
 

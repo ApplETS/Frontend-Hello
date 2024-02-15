@@ -22,14 +22,14 @@ export async function middleware(req: NextRequest) {
 	if (publicRoutes.includes(path)) {
 		return NextResponse.next();
 	}
-
+/*
 	// User check logic for non-public routes
 	if (!user) {
 		const locale = req.nextUrl.locale || 'fr';
 		const basePath = `/${locale}`;
 		return NextResponse.redirect(new URL(`${basePath}/login`, req.url));
 	}
-
+*/
 	return NextResponse.next();
 }
 

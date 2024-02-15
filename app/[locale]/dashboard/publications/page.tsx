@@ -70,23 +70,14 @@ export default function Publications({ params: { locale } }: Props) {
     return {
       text: t(`menu.${item.label}`),
       icon: item.icon,
-      color: item.color
+      color: item.color,
     };
   });
-  
+
   return (
-    <div>
-      <div className="mb-4 flex justify-between items-center space-x-4">
-        <div className="flex items-center space-x-4 flex-1">
-          <Search search={t("search")} />
-          <div className="w-56">
-            <Dropdown title={t("filters.all")} items={filters} />
-          </div>
-        </div>
-        <button className="btn btn-primary text-base-100">
-          {t("create-new-post")}
-        </button>
-        {isModalOpen && <PublicationsDetails
+    <div className="h-screen">
+      {isModalOpen && (
+        <PublicationsDetails
           props={{
             pageTitle: t("modal.page-title"),
             title: t("modal.title"),
@@ -104,7 +95,18 @@ export default function Publications({ params: { locale } }: Props) {
             toolTipText: t("modal.tool-tip-text"),
           }}
           modalMode={Constants.publicationModalStatus.modify}
-        />}
+        />
+      )}
+      <div className="mb-4 flex justify-between items-center space-x-4">
+        <div className="flex items-center space-x-4 flex-1">
+          <Search search={t("search")} />
+          <div className="w-56">
+            <Dropdown title={t("filters.all")} items={filters} />
+          </div>
+        </div>
+        <button className="btn btn-primary text-base-100">
+          {t("create-new-post")}
+        </button>
       </div>
       <table className="table w-full rounded-lg">
         <thead className="bg-base-300 rounded-t-lg h-17">

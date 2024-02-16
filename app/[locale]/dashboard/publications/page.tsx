@@ -7,10 +7,6 @@ import Dropdown from "@/components/Dropdown";
 import DropdownMenu from "@/components/DropdownMenu";
 import Constants from "@/utils/constants";
 import { formatDate } from "@/utils/formatDate";
-let isModalOpen = true;
-const toggleModal = () => {
-  isModalOpen = !isModalOpen;
-};
 
 type Props = {
   params: { locale: string };
@@ -76,27 +72,25 @@ export default function Publications({ params: { locale } }: Props) {
 
   return (
     <div className="h-screen">
-      {isModalOpen && (
-        <PublicationsDetails
-          props={{
-            pageTitle: t("modal.page-title"),
-            title: t("modal.title"),
-            activityArea: t("modal.activity-area"),
-            altText: t("modal.alt-text"),
-            publishedDate: t("modal.published-date"),
-            eventStartDate: t("modal.event-start-date"),
-            eventEndDate: t("modal.event-end-date"),
-            tagsTitle: t("modal.tags-title"),
-            addTag: t("modal.add-tag"),
-            content: t("modal.content"),
-            cancelButton: t("modal.cancel-button"),
-            submitButton: t("modal.submit-button"),
-            tags: ["Tag1", "Tag2", "Tag3"], // TODO: Replace with actual tags
-            toolTipText: t("modal.tool-tip-text"),
-          }}
-          modalMode={Constants.publicationModalStatus.modify}
-        />
-      )}
+      <PublicationsDetails
+        props={{
+          pageTitle: t("modal.page-title"),
+          title: t("modal.title"),
+          activityArea: t("modal.activity-area"),
+          altText: t("modal.alt-text"),
+          publishedDate: t("modal.published-date"),
+          eventStartDate: t("modal.event-start-date"),
+          eventEndDate: t("modal.event-end-date"),
+          tagsTitle: t("modal.tags-title"),
+          addTag: t("modal.add-tag"),
+          content: t("modal.content"),
+          cancelButton: t("modal.cancel-button"),
+          submitButton: t("modal.submit-button"),
+          tags: ["Tag1", "Tag2", "Tag3"], // TODO: Replace with actual tags
+          toolTipText: t("modal.tool-tip-text"),
+        }}
+        modalMode={Constants.publicationModalStatus.modify}
+      />
       <div className="mb-4 flex justify-between items-center space-x-4">
         <div className="flex items-center space-x-4 flex-1">
           <Search search={t("search")} />

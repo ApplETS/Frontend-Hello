@@ -86,7 +86,7 @@ export default function Publications({ params: { locale } }: Props) {
           content: t("modal.content"),
           cancelButton: t("modal.cancel-button"),
           submitButton: t("modal.submit-button"),
-          tags: ["Tag1", "Tag2", "Tag3"], // TODO: Replace with actual tags
+          tags: ["Apprentissage", "Atelier", "Bourses", "Carrière", "Programmation", "Développement mobile"], // TODO: Replace with actual tags
           toolTipText: t("modal.tool-tip-text"),
         }}
         modalMode={Constants.publicationModalStatus.modify}

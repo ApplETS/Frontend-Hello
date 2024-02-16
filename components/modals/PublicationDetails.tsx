@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import ActivityArea from "@/components/ActivityArea";
 import AddTag from "@/components/AddTag";
 import Constants from "@/utils/constants";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 interface PublicationDetailsProps {
   modalMode: Number;
@@ -34,17 +36,44 @@ export default function PublicationDetails({ props, modalMode }: PublicationDeta
   const [eventStartDate, setEventStartDate] = useState('');
   const [eventEndDate, setEventEndDate] = useState('');
   const [publishedDate, setPublishedDate] = useState('');
-  const [selectedTag, setSelectedTag] = useState('');
-
-  const handleTagSelect = (tagValue: string) => {
-    setSelectedTag(tagValue);
-  };
-
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const isDisabled = modalMode === Constants.publicationModalStatus.view ||
+                     modalMode === Constants.publicationModalStatus.delete;
+  const addTagButtonIsDisabled = selectedTags.length >= 5;
   const closeModal = () => setIsModalOpen(false);
-
   if (!isModalOpen) return null;
 
-  const isDisabled = (modalMode === Constants.publicationModalStatus.view || modalMode === Constants.publicationModalStatus.delete);
+  const shuffledTagColors = shuffleArray([
+    'bg-yellow',
+    'bg-teal',
+    'bg-lilac',
+    'bg-blue',
+    'bg-green',
+    'bg-pink',
+    'bg-orange',
+    'bg-purple',
+  ]);
+
+  function shuffleArray(array: string[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const handleTagSelect = (tagValue: string) => {
+    setSelectedTags((prevTags) => {
+      if (!prevTags.includes(tagValue)) {
+        return [...prevTags, tagValue];
+      }
+      return prevTags;
+    });
+  };
+
+  const handleTagDelete = (tagValue: string) => {
+    setSelectedTags((prevTags) => prevTags.filter((tag) => tag !== tagValue));
+  };
 
   return (
     <dialog id="publication_modal" className="modal overflow-y-auto p-4 max-h-[80vh]" open={isModalOpen}>
@@ -141,15 +170,21 @@ export default function PublicationDetails({ props, modalMode }: PublicationDeta
               </div>
             </div>
           </div>
-          <p>{selectedTag}</p>
 
           <div className="mb-3">
             <label className="block mb-2">{props.tagsTitle}</label>
             <div className="flex items-center gap-2 py-2 px-2 border border-base-content rounded-md">
-              <div className="badge bg-blue text-black py-4 px-4">
-                Compétition
-              </div>
-              {!isDisabled && <AddTag titleButton={props.addTag} items={props.tags} onTagSelected={handleTagSelect} />}
+              {selectedTags.map((tag, index) => (
+                <div key={tag} className={`badge ${shuffledTagColors[index % shuffledTagColors.length]} text-black py-4 px-4 flex items-center whitespace-nowrap`}>
+                  {tag}
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    className="ml-2 cursor-pointer"
+                    onClick={() => handleTagDelete(tag)}
+                  />
+                </div>
+              ))}
+              {!isDisabled && !addTagButtonIsDisabled && <AddTag titleButton={props.addTag} items={props.tags} onTagSelected={handleTagSelect} />}
             </div>
           </div>
 

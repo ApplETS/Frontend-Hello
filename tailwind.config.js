@@ -12,9 +12,12 @@ module.exports = {
         foreground: "hsl(var(--foreground))",
         blue: "#06B6D4",
         purple: "#AB7CDB",
+        lilac: "#B794F4",
         green: "#64C788",
         pink: "#EA7CB7",
         orange: "#E7A455",
+        yellow: "#ECC94B",
+        teal: "#38B2AC",
         btn: {
           background: "hsl(var(--btn-background))",
           "background-hover": "hsl(var(--btn-background-hover))",

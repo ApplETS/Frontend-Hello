@@ -4,7 +4,6 @@ import { useTheme } from '@/utils/provider/ThemeProvider';
 
 export default function ThemeDropdown({ lightTitle, darkTitle }: { lightTitle: string; darkTitle: string }) {
 	const { isLight, toggleTheme } = useTheme();
-	console.log(isLight);
 
 	const themeDropdownItems = [
 		{

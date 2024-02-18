@@ -14,6 +14,7 @@ import xIcon from '@/public/Socials/X.svg';
 import Image from 'next/image';
 import CancelButton from '@/components/CancelButton';
 import SettingsFooter from '../components/SettingsFooter';
+import SocialInput from './components/SocialInput';
 
 type Props = {
 	params: { locale: string };
@@ -22,6 +23,18 @@ type Props = {
 export default function Page({ params }: Props) {
 	unstable_setRequestLocale(params.locale);
 	const t = useTranslations('Settings.socials-section');
+	const t_dialog = useTranslations('Settings.dialog');
+
+	const socials = [
+		{ icon: facebookIcon, inputName: 'facebook' },
+		{ icon: discordIcon, inputName: 'discord' },
+		{ icon: instagramIcon, inputName: 'instagram' },
+		{ icon: linkedinIcon, inputName: 'linkedin' },
+		{ icon: tiktokIcon, inputName: 'tiktok' },
+		{ icon: redditIcon, inputName: 'reddit' },
+		{ icon: xIcon, inputName: 'x' },
+	];
+
 	return (
 		<form className="flex flex-col basis-3/4">
 			<input type="hidden" name="locale" value={params.locale} />
@@ -31,62 +44,9 @@ export default function Page({ params }: Props) {
 					<label className="text-md font-extralight">{t('info')}</label>
 				</div>
 				<div className="grid grid-cols-6 gap-6 justify-left items-center pt-10">
-					<div className="avatar justify-self-center">
-						<Image src={facebookIcon} alt="Facebook" />
-					</div>
-					<input
-						type="text"
-						className="input input-ghost input-bordered border-current col-span-2"
-						name="organisation"
-					/>
-					<div className="avatar placeholder justify-self-center">
-						<Image src={discordIcon} alt="Discord" />
-					</div>
-					<input
-						type="text"
-						className="input input-ghost input-bordered border-current col-span-2"
-						name="organisation"
-					/>
-					<div className="avatar placeholder justify-self-center">
-						<Image src={instagramIcon} alt="Instagram" />
-					</div>
-					<input
-						type="text"
-						className="input input-ghost input-bordered border-current col-span-2"
-						name="organisation"
-					/>
-					<div className="avatar placeholder justify-self-center">
-						<Image src={linkedinIcon} alt="LinkedIn" />
-					</div>
-					<input
-						type="text"
-						className="input input-ghost input-bordered border-current col-span-2"
-						name="organisation"
-					/>
-					<div className="avatar placeholder justify-self-center">
-						<Image src={tiktokIcon} alt="TikTok" />
-					</div>
-					<input
-						type="text"
-						className="input input-ghost input-bordered border-current col-span-2"
-						name="organisation"
-					/>
-					<div className="avatar placeholder justify-self-center">
-						<Image src={redditIcon} alt="Reddit" />
-					</div>
-					<input
-						type="text"
-						className="input input-ghost input-bordered border-current col-span-2"
-						name="organisation"
-					/>
-					<div className="avatar placeholder justify-self-center">
-						<Image src={xIcon} alt="X" />
-					</div>
-					<input
-						type="text"
-						className="input input-ghost input-bordered border-current col-span-2"
-						name="organisation"
-					/>
+					{socials.map((social, index) => (
+						<SocialInput key={index} icon={social.icon} inputName={social.inputName} />
+					))}
 				</div>
 			</div>
 			<SettingsFooter
@@ -95,6 +55,12 @@ export default function Page({ params }: Props) {
 				errorText={t('changes')}
 				inputsConfig={{}}
 				cancelButtonText={t('cancel')}
+				dialogText={{
+					title: t_dialog('title'),
+					message: t_dialog('message'),
+					yes: t_dialog('yes'),
+					no: t_dialog('no'),
+				}}
 			/>
 		</form>
 	);

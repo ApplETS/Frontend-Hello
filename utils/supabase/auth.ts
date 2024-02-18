@@ -64,9 +64,6 @@ export const signUp = async (formData: FormData) => {
 		},
 		body: JSON.stringify(userObject),
 	});
-	console.log(response);
-	console.log(data?.session?.access_token);
-	console.log(data?.user?.id);
 
 	return redirect(`/${locale}/dashboard`);
 };

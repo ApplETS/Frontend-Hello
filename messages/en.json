@@ -153,6 +153,12 @@
 			"dark": "Dark",
 			"english": "English",
 			"french": "French"
+		},
+		"dialog": {
+			"title": "Reset your changes",
+			"message": "Are you sure you want to reset your changes?",
+			"yes": "Yes",
+			"no": "No"
 		}
 	}
 }

@@ -13,7 +13,6 @@ export default function Page({ params }: Props) {
 
 	return (
 		<form className="flex flex-col basis-3/4">
-			<input type="hidden" name="locale" value={params.locale} />
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>
 				<div className="grid grid-cols-2 gap-6 justify-left items-center pt-10 w-1/2">

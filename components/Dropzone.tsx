@@ -30,6 +30,21 @@ export default function Dropzone({ title, onFileDrop }: { title: string; onFileD
 		[onFileDrop]
 	);
 
+	const handleInputClick = () => {
+		// Trigger file input click when dropzone is clicked
+		const fileInput = document.getElementById('fileInput');
+		if (fileInput) {
+			fileInput.click();
+		}
+	};
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files && e.target.files[0];
+		if (file) {
+			onFileDrop(file);
+		}
+	};
+
 	return (
 		<div className="col-span-1">
 			<div
@@ -39,7 +54,9 @@ export default function Dropzone({ title, onFileDrop }: { title: string; onFileD
 				onDragOver={handleDragOver}
 				onDragLeave={handleDragLeave}
 				onDrop={handleDrop}
+				onClick={handleInputClick} // Add onClick handler to trigger file input
 			>
+				<input type="file" id="fileInput" className="hidden" accept="image/*" onChange={handleInputChange} />
 				{title}
 			</div>
 		</div>

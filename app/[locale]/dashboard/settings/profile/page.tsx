@@ -20,6 +20,7 @@ type Props = {
 export default async function Page({ searchParams, params }: Props) {
 	unstable_setRequestLocale(params.locale);
 	const t = await getTranslations('Settings.profile-section');
+	const t_dialog = await getTranslations('Settings.dialog');
 	const user = await getUser();
 
 	return (
@@ -41,7 +42,7 @@ export default async function Page({ searchParams, params }: Props) {
 					<label>{t('companyName')}</label>
 					<input
 						type="text"
-						className="input input-ghost input-bordered border-current col-span-2"
+						className="input input-ghost col-span-2"
 						name="organization"
 						defaultValue={user.organisation}
 					/>
@@ -53,13 +54,7 @@ export default async function Page({ searchParams, params }: Props) {
 					/>
 
 					<label>{t('email')}</label>
-					<input
-						type="text"
-						className="input input-ghost input-bordered border-current col-span-2"
-						name="email"
-						required
-						defaultValue={user.email}
-					/>
+					<input type="text" className="input input-ghost col-span-2" name="email" required defaultValue={user.email} />
 
 					<div />
 
@@ -71,7 +66,7 @@ export default async function Page({ searchParams, params }: Props) {
 						customStyle="col-span-2"
 					/>
 					<label className="justify-self-center">{t('website')}</label>
-					<input type="text" className="input input-ghost input-bordered border-current col-span-2" name="website" />
+					<input type="text" className="input input-ghost col-span-2" name="website" />
 
 					<div className="col-span-3" />
 				</div>
@@ -84,6 +79,12 @@ export default async function Page({ searchParams, params }: Props) {
 					filled: ['organization', 'email', 'activity'],
 				}}
 				cancelButtonText={t('cancel')}
+				dialogText={{
+					title: t_dialog('title'),
+					message: t_dialog('message'),
+					yes: t_dialog('yes'),
+					no: t_dialog('no'),
+				}}
 			/>
 		</form>
 	);

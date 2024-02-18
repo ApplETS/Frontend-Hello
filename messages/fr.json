@@ -153,6 +153,12 @@
 			"dark": "Foncé",
 			"english": "Anglais",
 			"french": "Français"
+		},
+		"dialog": {
+			"title": "Réinitialiser les changements?",
+			"message": "Êtes-vous sûr de vouloir réinitialiser les changements? Toutes les modifications non enregistrées seront perdues.",
+			"yes": "Oui",
+			"no": "Non"
 		}
 	}
 }

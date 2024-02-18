@@ -17,6 +17,7 @@ type Props = {
 export default function Page({ searchParams, params }: Props) {
 	unstable_setRequestLocale(params.locale);
 	const t = useTranslations('Settings.password-section');
+	const t_dialog = useTranslations('Settings.dialog');
 	return (
 		<form className="flex flex-col basis-3/4" action={updatePasswordSettings}>
 			{(searchParams.message || searchParams.code) && (
@@ -46,6 +47,12 @@ export default function Page({ searchParams, params }: Props) {
 					match: ['password', 'confirmPassword'],
 				}}
 				cancelButtonText={t('cancel')}
+				dialogText={{
+					title: t('dialog.title'),
+					message: t('dialog.message'),
+					yes: t('dialog.yes'),
+					no: t('dialog.no'),
+				}}
 			/>
 		</form>
 	);

@@ -1,4 +1,5 @@
 import { faPenToSquare, faClone, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { NewsStates } from '@/models/news-states';
 
 interface NewsStatus {
     color: string;
@@ -11,12 +12,12 @@ interface NewsStatuses {
 
 export default {
     newsStatuses: {
-        1: { color: "bg-pink", label: "on-hold" },
-        2: { color: "bg-error", label: "deleted" },
-        4: { color: "bg-purple", label: "refused" },
-        8: { color: "bg-error", label: "approved" },
-        16: { color: "bg-blue", label: "published" },
-        31: { color: "bg-orange", label: "all" }
+        [NewsStates.ON_HOLD]: { color: "bg-pink", label: "on-hold" },
+        [NewsStates.DELETED]: { color: "bg-error", label: "deleted" },
+        [NewsStates.REFUSED]: { color: "bg-purple", label: "refused" },
+        [NewsStates.APPROVED]: { color: "bg-error", label: "approved" },
+        [NewsStates.PUBLISHED]: { color: "bg-blue", label: "published" },
+        [NewsStates.ALL]: { color: "bg-orange", label: "all" }
     } as NewsStatuses,
     menuItems: [
         {

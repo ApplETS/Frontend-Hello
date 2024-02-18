@@ -25,7 +25,6 @@ export default function Checkbox({ inputName, textStyle, text, style }: Checkbox
 		if (e.target.checked) {
 			const email = (document.getElementById('email') as HTMLInputElement).value;
 			localStorage.setItem('loginEmail', email);
-			console.log(email);
 		} else {
 			localStorage.removeItem('loginEmail');
 		}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ActivityArea from "@/components/ActivityArea";
 import AddTag from "@/components/AddTag";
 import Constants from "@/utils/constants";
@@ -25,10 +25,10 @@ interface PublicationDetailsProps {
     tags: string[];
     toolTipText: string;
   }
+  onClose: () => void;
 }
 
-export default function PublicationDetails({ props, modalMode }: PublicationDetailsProps) {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+export default function PublicationDetails({ props, modalMode, onClose }: PublicationDetailsProps) {
   const [title, setTitle] = useState('');
   const [imageSrc, setImageSrc] = useState('');
   const [altText, setAltText] = useState('');
@@ -37,30 +37,26 @@ export default function PublicationDetails({ props, modalMode }: PublicationDeta
   const [eventEndDate, setEventEndDate] = useState('');
   const [publishedDate, setPublishedDate] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [availableTags, setAvailableTags] = useState(props.tags);
   const isDisabled = modalMode === Constants.publicationModalStatus.view ||
                      modalMode === Constants.publicationModalStatus.delete;
   const addTagButtonIsDisabled = selectedTags.length >= 5;
-  const closeModal = () => setIsModalOpen(false);
-  if (!isModalOpen) return null;
 
-  const shuffledTagColors = shuffleArray([
-    'bg-yellow',
-    'bg-teal',
-    'bg-lilac',
+  const handleClose = () => {
+    onClose();
+  };
+
+  const colors = [
     'bg-blue',
     'bg-green',
     'bg-pink',
     'bg-orange',
     'bg-purple',
-  ]);
+  ];
 
-  function shuffleArray(array: string[]) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
+  useEffect(() => {
+    setAvailableTags(props.tags.filter(tag => !selectedTags.includes(tag)));
+  }, [selectedTags, props.tags]);
 
   const handleTagSelect = (tagValue: string) => {
     setSelectedTags((prevTags) => {
@@ -76,15 +72,15 @@ export default function PublicationDetails({ props, modalMode }: PublicationDeta
   };
 
   return (
-    <dialog id="publication_modal" className="modal overflow-y-auto p-4 max-h-[80vh]" open={isModalOpen}>
+    <dialog id="publication_modal" className="modal overflow-y-auto p-4 max-h-[80vh]" open={true}>
       <div className="overflow-y-auto w-full">
-        <div className="modal-box w-3/4 max-w-7xl mx-auto p-5 shadow-2xl">
+        <div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200">
           <div className="flex items-center gap-2 mb-1">
           <h1 className="text-2xl mb-2 block">{props.pageTitle}</h1>
             {
               modalMode === Constants.publicationModalStatus.modify && (
                 <div className="tooltip tooltip-bottom ml-2" data-tip={props.toolTipText}>
-                  <button className="btn btn-circle btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">!</button>
+                  <button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">!</button>
                 </div>
               )
             }
@@ -97,7 +93,7 @@ export default function PublicationDetails({ props, modalMode }: PublicationDeta
                   <label className="block mb-2">{props.title}</label>
                   <input
                     type="text"
-                    value="Compétion AMC" // TODO : {title}
+                    value={title}
                     className="input input-ghost w-full border-base-content"
                     onChange={(e) => setTitle(e.target.value)}
                     disabled={isDisabled}
@@ -105,7 +101,7 @@ export default function PublicationDetails({ props, modalMode }: PublicationDeta
                 </div>
                 <div>
                   <label className="block mb-2">{props.activityArea}</label>
-                  <ActivityArea items={["Clubs scientifiques", "ÉTS", "Service à la Vie Étudiante", "AEETS"]} isDisabled={isDisabled} />
+                  <ActivityArea items={["Clubs scientifiques", "ÉTS", "Service à la Vie Étudiante", "AEETS"]} isDisabled={isDisabled} /> {/*TODO Change with actual data*/}
                 </div>
               </div>
 
@@ -124,7 +120,7 @@ export default function PublicationDetails({ props, modalMode }: PublicationDeta
                   <label className="block mb-2">{props.altText}</label>
                   <input
                     type="text"
-                    value="Bannière de l'AMC" // TODO: {altText}
+                    value={altText}
                     className="input input-ghost w-full border-base-content"
                     onChange={(e) => setAltText(e.target.value)}
                     disabled={isDisabled}
@@ -175,7 +171,7 @@ export default function PublicationDetails({ props, modalMode }: PublicationDeta
             <label className="block mb-2">{props.tagsTitle}</label>
             <div className="flex items-center gap-2 py-2 px-2 border border-base-content rounded-md">
               {selectedTags.map((tag, index) => (
-                <div key={tag} className={`badge ${shuffledTagColors[index % shuffledTagColors.length]} text-black py-4 px-4 flex items-center whitespace-nowrap`}>
+                <div key={tag} className={`badge ${colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}>
                   {tag}
                   <FontAwesomeIcon
                     icon={faXmark}
@@ -184,7 +180,7 @@ export default function PublicationDetails({ props, modalMode }: PublicationDeta
                   />
                 </div>
               ))}
-              {!isDisabled && !addTagButtonIsDisabled && <AddTag titleButton={props.addTag} items={props.tags} onTagSelected={handleTagSelect} />}
+              {!isDisabled && !addTagButtonIsDisabled && <AddTag titleButton={props.addTag} items={availableTags} onTagSelected={handleTagSelect} />}
             </div>
           </div>
 
@@ -198,9 +194,9 @@ export default function PublicationDetails({ props, modalMode }: PublicationDeta
             ></textarea>
           </div>
           
-          {/* Footer */}
+          <div className="divider my-1"></div> 
           <div className="modal-action">
-            <button className="btn btn-secondary text-base-100" onClick={closeModal}>
+            <button className="btn btn-secondary text-base-100" onClick={handleClose}>
               { props.cancelButton }
             </button>
             <button className="btn btn-success text-base-100 ml-3">

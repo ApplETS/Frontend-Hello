@@ -2,7 +2,6 @@
 import ReCAPTCHA from 'react-google-recaptcha';
 import { verifyCaptcha } from '@/utils/google/ServerActions';
 import { useEffect, useRef, useState } from 'react';
-import ConfirmButton from './ConfirmButton';
 
 export default function Captcha() {
 	const recaptchaRef = useRef<ReCAPTCHA>(null);

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef, SetStateAction } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface PublicationDetailsProps {
 	isDisabled: boolean;

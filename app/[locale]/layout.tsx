@@ -3,6 +3,7 @@ import "./globals.css";
 import {ReactNode} from 'react';
 import {getTranslations, unstable_setRequestLocale} from 'next-intl/server';
 import {locales} from '../../config';
+import { NextIntlClientProvider, useMessages } from "next-intl";
 
 type Props = {
   children: ReactNode;
@@ -28,12 +29,13 @@ export default function RootLayout({
   params: {locale}
 }: Props)  {
   unstable_setRequestLocale(locale);
+  const messages = useMessages();
 
   return (
     <html lang={locale} className={GeistSans.className}>
       <body className="bg-base-300 text-base-content">
         <main className="min-h-screen flex flex-col items-center">
-          {children}
+          <NextIntlClientProvider locale={locale} messages={messages}>{children}</NextIntlClientProvider>
         </main>
       </body>
     </html>

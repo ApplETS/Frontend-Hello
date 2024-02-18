@@ -12,5 +12,5 @@ export interface HelloEvent {
 	updatedAt: string;
 	moderator: User | null;
 	organizer: User | null;
-	tags: string[]; // Assuming tags are strings; adjust if necessary
+	tags: string[];
 }

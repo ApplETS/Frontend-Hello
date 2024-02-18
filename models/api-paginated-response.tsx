@@ -6,5 +6,5 @@ export interface ApiPaginatedResponse {
 	totalPages: number;
 	totalRecords: number;
 	data: HelloEvent[];
-	error: any; // Replace 'any' with a more specific error type if possible
+	error: any;
 }

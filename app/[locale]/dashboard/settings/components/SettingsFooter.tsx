@@ -11,14 +11,21 @@ interface SettingsFooterProps {
 		match?: string[];
 		filled?: string[];
 	};
+	cancelButtonText: string;
 }
 
-export default function SettingsFooter({ locale, buttonText, errorText, inputsConfig }: SettingsFooterProps) {
+export default function SettingsFooter({
+	locale,
+	buttonText,
+	errorText,
+	inputsConfig,
+	cancelButtonText,
+}: SettingsFooterProps) {
 	const { hasChanges } = useSettings();
 	return (
 		<footer className="sticky flex justify-end mt-auto gap-2">
 			{hasChanges && <p className="text-error mt-3">{errorText}</p>}
-			<CancelButton locale={locale} />
+			<CancelButton locale={locale} buttonText={cancelButtonText} />
 			<ConfirmButton
 				buttonText={buttonText}
 				style={'btn btn-primary rounded-md text-base w-1/5 mt-auto'}

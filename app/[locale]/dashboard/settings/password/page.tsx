@@ -45,6 +45,7 @@ export default function Page({ searchParams, params }: Props) {
 				inputsConfig={{
 					match: ['password', 'confirmPassword'],
 				}}
+				cancelButtonText={t('cancel')}
 			/>
 		</form>
 	);

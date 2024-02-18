@@ -83,6 +83,7 @@ export default async function Page({ searchParams, params }: Props) {
 				inputsConfig={{
 					filled: ['organization', 'email', 'activity'],
 				}}
+				cancelButtonText={t('cancel')}
 			/>
 		</form>
 	);

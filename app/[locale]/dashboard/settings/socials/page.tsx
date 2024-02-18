@@ -89,7 +89,13 @@ export default function Page({ params }: Props) {
 					/>
 				</div>
 			</div>
-			<SettingsFooter locale={params.locale} buttonText={t('save')} errorText={t('changes')} inputsConfig={{}} />
+			<SettingsFooter
+				locale={params.locale}
+				buttonText={t('save')}
+				errorText={t('changes')}
+				inputsConfig={{}}
+				cancelButtonText={t('cancel')}
+			/>
 		</form>
 	);
 }

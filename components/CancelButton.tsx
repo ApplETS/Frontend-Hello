@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { useState } from 'react';
 import ConfirmDialog from './ConfirmDialog';
 
-export default function CancelButton({ locale }: { locale: string }) {
+export default function CancelButton({ locale, buttonText }: { locale: string; buttonText: string }) {
 	const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 	return (
 		<>
@@ -12,7 +12,7 @@ export default function CancelButton({ locale }: { locale: string }) {
 				className="btn rounded-md text-base-content w-1/5 mt-auto ml-2"
 				onClick={() => setShowConfirmDialog(true)}
 			>
-				Annuler
+				{buttonText}
 			</button>
 			{showConfirmDialog && (
 				<ConfirmDialog

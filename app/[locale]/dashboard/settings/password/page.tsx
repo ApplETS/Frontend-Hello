@@ -48,10 +48,10 @@ export default function Page({ searchParams, params }: Props) {
 				}}
 				cancelButtonText={t('cancel')}
 				dialogText={{
-					title: t('dialog.title'),
-					message: t('dialog.message'),
-					yes: t('dialog.yes'),
-					no: t('dialog.no'),
+					title: t_dialog('title'),
+					message: t_dialog('message'),
+					yes: t_dialog('yes'),
+					no: t_dialog('no'),
 				}}
 			/>
 		</form>

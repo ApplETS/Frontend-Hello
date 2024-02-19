@@ -53,7 +53,9 @@ export default function Page({ params }: Props) {
 				locale={params.locale}
 				buttonText={t('save')}
 				errorText={t('changes')}
-				inputsConfig={{}}
+				inputsConfig={{
+					filled: ['facebook', 'discord', 'instagram', 'linkedin', 'tiktok', 'reddit', 'x'],
+				}}
 				cancelButtonText={t('cancel')}
 				dialogText={{
 					title: t_dialog('title'),

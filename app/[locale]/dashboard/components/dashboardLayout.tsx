@@ -21,7 +21,7 @@ export default function DashboardLayout({children, pages}: Props) {
   const activePage = pathname.split('/').pop() ?? "dashboard";
 
   return (
-    <div className="w-screen h-screen bg-base-100">
+    <>
       <Navbar
         activePage={activePage}
         pages={pages}
@@ -32,6 +32,6 @@ export default function DashboardLayout({children, pages}: Props) {
         </div>
         {children}
       </div>
-    </div>
+    </>
   );
 }

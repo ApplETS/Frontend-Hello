@@ -24,7 +24,7 @@ export default async function Layout({ children, params: { locale } }: Props) {
 		publications: {
 			title: t('publications'),
 			link: `/${locale}/dashboard/publications`,
-			isVisible: true,
+			isVisible: user.type == 'Organizer',
 		},
 		approbations: {
 			title: t('approbations'),

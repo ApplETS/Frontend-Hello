@@ -12,14 +12,14 @@ export default function PasswordInput() {
 		setPasswordShown(!passwordShown);
 	};
 	return (
-		<div className='relative flex items-center justify-center'>
+		<div className="relative flex items-center justify-center">
 			<input
-				className={`'text-xs input input-ghost input-bordered border-current px-4 py-2 flex-1`}
+				className={`'text-xs input input-ghost px-4 py-2 flex-1`}
 				type={passwordShown ? 'text' : 'password'}
-				name='password'
+				name="password"
 				required
 			/>
-			<button onClick={togglePasswordVisibility} className='absolute right-0 mr-3' type='button'>
+			<button onClick={togglePasswordVisibility} className="absolute right-0 mr-3" type="button">
 				{passwordShown ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
 			</button>
 		</div>

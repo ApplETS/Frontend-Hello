@@ -8,11 +8,11 @@ import en_light from "@/public/ETS/light/en.png";
 
 interface Props {
   lang: string;
-  isDarkTheme: boolean;
+  isLightTheme: boolean;
 }
 
 export default function ETSImage(props: Props) {
-  const theme = props.isDarkTheme ? "dark" : "light";
+  const theme = !props.isLightTheme ? "dark" : "light";
 
   const images: {
     dark: Record<string, StaticImageData>;

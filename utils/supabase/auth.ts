@@ -1,6 +1,9 @@
 import { headers, cookies } from 'next/headers';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
+import { api } from '@/config';
+import { updateUserProfile } from '@/lib/update-profile';
+import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 
 export const signIn = async (formData: FormData) => {
 	'use server';
@@ -33,17 +36,36 @@ export const signUp = async (formData: FormData) => {
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
 
-	const { error } = await supabase.auth.signUp({
+	const { data, error } = await supabase.auth.signUp({
 		email,
 		password,
 		options: {
 			emailRedirectTo: `${origin}/${locale}/login?code=200&type=success`,
+			data: {
+				role: 'organizer',
+			},
 		},
 	});
 
 	if (error) {
 		return redirect(`/${locale}/signup?code=${error.status}&type=error`);
 	}
+
+	const userObject = {
+		id: data?.user?.id,
+		email: email,
+		organisation: formData.get('name') as string,
+		activityArea: formData.get('activity') as string,
+	};
+
+	const response = await fetch(`${api}/user/organizer`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + data?.session?.access_token,
+		},
+		body: JSON.stringify(userObject),
+	});
 
 	return redirect(`/${locale}/dashboard`);
 };
@@ -62,7 +84,7 @@ export const forgotPassword = async (formData: FormData) => {
 		return redirect(`/${locale}/forgotpassword?code=${error.status}&type=error`);
 	}
 
-	return redirect(`/${locale}/updatepassword?message=Veuillez consulter votre email&email=${email}&type=success`);
+	return redirect(`/${locale}/updatepassword?message=Veuillez consulter votre email&email=${email}&type=warning`);
 };
 
 export const updatePassword = async (formData: FormData) => {
@@ -96,10 +118,64 @@ export const updatePassword = async (formData: FormData) => {
 	return redirect(`/${locale}/dashboard`);
 };
 
+export const updatePasswordSettings = async (formData: FormData) => {
+	'use server';
+
+	const email = formData.get('email') as string;
+	const password = formData.get('password') as string;
+	const confirmPassword = formData.get('confirmPassword') as string;
+	const locale = formData.get('locale') as string;
+	const cookieStore = cookies();
+	const supabase = createClient(cookieStore);
+
+	if (password !== confirmPassword) {
+		return redirect(`/${locale}/dashboard/settings/password?code=400&type=error`);
+	}
+
+	const { error } = await supabase.auth.updateUser({
+		password: password,
+	});
+
+	if (error) {
+		console.log(error);
+		return redirect(`/${locale}/dashboard/settings/password?code=${error.status}&type=error`);
+	}
+
+	return redirect(`/${locale}/dashboard/settings/password?code=200&type=success`);
+};
+
+export const signOut = async (formData: FormData) => {
+	'use server';
+
+	const redirectLink = formData.get('redirectLink') as string;
+	const cookieStore = cookies();
+	const supabase = createClient(cookieStore);
+	await supabase.auth.signOut();
+
+	return redirect(redirectLink);
+};
+
+export const updateProfile = async (formData: FormData) => {
+	'use server';
+
+	const locale = formData.get('locale') as string;
+	const userId = formData.get('userId') as string;
+
+	const userObject = await getAuthenticatedUser();
+
+	userObject.email = formData.get('email') as string;
+	userObject.organisation = formData.get('organization') as string;
+	userObject.activityArea = formData.get('activity') as string;
+
+	await updateUserProfile(userObject);
+
+	return redirect(`/${locale}/dashboard/settings/profile?code=200&type=success`);
+};
+
 export const getSession = async () => {
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
-	const { data, error } = await supabase.auth.getSession()
+	const { data, error } = await supabase.auth.getSession();
 
 	if (error) {
 		console.log('Error getting session', error);

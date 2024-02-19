@@ -2,7 +2,6 @@
 import ReCAPTCHA from 'react-google-recaptcha';
 import { verifyCaptcha } from '@/utils/google/ServerActions';
 import { useEffect, useRef, useState } from 'react';
-import ConfirmButton from './ConfirmButton';
 
 export default function Captcha() {
 	const recaptchaRef = useRef<ReCAPTCHA>(null);
@@ -44,7 +43,7 @@ export default function Captcha() {
 				sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
 				ref={recaptchaRef}
 				onChange={handleCaptchaSubmission}
-				className='pb-8'
+				className="pb-8"
 			/>
 			<button
 				className={`btn text-base ${!isVerified || !isEnabled ? 'btn-disabled' : 'btn-primary'}  py-2 mb-4 w-[60%]`}

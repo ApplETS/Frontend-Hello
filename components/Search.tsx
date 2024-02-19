@@ -17,7 +17,7 @@ export default function Search({ search, onSearchTermChange }: Props) {
 		setSearchTerm(newSearchTerm);
 		if (onSearchTermChange) onSearchTermChange(newSearchTerm);
 	};
-
+  
 	return (
 		<div className="relative w-full max-w-lg">
 			<input

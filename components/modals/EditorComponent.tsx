@@ -9,6 +9,9 @@ import {
   markdownShortcutPlugin,
   MDXEditor,
   type MDXEditorMethods,
+  toolbarPlugin,
+  UndoRedo,
+  BoldItalicUnderlineToggles,
 } from '@mdxeditor/editor'
 
 interface EditorProps {
@@ -23,7 +26,16 @@ const Editor: FC<EditorProps> = ({ markdown, editorRef }) => {
       listsPlugin(),
       quotePlugin(),
       thematicBreakPlugin(),
-      markdownShortcutPlugin()
+      markdownShortcutPlugin(),
+      toolbarPlugin({
+        toolbarContents: () => (
+          <>
+            {' '}
+            <UndoRedo />
+            <BoldItalicUnderlineToggles />
+          </>
+        )
+      })
     ]}
     ref={editorRef} markdown={markdown}  />
 }

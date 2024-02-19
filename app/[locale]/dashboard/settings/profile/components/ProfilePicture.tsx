@@ -34,9 +34,9 @@ export default function ProfilePicture({ dropzoneText, buttonText }: { dropzoneT
 
 	return (
 		<>
-			<div className="avatar placeholder" onClick={handleDropzoneClick}>
+			<div className="avatar placeholder w-36 h-36" onClick={handleDropzoneClick}>
 				{image ? (
-					<img src={image} className="rounded-full w-36 h-36" alt="Dropped" />
+					<img src={image} className="rounded-full" alt="Dropped" />
 				) : (
 					<div className="bg-neutral text-neutral-content rounded-full w-36">
 						<span className="text-3xl">D</span>

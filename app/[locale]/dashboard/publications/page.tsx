@@ -71,7 +71,7 @@ export default function Publications({ params: { locale } }: Props) {
   });
 
   return (
-    <div className="h-screen">
+    <div className="flex flex-col h-screen">
       <div className="mb-4 flex justify-between items-center space-x-4">
         <div className="flex items-center space-x-4 flex-1">
           <Search search={t("search")} />

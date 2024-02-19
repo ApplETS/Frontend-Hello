@@ -77,9 +77,9 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
   };
 
   return (
-    <dialog id="publication_modal" className="modal overflow-y-auto p-4 max-h-[80vh]" open={true}>
+    <dialog id="publication_modal" className="modal overflow-y-auto p-4" open={true}>
       <div className="overflow-y-auto w-full">
-        <div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200">
+        <div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200 max-h-[80vh]">
           <div className="flex items-center gap-2">
           <h1 className="text-2xl block">{props.pageTitle}</h1>
             {

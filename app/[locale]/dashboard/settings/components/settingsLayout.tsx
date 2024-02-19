@@ -13,6 +13,7 @@ interface Props {
 	pages: {
 		[key: string]: Page;
 	};
+	sectionTitle: string;
 }
 
 export interface Page {
@@ -21,7 +22,7 @@ export interface Page {
 	icon: IconDefinition;
 }
 
-export default function SettingsLayout({ children, locale, pages }: Props) {
+export default function SettingsLayout({ children, locale, pages, sectionTitle }: Props) {
 	const pathname = usePathname();
 	const activePage = pathname.split('/').pop() ?? 'profile';
 	const { hasChanges } = useSettings();
@@ -29,7 +30,7 @@ export default function SettingsLayout({ children, locale, pages }: Props) {
 	return (
 		<div className="flex flex-row h-screen gap-8">
 			<div className="flex flex-col gap-2 basis-1/5">
-				<p className="text-left text-2xl pb-10">Settings</p>
+				<p className="text-left text-2xl pb-10">{sectionTitle}</p>
 				{Object.entries(pages).map(([pageKey, pageValue]) => (
 					<Link
 						key={pageKey}

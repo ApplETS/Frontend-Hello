@@ -2,6 +2,8 @@ import { headers, cookies } from 'next/headers';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 import { api } from '@/config';
+import { updateUserProfile } from '@/lib/update-profile';
+import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 
 export const signIn = async (formData: FormData) => {
 	'use server';
@@ -64,9 +66,6 @@ export const signUp = async (formData: FormData) => {
 		},
 		body: JSON.stringify(userObject),
 	});
-	console.log(response);
-	console.log(data?.session?.access_token);
-	console.log(data?.user?.id);
 
 	return redirect(`/${locale}/dashboard`);
 };
@@ -160,40 +159,15 @@ export const updateProfile = async (formData: FormData) => {
 	'use server';
 
 	const locale = formData.get('locale') as string;
-	const cookieStore = cookies();
-	const supabase = createClient(cookieStore);
+	const userId = formData.get('userId') as string;
 
-	const { data, error } = await supabase.auth.getUser();
+	const userObject = await getAuthenticatedUser();
 
-	if (error) {
-		return redirect(`/${locale}/dashboard/settings/profile?code=${error.status}&type=error`);
-	}
+	userObject.email = formData.get('email') as string;
+	userObject.organisation = formData.get('organization') as string;
+	userObject.activityArea = formData.get('activity') as string;
 
-	const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-
-	if (sessionError) {
-		return redirect(`/${locale}/dashboard/settings/profile?code=${sessionError.status}&type=error`);
-	}
-
-	const userObject = {
-		id: data.user?.id,
-		email: formData.get('email') as string,
-		organisation: formData.get('organization') as string,
-		activityArea: formData.get('activity') as string,
-	};
-
-	const response = await fetch(`${api}/user`, {
-		method: 'PATCH',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + sessionData.session?.access_token,
-		},
-		body: JSON.stringify(userObject),
-	});
-
-	if (!response.ok) {
-		return redirect(`/${locale}/dashboard/settings/profile?code=${response.status}&type=error`);
-	}
+	await updateUserProfile(userObject);
 
 	return redirect(`/${locale}/dashboard/settings/profile?code=200&type=success`);
 };

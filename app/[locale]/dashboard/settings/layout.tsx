@@ -41,7 +41,7 @@ export default function Layout({ children, params: { locale } }: Props) {
 
 	return (
 		<SettingsProvider>
-			<SettingsLayout locale={locale} pages={pages}>
+			<SettingsLayout locale={locale} pages={pages} sectionTitle={t('title')}>
 				{children}
 			</SettingsLayout>
 		</SettingsProvider>

@@ -1,9 +1,10 @@
-export type User = {
+export interface User {
 	id: string;
+	name: string | null;
 	email: string;
-	organisation: string;
-	activityArea: string;
+	type: string;
+	organisation: string | null;
+	activityArea: string | null;
 	createdAt: string;
 	updatedAt: string;
-	deletedAt: string | null;
-};
+}

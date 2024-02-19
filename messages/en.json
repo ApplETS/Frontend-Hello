@@ -1,6 +1,7 @@
 {
 	"LocaleLayout": {
-		"title": "Frontend-PS"
+		"title": "Frontend-PS",
+		"defaultError": "An error occurred"
 	},
 	"Dashboard": {
 		"news": "News",
@@ -114,7 +115,8 @@
 			"title": "Socials",
 			"info": "Your socials will be displayed on your profile page, which is accessible by other users. We will not share nor use your socials for any other purpose.",
 			"save": "Save",
-			"changes": "Changes detected, save to update"
+			"changes": "Changes detected, save to update",
+			"cancel": "Cancel"
 		},
 		"profile-section": {
 			"title": "Profile",
@@ -131,7 +133,8 @@
 			"website": "Website",
 			"save": "Save",
 			"200": "Profile updated",
-			"changes": "Changes detected, save to update"
+			"changes": "Changes detected, save to update",
+			"cancel": "Cancel"
 		},
 		"password-section": {
 			"title": "Password",
@@ -139,7 +142,8 @@
 			"confirmNewPassword": "Confirm new password",
 			"save": "Save",
 			"200": "Password saved",
-			"changes": "Changes detected, save to update"
+			"changes": "Changes detected, save to update",
+			"cancel": "Cancel"
 		},
 		"display-section": {
 			"title": "Display",
@@ -150,6 +154,12 @@
 			"dark": "Dark",
 			"english": "English",
 			"french": "French"
+		},
+		"dialog": {
+			"title": "Reset your changes",
+			"message": "Are you sure you want to reset your changes?",
+			"yes": "Yes",
+			"no": "No"
 		}
 	}
 }

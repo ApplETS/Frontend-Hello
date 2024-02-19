@@ -34,7 +34,7 @@ export default function UpdatePassword({
 							Token
 						</label>
 						<input
-							className="input input-ghost input-bordered border-current bg-inherit mb-4"
+							className="input input-ghost bg-inherit mb-4"
 							name="token"
 							placeholder="Token reçu par courriel"
 							required
@@ -43,7 +43,7 @@ export default function UpdatePassword({
 							Courriel
 						</label>
 						<input
-							className="input input-ghost input-bordered border-current bg-inherit mb-4"
+							className="input input-ghost bg-inherit mb-4"
 							name="email"
 							defaultValue={searchParams.email}
 							required

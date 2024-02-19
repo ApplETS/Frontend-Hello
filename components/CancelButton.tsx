@@ -3,7 +3,18 @@ import { redirect } from 'next/navigation';
 import { useState } from 'react';
 import ConfirmDialog from './ConfirmDialog';
 
-export default function CancelButton({ locale }: { locale: string }) {
+type Props = {
+	locale: string;
+	buttonText: string;
+	dialogText: {
+		title: string;
+		message: string;
+		yes: string;
+		no: string;
+	};
+};
+
+export default function CancelButton({ locale, buttonText, dialogText }: Props) {
 	const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 	return (
 		<>
@@ -12,12 +23,14 @@ export default function CancelButton({ locale }: { locale: string }) {
 				className="btn rounded-md text-base-content w-1/5 mt-auto ml-2"
 				onClick={() => setShowConfirmDialog(true)}
 			>
-				Annuler
+				{buttonText}
 			</button>
 			{showConfirmDialog && (
 				<ConfirmDialog
-					title="Reset Changes"
-					message="Are you sure you want to reset all changes made to the fields of the page?"
+					title={dialogText.title}
+					message={dialogText.message}
+					yesMessage={dialogText.yes}
+					noMessage={dialogText.no}
 					onConfirm={() => {
 						setShowConfirmDialog(false);
 						window.location.reload();

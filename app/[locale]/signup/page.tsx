@@ -37,7 +37,7 @@ export default function SignUp({
 							<label className="text-md mb-2" htmlFor="name">
 								{t('name')}
 							</label>
-							<input className="input input-ghost input-bordered border-current" name="name" required />
+							<input className="input input-ghost" name="name" required />
 						</div>
 						<div className="flex flex-col col-span-1">
 							<label className="text-md mb-2" htmlFor="lastName">
@@ -57,7 +57,7 @@ export default function SignUp({
 							<label className="text-md mb-2" htmlFor="email">
 								{t('email')}
 							</label>
-							<input className="input input-ghost input-bordered border-current" type="email" name="email" required />
+							<input className="input input-ghost" type="email" name="email" required />
 						</div>
 						<div className="flex flex-col col-span-1">
 							<label className="text-md mb-2" htmlFor="password">

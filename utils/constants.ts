@@ -1,43 +1,24 @@
 import { faPenToSquare, faClone, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { NewsStates } from '@/models/news-states';
+
+interface NewsStatus {
+    color: string;
+    label: string;
+}
+  
+interface NewsStatuses {
+    [key: number]: NewsStatus;
+}
 
 export default {
-    newsStatuses: [
-        {
-            id: 1,
-            color: "bg-orange",
-            label: "all",
-        },
-        {
-            id: 2,
-            color: "bg-blue",
-            label: "published",
-        },
-        {
-            id: 3,
-            color: "bg-green",
-            label: "draft",
-        },
-        {
-            id: 4,
-            color: "bg-pink",
-            label: "on-hold",
-        },
-        {
-            id: 5,
-            color: "bg-purple",
-            label: "refused",
-        },
-        {
-            id: 6,
-            color: "bg-error",
-            label: "approved",
-        },
-        {
-            id: 7,
-            color: "bg-error",
-            label: "deleted",
-        }
-    ],
+    newsStatuses: {
+        [NewsStates.ON_HOLD]: { color: "bg-pink", label: "on-hold" },
+        [NewsStates.DELETED]: { color: "bg-error", label: "deleted" },
+        [NewsStates.REFUSED]: { color: "bg-purple", label: "refused" },
+        [NewsStates.APPROVED]: { color: "bg-error", label: "approved" },
+        [NewsStates.PUBLISHED]: { color: "bg-blue", label: "published" },
+        [NewsStates.ALL]: { color: "bg-orange", label: "all" }
+    } as NewsStatuses,
     menuItems: [
         {
             id: 1,

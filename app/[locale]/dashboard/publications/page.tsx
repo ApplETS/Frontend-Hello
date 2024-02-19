@@ -83,7 +83,7 @@ export default function Publications({ params: { locale } }: Props) {
           <PostButton
             text={t("create-new-post")}
             props={{
-              pageTitle: t("modal.page-title"),
+              pageTitle: t("modal.create-page-title"),
               title: t("modal.title"),
               activityArea: t("modal.activity-area"),
               altText: t("modal.alt-text"),

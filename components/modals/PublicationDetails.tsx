@@ -46,6 +46,11 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
     onClose();
   };
 
+  const submit = () => {
+    // TODO
+    onClose();
+  };
+
   const colors = [
     'bg-blue',
     'bg-green',
@@ -115,9 +120,9 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
                   <div>
                     <div>
                       <label className="block">{props.activityArea}</label>
-                      <ActivityArea items={["Clubs scientifiques", "ÉTS", "Service à la Vie Étudiante", "AEETS"]} isDisabled={isDisabled} /> {/*TODO Change with actual data*/}
+                      <ActivityArea items={["Clubs scientifiques", "ÉTS", "Service à la Vie Étudiante", "AEETS"]} isDisabled={isDisabled} />
                     </div>
-                    <div>
+                    <div className="mt-3">
                       <label className="block">{props.altText}</label>
                       <input
                         type="text"
@@ -140,9 +145,7 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
                     />
                   </div>
                   <div className="mb-3">
-                    <div className="flex items-center gap-3">
-                      <label className="block">{props.eventEndDate}</label>
-                    </div>
+                    <label className="block">{props.eventEndDate}</label>
                     <input
                       type="datetime-local"
                       value={eventEndDate}
@@ -153,7 +156,7 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
                   </div>
                 </div>
               </div>
-            
+
               <div className="flex-1 ml-4 mt-2 h-64 rounded-xl bg-primary overflow-hidden">
                 <input
                   type="file"
@@ -166,6 +169,7 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
               </div>
             </div>
           </div>
+
 
           <div className="mb-3">
             <label className="block">{props.tagsTitle}</label>
@@ -199,7 +203,7 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
             <button className="btn btn-secondary text-base-100" onClick={handleClose}>
               { props.cancelButton }
             </button>
-            <button className="btn btn-success text-base-100 ml-3">
+            <button className="btn btn-success text-base-100 ml-3" onClick={submit}>
               { props.submitButton }
             </button>
           </div>

@@ -1,17 +1,12 @@
-import Dropzone from '@/components/Dropzone';
 import Toast from '@/components/Toast';
 import { AlertType } from '@/components/Alert';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { useTranslations } from 'next-intl';
 import Dropdown from '@/components/SignUpActivity';
 import { updateProfile } from '@/utils/supabase/auth';
-import { getUser } from '@/lib/getUser';
-import ConfirmButton from '@/components/ConfirmButton';
-import CancelButton from '@/components/CancelButton';
-import { useSettings } from '@/utils/provider/SettingsProvider';
 import SettingsFooter from '../components/SettingsFooter';
 import ProfilePicture from './components/ProfilePicture';
 import { getTranslationsWithDefault } from '@/utils/traductions/trads';
+import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 
 type Props = {
 	searchParams: { message: string; type: string; code: string };
@@ -23,7 +18,7 @@ export default async function Page({ searchParams, params }: Props) {
 	const t = await getTranslations('Settings.profile-section');
 	const t_default = await getTranslationsWithDefault('Settings.profile-section');
 	const t_dialog = await getTranslations('Settings.dialog');
-	const user = await getUser();
+	const user = await getAuthenticatedUser();
 
 	return (
 		<form className="flex flex-col basis-3/4" action={updateProfile}>
@@ -46,7 +41,7 @@ export default async function Page({ searchParams, params }: Props) {
 						type="text"
 						className="input input-ghost col-span-2"
 						name="organization"
-						defaultValue={user.organisation}
+						defaultValue={user.organisation ?? ''}
 					/>
 
 					<label className="justify-self-center">{t('description')}</label>
@@ -64,7 +59,7 @@ export default async function Page({ searchParams, params }: Props) {
 					<Dropdown
 						items={[{ title: t('scientificClub') }, { title: t('ets') }, { title: t('sve') }, { title: t('aeets') }]}
 						inputName="activity"
-						defaultItem={{ title: user.activityArea }}
+						defaultItem={{ title: user.activityArea ?? '' }}
 						customStyle="col-span-2"
 					/>
 					<label className="justify-self-center">{t('website')}</label>

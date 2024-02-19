@@ -1,11 +1,11 @@
-import { getSession } from "@/utils/supabase/auth";
+import { getSession } from '@/utils/supabase/auth';
 
 export enum Method {
-	GET = "GET",
-	POST = "POST",
-	PUT = "PUT",
-	DELETE = "DELETE",
-	PATCH = "PATCH",
+	GET = 'GET',
+	POST = 'POST',
+	PUT = 'PUT',
+	DELETE = 'DELETE',
+	PATCH = 'PATCH',
 }
 
 export async function fetchWithSession(
@@ -20,12 +20,13 @@ export async function fetchWithSession(
 	const fetchOptions: RequestInit = {
 		method: method,
 		headers: {
-			"Content-Type": "application/json",
-			Authorization: "Bearer " + session?.access_token,
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + session?.access_token,
 		},
 	};
 
-	if (body && method.toUpperCase() !== "GET") {
+	if (body && method.toUpperCase() !== 'GET') {
+		console.log(body);
 		fetchOptions.body = JSON.stringify(body);
 	}
 

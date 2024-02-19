@@ -76,6 +76,14 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
     setSelectedTags((prevTags) => prevTags.filter((tag) => tag !== tagValue));
   };
 
+  const handleFileDrop = (file: File) => {
+		const reader = new FileReader();
+		reader.onloadend = () => {
+			setImageSrc(reader.result as string);
+		};
+		reader.readAsDataURL(file);
+	};
+
   return (
     <dialog id="publication_modal" className="modal overflow-y-auto p-4 max-h-[80vh]" open={true}>
       <div className="overflow-y-auto w-full">
@@ -157,14 +165,21 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
                 </div>
               </div>
 
-              <div className="flex-1 ml-4 mt-2 h-64 rounded-xl bg-primary overflow-hidden">
+              <div className="flex-1 ml-4 h-64 overflow-hidden rounded-lg">
                 <input
                   type="file"
-                  className="file-input file-input-bordered file-input-accent w-full rounded-sm"
+                  className="file-input file-input-bordered file-input-accent w-full"
                   disabled={isDisabled}
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0) {
+                      handleFileDrop(e.target.files[0]);
+                    }
+                  }}
                 />
-                {imageSrc && (
-                  <img src={imageSrc} alt={altText} className="w-full h-full object-cover"/>
+                {imageSrc ? (
+                  <img src={imageSrc} alt={altText} className="w-full h-full object-cover rounded-lg mt-2" />
+                ) : (
+                  <div className="w-full h-full bg-base-100 rounded-lg mt-2"></div>
                 )}
               </div>
             </div>

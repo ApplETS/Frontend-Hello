@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faSignOut } from '@fortawesome/free-solid-svg-icons';
-import { getUser } from '@/lib/getUser';
 import { User } from '@/models/user';
 
 interface Props {
@@ -33,7 +32,7 @@ export default function Navbar({ activePage, pages, signOut, user }: Props) {
 							<Link
 								key={pageKey}
 								className={`btn min-h-min h-min py-2 px-4 rounded-lg ${
-									activePage === pageKey ? "btn-primary " : "btn-ghost"
+									activePage === pageKey ? 'btn-primary ' : 'btn-ghost'
 								}`}
 								href={pageValue.link}
 							>

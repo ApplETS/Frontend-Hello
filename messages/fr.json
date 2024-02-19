@@ -1,6 +1,7 @@
 {
 	"LocaleLayout": {
-		"title": "Frontend-PS"
+		"title": "Frontend-PS",
+		"defaultError": "Une erreur est survenue"
 	},
 	"Dashboard": {
 		"news": "Annonces",

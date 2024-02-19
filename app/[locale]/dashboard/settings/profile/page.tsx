@@ -11,6 +11,7 @@ import CancelButton from '@/components/CancelButton';
 import { useSettings } from '@/utils/provider/SettingsProvider';
 import SettingsFooter from '../components/SettingsFooter';
 import ProfilePicture from './components/ProfilePicture';
+import { getTranslationsWithDefault } from '@/utils/traductions/trads';
 
 type Props = {
 	searchParams: { message: string; type: string; code: string };
@@ -20,6 +21,7 @@ type Props = {
 export default async function Page({ searchParams, params }: Props) {
 	unstable_setRequestLocale(params.locale);
 	const t = await getTranslations('Settings.profile-section');
+	const t_default = await getTranslationsWithDefault('Settings.profile-section');
 	const t_dialog = await getTranslations('Settings.dialog');
 	const user = await getUser();
 
@@ -28,7 +30,7 @@ export default async function Page({ searchParams, params }: Props) {
 			{(searchParams.message || searchParams.code) && (
 				<>
 					<Toast
-						message={searchParams.message ?? t(searchParams.code)}
+						message={searchParams.message ?? t_default(searchParams.code)}
 						alertType={AlertType[searchParams.type as keyof typeof AlertType] as AlertType}
 					/>
 				</>

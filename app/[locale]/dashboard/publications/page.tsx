@@ -79,26 +79,28 @@ export default function Publications({ params: { locale } }: Props) {
             <Dropdown title={t("filters.all")} items={filters} />
           </div>
         </div>
-        <PostButton
-          text={t("create-new-post")}
-          props={{
-            pageTitle: t("modal.page-title"),
-            title: t("modal.title"),
-            activityArea: t("modal.activity-area"),
-            altText: t("modal.alt-text"),
-            publishedDate: t("modal.published-date"),
-            eventStartDate: t("modal.event-start-date"),
-            eventEndDate: t("modal.event-end-date"),
-            tagsTitle: t("modal.tags-title"),
-            addTag: t("modal.add-tag"),
-            content: t("modal.content"),
-            cancelButton: t("modal.cancel-button"),
-            submitButton: t("modal.submit-button"),
-            tags: ["Apprentissage", "Atelier", "Bourses", "Carrière", "Programmation", "Développement mobile"], // TODO: Replace with actual tags
-            toolTipText: t("modal.tool-tip-text"),
-          }}
-          modalMode={Constants.publicationModalStatus.modify}
-        />
+        <div className="right-0">
+          <PostButton
+            text={t("create-new-post")}
+            props={{
+              pageTitle: t("modal.page-title"),
+              title: t("modal.title"),
+              activityArea: t("modal.activity-area"),
+              altText: t("modal.alt-text"),
+              publishedDate: t("modal.published-date"),
+              eventStartDate: t("modal.event-start-date"),
+              eventEndDate: t("modal.event-end-date"),
+              tagsTitle: t("modal.tags-title"),
+              addTag: t("modal.add-tag"),
+              content: t("modal.content"),
+              cancelButton: t("modal.cancel-button"),
+              submitButton: t("modal.submit-button"),
+              tags: ["Apprentissage", "Atelier", "Bourses", "Carrière", "Programmation", "Développement mobile"], // TODO: Replace with actual tags
+              toolTipText: t("modal.tool-tip-text"),
+            }}
+            modalMode={Constants.publicationModalStatus.modify}
+          />
+        </div>
       </div>
       <table className="table w-full rounded-lg">
         <thead className="bg-base-300 rounded-t-lg h-17">

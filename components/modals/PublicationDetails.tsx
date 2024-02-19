@@ -75,8 +75,8 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
     <dialog id="publication_modal" className="modal overflow-y-auto p-4 max-h-[80vh]" open={true}>
       <div className="overflow-y-auto w-full">
         <div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200">
-          <div className="flex items-center gap-2 mb-1">
-          <h1 className="text-2xl mb-2 block">{props.pageTitle}</h1>
+          <div className="flex items-center gap-2">
+          <h1 className="text-2xl block">{props.pageTitle}</h1>
             {
               modalMode === Constants.publicationModalStatus.modify && (
                 <div className="tooltip tooltip-bottom ml-2" data-tip={props.toolTipText}>
@@ -86,78 +86,78 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
             }
           </div>
 
-          <div className="flex">
-            <div className="flex-1">
-              <div className="mb-3 grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block mb-2">{props.title}</label>
-                  <input
-                    type="text"
-                    value={title}
-                    className="input input-ghost w-full border-base-content"
-                    onChange={(e) => setTitle(e.target.value)}
-                    disabled={isDisabled}
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2">{props.activityArea}</label>
-                  <ActivityArea items={["Clubs scientifiques", "ÉTS", "Service à la Vie Étudiante", "AEETS"]} isDisabled={isDisabled} /> {/*TODO Change with actual data*/}
-                </div>
-              </div>
-
-              <div className="mb-3 grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block mb-2">{props.publishedDate}</label>
-                  <input
-                    type="date"
-                    value={publishedDate}
-                    className="input input-ghost w-full border-base-content"
-                    onChange={(e) => setPublishedDate(e.target.value)}
-                    disabled={isDisabled}
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2">{props.altText}</label>
-                  <input
-                    type="text"
-                    value={altText}
-                    className="input input-ghost w-full border-base-content"
-                    onChange={(e) => setAltText(e.target.value)}
-                    disabled={isDisabled}
-                  />
-                </div>
-              </div>
-
-              <div className="mb-3 grid grid-cols-2 gap-4">
-                <div className="mt-1">
-                  <label className="block">{props.eventStartDate}</label>
-                  <input
-                    type="datetime-local"
-                    value={eventStartDate}
-                    className="input input-ghost w-full border-base-content"
-                    onChange={(e) => setEventStartDate(e.target.value)}
-                    disabled={isDisabled}
-                  />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <label className="block">{props.eventEndDate}</label>
+          <div className="flex mb-3">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="col-span-2">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <div>
+                      <label className="block">{props.title}</label>
+                      <input
+                        type="text"
+                        value={title}
+                        className="input input-ghost w-full border-base-content"
+                        onChange={(e) => setTitle(e.target.value)}
+                        disabled={isDisabled}
+                      />
+                    </div>
+                    <div className="mt-3">
+                      <label className="block">{props.publishedDate}</label>
+                      <input
+                        type="date"
+                        value={publishedDate}
+                        className="input input-ghost w-full border-base-content"
+                        onChange={(e) => setPublishedDate(e.target.value)}
+                        disabled={isDisabled}
+                      />
+                    </div>
                   </div>
-                  <input
-                    type="datetime-local"
-                    value={eventEndDate}
-                    className="input input-ghost w-full border-base-content"
-                    onChange={(e) => setEventEndDate(e.target.value)}
-                    disabled={isDisabled}
-                  />
+                  <div>
+                    <div>
+                      <label className="block">{props.activityArea}</label>
+                      <ActivityArea items={["Clubs scientifiques", "ÉTS", "Service à la Vie Étudiante", "AEETS"]} isDisabled={isDisabled} /> {/*TODO Change with actual data*/}
+                    </div>
+                    <div>
+                      <label className="block">{props.altText}</label>
+                      <input
+                        type="text"
+                        value={altText}
+                        className="input input-ghost w-full border-base-content"
+                        onChange={(e) => setAltText(e.target.value)}
+                        disabled={isDisabled}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="block">{props.eventStartDate}</label>
+                    <input
+                      type="datetime-local"
+                      value={eventStartDate}
+                      className="input input-ghost w-full border-base-content"
+                      onChange={(e) => setEventStartDate(e.target.value)}
+                      disabled={isDisabled}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <div className="flex items-center gap-3">
+                      <label className="block">{props.eventEndDate}</label>
+                    </div>
+                    <input
+                      type="datetime-local"
+                      value={eventEndDate}
+                      className="input input-ghost w-full border-base-content"
+                      onChange={(e) => setEventEndDate(e.target.value)}
+                      disabled={isDisabled}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex-1 ml-4 mt-2">
-              <div className="h-64 rounded-xl bg-primary overflow-hidden">
+            
+              <div className="flex-1 ml-4 mt-2 h-64 rounded-xl bg-primary overflow-hidden">
                 <input
                   type="file"
-                  className="file-input file-input-bordered file-input-accent w-full"
+                  className="file-input file-input-bordered file-input-accent w-full rounded-sm"
                   disabled={isDisabled}
                 />
                 {imageSrc && (
@@ -168,7 +168,7 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
           </div>
 
           <div className="mb-3">
-            <label className="block mb-2">{props.tagsTitle}</label>
+            <label className="block">{props.tagsTitle}</label>
             <div className="flex items-center gap-2 py-2 px-2 border border-base-content rounded-md">
               {selectedTags.map((tag, index) => (
                 <div key={tag} className={`badge ${colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}>
@@ -185,7 +185,7 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
           </div>
 
           <div className="w-full">
-            <label className="block mb-2">{props.content}</label>
+            <label className="block">{props.content}</label>
             <textarea
               value={content}
               className="textarea textarea-ghost border-current row-span-2 h-full w-full"

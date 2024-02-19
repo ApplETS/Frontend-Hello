@@ -11,6 +11,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
+    "@mdxeditor/editor": "^2.9.0",
     "@next/mdx": "^14.1.0",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/ssr": "latest",

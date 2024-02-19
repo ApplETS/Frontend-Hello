@@ -6,6 +6,10 @@ import AddTag from "@/components/AddTag";
 import Constants from "@/utils/constants";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import dynamic from 'next/dynamic'
+import { MDXEditor, headingsPlugin, listsPlugin, quotePlugin, thematicBreakPlugin } from '@mdxeditor/editor'
+
+const EditorComp = dynamic(() => import('./EditorComponent'), { ssr: false })
 
 interface PublicationDetailsProps {
   modalMode: Number;
@@ -84,6 +88,10 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 		reader.readAsDataURL(file);
 	};
 
+  const markdown = `
+    Hello **world**!
+  `
+
   return (
     <dialog id="publication_modal" className="modal overflow-y-auto p-4" open={true}>
       <div className="overflow-y-auto w-full">
@@ -98,6 +106,10 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
               )
             }
           </div>
+
+          <MDXEditor markdown="# Hello world" plugins={[headingsPlugin(), listsPlugin(), quotePlugin(), thematicBreakPlugin()]} />
+
+          <EditorComp markdown={markdown} />
 
           <div className="flex mb-3">
             <div className="grid grid-cols-3 gap-4">

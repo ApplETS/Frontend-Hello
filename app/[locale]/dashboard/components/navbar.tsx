@@ -27,17 +27,20 @@ export default function Navbar({ activePage, pages, signOut, user }: Props) {
 	return (
 		<div className="navbar w-full bg-base-300">
 			<div className="flex-1 ml-5 gap-3">
-				{Object.entries(pages).map(([pageKey, pageValue]) => (
-					<Link
-						key={pageKey}
-						className={`btn min-h-min h-min py-2 px-4 rounded-lg ${
-							activePage === pageKey ? 'btn-primary' : 'btn-ghost'
-						}`}
-						href={pageValue.link}
-					>
-						<span className={'px-4 text-base'}>{pageValue.title}</span>
-					</Link>
-				))}
+				{Object.entries(pages).map(
+					([pageKey, pageValue]) =>
+						pageValue.isVisible && (
+							<Link
+								key={pageKey}
+								className={`btn min-h-min h-min py-2 px-4 rounded-lg ${
+									activePage === pageKey ? "btn-primary " : "btn-ghost"
+								}`}
+								href={pageValue.link}
+							>
+								<span className={`px-4 text-base`}>{pageValue.title}</span>
+							</Link>
+						)
+				)}
 			</div>
 			<div className="flex-none gap-2">
 				<LanguageButton />

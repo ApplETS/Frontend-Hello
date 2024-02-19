@@ -24,7 +24,6 @@ export async function fetchWithSession(
 			Authorization: 'Bearer ' + session?.access_token,
 		},
 	};
-	console.log(session?.access_token);
 
 	if (body && method.toUpperCase() !== 'GET') {
 		console.log(body);

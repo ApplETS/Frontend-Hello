@@ -3,6 +3,7 @@ import DashboardLayout from './components/dashboardLayout';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { signOut } from '@/utils/supabase/auth';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
+import { UserTypes } from '@/models/user-types';
 
 type Props = {
 	children: ReactElement;
@@ -14,6 +15,8 @@ export default async function Layout({ children, params: { locale } }: Props) {
 
 	const t = await getTranslations('Dashboard');
 	const user = await getAuthenticatedUser();
+	const isOrganizer = user.type == UserTypes.ORGANIZER;
+	const isModerator = user.type == UserTypes.MODERATOR;
 
 	var pages = {
 		news: {
@@ -24,12 +27,12 @@ export default async function Layout({ children, params: { locale } }: Props) {
 		publications: {
 			title: t('publications'),
 			link: `/${locale}/dashboard/publications`,
-			isVisible: user.type == 'Organizer',
+			isVisible: isOrganizer,
 		},
 		approbations: {
 			title: t('approbations'),
 			link: `/${locale}/dashboard/approbations`,
-			isVisible: user.type == 'Moderator',
+			isVisible: isModerator,
 		},
 	};
 

@@ -7,8 +7,6 @@ import Alert, { AlertType } from '@/components/Alert';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import ThemeButton from '@/components/themeButton';
-import LanguageButton from '@/components/languageButton';
 import Footer from '@/components/Footer';
 import EmailInput from '@/components/EmailInput';
 

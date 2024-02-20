@@ -20,7 +20,6 @@ interface EditorProps {
 
 const Editor: FC<EditorProps> = ({ markdown, editorRef }) => {
   const { isLight } = useTheme();
-  console.log(isLight)
 
   return <MDXEditor
     className={isLight ? 'light-theme light-editor' : 'dark-theme dark-editor'}

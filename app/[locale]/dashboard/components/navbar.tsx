@@ -1,16 +1,16 @@
 "use client";
 
 import React from "react";
-import ThemeButton from "./themeButton";
-import LanguageButton from "./languageButton";
-import { Page } from "./dashboardLayout"
+import { Page } from "./dashboardLayout";
 import Link from "next/link";
+import LanguageButton from "@/components/languageButton";
+import ThemeButton from "@/components/themeButton";
 
 interface Props {
-  activePage: string
+  activePage: string;
   pages: {
-    [key: string]: Page
-  },
+    [key: string]: Page;
+  };
 }
 
 export default function Navbar({ activePage, pages }: Props) {
@@ -30,23 +30,29 @@ export default function Navbar({ activePage, pages }: Props) {
         ))}
       </div>
       <div className="flex-none gap-2">
-        <LanguageButton />
+        <div className="btn btn-ghost btn-circle">
+          <LanguageButton />
+        </div>
         <ThemeButton />
         <div className="divider divider-horizontal before:bg-base-content after:bg-base-content my-2"></div>
 
         <div className="text-base mr-1">Prénom Nom</div>
 
-				<div className='dropdown dropdown-end mr-5'>
-					<div tabIndex={0} role='button' className='btn btn-ghost btn-circle avatar'>
-						<div className='w-10 rounded-full'>
-							<img
-								alt='Tailwind CSS Navbar component'
-								src='https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg'
-							/>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+        <div className="dropdown dropdown-end mr-5">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle avatar"
+          >
+            <div className="w-10 rounded-full">
+              <img
+                alt="Tailwind CSS Navbar component"
+                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

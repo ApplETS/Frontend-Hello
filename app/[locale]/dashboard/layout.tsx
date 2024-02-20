@@ -31,6 +31,11 @@ export default async function Layout({ children, params: { locale } }: Props) {
 			link: `/${locale}/dashboard/approbations`,
 			isVisible: user.type == 'Moderator',
 		},
+		comptes: {
+			title: t('accounts'),
+			link: `/${locale}/dashboard/accounts`,
+			isVisible: user.type == 'Moderator',
+		},
 	};
 
 	return (

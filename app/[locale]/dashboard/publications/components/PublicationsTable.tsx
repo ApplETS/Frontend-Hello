@@ -40,7 +40,7 @@ export default function PublicationsTable({ locale, publications }: Props) {
 		setSearchTerm(search);
 	};
 
-	const menuItems = Constants.menuItems.map((item) => {
+	const menuItems = Constants.publicationMenuItems.map((item) => {
 		return {
 			text: t(`menu.${item.label}`),
 			icon: item.icon,

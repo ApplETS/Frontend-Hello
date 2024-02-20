@@ -6,7 +6,8 @@
 	"Dashboard": {
 		"news": "News",
 		"publications": "Publications",
-		"approbations": "Approbations"
+		"approbations": "Approbations",
+		"accounts": "Accounts"
 	},
 	"Login": {
 		"welcome": "Welcome !",
@@ -100,6 +101,27 @@
 			"refused": "Refused",
 			"approved": "Approved",
 			"deleted": "Deleted"
+		}
+	},
+	"Accounts" : {
+		"title": "Accounts",
+		"search": "Search",
+		"table": {
+			"organisation": "Organization name",
+			"email": "Email",
+			"status": "Status",
+			"activityarea": "Activity area"
+		},
+		"filters": {
+			"all": "All",
+			"deactivated": "Deactivated",
+			"pending": "Pending",
+			"active": "Active"
+		},
+		"menu": {
+			"activate": "Activate",
+			"deactivate": "Deactivate",
+			"delete": "Delete"
 		}
 	},
 	"Settings": {

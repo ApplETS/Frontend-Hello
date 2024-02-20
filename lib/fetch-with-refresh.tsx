@@ -26,7 +26,6 @@ export async function fetchWithSession(
 	};
 
 	if (body && method.toUpperCase() !== 'GET') {
-		console.log(body);
 		fetchOptions.body = JSON.stringify(body);
 	}
 

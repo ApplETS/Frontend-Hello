@@ -6,7 +6,8 @@
 	"Dashboard": {
 		"news": "Annonces",
 		"publications": "Publications",
-		"approbations": "Approbations"
+		"approbations": "Approbations",
+		"accounts": "Comptes"
 	},
 	"Login": {
 		"welcome": "Bienvenue !",
@@ -100,6 +101,27 @@
 			"refused": "Refusé",
 			"approved": "Approuvé",
 			"deleted": "Supprimé"
+		}
+	},
+	"Accounts" : {
+		"title": "Comptes",
+		"search": "Rechercher",
+		"table": {
+			"organisation": "Nom de l'organisation",
+			"email": "Courriel",
+			"status": "Statut",
+			"activityarea": "Secteur d'activité"
+		},
+		"filters": {
+			"all": "All",
+			"deactivated": "Désactiver",
+			"pending": "En attente",
+			"active": "Activer"
+		},
+		"menu": {
+			"activate": "Activer",
+			"deactivate": "Désactiver",
+			"delete": "Supprimer"
 		}
 	},
 	"Settings": {

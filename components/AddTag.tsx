@@ -1,16 +1,18 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
+import { useTheme } from '@/utils/provider/ThemeProvider';
 
 interface Props {
 	titleButton: string;
 	items: string[];
-	onTagSelected: (value: string) => void; // Callback to notify parent
+	onTagSelected: (value: string) => void;
 }
 
 export default function AddTag({ titleButton, items, onTagSelected }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [, setSelectedItem] = useState(items[0] || 'Dropdown');
 	const dropdownRef = useRef<HTMLDivElement>(null);
+	const { isLight } = useTheme();
 
 	const handleItemClick = (item: string) => {
 		setSelectedItem(item);
@@ -31,7 +33,12 @@ export default function AddTag({ titleButton, items, onTagSelected }: Props) {
 
 	return (
 		<div ref={dropdownRef} className="dropdown w-full z-50">
-			<button className="badge bg-secondary text-black py-4 px-4" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+			<button
+				className={` badge py-4 px-4 ${
+					isLight ? 'bg-base-300 hover:bg-secondary text-black' : 'bg-base-300 hover:bg-base-100 text-white'
+				}`}
+				onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+			>
 				{titleButton}
 			</button>
 			{isDropdownOpen && (

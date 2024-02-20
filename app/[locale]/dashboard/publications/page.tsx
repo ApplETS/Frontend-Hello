@@ -95,6 +95,7 @@ export default function Publications({ params: { locale } }: Props) {
 							submitButton: t('modal.submit-button'),
 							tags: ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile'], // TODO: Replace with actual tags
 							toolTipText: t('modal.tool-tip-text'),
+							errorToastMessage: t('modal.error-toast-message'),
 						}}
 						modalMode={Constants.publicationModalStatus.create}
 					/>

@@ -8,17 +8,19 @@ import {
 	toolbarPlugin,
 	BoldItalicUnderlineToggles,
 	CreateLink,
-	type MDXEditorMethods,
 	Separator,
+	linkDialogPlugin,
+	MDXEditorMethods,
 } from '@mdxeditor/editor';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
 interface EditorProps {
 	markdown: string;
 	editorRef?: React.MutableRefObject<MDXEditorMethods | null>;
+	onContentChange?: (content: string) => void;
 }
 
-const Editor: FC<EditorProps> = ({ markdown, editorRef }) => {
+const Editor: FC<EditorProps> = ({ markdown, editorRef, onContentChange }) => {
 	const { isLight } = useTheme();
 
 	return (
@@ -37,9 +39,11 @@ const Editor: FC<EditorProps> = ({ markdown, editorRef }) => {
 					),
 				}),
 				linkPlugin(),
+				linkDialogPlugin(),
 			]}
 			ref={editorRef}
 			markdown={markdown}
+			onChange={(newMarkdown) => onContentChange?.(newMarkdown)}
 		/>
 	);
 };

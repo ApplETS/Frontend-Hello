@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import React from "react";
-import { getEvents } from "@/lib/get-events";
-import ApprobationsTable from "./components/ApprobationsTable";
+import React from 'react';
+import { getEvents } from '@/lib/get-events';
+import ApprobationsTable from './components/ApprobationsTable';
 
 type Props = {
 	params: { locale: string };

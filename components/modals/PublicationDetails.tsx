@@ -211,7 +211,11 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 
 						<div className="mb-3">
 							<label className="block">{props.tagsTitle}</label>
-							<div className="flex items-center gap-2 py-2 px-2 border border-base-content rounded-md">
+							<div
+								className={`flex items-center gap-2 py-2 px-2 border border-base-content rounded-md ${
+									isDisabled ? 'h-10' : ''
+								}`}
+							>
 								{selectedTags.map((tag, index) => (
 									<div
 										key={tag}
@@ -233,7 +237,16 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 
 						<div className="w-full">
 							<label className="block">{props.content}</label>
-							<EditorComp markdown={content} onContentChange={handleContentChange} />
+							{!isDisabled ? (
+								<EditorComp markdown={content} onContentChange={handleContentChange} />
+							) : (
+								<input
+									type="text"
+									value={content}
+									className="input input-ghost w-full border-base-content"
+									disabled={true}
+								/>
+							)}
 						</div>
 
 						<div className="divider my-1"></div>

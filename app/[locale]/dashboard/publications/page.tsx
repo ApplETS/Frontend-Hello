@@ -123,13 +123,13 @@ export default function Publications({ params: { locale } }: Props) {
               <td className="text-base">
                 <div
                   className={`py-4 px-4 badge ${
-                    Constants.newsStatuses[publication.status - 1].color ||
+                    Constants.newsStatuses[publication.status].color ||
                     "badge-neutral"
                   } text-black`}
                 >
                   {t(
                     `filters.${
-                      Constants.newsStatuses[publication.status - 1].label
+                      Constants.newsStatuses[publication.status].label
                     }`
                   )}
                 </div>

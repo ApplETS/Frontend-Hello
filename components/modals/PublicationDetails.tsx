@@ -7,9 +7,8 @@ import Constants from "@/utils/constants";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic'
-import { MDXEditor, headingsPlugin, listsPlugin, quotePlugin, thematicBreakPlugin } from '@mdxeditor/editor'
 
-const EditorComp = dynamic(() => import('./EditorComponent'), { ssr: false })
+const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false })
 
 interface PublicationDetailsProps {
   modalMode: Number;
@@ -106,10 +105,6 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
               )
             }
           </div>
-
-          <MDXEditor markdown="# Hello world" plugins={[headingsPlugin(), listsPlugin(), quotePlugin(), thematicBreakPlugin()]} />
-
-          <EditorComp markdown={markdown} />
 
           <div className="flex mb-3">
             <div className="grid grid-cols-3 gap-4">
@@ -217,20 +212,15 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 
           <div className="w-full">
             <label className="block">{props.content}</label>
-            <textarea
-              value={content}
-              className="textarea textarea-ghost border-current row-span-2 h-full w-full"
-              onChange={(e) => setContent(e.target.value)}
-              disabled={isDisabled}
-            ></textarea>
+            <EditorComp markdown={content} />
           </div>
           
           <div className="divider my-1"></div> 
           <div className="modal-action">
-            <button className="btn btn-secondary text-base-100" onClick={handleClose}>
+            <button className="btn btn-secondary text-black" onClick={handleClose}>
               { props.cancelButton }
             </button>
-            <button className="btn btn-success text-base-100 ml-3" onClick={submit}>
+            <button className="btn btn-success text-black ml-3" onClick={submit}>
               { props.submitButton }
             </button>
           </div>

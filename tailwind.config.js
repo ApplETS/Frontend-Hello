@@ -32,6 +32,7 @@ module.exports = {
         dark: {
           ...require("daisyui/src/theming/themes")["dark"],
           "base-content": "DCDCDC",
+          "secondary-content": "#BABABA",
           ".btn-primary": {
             color: "#15191E",
           },
@@ -68,6 +69,7 @@ module.exports = {
           error: "#FF5861",
           warning: "#EAB308",
           "base-content": "181A2A",
+          "secondary-content": "#BABABA",
           secondary: "#646464",
         },
       },

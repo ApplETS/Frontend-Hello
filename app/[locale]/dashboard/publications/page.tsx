@@ -9,66 +9,66 @@ import { formatDate } from "@/utils/formatDate";
 import PostButton from "@/components/PostButton";
 
 type Props = {
-  params: { locale: string };
+	params: { locale: string };
 };
 
 export default function Publications({ params: { locale } }: Props) {
-  unstable_setRequestLocale(locale);
-  const t = useTranslations("Publications");
+	unstable_setRequestLocale(locale);
+	const t = useTranslations("Publications");
 
-  const currentDate = new Date();
-  const formattedDate = formatDate(currentDate, locale);
+	const currentDate = new Date();
+	const formattedDate = formatDate(currentDate, locale);
 
-  const publications = [
-    {
-      author: "App|ETS",
-      activity: "Club scientique",
-      title: "Compétition AMC",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      numberOfViews: 0,
-      status: Constants.newsStatuses[0].id,
-    },
-    {
-      author: "App|ETS",
-      activity: "Club scientique",
-      title: "Lancement de Hello",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      numberOfViews: 230,
-      status: Constants.newsStatuses[1].id,
-    },
-    {
-      author: "App|ETS",
-      activity: "Club scientique",
-      title: "Conférence DevOps",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      numberOfViews: 0,
-      status: Constants.newsStatuses[2].id,
-    },
-    {
-      author: "App|ETS",
-      activity: "Club scientique",
-      title: "Séance d'informations",
-      releasedDate: formattedDate,
-      eventdate: formattedDate,
-      numberOfViews: 0,
-      status: Constants.newsStatuses[5].id,
-    },
-  ];
+	const publications = [
+		{
+			author: "App|ETS",
+			activity: "Club scientique",
+			title: "Compétition AMC",
+			releasedDate: formattedDate,
+			eventdate: formattedDate,
+			numberOfViews: 0,
+			status: 1,
+		},
+		{
+			author: "App|ETS",
+			activity: "Club scientique",
+			title: "Lancement de Hello",
+			releasedDate: formattedDate,
+			eventdate: formattedDate,
+			numberOfViews: 230,
+			status: 2,
+		},
+		{
+			author: "App|ETS",
+			activity: "Club scientique",
+			title: "Conférence DevOps",
+			releasedDate: formattedDate,
+			eventdate: formattedDate,
+			numberOfViews: 0,
+			status: 4,
+		},
+		{
+			author: "App|ETS",
+			activity: "Club scientique",
+			title: "Séance d'informations",
+			releasedDate: formattedDate,
+			eventdate: formattedDate,
+			numberOfViews: 0,
+			status: 8,
+		},
+	];
 
-  const filters = Constants.newsStatuses.map((status) =>
-    t(`filters.${status.label}`)
-  );
+	const filters = Object.values(Constants.newsStatuses).map((status) =>
+		t(`filters.${status.label}`)
+	);
 
-  const menuItems = Constants.menuItems.map((item) => {
-    return {
-      text: t(`menu.${item.label}`),
-      icon: item.icon,
-      color: item.color,
-    };
-  });
+	const menuItems = Constants.menuItems.map((item) => {
+		return {
+			text: t(`menu.${item.label}`),
+			icon: item.icon,
+			color: item.color,
+		};
+	});
 
   return (
     <div className="flex flex-col h-screen">

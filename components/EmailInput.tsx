@@ -29,10 +29,10 @@ export default function EmailInput() {
 
 	return (
 		<input
-			className='input input-ghost input-bordered mb-4 border-current'
-			name='email'
-			id='email'
-			type='email'
+			className="input input-ghost mb-4"
+			name="email"
+			id="email"
+			type="email"
 			required
 			value={email}
 			onChange={handleChange}

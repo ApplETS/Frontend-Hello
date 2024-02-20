@@ -43,7 +43,7 @@ export default function Captcha() {
 				sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
 				ref={recaptchaRef}
 				onChange={handleCaptchaSubmission}
-				className='pb-8'
+				className="pb-8"
 			/>
 			<button
 				className={`btn text-base ${!isVerified || !isEnabled ? 'btn-disabled' : 'btn-primary'}  py-2 mb-4 w-[60%]`}

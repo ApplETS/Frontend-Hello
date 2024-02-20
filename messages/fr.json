@@ -1,79 +1,85 @@
 {
-  "LocaleLayout": {
-    "title": "Frontend-PS"
-  },
-  "Dashboard": {
-    "news": "Annonces",
-    "publications": "Publications",
-    "approbations": "Approbations"
-  },
-  "Login": {
-    "welcome": "Bienvenue !",
-    "email": "Courriel",
-    "password": "Mot de passe",
-    "remember": "Se souvenir de moi",
-    "login": "Se connecter",
-    "forgot-info": "Vous avez oublié vos informations?",
-    "reset-password": "Réinitialisez votre mot de passe",
-    "no-account": "Vous n'avez pas de compte?",
-    "signup": "Inscrivez-vous",
-    "400": "Mauvaises informations de connexion",
-    "200": "Vérification réussie"
-  },
-  "SignUp": {
-    "title": "Inscription",
-    "register": "S'inscrire",
-    "name": "Nom de l'organisation",
-    "email": "Courriel",
-    "activity": "Secteur d'activité",
-    "password": "Mot de passe",
-    "confirm": "Confirmation de mot de passe",
-    "already": "Vous avez déjà un compte?",
-    "alreadyLink": "Connectez-vous",
-    "422": "Le mot de passe devrait contenir au moins 6 caractères"
-  },
-  "ForgotPassword": {
-      "title": "Mot de passe oublié",
-      "email": "Courriel",
-      "send": "Envoyer",
-      "remember": "Vous avez un compte?",
-      "rememberLink": "Connectez-vous"
-  },
-  "UpdatePassword": {
-    "title": "Réinitialiser votre mot de passe",
-    "token": "Code de réinitialisation",
-    "email": "Courriel",
-    "password": "Nouveau mot de passe",
-    "update": "Réinitialiser le mot de passe",
-    "remember": "Vous avez un compte?",
-    "rememberLink": "Connectez-vous",
-    "401": "Le code de réinitialisation est invalide ou a expiré"
-},
-  "Publications": {
-    "title": "Publications",
-    "search": "Rechercher",
-    "create-new-post": "Créer une publication",
-    "table": {
-      "title": "Titre",
-      "release-date": "Date de publication",
-      "event-date": "Date de l'événement",
-      "number-of-views": "Nombre de vues",
-      "status": "Statut",
-      "open": "Ouvrir"
-    },
-    "filters": {
-      "all": "Tous",
-      "published": "Publier",
-      "draft": "Brouillon",
-      "on-hold": "En attente",
-      "refused": "Refuser",
-      "approved": "Approuver",
-      "deleted": "Supprimer"
-    },
-    "menu": {
-      "duplicate" : "Dupliquer",
-      "delete" : "Supprimer",
-      "open": "Ouvrir"
+	"LocaleLayout": {
+		"title": "Frontend-PS",
+		"defaultError": "Une erreur est survenue"
+	},
+	"Dashboard": {
+		"news": "Annonces",
+		"publications": "Publications",
+		"approbations": "Approbations"
+	},
+	"Login": {
+		"welcome": "Bienvenue !",
+		"email": "Courriel",
+		"password": "Mot de passe",
+		"remember": "Se souvenir de moi",
+		"login": "Se connecter",
+		"forgot-info": "Vous avez oublié vos informations?",
+		"reset-password": "Réinitialisez votre mot de passe",
+		"no-account": "Vous n'avez pas de compte?",
+		"signup": "Inscrivez-vous",
+		"400": "Mauvaises informations de connexion",
+		"401": "Session expirée, veuillez vous reconnecter",
+		"200": "Vérification réussie"
+	},
+	"SignUp": {
+		"title": "Inscription",
+		"register": "S'inscrire",
+		"name": "Nom de l'organisation",
+		"email": "Courriel",
+		"activity": "Secteur d'activité",
+		"scientificClub": "Club scientifique",
+		"ets": "ETS",
+		"sve": "Service à la vie étudiante",
+		"aeets": "AEETS",
+		"password": "Mot de passe",
+		"confirm": "Confirmation de mot de passe",
+		"already": "Vous avez déjà un compte?",
+		"alreadyLink": "Connectez-vous",
+		"422": "Le mot de passe devrait contenir au moins 6 caractères"
+	},
+	"ForgotPassword": {
+		"title": "Mot de passe oublié",
+		"email": "Courriel",
+		"send": "Envoyer",
+		"remember": "Vous avez un compte?",
+		"rememberLink": "Connectez-vous"
+	},
+	"UpdatePassword": {
+		"title": "Réinitialiser votre mot de passe",
+		"token": "Code de réinitialisation",
+		"email": "Courriel",
+		"password": "Nouveau mot de passe",
+		"update": "Réinitialiser le mot de passe",
+		"remember": "Vous avez un compte?",
+		"rememberLink": "Connectez-vous",
+		"401": "Le code de réinitialisation est invalide ou a expiré"
+	},
+	"Publications": {
+		"title": "Publications",
+		"search": "Rechercher",
+		"create-new-post": "Créer une publication",
+		"table": {
+			"title": "Titre",
+			"release-date": "Date de publication",
+			"event-date": "Date de l'événement",
+			"number-of-views": "Nombre de vues",
+			"status": "Statut",
+			"open": "Ouvrir"
+		},
+		"filters": {
+			"all": "Tous",
+			"published": "Publié",
+			"draft": "Brouillon",
+			"on-hold": "En attente",
+			"refused": "Refusé",
+			"approved": "Approuvé",
+			"deleted": "Supprimé"
+		},
+		"menu": {
+			"duplicate": "Dupliquer",
+			"delete": "Supprimer",
+			"open": "Ouvrir"
     },
     "modal": {
       "create-page-title": "Créer une publication",
@@ -91,26 +97,86 @@
       "cancel-button": "Fermer",
       "submit-button": "Envoyer pour approbation",
       "tool-tip-text": "Elle retombera en attente d'approbation et votre publication précédente sera supprimé"
-    }
-  },
-  "Approbations": {
-    "title": "Approbations",
-    "search": "Rechercher",
-    "table": {
-      "author": "Auteur",
-      "title": "Titre",
-      "release-date": "Date de publication",
-      "status": "Statut",
-      "open": "Ouvrir"
-    },
-    "filters": {
-      "all": "Tous",
-      "published": "Publier",
-      "draft": "Brouillon",
-      "on-hold": "En attente",
-      "refused": "Refuser",
-      "approved": "Approuver",
-      "deleted": "Supprimer"
-    }
-  }
+		}
+	},
+	"Approbations": {
+		"title": "Approbations",
+		"search": "Rechercher",
+		"table": {
+			"author": "Auteur",
+			"title": "Titre",
+			"release-date": "Date de publication",
+			"status": "Statut",
+			"open": "Ouvrir"
+		},
+		"filters": {
+			"all": "Tous",
+			"published": "Publié",
+			"draft": "Brouillon",
+			"on-hold": "En attente",
+			"refused": "Refusé",
+			"approved": "Approuvé",
+			"deleted": "Supprimé"
+		}
+	},
+	"Settings": {
+		"title": "Paramètres",
+		"save": "Enregistrer",
+		"400": "Les mots de passe ne correspondent pas",
+		"200": "Paramètres enregistrés",
+		"socials": "Réseaux sociaux",
+		"appearance": "Apparence",
+		"password": "Mot de passe",
+		"profile": "Profil",
+		"socials-section": {
+			"title": "Réseaux sociaux",
+			"info": "Les réseaux sociaux que vous choisissez seront affichées sur votre profil, lequel est accessible publiquement aux autres utilisateurs. Nous tenons à vous rassurer que nous ne publierons rien sur vos réseaux.",
+			"save": "Enregistrer",
+			"changes": "Changements détectés, enregistrez pour appliquer les modifications",
+			"cancel": "Annuler"
+		},
+		"profile-section": {
+			"title": "Profil",
+			"dropPicture": "Cliquez pour téléverser ou glissez-déposez une image ici",
+			"deletePicture": "Supprimer l'image",
+			"companyName": "Nom de l'organisation",
+			"email": "Courriel",
+			"activity": "Secteur d'activité",
+			"scientificClub": "Club scientifique",
+			"ets": "ETS",
+			"sve": "Service à la vie étudiante",
+			"aeets": "AEETS",
+			"description": "Description",
+			"website": "Site web",
+			"save": "Enregistrer",
+			"200": "Profil enregistré",
+			"changes": "Changements détectés, enregistrez pour appliquer les modifications",
+			"cancel": "Annuler"
+		},
+		"password-section": {
+			"title": "Mot de passe",
+			"newPassword": "Nouveau mot de passe",
+			"confirmNewPassword": "Confirmer le nouveau mot de passe",
+			"save": "Enregistrer",
+			"200": "Mot de passe enregistré",
+			"changes": "Changements détectés, enregistrez pour appliquer les modifications",
+			"cancel": "Annuler"
+		},
+		"display-section": {
+			"title": "Apparence",
+			"language": "Langue",
+			"theme": "Thème",
+			"save": "Enregistrer",
+			"light": "Pâle",
+			"dark": "Foncé",
+			"english": "Anglais",
+			"french": "Français"
+		},
+		"dialog": {
+			"title": "Réinitialiser les changements?",
+			"message": "Êtes-vous sûr de vouloir réinitialiser les changements? Toutes les modifications non enregistrées seront perdues.",
+			"yes": "Oui",
+			"no": "Non"
+		}
+	}
 }

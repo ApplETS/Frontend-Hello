@@ -19,7 +19,7 @@ export default function Footer({ locale }: { locale: string }) {
 				</div>
 			</div>
 			<div className={`absolute bottom-4 right-4 bg-cover`}>
-				<ETSImage lang={locale} isDarkTheme={!isLight} />
+				<ETSImage lang={locale} isLightTheme={isLight} />
 			</div>
 		</>
 	);

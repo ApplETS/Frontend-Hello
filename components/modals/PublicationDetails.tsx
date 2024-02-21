@@ -11,6 +11,7 @@ import { useTheme } from '@/utils/provider/ThemeProvider';
 import Toast from '@/components/Toast';
 import { AlertType } from '../Alert';
 import Preview from './Preview';
+import { User } from '@/models/user';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -33,10 +34,11 @@ interface PublicationDetailsProps {
 		toolTipText: string;
 		errorToastMessage: string;
 	};
+	user: User;
 	onClose: () => void;
 }
 
-export default function PublicationDetails({ props, modalMode, onClose }: PublicationDetailsProps) {
+export default function PublicationDetails({ props, modalMode, user, onClose }: PublicationDetailsProps) {
 	const { isLight } = useTheme();
 	const [showToast, setShowToast] = useState(false);
 
@@ -53,7 +55,22 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 		modalMode === Constants.publicationModalStatus.view || modalMode === Constants.publicationModalStatus.delete;
 	const addTagButtonIsDisabled = selectedTags.length >= 5;
 
-	const [showPreview, setShowPreview] = useState(false);
+	const [showPreview, setShowPreview] = useState(true);
+	console.log(user);
+	const previewInfos = {
+		news: 'Annonce',
+		title: title,
+		imageSrc: imageSrc,
+		altText: altText,
+		author: user.organisation,
+		activityArea: user.activityArea,
+		content: content,
+		eventDateTitle: "Date de l'événement",
+		eventStartDate: eventStartDate,
+		eventEndDate: eventEndDate,
+		publishedDate: publishedDate,
+		selectedTags: selectedTags,
+	};
 
 	const handleClose = () => {
 		onClose();
@@ -218,7 +235,7 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 											<img src={imageSrc} alt={altText} className="w-full h-full object-cover rounded-lg mt-2" />
 										) : (
 											<div
-												className={`w-full h-full rounded-lg mt-2 ${isLight ? 'bg-base-300 ' : 'bg-base-100 '}`}
+												className={`w-full h-full rounded-lg mt-2 ${isLight ? 'bg-base-300 ' : 'bg-base-100'}`}
 											></div>
 										)}
 									</div>
@@ -283,7 +300,7 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 			</div>
 			{showPreview && (
 				<div className="inset-0">
-					<Preview props={props} />
+					<Preview infos={previewInfos} />
 				</div>
 			)}
 		</>

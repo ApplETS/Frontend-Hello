@@ -1,20 +1,21 @@
 import React from 'react';
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
 import DropdownMenu from '@/components/DropdownMenu';
 import Constants from '@/utils/constants';
 import { formatDate } from '@/utils/formatDate';
 import PostButton from '@/components/PostButton';
+import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 
 type Props = {
 	params: { locale: string };
 };
 
-export default function Publications({ params: { locale } }: Props) {
+export default async function Publications({ params: { locale } }: Props) {
 	unstable_setRequestLocale(locale);
-	const t = useTranslations('Publications');
+	const t = await getTranslations('Publications');
+	const user = await getAuthenticatedUser();
 
 	const currentDate = new Date();
 	const formattedDate = formatDate(currentDate, locale);
@@ -98,6 +99,7 @@ export default function Publications({ params: { locale } }: Props) {
 							errorToastMessage: t('modal.error-toast-message'),
 						}}
 						modalMode={Constants.publicationModalStatus.create}
+						user={user}
 					/>
 				</div>
 			</div>

@@ -18,6 +18,11 @@ module.exports = {
 				orange: '#E7A455',
 				yellow: '#ECC94B',
 				teal: '#38B2AC',
+				red: '#FF1F3C',
+				gray: {
+					700: '#424242',
+					900: '#303030',
+				},
 				btn: {
 					background: 'hsl(var(--btn-background))',
 					'background-hover': 'hsl(var(--btn-background-hover))',

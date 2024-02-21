@@ -105,6 +105,7 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 	};
 
 	return (
+		<>
 		<div className="fixed inset-0 bg-black bg-opacity-30 z-40">
 			<dialog id="publication_modal" className="modal overflow-y-auto p-4" open={true}>
 				{showToast && (
@@ -126,11 +127,6 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 								<button className="btn btn-primary" onClick={() => setShowPreview(true)}>
 									Aperçu
 								</button>
-								{showPreview && (
-									<div className="fixed top-0 left-0 w-full h-full">
-										<Preview props={props} />
-									</div>
-								)}
 							</div>
 						</div>
 
@@ -279,6 +275,13 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 					</div>
 				</div>
 			</dialog>
+			
 		</div>
+		{showPreview && (
+			<div className="w-full h-full">
+				<Preview props={props} />
+			</div>
+		)}
+		</>
 	);
 }

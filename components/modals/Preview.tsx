@@ -33,7 +33,7 @@ export default function PublicationDetails({ props }: PublicationDetailsProps) {
 	return (
 		<div className="inset-0 bg-black bg-opacity-10 z-50">
 			<dialog id="publication_modal" className="modal overflow-y-auto" open={true}>
-				<div className="mockup-phone border-primary w-80 overflow-y-auto p-0 m-0 h-full">
+				<div className="mockup-phone border-primary w-80 overflow-y-auto p-0 m-0">
 					<div className="camera"></div>
 					<div className="display">
 						<div className="flex items-center bg-base-200 text-white p-4">

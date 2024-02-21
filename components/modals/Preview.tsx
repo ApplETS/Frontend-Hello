@@ -3,7 +3,7 @@
 import React from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faClose, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 
 interface PublicationDetailsProps {
 	infos: {
@@ -20,14 +20,18 @@ interface PublicationDetailsProps {
 		publishedDate: string;
 		selectedTags: string[];
 	};
+	onClosePreview: () => void;
 }
 
-export default function Preview({ infos }: PublicationDetailsProps) {
+export default function Preview({ infos, onClosePreview }: PublicationDetailsProps) {
 	const colors = ['bg-blue', 'bg-green', 'bg-pink', 'bg-orange', 'bg-purple'];
 	const { isLight } = useTheme();
 
 	return (
 		<dialog id="publication_modal" className="modal bg-black bg-opacity-20 w-full h-full" open={true}>
+			<button className="cursor-pointer" onClick={onClosePreview}>
+				<FontAwesomeIcon icon={faClose} />
+			</button>
 			<div className="mockup-phone border-black w-80 p-0 m-0">
 				<div className="camera"></div>
 				<div className="display">
@@ -44,7 +48,14 @@ export default function Preview({ infos }: PublicationDetailsProps) {
 					<div className={`${isLight ? 'bg-white' : 'bg-gray-900'}`}>
 						<h2 className="text-l font-bold px-4 pt-4">{infos.title}</h2>
 						<div className="flex items-center text-xs px-4 pt-2">
-							<p>{infos.publishedDate}</p>
+							<p>
+								{/* TODO CHANGE TO REAL LANG */}
+								{new Date(infos.publishedDate).toLocaleDateString('fr-FR', {
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric',
+								})}
+							</p>
 							<div className="flex items-center ml-auto">
 								<div className="flex items-center justify-center bg-base-100 rounded-full h-8 w-8 mr-2">
 									<FontAwesomeIcon icon={faCalendar} size="lg" />
@@ -56,7 +67,7 @@ export default function Preview({ infos }: PublicationDetailsProps) {
 							</div>
 						</div>
 						{infos.imageSrc ? (
-							<img src={infos.imageSrc} alt={infos.altText} className="w-full h-full object-cover rounded-lg mt-2" />
+							<img src={infos.imageSrc} alt={infos.altText} className="w-full h-40 object-cover mt-2" />
 						) : (
 							<div className={`flex mt-4 w-full h-40 ${isLight ? 'bg-base-300 ' : 'bg-base-100'}`}></div>
 						)}

@@ -46,6 +46,7 @@ export default function PublicationDetails({ props, modalMode, user, onClose }: 
 	const [imageSrc, setImageSrc] = useState('');
 	const [altText, setAltText] = useState('');
 	const [content, setContent] = useState('');
+	const [activityArea, setActivityArea] = useState(user.activityArea);
 	const [eventStartDate, setEventStartDate] = useState('');
 	const [eventEndDate, setEventEndDate] = useState('');
 	const [publishedDate, setPublishedDate] = useState('');
@@ -54,9 +55,9 @@ export default function PublicationDetails({ props, modalMode, user, onClose }: 
 	const isDisabled =
 		modalMode === Constants.publicationModalStatus.view || modalMode === Constants.publicationModalStatus.delete;
 	const addTagButtonIsDisabled = selectedTags.length >= 5;
+	const [showPreview, setShowPreview] = useState(false);
 
-	const [showPreview, setShowPreview] = useState(true);
-	console.log(user);
+	const colors = ['bg-blue', 'bg-green', 'bg-pink', 'bg-orange', 'bg-purple'];
 	const previewInfos = {
 		news: 'Annonce',
 		title: title,
@@ -85,8 +86,6 @@ export default function PublicationDetails({ props, modalMode, user, onClose }: 
 		// TODO Submit to backend
 		onClose();
 	};
-
-	const colors = ['bg-blue', 'bg-green', 'bg-pink', 'bg-orange', 'bg-purple'];
 
 	useEffect(() => {
 		setAvailableTags(props.tags.filter((tag) => !selectedTags.includes(tag)));
@@ -121,6 +120,10 @@ export default function PublicationDetails({ props, modalMode, user, onClose }: 
 		setShowToast(false);
 	};
 
+	const handleClosePreview = () => {
+		setShowPreview(false);
+	};
+
 	return (
 		<>
 			<div className="fixed inset-0 bg-black bg-opacity-30 z-40">
@@ -141,11 +144,7 @@ export default function PublicationDetails({ props, modalMode, user, onClose }: 
 									</div>
 								)}
 								<div className="ml-auto mb-2">
-									<button
-										className="btn btn-primary"
-										onMouseEnter={() => setShowPreview(true)}
-										onMouseLeave={() => setShowPreview(false)}
-									>
+									<button className="btn btn-primary" onClick={() => setShowPreview(true)}>
 										Aperçu
 									</button>
 								</div>
@@ -179,7 +178,7 @@ export default function PublicationDetails({ props, modalMode, user, onClose }: 
 											</div>
 											<div>
 												<div className="z-30">
-													<label className="block">{props.activityArea}</label>
+													<label className="block">{activityArea}</label>
 													<ActivityArea
 														items={['Clubs scientifiques', 'ÉTS', 'Service à la Vie Étudiante', 'AEETS']}
 														isDisabled={isDisabled}
@@ -300,7 +299,7 @@ export default function PublicationDetails({ props, modalMode, user, onClose }: 
 			</div>
 			{showPreview && (
 				<div className="inset-0">
-					<Preview infos={previewInfos} />
+					<Preview infos={previewInfos} onClosePreview={handleClosePreview} />
 				</div>
 			)}
 		</>

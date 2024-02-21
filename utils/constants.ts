@@ -11,6 +11,13 @@ interface NewsStatuses {
 }
 
 export default {
+    publicationModalStatus: {
+        view: 1,
+        create: 2,
+        duplicate: 3,
+        modify: 4,
+        delete: 5,
+    },
     newsStatuses: {
         [NewsStates.ON_HOLD]: { color: "bg-pink", label: "on-hold" },
         [NewsStates.DELETED]: { color: "bg-error", label: "deleted" },

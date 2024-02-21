@@ -124,7 +124,11 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 									</div>
 								)}
 								<div className="ml-auto mb-2">
-									<button className="btn btn-primary" onClick={() => setShowPreview(true)}>
+									<button
+										className="btn btn-primary"
+										onMouseEnter={() => setShowPreview(true)}
+										onMouseLeave={() => setShowPreview(false)}
+									>
 										Aperçu
 									</button>
 								</div>

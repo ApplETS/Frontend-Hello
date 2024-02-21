@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import Toast from '@/components/Toast';
 import { AlertType } from '../Alert';
+import Preview from './Preview';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -51,6 +52,8 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 	const isDisabled =
 		modalMode === Constants.publicationModalStatus.view || modalMode === Constants.publicationModalStatus.delete;
 	const addTagButtonIsDisabled = selectedTags.length >= 5;
+
+	const [showPreview, setShowPreview] = useState(false);
 
 	const handleClose = () => {
 		onClose();
@@ -102,13 +105,14 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 	};
 
 	return (
-		<div className="fixed inset-0 bg-black bg-opacity-30 z-50">
+		<div className="fixed inset-0 bg-black bg-opacity-30 z-40">
 			<dialog id="publication_modal" className="modal overflow-y-auto p-4" open={true}>
 				{showToast && (
 					<Toast message={props.errorToastMessage} alertType={AlertType.error} onCloseToast={handleCloseToast} />
 				)}
 				<div className="overflow-y-auto w-full">
 					<div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200 max-h-[80vh]">
+						<div className="grid grid-cols-2 gap-2"></div>
 						<div className="flex items-center gap-2">
 							<h1 className="text-2xl block mb-2">{props.pageTitle}</h1>
 							{modalMode === Constants.publicationModalStatus.modify && (
@@ -118,6 +122,16 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 									</button>
 								</div>
 							)}
+							<div className="ml-auto mb-2">
+								<button className="btn btn-primary" onClick={() => setShowPreview(true)}>
+									Aperçu
+								</button>
+								{showPreview && (
+									<div className="fixed top-0 left-0 w-full h-full">
+										<Preview props={props} />
+									</div>
+								)}
+							</div>
 						</div>
 
 						<div className="flex mb-3">
@@ -147,11 +161,12 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 											</div>
 										</div>
 										<div>
-											<div>
+											<div className="z-30">
 												<label className="block">{props.activityArea}</label>
 												<ActivityArea
 													items={['Clubs scientifiques', 'ÉTS', 'Service à la Vie Étudiante', 'AEETS']}
 													isDisabled={isDisabled}
+													hideDropdown={showPreview}
 												/>
 											</div>
 											<div className="mt-3">
@@ -235,7 +250,7 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 							</div>
 						</div>
 
-						<div className="w-full">
+						<div className="w-full z-40">
 							<label className="block">{props.content}</label>
 							{!isDisabled ? (
 								<EditorComp markdown={content} onContentChange={handleContentChange} />

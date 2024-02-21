@@ -4,10 +4,9 @@ import { useState, useEffect, useRef } from 'react';
 interface PublicationDetailsProps {
 	isDisabled: boolean;
 	items: string[];
-	hideDropdown?: boolean;
 }
 
-export default function Dropdown({ items, isDisabled, hideDropdown }: PublicationDetailsProps) {
+export default function Dropdown({ items, isDisabled }: PublicationDetailsProps) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState(items[0] || 'Dropdown');
 	const dropdownRef = useRef<HTMLDivElement>(null);
@@ -29,7 +28,7 @@ export default function Dropdown({ items, isDisabled, hideDropdown }: Publicatio
 	}, []);
 
 	return (
-		<div ref={dropdownRef} className={hideDropdown ? ' w-full' : ' dropdown w-full'}>
+		<div ref={dropdownRef} className="dropdown w-full">
 			<button
 				className="btn bg-inherit border-current w-full hover:bg-base-300"
 				onClick={() => setIsDropdownOpen(!isDropdownOpen)}

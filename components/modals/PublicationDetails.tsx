@@ -278,7 +278,7 @@ export default function PublicationDetails({ props, modalMode, onClose }: Public
 				</dialog>
 			</div>
 			{showPreview && (
-				<div className="inset-0 bg-black bg-opacity-70 w-full h-full">
+				<div className="inset-0">
 					<Preview props={props} />
 				</div>
 			)}

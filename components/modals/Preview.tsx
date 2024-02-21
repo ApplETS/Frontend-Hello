@@ -25,14 +25,14 @@ interface PublicationDetailsProps {
 	};
 }
 
-export default function PublicationDetails({ props }: PublicationDetailsProps) {
+export default function Preview({ props }: PublicationDetailsProps) {
 	const colors = ['bg-blue', 'bg-green', 'bg-pink', 'bg-orange', 'bg-purple'];
 	const selectedTags = ['Robotique', 'Informatique'];
 	const { isLight } = useTheme();
 
 	return (
-		<dialog id="publication_modal" className="modal overflow-y-auto" open={true}>
-			<div className="mockup-phone border-primary w-80 overflow-y-auto p-0 m-0">
+		<dialog id="publication_modal" className="modal bg-black bg-opacity-20 w-full h-full" open={true}>
+			<div className="mockup-phone border-primary w-80 p-0 m-0">
 				<div className="camera"></div>
 				<div className="display">
 					<div className="flex items-center bg-base-200 text-white p-4">
@@ -67,7 +67,7 @@ export default function PublicationDetails({ props }: PublicationDetailsProps) {
 								<p className="text-sm text-white">Club scientifique</p>
 							</div>
 						</div>
-						<div className=" px-4 pt-4">
+						<div className="px-4 pt-4 h-52 overflow-y-auto">
 							<p className="text-white text-sm whitespace-pre-line">
 								Le club scientifique qui conceptualise un robot de recherche et secourisme recrute pour ses nouveaux
 								projets! Une rencontre d’information est prévue le mercredi 13 octobre 2021. Le club scientifique qui

@@ -16,6 +16,7 @@ export async function fetchWithSession(
 ) {
 	// Get the current session, refreshes it if it's expired
 	const session = await getSession();
+	console.log(session?.access_token);
 
 	const fetchOptions: RequestInit = {
 		method: method,
@@ -26,7 +27,6 @@ export async function fetchWithSession(
 	};
 
 	if (body && method.toUpperCase() !== 'GET') {
-		console.log(body);
 		fetchOptions.body = JSON.stringify(body);
 	}
 

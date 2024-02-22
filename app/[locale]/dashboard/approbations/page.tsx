@@ -1,14 +1,14 @@
-"use server";
+'use server';
 
-import React from "react";
-import { getEvents } from "@/lib/get-events";
-import ApprobationsTable from "./components/ApprobationsTable";
+import React from 'react';
+import { getModeratorEvents } from '@/lib/get-moderator-events';
+import ApprobationsTable from './components/ApprobationsTable';
 
 type Props = {
 	params: { locale: string };
 };
 
 export default async function Approbations({ params: { locale } }: Props) {
-	const events = await getEvents();
+	const events = await getModeratorEvents();
 	return <ApprobationsTable locale={locale} events={events} />;
 }

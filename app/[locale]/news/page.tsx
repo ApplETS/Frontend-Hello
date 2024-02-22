@@ -1,14 +1,16 @@
+import { getEvents } from '@/lib/get-events';
 import NewsCalendar from './components/NewsCalendar';
 import NewsTimeline from './components/NewsTimeline';
 
-export default function News() {
+export default async function News() {
+	const events = await getEvents();
 	return (
 		<div className="flex flex-row h-full">
 			<div className="basis-[60%]">
-				<NewsCalendar />
+				<NewsCalendar events={events} />
 			</div>
 			<div className="basis-[40%]">
-				<NewsTimeline />
+				<NewsTimeline events={events} />
 			</div>
 		</div>
 	);

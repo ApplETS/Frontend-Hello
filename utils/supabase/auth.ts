@@ -137,7 +137,6 @@ export const updatePasswordSettings = async (formData: FormData) => {
 	});
 
 	if (error) {
-		console.log(error);
 		return redirect(`/${locale}/dashboard/settings/password?code=${error.status}&type=error`);
 	}
 

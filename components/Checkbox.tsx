@@ -25,7 +25,6 @@ export default function Checkbox({ inputName, textStyle, text, style }: Checkbox
 		if (e.target.checked) {
 			const email = (document.getElementById('email') as HTMLInputElement).value;
 			localStorage.setItem('loginEmail', email);
-			console.log(email);
 		} else {
 			localStorage.removeItem('loginEmail');
 		}
@@ -37,12 +36,12 @@ export default function Checkbox({ inputName, textStyle, text, style }: Checkbox
 		<div className={`${style} flex flex-row`}>
 			<input
 				name={inputName ?? 'checkbox'}
-				type='checkbox'
-				id='checkbox'
+				type="checkbox"
+				id="checkbox"
 				value={inputName ?? 'checkbox'}
 				checked={checked}
 				onChange={handleChange}
-				className='checkbox'
+				className="checkbox"
 			/>
 			<p className={`${textStyle} pl-4`}>{text}</p>
 		</div>

@@ -75,7 +75,7 @@ export default function PublicationsTable({ locale, publications }: Props) {
 						<tr key={index} className="border-b-2 border-base-300">
 							<td className="text-base">{publication.title} </td>
 							<td>{formatDate(new Date(publication.publicationDate), locale)}</td>
-							<td>{formatDate(new Date(publication.eventDate), locale)}</td>
+							<td>{formatDate(new Date(publication.eventStartDate), locale)}</td>
 							<td>{0}</td> {/* publication.numberOfViews */}
 							<td className="text-base">
 								<div

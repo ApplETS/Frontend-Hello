@@ -42,7 +42,9 @@ export default function Navbar({ activePage, pages, signOut, user }: Props) {
 				)}
 			</div>
 			<div className="flex-none gap-2">
-				<LanguageButton />
+				<div className="btn btn-ghost btn-circle">
+					<LanguageButton />
+				</div>
 				<ThemeButton />
 				<div className="divider divider-horizontal before:bg-base-content after:bg-base-content my-2"></div>
 

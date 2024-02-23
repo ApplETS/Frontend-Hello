@@ -19,7 +19,6 @@ export default function EmailInput() {
 			const isChecked = checkbox.checked;
 			if (isChecked) {
 				localStorage.setItem('loginEmail', e.target.value.toString());
-				console.log(e.target.value.toString());
 			} else {
 				localStorage.removeItem('loginEmail');
 			}

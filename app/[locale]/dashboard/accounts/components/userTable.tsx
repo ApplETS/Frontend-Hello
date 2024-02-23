@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Dropdown from '@/components/Dropdown';
 import Search from '@/components/Search';
 import Constants from '@/utils/constants';
 import { useTranslations } from 'next-intl';
 import { User } from '@/models/user';
 import DropdownMenu from '@/components/DropdownMenu';
+import { usePathname, useRouter } from '@/navigation';
+import { useSearchParams } from 'next/navigation';
 
 type Props = {
 	locale: string;
@@ -15,7 +17,11 @@ type Props = {
 
 export default function UsersTable({ locale, users }: Props) {
 	const t = useTranslations('Accounts');
+	const router = useRouter();
+	const pathname = usePathname();
+
 	const filterAll = t('filters.all').toLowerCase();
+
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
 	const [filteredUsers, setFilteredUsers] = useState(users);
 	const [searchTerm, setSearchTerm] = useState('');
@@ -51,11 +57,25 @@ export default function UsersTable({ locale, users }: Props) {
 		setSearchTerm(search);
 	};
 
+	const handleCreateUserClicked = () => {
+		router.push({
+			pathname: pathname,
+			query: { create: 'true' },
+		});
+	};
+
 	return (
 		<div>
-			<div className="mb-4 flex items-center space-x-4">
-				<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
-				<Dropdown title={t('filters.all')} items={filters} onFilterChange={handleFilterChanged} />
+			<div className="mb-4 flex justify-between items-center space-x-4">
+				<div className="flex items-center space-x-4 flex-1">
+					<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
+					<div className="w-56">
+						<Dropdown title={t('filters.all')} items={filters} onFilterChange={handleFilterChanged} />
+					</div>
+				</div>
+				<button className="btn btn-primary text-base-100" onClick={handleCreateUserClicked}>
+					{t('create-new-account')}
+				</button>
 			</div>
 			<table className="table w-full rounded-lg">
 				<thead className="bg-base-300 rounded-t-lg h-17">

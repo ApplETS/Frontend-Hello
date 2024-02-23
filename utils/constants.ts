@@ -23,7 +23,7 @@ export default {
     userStatuses: {
         [UserStates.PENDING]: { color: "bg-pink", label: "pending" },
         [UserStates.DEACTIVATED]: { color: "bg-error", label: "deactivated" },
-        [UserStates.ACTIVE]: { color: "bg-purple", label: "refused" },
+        [UserStates.ACTIVE]: { color: "bg-purple", label: "active" },
         [UserStates.ALL]: { color: "bg-orange", label: "all" }
     } as Statuses,
     publicationMenuItems: [

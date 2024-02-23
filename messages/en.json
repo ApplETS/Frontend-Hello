@@ -106,6 +106,7 @@
 	"Accounts" : {
 		"title": "Accounts",
 		"search": "Search",
+		"create-new-account": "Create account",
 		"table": {
 			"organisation": "Organization name",
 			"email": "Email",
@@ -122,6 +123,20 @@
 			"activate": "Activate",
 			"deactivate": "Deactivate",
 			"delete": "Delete"
+		},
+		"create": {
+			"title": "Créer un compte",
+			"organisation": "Organization name",
+			"activityarea": "Activity area",
+			"email": "Email",
+			"send" : "Send",
+			"close": "Close",
+			"activity": {
+				"scientificClub": "Scientific Club",
+				"ets": "ETS",
+				"sve": "Student Life Service",
+				"aeets": "AEETS"
+			}
 		}
 	},
 	"Settings": {

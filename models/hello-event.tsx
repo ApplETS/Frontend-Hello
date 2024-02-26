@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from './user';
 
 export interface HelloEvent {
 	id: string;
@@ -7,7 +7,7 @@ export interface HelloEvent {
 	imageUrl: string;
 	state: number;
 	publicationDate: string;
-	eventDate: string;
+	eventStartDate: string;
 	createdAt: string;
 	updatedAt: string;
 	moderator: User | null;

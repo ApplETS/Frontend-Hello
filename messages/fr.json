@@ -3,18 +3,6 @@
 		"title": "Frontend-PS",
 		"defaultError": "Une erreur est survenue"
 	},
-	"Modal": {
-		"cancel": "Annuler",
-		"reason": "Raison",
-		"delete-account-button": "Supprimer le compte",
-		"delete-account-message": "Êtes-vous sûr de vouloir supprimer le compte? Toutes les données seront perdues.",
-		"deactivate-account-button": "Désactiver le compte",
-		"deactivate-account-message": "Êtes-vous sûr de vouloir désactiver le compte? Vous pourrez le réactiver plus tard.",
-		"refuse-news-button": "Refuser l'annonce",
-		"refuse-news-message": "Pourquoi refusez-vous cette annonce?",
-		"news-modifications-button": "Renvoyer pour approbation",
-		"news-modifications-message": "Êtes-vous sûr de vouloir appliquer les modifications? Votre ancienne publication sera supprimée."
-	},
 	"Dashboard": {
 		"news": "Annonces",
 		"publications": "Publications",

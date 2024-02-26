@@ -6,7 +6,6 @@ import DropdownMenu from '@/components/DropdownMenu';
 import Constants from '@/utils/constants';
 import { formatDate } from '@/utils/formatDate';
 import PostButton from '@/components/PostButton';
-import Confirmation from '@/components/modals/Confirmation';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 
 type Props = {
@@ -72,15 +71,6 @@ export default async function Publications({ params: { locale } }: Props) {
 
 	return (
 		<div className="flex flex-col h-screen">
-			<div className="flex flex-col justify-center items-center">
-				<Confirmation
-					title="Pourquoi voulez-vous supprimer l’annonce ?"
-					firstButtonTitle="Annuler"
-					secondButtonTitle="Supprimer"
-					secondButtonColor="btn-error"
-					inputTitle="Raison"
-				/>
-			</div>
 			<div className="mb-4 flex justify-between items-center space-x-4">
 				<div className="flex items-center space-x-4 flex-1">
 					<Search search={t('search')} />

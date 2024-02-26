@@ -16,6 +16,7 @@ import { User } from '@/models/user';
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
 interface PublicationDetailsProps {
+	locale: string;
 	modalMode: Number;
 	props: {
 		pageTitle: any;
@@ -38,7 +39,7 @@ interface PublicationDetailsProps {
 	onClose: () => void;
 }
 
-export default function PublicationDetails({ props, modalMode, user, onClose }: PublicationDetailsProps) {
+export default function PublicationDetails({ locale, props, modalMode, user, onClose }: PublicationDetailsProps) {
 	const { isLight } = useTheme();
 	const [showToast, setShowToast] = useState(false);
 
@@ -299,7 +300,7 @@ export default function PublicationDetails({ props, modalMode, user, onClose }: 
 			</div>
 			{showPreview && (
 				<div className="inset-0">
-					<Preview infos={previewInfos} onClosePreview={handleClosePreview} />
+					<Preview locale={locale} infos={previewInfos} onClosePreview={handleClosePreview} />
 				</div>
 			)}
 		</>

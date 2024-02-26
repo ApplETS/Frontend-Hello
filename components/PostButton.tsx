@@ -4,6 +4,7 @@ import PublicationsDetails from '@/components/modals/PublicationDetails';
 import { User } from '@/models/user';
 
 interface Props {
+	locale: string;
 	text: string;
 	modalMode: Number;
 	props: {
@@ -26,7 +27,7 @@ interface Props {
 	user: User;
 }
 
-export default function PostButton({ text, props, modalMode, user }: Props) {
+export default function PostButton({ locale, text, props, modalMode, user }: Props) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const toggleModal = () => {
@@ -36,7 +37,13 @@ export default function PostButton({ text, props, modalMode, user }: Props) {
 	return (
 		<div className="relative w-full max-w-lg">
 			{isModalOpen && (
-				<PublicationsDetails props={props} modalMode={modalMode} user={user} onClose={() => setIsModalOpen(false)} />
+				<PublicationsDetails
+					locale={locale}
+					props={props}
+					modalMode={modalMode}
+					user={user}
+					onClose={() => setIsModalOpen(false)}
+				/>
 			)}
 			<button className="btn btn-primary text-base-100" onClick={toggleModal}>
 				{text}

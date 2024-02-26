@@ -80,6 +80,7 @@ export default async function Publications({ params: { locale } }: Props) {
 				</div>
 				<div className="right-0">
 					<PostButton
+						locale={locale}
 						text={t('create-new-post')}
 						props={{
 							pageTitle: t('modal.create-page-title'),

@@ -12,12 +12,14 @@ import Toast from '@/components/Toast';
 import { AlertType } from '../Alert';
 import Preview from './Preview';
 import { User } from '@/models/user';
+import { HelloEvent } from '@/models/hello-event';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
 interface PublicationDetailsProps {
 	locale: string;
 	modalMode: Number;
+	publication: HelloEvent | null;
 	props: {
 		pageTitle: any;
 		title: string;
@@ -45,7 +47,14 @@ interface PublicationDetailsProps {
 	onClose: () => void;
 }
 
-export default function PublicationDetails({ locale, props, modalMode, user, onClose }: PublicationDetailsProps) {
+export default function PublicationDetails({
+	locale,
+	publication,
+	props,
+	modalMode,
+	user,
+	onClose,
+}: PublicationDetailsProps) {
 	const { isLight } = useTheme();
 	const [showToast, setShowToast] = useState(false);
 	const [toastMessage, setToastMessage] = useState('');

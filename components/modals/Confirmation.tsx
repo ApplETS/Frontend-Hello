@@ -8,6 +8,7 @@ interface PublicationDetailsProps {
 	firstButtonTitle: string;
 	secondButtonTitle: string;
 	secondButtonColor: string;
+	secondButtonHoverColor: string;
 	inputTitle?: string;
 	onClose: () => void;
 }
@@ -17,6 +18,7 @@ export default function PublicationDetails({
 	firstButtonTitle,
 	secondButtonTitle,
 	secondButtonColor,
+	secondButtonHoverColor,
 	inputTitle,
 	onClose,
 }: PublicationDetailsProps) {
@@ -60,7 +62,7 @@ export default function PublicationDetails({
 						>
 							{firstButtonTitle}
 						</button>
-						<button className={`btn ${secondButtonColor} text-black`} onClick={submit}>
+						<button className={`btn ${secondButtonColor} ${secondButtonHoverColor} text-black`} onClick={submit}>
 							{secondButtonTitle}
 						</button>
 					</div>

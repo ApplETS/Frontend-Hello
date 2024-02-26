@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
 import DropdownMenu from '@/components/DropdownMenu';
+import Confirmation from '@/components/modals/Confirmation';
 import Constants from '@/utils/constants';
 import { formatDate } from '@/utils/formatDate';
 import { HelloEvent } from '@/models/hello-event';
@@ -23,7 +24,9 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 	const [filteredPublications, setFilteredPublications] = useState(publications);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const [modalType, setModalType] = useState(Constants.publicationModalStatus.view);
+	const [selectedPublication, setSelectedPublication] = useState<HelloEvent | null>(null);
 
 	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
 
@@ -77,9 +80,14 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 		toggleModal();
 	};
 
+	const showDeleteModal = () => {
+		setIsDeleteModalOpen(true);
+	};
+
 	const deletePost = () => {
 		// TODO
 		console.log('Delete post');
+		setIsDeleteModalOpen(false);
 	};
 
 	return (
@@ -130,7 +138,7 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 									viewPublicationModal={viewPost}
 									modifyPublicationModal={modifyPost}
 									duplicatePublicationModal={duplicatePost}
-									deletePublicationModal={deletePost}
+									deletePublicationModal={showDeleteModal}
 								/>
 							</td>
 						</tr>
@@ -138,6 +146,7 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 					{isModalOpen && (
 						<PublicationsDetails
 							locale={locale}
+							publication={selectedPublication}
 							props={{
 								pageTitle: t('modal.create-page-title'),
 								title: t('modal.title'),
@@ -164,6 +173,16 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 							modalMode={modalType}
 							user={user}
 							onClose={() => setIsModalOpen(false)}
+						/>
+					)}
+					{isDeleteModalOpen && (
+						<Confirmation
+							title={t('modal.delete-title')}
+							firstButtonTitle={t('modal.cancel')}
+							secondButtonTitle={t('modal.delete-button')}
+							secondButtonColor="bg-error"
+							secondButtonHoverColor="hover:bg-red"
+							onClose={() => deletePost()}
 						/>
 					)}
 				</tbody>

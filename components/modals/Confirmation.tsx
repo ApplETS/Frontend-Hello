@@ -9,7 +9,7 @@ interface PublicationDetailsProps {
 	secondButtonTitle: string;
 	secondButtonColor: string;
 	inputTitle?: string;
-	// onClose: () => void;
+	onClose: () => void;
 }
 
 export default function PublicationDetails({
@@ -18,18 +18,18 @@ export default function PublicationDetails({
 	secondButtonTitle,
 	secondButtonColor,
 	inputTitle,
-}: // onClose,
-PublicationDetailsProps) {
+	onClose,
+}: PublicationDetailsProps) {
 	const { isLight } = useTheme();
 	const [inputText, setInputText] = useState('');
 
 	const handleClose = () => {
-		// onClose();
+		onClose();
 	};
 
 	const submit = () => {
 		// TODO Submit to backend
-		// onClose();
+		onClose();
 	};
 
 	return (

@@ -1,14 +1,22 @@
 import Dropdown from '@/components/SignUpActivity';
+import { signInWithOTP } from '@/utils/supabase/auth';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 
 export default async function UserCreateDialog() {
 	const t = await getTranslations('Accounts.create');
+
+	async function create() {
+		'use server';
+
+		await signInWithOTP();
+	}
+
 	return (
 		<div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
 			<div className="bg-base-200 rounded-lg shadow-lg p-5 max-w-3xl w-full">
 				<h2 className="text-2xl text-center font-semibold pb-4">{t('title')}</h2>
-				<form action="">
+				<form action={create}>
 					<div className="flex flex-row space-x-4 mb-4">
 						{/* Organisation input */}
 						<div className="flex flex-col flex-1">
@@ -49,7 +57,9 @@ export default async function UserCreateDialog() {
 					<div className="divider divider-accent"></div>
 					<div className="flex flex-row space-x-4 mb-4">
 						<div className="w-3/5"></div>
-						<button className="btn btn-secondary text-base-100 font-normal w-1/5">{t('close')}</button>
+						<button type="button" className="btn btn-secondary text-base-100 font-normal w-1/5">
+							{t('close')}
+						</button>
 						<button className="btn btn-primary text-base-100 font-normal w-1/5">{t('send')}</button>
 					</div>
 				</form>

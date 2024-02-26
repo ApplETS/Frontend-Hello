@@ -34,6 +34,7 @@ interface PublicationDetailsProps {
 		tags: string[];
 		toolTipText: string;
 		errorToastMessage: string;
+		dateErrorToastMessage: string;
 	};
 	user: User;
 	onClose: () => void;
@@ -42,6 +43,7 @@ interface PublicationDetailsProps {
 export default function PublicationDetails({ locale, props, modalMode, user, onClose }: PublicationDetailsProps) {
 	const { isLight } = useTheme();
 	const [showToast, setShowToast] = useState(false);
+	const [toastMessage, setToastMessage] = useState('');
 
 	const [title, setTitle] = useState('');
 	const [imageSrc, setImageSrc] = useState('');
@@ -81,6 +83,13 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 	const submit = () => {
 		if (!title || !imageSrc || !altText || !content || !eventStartDate || !eventEndDate || !publishedDate) {
 			setShowToast(true);
+			setToastMessage(props.errorToastMessage);
+			return;
+		}
+
+		if (new Date(eventEndDate).getTime() < new Date(eventStartDate).getTime()) {
+			setShowToast(true);
+			setToastMessage(props.dateErrorToastMessage);
 			return;
 		}
 
@@ -129,9 +138,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 		<>
 			<div className="fixed inset-0 bg-black bg-opacity-30 z-40">
 				<dialog id="publication_modal" className="modal overflow-y-auto p-4" open={true}>
-					{showToast && (
-						<Toast message={props.errorToastMessage} alertType={AlertType.error} onCloseToast={handleCloseToast} />
-					)}
+					{showToast && <Toast message={toastMessage} alertType={AlertType.error} onCloseToast={handleCloseToast} />}
 					<div className="overflow-y-auto w-full">
 						<div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200 max-h-[80vh]">
 							<div className="grid grid-cols-2 gap-2"></div>
@@ -214,6 +221,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 													value={eventEndDate}
 													className="input input-ghost w-full border-base-content"
 													onChange={(e) => setEventEndDate(e.target.value)}
+													min={eventStartDate}
 													disabled={isDisabled}
 												/>
 											</div>

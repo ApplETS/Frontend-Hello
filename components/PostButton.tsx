@@ -23,6 +23,7 @@ interface Props {
 		tags: string[];
 		toolTipText: string;
 		errorToastMessage: string;
+		dateErrorToastMessage: string;
 	};
 	user: User;
 }

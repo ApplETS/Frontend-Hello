@@ -98,6 +98,7 @@ export default async function Publications({ params: { locale } }: Props) {
 							tags: ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile'], // TODO: Replace with actual tags
 							toolTipText: t('modal.tool-tip-text'),
 							errorToastMessage: t('modal.error-toast-message'),
+							dateErrorToastMessage: t('modal.date-error-toast-message'),
 						}}
 						modalMode={Constants.publicationModalStatus.create}
 						user={user}

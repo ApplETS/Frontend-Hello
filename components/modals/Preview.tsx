@@ -4,7 +4,7 @@ import React from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faClose, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
-import { MDXEditor } from '@mdxeditor/editor';
+import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
 
 interface PublicationDetailsProps {
 	locale: string;
@@ -145,6 +145,7 @@ export default function Preview({ locale, infos, onClosePreview }: PublicationDe
 											className={` text-sm text-justify ${
 												isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
 											}`}
+											plugins={[linkPlugin(), linkDialogPlugin()]}
 											markdown={infos.content}
 										/>
 										<div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }}></div>

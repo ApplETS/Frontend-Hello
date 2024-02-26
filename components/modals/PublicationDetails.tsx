@@ -247,6 +247,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 											type="file"
 											className="file-input file-input-bordered file-input-accent w-full"
 											disabled={isDisabled}
+											accept="image/*"
 											onChange={(e) => {
 												if (e.target.files && e.target.files.length > 0) {
 													handleFileDrop(e.target.files[0]);

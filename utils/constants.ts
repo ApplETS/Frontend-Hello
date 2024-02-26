@@ -1,4 +1,4 @@
-import { faPenToSquare, faClone, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faClone, faTrashCan, faEye } from '@fortawesome/free-solid-svg-icons';
 import { NewsStates } from '@/models/news-states';
 
 interface NewsStatus {
@@ -26,21 +26,33 @@ export default {
 		[NewsStates.PUBLISHED]: { color: 'bg-blue', label: 'published' },
 		[NewsStates.ALL]: { color: 'bg-orange', label: 'all' },
 	} as NewsStatuses,
+	publicationMenuItemsStatus: {
+		open: 0,
+		modify: 1,
+		duplicate: 2,
+		delete: 3,
+	},
 	publicationMenuItems: [
 		{
 			id: 1,
 			label: 'open',
-			icon: faPenToSquare,
+			icon: faEye,
 			color: '',
 		},
 		{
 			id: 2,
+			label: 'modify',
+			icon: faPenToSquare,
+			color: '',
+		},
+		{
+			id: 3,
 			label: 'duplicate',
 			icon: faClone,
 			color: '',
 		},
 		{
-			id: 3,
+			id: 4,
 			label: 'delete',
 			icon: faTrashCan,
 			color: 'text-error',

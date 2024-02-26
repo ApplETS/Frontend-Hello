@@ -7,8 +7,8 @@ import DropdownMenu from '@/components/DropdownMenu';
 import Constants from '@/utils/constants';
 import { formatDate } from '@/utils/formatDate';
 import { HelloEvent } from '@/models/hello-event';
-import PostButton from '@/components/PostButton';
 import { User } from '@/models/user';
+import PublicationsDetails from '@/components/modals/PublicationDetails';
 
 type Props = {
 	locale: string;
@@ -22,6 +22,8 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
 	const [filteredPublications, setFilteredPublications] = useState(publications);
 	const [searchTerm, setSearchTerm] = useState('');
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [modalType, setModalType] = useState(Constants.publicationModalStatus.view);
 
 	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
 
@@ -51,6 +53,35 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 		};
 	});
 
+	const toggleModal = () => {
+		setIsModalOpen(!isModalOpen);
+	};
+
+	const createNewPost = () => {
+		setModalType(Constants.publicationModalStatus.create);
+		toggleModal();
+	};
+
+	const viewPost = () => {
+		setModalType(Constants.publicationModalStatus.view);
+		toggleModal();
+	};
+
+	const modifyPost = () => {
+		setModalType(Constants.publicationModalStatus.modify);
+		toggleModal();
+	};
+
+	const duplicatePost = () => {
+		setModalType(Constants.publicationModalStatus.duplicate);
+		toggleModal();
+	};
+
+	const deletePost = () => {
+		// TODO
+		console.log('Delete post');
+	};
+
 	return (
 		<div className="flex flex-col h-screen">
 			<div className="mb-4 flex justify-between items-center space-x-4">
@@ -61,35 +92,9 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 					</div>
 				</div>
 				<div className="right-0">
-					<PostButton
-						locale={locale}
-						text={t('create-new-post')}
-						props={{
-							pageTitle: t('modal.create-page-title'),
-							title: t('modal.title'),
-							activityArea: t('modal.activity-area'),
-							altText: t('modal.alt-text'),
-							publishedDate: t('modal.published-date'),
-							eventStartDate: t('modal.event-start-date'),
-							eventEndDate: t('modal.event-end-date'),
-							tagsTitle: t('modal.tags-title'),
-							addTag: t('modal.add-tag'),
-							content: t('modal.content'),
-							newsTitle: t('modal.news'),
-							eventTitle: t('modal.event-date'),
-							chooseFile: t('modal.choose-file'),
-							cancelButton: t('modal.cancel-button'),
-							submitButton: t('modal.submit-button'),
-							tags: ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile'], // TODO: Replace with actual tags
-							toolTipText: t('modal.tool-tip-text'),
-							errorToastMessage: t('modal.error-toast-message'),
-							dateErrorToastMessage: t('modal.date-error-toast-message'),
-							imageFormatErrorToastMessage: t('modal.image-format-error-toast-message'),
-							previewTitle: t('modal.preview'),
-						}}
-						modalMode={Constants.publicationModalStatus.create}
-						user={user}
-					/>
+					<button className="btn btn-primary text-base-100" onClick={createNewPost}>
+						{t('create-new-post')}
+					</button>
 				</div>
 			</div>
 			<table className="table w-full rounded-lg">
@@ -120,10 +125,47 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 								</div>
 							</td>
 							<td>
-								<DropdownMenu items={menuItems} />
+								<DropdownMenu
+									items={menuItems}
+									viewPublicationModal={viewPost}
+									modifyPublicationModal={modifyPost}
+									duplicatePublicationModal={duplicatePost}
+									deletePublicationModal={deletePost}
+								/>
 							</td>
 						</tr>
 					))}
+					{isModalOpen && (
+						<PublicationsDetails
+							locale={locale}
+							props={{
+								pageTitle: t('modal.create-page-title'),
+								title: t('modal.title'),
+								activityArea: t('modal.activity-area'),
+								altText: t('modal.alt-text'),
+								publishedDate: t('modal.published-date'),
+								eventStartDate: t('modal.event-start-date'),
+								eventEndDate: t('modal.event-end-date'),
+								tagsTitle: t('modal.tags-title'),
+								addTag: t('modal.add-tag'),
+								content: t('modal.content'),
+								newsTitle: t('modal.news'),
+								eventTitle: t('modal.event-date'),
+								chooseFile: t('modal.choose-file'),
+								cancelButton: t('modal.cancel-button'),
+								submitButton: t('modal.submit-button'),
+								tags: ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile'], // TODO: Replace with actual tags
+								toolTipText: t('modal.tool-tip-text'),
+								errorToastMessage: t('modal.error-toast-message'),
+								dateErrorToastMessage: t('modal.date-error-toast-message'),
+								imageFormatErrorToastMessage: t('modal.image-format-error-toast-message'),
+								previewTitle: t('modal.preview'),
+							}}
+							modalMode={modalType}
+							user={user}
+							onClose={() => setIsModalOpen(false)}
+						/>
+					)}
 				</tbody>
 			</table>
 		</div>

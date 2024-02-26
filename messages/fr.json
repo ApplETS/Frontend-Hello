@@ -79,7 +79,8 @@
 		"menu": {
 			"duplicate": "Dupliquer",
 			"delete": "Supprimer",
-			"open": "Ouvrir"
+			"open": "Ouvrir",
+			"modify": "Modifier"
 		},
 		"modal": {
 			"create-page-title": "Créer une publication",

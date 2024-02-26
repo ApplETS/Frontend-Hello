@@ -1,8 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 import PublicationsDetails from '@/components/modals/PublicationDetails';
+import { User } from '@/models/user';
 
 interface Props {
+	locale: string;
 	text: string;
 	modalMode: Number;
 	props: {
@@ -16,15 +18,22 @@ interface Props {
 		addTag: string;
 		tagsTitle: string;
 		content: string;
+		newsTitle: string;
+		eventTitle: string;
+		chooseFile: string;
 		cancelButton: string;
 		submitButton: string;
 		tags: string[];
 		toolTipText: string;
 		errorToastMessage: string;
+		dateErrorToastMessage: string;
+		imageFormatErrorToastMessage: string;
+		previewTitle: string;
 	};
+	user: User;
 }
 
-export default function PostButton({ text, props, modalMode }: Props) {
+export default function PostButton({ locale, text, props, modalMode, user }: Props) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const toggleModal = () => {
@@ -33,7 +42,15 @@ export default function PostButton({ text, props, modalMode }: Props) {
 
 	return (
 		<div className="relative w-full max-w-lg">
-			{isModalOpen && <PublicationsDetails props={props} modalMode={modalMode} onClose={() => setIsModalOpen(false)} />}
+			{isModalOpen && (
+				<PublicationsDetails
+					locale={locale}
+					props={props}
+					modalMode={modalMode}
+					user={user}
+					onClose={() => setIsModalOpen(false)}
+				/>
+			)}
 			<button className="btn btn-primary text-base-100" onClick={toggleModal}>
 				{text}
 			</button>

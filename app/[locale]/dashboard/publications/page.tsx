@@ -103,6 +103,7 @@ export default async function Publications({ params: { locale } }: Props) {
 							errorToastMessage: t('modal.error-toast-message'),
 							dateErrorToastMessage: t('modal.date-error-toast-message'),
 							imageFormatErrorToastMessage: t('modal.image-format-error-toast-message'),
+							previewTitle: t('modal.preview'),
 						}}
 						modalMode={Constants.publicationModalStatus.create}
 						user={user}

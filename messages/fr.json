@@ -102,7 +102,8 @@
 			"tool-tip-text": "Elle retombera en attente d'approbation et votre publication précédente sera supprimé",
 			"error-toast-message": "Veuillez remplir tous les champs",
 			"date-error-toast-message": "La date de fin de l'événement doit être postérieure à la date de début",
-			"image-format-error-toast-message": "Le format de l'image n'est pas supporté"
+			"image-format-error-toast-message": "Le format de l'image n'est pas supporté",
+			"preview": "Aperçu"
 		}
 	},
 	"Approbations": {

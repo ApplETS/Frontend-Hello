@@ -39,6 +39,7 @@ interface PublicationDetailsProps {
 		errorToastMessage: string;
 		dateErrorToastMessage: string;
 		imageFormatErrorToastMessage: string;
+		previewTitle: string;
 	};
 	user: User;
 	onClose: () => void;
@@ -167,7 +168,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 								)}
 								<div className="ml-auto mb-2">
 									<button className="btn btn-primary" onClick={() => setShowPreview(true)}>
-										Aperçu
+										{props.previewTitle}
 									</button>
 								</div>
 							</div>

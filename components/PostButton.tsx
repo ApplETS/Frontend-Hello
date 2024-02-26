@@ -28,6 +28,7 @@ interface Props {
 		errorToastMessage: string;
 		dateErrorToastMessage: string;
 		imageFormatErrorToastMessage: string;
+		previewTitle: string;
 	};
 	user: User;
 }

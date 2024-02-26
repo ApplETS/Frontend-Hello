@@ -94,11 +94,15 @@
 			"tags-title": "Étiquette(s) (Maximum de 5)",
 			"add-tag": "Ajouter ...",
 			"content": "Contenu",
+			"news": "Annonce",
+			"event-date": "Date de l'événement",
+			"choose-file": "Choisir un fichier",
 			"cancel-button": "Fermer",
 			"submit-button": "Envoyer pour approbation",
 			"tool-tip-text": "Elle retombera en attente d'approbation et votre publication précédente sera supprimé",
 			"error-toast-message": "Veuillez remplir tous les champs",
-			"date-error-toast-message": "La date de fin de l'événement doit être postérieure à la date de début"
+			"date-error-toast-message": "La date de fin de l'événement doit être postérieure à la date de début",
+			"image-format-error-toast-message": "Le format de l'image n'est pas supporté"
 		}
 	},
 	"Approbations": {

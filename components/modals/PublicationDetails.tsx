@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ActivityArea from '@/components/ActivityArea';
 import AddTag from '@/components/AddTag';
 import Constants from '@/utils/constants';
@@ -29,12 +29,16 @@ interface PublicationDetailsProps {
 		addTag: string;
 		tagsTitle: string;
 		content: string;
+		newsTitle: string;
+		eventTitle: string;
+		chooseFile: string;
 		cancelButton: string;
 		submitButton: string;
 		tags: string[];
 		toolTipText: string;
 		errorToastMessage: string;
 		dateErrorToastMessage: string;
+		imageFormatErrorToastMessage: string;
 	};
 	user: User;
 	onClose: () => void;
@@ -60,16 +64,15 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 	const addTagButtonIsDisabled = selectedTags.length >= 5;
 	const [showPreview, setShowPreview] = useState(false);
 
-	const colors = ['bg-blue', 'bg-green', 'bg-pink', 'bg-orange', 'bg-purple'];
 	const previewInfos = {
-		news: 'Annonce',
+		news: props.newsTitle,
 		title: title,
 		imageSrc: imageSrc,
 		altText: altText,
 		author: user.organisation,
 		activityArea: user.activityArea,
 		content: content,
-		eventDateTitle: "Date de l'événement",
+		eventDateTitle: props.eventTitle,
 		eventStartDate: eventStartDate,
 		eventEndDate: eventEndDate,
 		publishedDate: publishedDate,
@@ -115,10 +118,21 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 	};
 
 	const handleFileDrop = (file: File) => {
+		const allowedTypes = ['image/jpeg', 'image/png'];
+		console.log(file.type);
+		console.log(allowedTypes.includes(file.type));
+
+		if (!allowedTypes.includes(file.type)) {
+			setToastMessage(props.imageFormatErrorToastMessage);
+			setShowToast(true);
+			return;
+		}
+
 		const reader = new FileReader();
 		reader.onloadend = () => {
 			setImageSrc(reader.result as string);
 		};
+
 		reader.readAsDataURL(file);
 	};
 
@@ -186,7 +200,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 											</div>
 											<div>
 												<div className="z-30">
-													<label className="block">{activityArea}</label>
+													<label className="block">{props.activityArea}</label>
 													<ActivityArea
 														items={['Clubs scientifiques', 'ÉTS', 'Service à la Vie Étudiante', 'AEETS']}
 														isDisabled={isDisabled}
@@ -260,7 +274,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 									{selectedTags.map((tag, index) => (
 										<div
 											key={tag}
-											className={`badge ${colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
+											className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
 										>
 											{tag}
 											<FontAwesomeIcon

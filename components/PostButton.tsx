@@ -18,12 +18,16 @@ interface Props {
 		addTag: string;
 		tagsTitle: string;
 		content: string;
+		newsTitle: string;
+		eventTitle: string;
+		chooseFile: string;
 		cancelButton: string;
 		submitButton: string;
 		tags: string[];
 		toolTipText: string;
 		errorToastMessage: string;
 		dateErrorToastMessage: string;
+		imageFormatErrorToastMessage: string;
 	};
 	user: User;
 }

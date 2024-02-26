@@ -5,6 +5,7 @@ import { useTheme } from '@/utils/provider/ThemeProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faClose, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
+import Constants from '@/utils/constants';
 
 interface PublicationDetailsProps {
 	locale: string;
@@ -26,7 +27,6 @@ interface PublicationDetailsProps {
 }
 
 export default function Preview({ locale, infos, onClosePreview }: PublicationDetailsProps) {
-	const colors = ['bg-blue', 'bg-green', 'bg-pink', 'bg-orange', 'bg-purple'];
 	const { isLight } = useTheme();
 
 	return (
@@ -155,7 +155,7 @@ export default function Preview({ locale, infos, onClosePreview }: PublicationDe
 									{infos.selectedTags.map((tag, index) => (
 										<div
 											key={tag}
-											className={`badge ${colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap text-sm`}
+											className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap text-sm`}
 										>
 											{tag}
 										</div>

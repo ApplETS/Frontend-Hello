@@ -23,9 +23,9 @@ export default function NewsTimeline({ events }: Props) {
 					</div>
 					<div className="timeline-end h-full flex justify-center">
 						<div className="flex flex-col justify-center bg-base-200 rounded-3xl p-10 m-4 w-full">
+							<div className="text-lg font-black">{event.title}</div>
 							<img src={event.imageUrl} alt={event.title} className="rounded-3xl w-fit" />
 							<p className="font-mono italic">{event.eventStartDate.substring(0, 10)}</p>
-							<div className="text-lg font-black">{event.title}</div>
 							<p>{event.content}</p>
 						</div>
 					</div>

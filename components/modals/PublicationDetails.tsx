@@ -12,7 +12,6 @@ import Toast from '@/components/Toast';
 import { AlertType } from '../Alert';
 import Preview from './Preview';
 import { User } from '@/models/user';
-import Confirmation from './Confirmation';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -328,13 +327,6 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 					<Preview locale={locale} infos={previewInfos} onClosePreview={handleClosePreview} />
 				</div>
 			)}
-			<Confirmation
-				title="Pourquoi voulez-vous supprimer l’annonce ?"
-				firstButtonTitle="Annuler"
-				secondButtonTitle="Supprimer"
-				secondButtonColor="btn-error"
-				inputTitle="Raison"
-			/>
 		</>
 	);
 }

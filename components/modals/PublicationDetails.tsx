@@ -191,7 +191,7 @@ export default function PublicationDetails({
 													<label className="block">{props.title}</label>
 													<input
 														type="text"
-														value={title}
+														value={publication?.title}
 														className="input input-ghost w-full border-base-content"
 														onChange={(e) => setTitle(e.target.value)}
 														disabled={isDisabled}

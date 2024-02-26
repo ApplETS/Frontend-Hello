@@ -59,6 +59,7 @@
 		"title": "Publications",
 		"search": "Rechercher",
 		"create-new-post": "Créer une publication",
+		"no-posts": "Aucune publication trouvée",
 		"table": {
 			"title": "Titre",
 			"release-date": "Date de publication",

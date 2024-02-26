@@ -117,32 +117,48 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 					</tr>
 				</thead>
 				<tbody>
-					{filteredPublications.map((publication, index) => (
-						<tr key={index} className="border-b-2 border-base-300">
-							<td className="text-base">{publication.title} </td>
-							<td>{formatDate(new Date(publication.publicationDate), locale)}</td>
-							<td>{formatDate(new Date(publication.eventStartDate), locale)}</td>
-							<td>{0}</td> {/** Replace with number of views when implemented */}
-							<td className="text-base">
-								<div
-									className={`py-4 px-4 badge ${
-										Constants.newsStatuses[publication.state].color || 'badge-neutral'
-									} text-black`}
-								>
-									{t(`filters.${Constants.newsStatuses[publication.state].label}`)}
-								</div>
-							</td>
-							<td>
-								<DropdownMenu
-									items={menuItems}
-									viewPublicationModal={viewPost}
-									modifyPublicationModal={modifyPost}
-									duplicatePublicationModal={duplicatePost}
-									deletePublicationModal={showDeleteModal}
-								/>
+					{filteredPublications.length > 0 ? (
+						filteredPublications.map((publication, index) => (
+							<tr
+								key={index}
+								className="border-b-2 border-base-300 cursor-pointer"
+								onClick={() => {
+									// setSelectedPublication(publication);
+									// viewPost();
+								}}
+							>
+								<td className="text-base">{publication.title}</td>
+								<td>{formatDate(new Date(publication.publicationDate), locale)}</td>
+								<td>{formatDate(new Date(publication.eventStartDate), locale)}</td>
+								<td>{0}</td> {/* Replace with number of views when implemented */}
+								<td className="text-base">
+									<div
+										className={`py-4 px-4 badge ${
+											Constants.newsStatuses[publication.state].color || 'badge-neutral'
+										} text-black`}
+									>
+										{t(`filters.${Constants.newsStatuses[publication.state].label}`)}
+									</div>
+								</td>
+								<td>
+									<DropdownMenu
+										items={menuItems}
+										viewPublicationModal={viewPost}
+										modifyPublicationModal={modifyPost}
+										duplicatePublicationModal={duplicatePost}
+										deletePublicationModal={showDeleteModal}
+									/>
+								</td>
+							</tr>
+						))
+					) : (
+						<tr>
+							<td colSpan={6} className="text-center py-4">
+								{t('no-posts')}
 							</td>
 						</tr>
-					))}
+					)}
+
 					{isModalOpen && (
 						<PublicationsDetails
 							locale={locale}

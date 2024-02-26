@@ -4,6 +4,7 @@ import React from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faClose, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import { MDXEditor } from '@mdxeditor/editor';
 
 interface PublicationDetailsProps {
 	locale: string;
@@ -138,8 +139,16 @@ export default function Preview({ locale, infos, onClosePreview }: PublicationDe
 										<p className="text-xs text-white">{infos.activityArea}</p>
 									</div>
 								</div>
-								<div className="px-4 pt-4 h-40 overflow-y-auto">
-									<p className="text-sm whitespace-pre-line">{infos.content}</p>
+								<div className="px-2 h-40 overflow-y-auto">
+									<div style={{ position: 'relative' }}>
+										<MDXEditor
+											className={` text-sm text-justify ${
+												isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
+											}`}
+											markdown={infos.content}
+										/>
+										<div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }}></div>
+									</div>
 								</div>
 								<div className="flex flex-wrap p-4 gap-1">
 									{infos.selectedTags.map((tag, index) => (

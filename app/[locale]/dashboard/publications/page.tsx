@@ -1,20 +1,21 @@
 import React from 'react';
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
 import DropdownMenu from '@/components/DropdownMenu';
 import Constants from '@/utils/constants';
 import { formatDate } from '@/utils/formatDate';
 import PostButton from '@/components/PostButton';
+import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 
 type Props = {
 	params: { locale: string };
 };
 
-export default function Publications({ params: { locale } }: Props) {
+export default async function Publications({ params: { locale } }: Props) {
 	unstable_setRequestLocale(locale);
-	const t = useTranslations('Publications');
+	const t = await getTranslations('Publications');
+	const user = await getAuthenticatedUser();
 
 	const currentDate = new Date();
 	const formattedDate = formatDate(currentDate, locale);
@@ -79,6 +80,7 @@ export default function Publications({ params: { locale } }: Props) {
 				</div>
 				<div className="right-0">
 					<PostButton
+						locale={locale}
 						text={t('create-new-post')}
 						props={{
 							pageTitle: t('modal.create-page-title'),
@@ -91,13 +93,20 @@ export default function Publications({ params: { locale } }: Props) {
 							tagsTitle: t('modal.tags-title'),
 							addTag: t('modal.add-tag'),
 							content: t('modal.content'),
+							newsTitle: t('modal.news'),
+							eventTitle: t('modal.event-date'),
+							chooseFile: t('modal.choose-file'),
 							cancelButton: t('modal.cancel-button'),
 							submitButton: t('modal.submit-button'),
 							tags: ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile'], // TODO: Replace with actual tags
 							toolTipText: t('modal.tool-tip-text'),
 							errorToastMessage: t('modal.error-toast-message'),
+							dateErrorToastMessage: t('modal.date-error-toast-message'),
+							imageFormatErrorToastMessage: t('modal.image-format-error-toast-message'),
+							previewTitle: t('modal.preview'),
 						}}
 						modalMode={Constants.publicationModalStatus.create}
+						user={user}
 					/>
 				</div>
 			</div>

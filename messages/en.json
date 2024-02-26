@@ -94,10 +94,16 @@
 			"tags-title": "Tag(s) (maximum of 5)",
 			"add-tag": "Add ...",
 			"content": "Content",
+			"news": "News",
+			"event-date": "Event date",
+			"choose-file": "Choose a file",
 			"cancel-button": "Close",
 			"submit-button": "Send for approbation",
 			"tool-tip-text": "It will go back to pending approval and your previous post will be deleted",
-			"error-toast-message": "Please fill all the fields"
+			"error-toast-message": "Please fill all the fields",
+			"date-error-toast-message": "The event start date must be before the event end date",
+			"image-format-error-toast-message": "The image format is not supported",
+			"preview": "Preview"
 		}
 	},
 	"Approbations": {

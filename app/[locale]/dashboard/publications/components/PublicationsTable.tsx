@@ -7,13 +7,16 @@ import DropdownMenu from '@/components/DropdownMenu';
 import Constants from '@/utils/constants';
 import { formatDate } from '@/utils/formatDate';
 import { HelloEvent } from '@/models/hello-event';
+import PostButton from '@/components/PostButton';
+import { User } from '@/models/user';
 
 type Props = {
 	locale: string;
 	publications: HelloEvent[];
+	user: User;
 };
 
-export default function PublicationsTable({ locale, publications }: Props) {
+export default function PublicationsTable({ locale, publications, user }: Props) {
 	const t = useTranslations('Publications');
 	const filterAll = t('filters.all').toLowerCase();
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
@@ -40,7 +43,7 @@ export default function PublicationsTable({ locale, publications }: Props) {
 		setSearchTerm(search);
 	};
 
-	const menuItems = Constants.menuItems.map((item) => {
+	const menuItems = Constants.publicationMenuItems.map((item) => {
 		return {
 			text: t(`menu.${item.label}`),
 			icon: item.icon,
@@ -49,7 +52,7 @@ export default function PublicationsTable({ locale, publications }: Props) {
 	});
 
 	return (
-		<div>
+		<div className="flex flex-col h-screen">
 			<div className="mb-4 flex justify-between items-center space-x-4">
 				<div className="flex items-center space-x-4 flex-1">
 					<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
@@ -57,7 +60,37 @@ export default function PublicationsTable({ locale, publications }: Props) {
 						<Dropdown title={t('filters.all')} items={filters} onFilterChange={handleFilterChanged} />
 					</div>
 				</div>
-				<button className="btn btn-primary text-base-100">{t('create-new-post')}</button>
+				<div className="right-0">
+					<PostButton
+						locale={locale}
+						text={t('create-new-post')}
+						props={{
+							pageTitle: t('modal.create-page-title'),
+							title: t('modal.title'),
+							activityArea: t('modal.activity-area'),
+							altText: t('modal.alt-text'),
+							publishedDate: t('modal.published-date'),
+							eventStartDate: t('modal.event-start-date'),
+							eventEndDate: t('modal.event-end-date'),
+							tagsTitle: t('modal.tags-title'),
+							addTag: t('modal.add-tag'),
+							content: t('modal.content'),
+							newsTitle: t('modal.news'),
+							eventTitle: t('modal.event-date'),
+							chooseFile: t('modal.choose-file'),
+							cancelButton: t('modal.cancel-button'),
+							submitButton: t('modal.submit-button'),
+							tags: ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile'], // TODO: Replace with actual tags
+							toolTipText: t('modal.tool-tip-text'),
+							errorToastMessage: t('modal.error-toast-message'),
+							dateErrorToastMessage: t('modal.date-error-toast-message'),
+							imageFormatErrorToastMessage: t('modal.image-format-error-toast-message'),
+							previewTitle: t('modal.preview'),
+						}}
+						modalMode={Constants.publicationModalStatus.create}
+						user={user}
+					/>
+				</div>
 			</div>
 			<table className="table w-full rounded-lg">
 				<thead className="bg-base-300 rounded-t-lg h-17">
@@ -75,8 +108,8 @@ export default function PublicationsTable({ locale, publications }: Props) {
 						<tr key={index} className="border-b-2 border-base-300">
 							<td className="text-base">{publication.title} </td>
 							<td>{formatDate(new Date(publication.publicationDate), locale)}</td>
-							<td>{formatDate(new Date(publication.eventDate), locale)}</td>
-							<td>{0}</td> {/* publication.numberOfViews */}
+							<td>{formatDate(new Date(publication.eventStartDate), locale)}</td>
+							<td>{0}</td> {/** Replace with number of views when implemented */}
 							<td className="text-base">
 								<div
 									className={`py-4 px-4 badge ${

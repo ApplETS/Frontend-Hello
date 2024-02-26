@@ -26,7 +26,7 @@ export default {
 		[NewsStates.PUBLISHED]: { color: 'bg-blue', label: 'published' },
 		[NewsStates.ALL]: { color: 'bg-orange', label: 'all' },
 	} as NewsStatuses,
-	menuItems: [
+	publicationMenuItems: [
 		{
 			id: 1,
 			label: 'open',

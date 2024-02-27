@@ -7,18 +7,14 @@ import Constants from '@/utils/constants';
 import { useTranslations } from 'next-intl';
 import { User } from '@/models/user';
 import DropdownMenu from '@/components/DropdownMenu';
-import { usePathname, useRouter } from '@/navigation';
-import { useSearchParams } from 'next/navigation';
+import UserCreationModal from '@/components/modals/UserCreationModal';
 
 type Props = {
-	locale: string;
 	users: User[];
 };
 
-export default function UsersTable({ locale, users }: Props) {
+export default function UsersTable({ users }: Props) {
 	const t = useTranslations('Accounts');
-	const router = useRouter();
-	const pathname = usePathname();
 
 	const filterAll = t('filters.all').toLowerCase();
 
@@ -27,6 +23,11 @@ export default function UsersTable({ locale, users }: Props) {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const filters = Object.values(Constants.userStatuses).map((status) => t(`filters.${status.label}`));
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const toggleModal = () => {
+		setIsModalOpen(!isModalOpen);
+	};
 
 	const menuItems = Constants.userMenuItems.map((item) => {
 		return {
@@ -57,13 +58,6 @@ export default function UsersTable({ locale, users }: Props) {
 		setSearchTerm(search);
 	};
 
-	const handleCreateUserClicked = () => {
-		router.push({
-			pathname: pathname,
-			query: { create: 'true' },
-		});
-	};
-
 	return (
 		<div>
 			<div className="mb-4 flex justify-between items-center space-x-4">
@@ -73,7 +67,8 @@ export default function UsersTable({ locale, users }: Props) {
 						<Dropdown title={t('filters.all')} items={filters} onFilterChange={handleFilterChanged} />
 					</div>
 				</div>
-				<button className="btn btn-primary text-base-100" onClick={handleCreateUserClicked}>
+				{isModalOpen && <UserCreationModal onClose={toggleModal} />}
+				<button className="btn btn-primary text-base-100" onClick={toggleModal}>
 					{t('create-new-account')}
 				</button>
 			</div>

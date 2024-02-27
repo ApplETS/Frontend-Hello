@@ -158,17 +158,38 @@ export const updateProfile = async (formData: FormData) => {
 	'use server';
 
 	const locale = formData.get('locale') as string;
-	const userId = formData.get('userId') as string;
 
 	const userObject = await getAuthenticatedUser();
 
 	userObject.email = formData.get('email') as string;
 	userObject.organisation = formData.get('organization') as string;
 	userObject.activityArea = formData.get('activity') as string;
+	userObject.profileDescription = formData.get('description') as string;
+	userObject.webSiteLink = formData.get('website') as string;
 
 	await updateUserProfile(userObject);
 
 	return redirect(`/${locale}/dashboard/settings/profile?code=200&type=success`);
+};
+
+export const updateSocials = async (formData: FormData) => {
+	'use server';
+
+	const locale = formData.get('locale') as string;
+
+	const userObject = await getAuthenticatedUser();
+
+	userObject.facebookLink = formData.get('facebook') as string;
+	userObject.discordLink = formData.get('discord') as string;
+	userObject.instagramLink = formData.get('instagram') as string;
+	userObject.linkedInLink = formData.get('linkedin') as string;
+	userObject.tikTokLink = formData.get('tiktok') as string;
+	userObject.redditLink = formData.get('reddit') as string;
+	userObject.xLink = formData.get('x') as string;
+
+	await updateUserProfile(userObject);
+
+	return redirect(`/${locale}/dashboard/settings/socials?code=200&type=success`);
 };
 
 export const getSession = async () => {

@@ -8,9 +8,9 @@ interface Props {
 
 export default function NewsTimeline({ events }: Props) {
 	return (
-		<div className="pl-10 timeline timeline-snap-icon timeline-compact timeline-vertical h-full overflow-y-auto">
+		<div className="pl-10 timeline timeline-compact timeline-snap-icon timeline-vertical h-full overflow-y-auto">
 			{events.map((event) => (
-				<li className="h-[30%]">
+				<li className="">
 					<hr />
 					<div className="timeline-middle">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
@@ -21,12 +21,12 @@ export default function NewsTimeline({ events }: Props) {
 							/>
 						</svg>
 					</div>
-					<div className="timeline-end h-full flex justify-center">
-						<div className="flex flex-col justify-center bg-base-200 rounded-3xl p-10 m-4 w-full">
+					<div className="timeline-end h-full flex flex-col justify-center px-4 py-2">
+						<p className="font-mono italic">{event.eventStartDate.substring(0, 10)}</p>
+						<div className="flex flex-col justify-center bg-base-200 rounded-3xl p-10 h-full">
 							<div className="text-lg font-black">{event.title}</div>
-							<img src={event.imageUrl} alt={event.title} className="rounded-3xl w-fit" />
-							<p className="font-mono italic">{event.eventStartDate.substring(0, 10)}</p>
-							<p>{event.content}</p>
+							<img src={event.imageUrl} alt={event.title} className="rounded-3xl object-cover" />
+							<p className="">{event.content}</p>
 						</div>
 					</div>
 					<hr />

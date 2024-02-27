@@ -10,7 +10,6 @@ import enLocale from '@fullcalendar/core/locales/en-gb';
 import daisyuiColors from 'daisyui/src/theming/themes';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { createRef, useState } from 'react';
-import Dropdown from '@/components/Dropdown';
 import { CalendarHeader } from './NewsCalendarHeader';
 
 interface Props {
@@ -20,10 +19,12 @@ interface Props {
 
 export default function NewsCalendar({ events, locale }: Props) {
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>(events);
-	const [showDropdown, setShowDropdown] = useState(false);
+
 	const calendarRef = createRef<FullCalendar>();
+
 	const { isLight } = useTheme();
 	const themeColors = isLight ? daisyuiColors.light : daisyuiColors.dark;
+
 	const filterItems = ['Club scientifique', 'Club social'];
 	const handleFilterChange = (selectedIndices: number[]) => {
 		if (selectedIndices.length !== 0) {
@@ -53,14 +54,14 @@ export default function NewsCalendar({ events, locale }: Props) {
 				locale={locale}
 				events={shownEvents.map((event) => {
 					return {
-						title: event.title + 'asd asd asd aas asd asd asd asd asd as',
+						title: event.title,
 						start: event.eventStartDate,
 					};
 				})}
 				eventContent={(arg: EventContentArg) => {
 					return (
 						<div className="bg-primary p-2">
-							<p className="text-center truncate">{`${arg.timeText} - ${arg.event.title}`}</p>
+							<p className="text-left truncate">{`${arg.timeText} - ${arg.event.title}`}</p>
 						</div>
 					);
 				}}
@@ -73,14 +74,6 @@ export default function NewsCalendar({ events, locale }: Props) {
 					alert('Event: ' + info.event.title);
 				}}
 				eventDisplay="block"
-				customButtons={{
-					filters: {
-						text: 'Filtres',
-						click: function () {
-							setShowDropdown(!showDropdown);
-						},
-					},
-				}}
 				headerToolbar={false}
 			/>
 		</div>

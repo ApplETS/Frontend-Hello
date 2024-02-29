@@ -1,4 +1,4 @@
-import { faPenToSquare, faClone, faTrashCan, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faClone, faTrashCan, faEye, faPen } from '@fortawesome/free-solid-svg-icons';
 import { NewsStates } from '@/models/news-states';
 
 interface NewsStatus {
@@ -35,7 +35,7 @@ export default {
 		{
 			id: 1,
 			label: 'modify',
-			icon: faPenToSquare,
+			icon: faPen,
 			color: '',
 		},
 		{

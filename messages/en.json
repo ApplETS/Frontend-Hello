@@ -101,6 +101,7 @@
 			"choose-file": "Choose a file",
 			"cancel-button": "Close",
 			"submit-button": "Send for approbation",
+			"resubmit-button": "Resubmit for approbation",
 			"tool-tip-text": "It will go back to pending approval and your previous post will be deleted",
 			"published-date-tool-tip-text": "The date that the event will be published",
 			"start-date-tool-tip-text": "This is the start date of the event",

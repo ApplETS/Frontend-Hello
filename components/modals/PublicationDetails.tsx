@@ -141,19 +141,13 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 		setContent(newContent);
 	};
 
-	const handleCloseToast = () => {
-		setShowToast(false);
-	};
-
-	const handleClosePreview = () => {
-		setShowPreview(false);
-	};
-
 	return (
 		<>
 			<div className="fixed inset-0 bg-black bg-opacity-30 z-40">
 				<dialog id="publication_modal" className="modal overflow-y-auto p-4" open={true}>
-					{showToast && <Toast message={toastMessage} alertType={AlertType.error} onCloseToast={handleCloseToast} />}
+					{showToast && (
+						<Toast message={toastMessage} alertType={AlertType.error} onCloseToast={() => setShowToast(false)} />
+					)}
 					<div className="overflow-y-auto w-full">
 						<div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200 max-h-[80vh]">
 							<div className="grid grid-cols-2 gap-2"></div>
@@ -339,7 +333,9 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 									{t('modal.cancel-button')}
 								</button>
 								<button className="btn btn-success text-black ml-3" onClick={submit}>
-									{t('modal.submit-button')}
+									{modalMode === Constants.publicationModalStatus.modify
+										? t('modal.resubmit-button')
+										: t('modal.submit-button')}
 								</button>
 							</div>
 						</div>
@@ -348,7 +344,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 			</div>
 			{showPreview && (
 				<div className="inset-0">
-					<Preview locale={locale} infos={previewInfos} onClosePreview={handleClosePreview} />
+					<Preview locale={locale} infos={previewInfos} onClosePreview={() => setShowPreview(false)} />
 				</div>
 			)}
 		</>

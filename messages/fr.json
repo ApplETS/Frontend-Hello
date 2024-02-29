@@ -101,6 +101,7 @@
 			"choose-file": "Choisir un fichier",
 			"cancel-button": "Fermer",
 			"submit-button": "Envoyer pour approbation",
+			"resubmit-button": "Renvoyer pour approbation",
 			"tool-tip-text": "Elle retombera en attente d'approbation et votre publication précédente sera supprimé",
 			"published-date-tool-tip-text": "Il s'agit de la date que l'annonce sera publié",
 			"start-date-tool-tip-text": "Il s'agit de la date du début de l'événement",

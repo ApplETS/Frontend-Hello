@@ -170,7 +170,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 										</div>
 									)}
 									<div className="ml-auto mb-2">
-										<button className="btn btn-primary" onClick={() => setShowPreview(true)}>
+										<button type="button" className="btn btn-primary" onClick={() => setShowPreview(true)}>
 											{t('modal.preview')}
 										</button>
 									</div>

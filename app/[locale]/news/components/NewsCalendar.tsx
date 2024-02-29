@@ -15,9 +15,10 @@ import { CalendarHeader } from './NewsCalendarHeader';
 interface Props {
 	events: HelloEvent[];
 	locale: string;
+	handleEventSelect: (cardId: number | null) => void;
 }
 
-export default function NewsCalendar({ events, locale }: Props) {
+export default function NewsCalendar({ events, locale, handleEventSelect }: Props) {
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>(events);
 
 	const calendarRef = createRef<FullCalendar>();
@@ -77,7 +78,7 @@ export default function NewsCalendar({ events, locale }: Props) {
 					hour12: false,
 				}}
 				eventClick={(info) => {
-					alert('Event: ' + info.event.title);
+					handleEventSelect(events.find((event) => event.title === info.event.title)?.cardId ?? null);
 				}}
 				eventDisplay="block"
 				headerToolbar={false}

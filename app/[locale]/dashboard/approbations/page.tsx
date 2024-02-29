@@ -1,7 +1,7 @@
 'use server';
 
 import React from 'react';
-import { getModeratorEvents } from '@/lib/get-moderator-events';
+import { getEvents } from '@/lib/get-events';
 import ApprobationsTable from './components/ApprobationsTable';
 
 type Props = {
@@ -9,6 +9,6 @@ type Props = {
 };
 
 export default async function Approbations({ params: { locale } }: Props) {
-	const events = await getModeratorEvents();
+	const events = await getEvents();
 	return <ApprobationsTable locale={locale} events={events} />;
 }

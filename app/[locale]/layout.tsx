@@ -1,5 +1,6 @@
 import { GeistSans } from 'geist/font/sans';
 import './globals.css';
+import '@mdxeditor/editor/style.css'
 import { ReactNode } from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { locales } from '../../config';

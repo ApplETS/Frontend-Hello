@@ -53,7 +53,7 @@ export default function DropdownSelect({ title, items, onFilterChange }: Props) 
 				{isDropdownOpen && (
 					<ul className="p-2 shadow menu bg-base-100 rounded-box absolute z-10">
 						{items.map((item, index) => (
-							<li className="flex justify-start items-center" key={index}>
+							<li className="flex" key={index}>
 								<a className="flex items-center justify-start space-x-2" onClick={() => handleItemClick(index)}>
 									<input
 										type="checkbox"

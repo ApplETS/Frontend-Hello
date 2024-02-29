@@ -11,7 +11,7 @@ export type TCalendarHeader = {
 	calendarRef: RefObject<FullCalendar>;
 	locale: string;
 	handleFilterChange: (selectedIndices: number[]) => void;
-	filterItems: string[];
+	filterItems: { id: number; name: string }[];
 };
 
 export const CalendarHeader = ({
@@ -67,7 +67,11 @@ export const CalendarHeader = ({
 			</div>
 			<div />
 			<div>
-				<DropdownSelect title={'Filters'} items={filterItems} onFilterChange={handleFilterChange} />
+				<DropdownSelect
+					title={'Filters'}
+					items={filterItems.map((item) => item.name)}
+					onFilterChange={handleFilterChange}
+				/>
 			</div>
 		</header>
 	);

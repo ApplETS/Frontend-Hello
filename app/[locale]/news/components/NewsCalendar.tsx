@@ -25,12 +25,18 @@ export default function NewsCalendar({ events, locale }: Props) {
 	const { isLight } = useTheme();
 	const themeColors = isLight ? daisyuiColors.light : daisyuiColors.dark;
 
-	const filterItems = ['Club scientifique', 'Club social'];
+	const filterItems = [
+		// Will need to get from backend
+		{ id: 0, name: 'Club scientifique' },
+		{ id: 1, name: 'ÉTS' },
+		{ id: 2, name: 'Service à la vie étudiante' },
+		{ id: 3, name: 'AEETS' },
+	];
 	const handleFilterChange = (selectedIndices: number[]) => {
 		if (selectedIndices.length !== 0) {
 			setShownEvents(
 				events.filter((event) => {
-					const selectedItems = selectedIndices.map((index) => filterItems[index]);
+					const selectedItems = selectedIndices.map((index) => filterItems[index].name);
 					return selectedItems.includes(event.organizer?.activityArea ?? '');
 				})
 			);

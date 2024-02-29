@@ -76,7 +76,6 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 				break;
 			case 3:
 				showDeleteModal();
-				toggleModal();
 				break;
 		}
 	};

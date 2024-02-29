@@ -99,6 +99,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 		if (modalMode === Constants.publicationModalStatus.modify) {
 			// TODO : Changer l'ancienne publication par la nouvelle
 		} else {
+			// Javais pas encore transformer en form quand j'ai fait le code en dessous mais mtn c'est fait !
 			createPublication(
 				title,
 				content,
@@ -164,7 +165,10 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 									<h1 className="text-2xl block mb-2">{pageTitle}</h1>
 									{modalMode === Constants.publicationModalStatus.modify && (
 										<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.tool-tip-text')}>
-											<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
+											<button
+												type="button"
+												className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2"
+											>
 												!
 											</button>
 										</div>
@@ -206,7 +210,10 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 															className="tooltip tooltip-top ml-2"
 															data-tip={t('modal.published-date-tool-tip-text')}
 														>
-															<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
+															<button
+																type="button"
+																className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2"
+															>
 																?
 															</button>
 														</div>
@@ -226,7 +233,10 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 													<div className="flex items-center">
 														<label className="block">{t('modal.event-start-date')}</label>
 														<div className="tooltip tooltip-top ml-2" data-tip={t('modal.start-date-tool-tip-text')}>
-															<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
+															<button
+																type="button"
+																className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2"
+															>
 																?
 															</button>
 														</div>
@@ -243,7 +253,10 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 													<div className="flex items-center">
 														<label className="block">{t('modal.event-end-date')}</label>
 														<div className="tooltip tooltip-top ml-2" data-tip={t('modal.end-date-tool-tip-text')}>
-															<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
+															<button
+																type="button"
+																className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2"
+															>
 																?
 															</button>
 														</div>

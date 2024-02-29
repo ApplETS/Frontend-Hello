@@ -163,29 +163,6 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 						<PublicationsDetails
 							locale={locale}
 							publication={selectedPublication}
-							props={{
-								pageTitle: t('modal.create-page-title'),
-								title: t('modal.title'),
-								activityArea: t('modal.activity-area'),
-								altText: t('modal.alt-text'),
-								publishedDate: t('modal.published-date'),
-								eventStartDate: t('modal.event-start-date'),
-								eventEndDate: t('modal.event-end-date'),
-								tagsTitle: t('modal.tags-title'),
-								addTag: t('modal.add-tag'),
-								content: t('modal.content'),
-								newsTitle: t('modal.news'),
-								eventTitle: t('modal.event-date'),
-								chooseFile: t('modal.choose-file'),
-								cancelButton: t('modal.cancel-button'),
-								submitButton: t('modal.submit-button'),
-								tags: ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile'], // TODO: Replace with actual tags
-								toolTipText: t('modal.tool-tip-text'),
-								errorToastMessage: t('modal.error-toast-message'),
-								dateErrorToastMessage: t('modal.date-error-toast-message'),
-								imageFormatErrorToastMessage: t('modal.image-format-error-toast-message'),
-								previewTitle: t('modal.preview'),
-							}}
 							modalMode={modalType}
 							user={user}
 							onClose={() => setIsModalOpen(false)}

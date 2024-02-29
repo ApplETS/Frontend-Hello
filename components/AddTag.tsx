@@ -32,7 +32,7 @@ export default function AddTag({ titleButton, items, onTagSelected }: Props) {
 	}, []);
 
 	return (
-		<div ref={dropdownRef} className="dropdown w-full z-40">
+		<div ref={dropdownRef} className="dropdown w-fit z-40">
 			<button
 				className={` badge py-4 px-4 bg-base-300 ${
 					isLight ? 'hover:bg-secondary text-black' : 'hover:bg-base-100 text-white'

@@ -1,8 +1,8 @@
 'use server';
 
 import React from 'react';
-import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import UsersTable from './components/userTable';
+import { getUsers } from '@/lib/get-users';
 
 type Props = {
 	params: { locale: string };
@@ -10,8 +10,6 @@ type Props = {
 };
 
 export default async function Approbations({ params: { locale }, searchParams }: Props) {
-	const user = await getAuthenticatedUser();
-
-	console.log(searchParams);
-	return <UsersTable users={[user]} />;
+	const users = await getUsers();
+	return <UsersTable users={users} />;
 }

@@ -8,6 +8,9 @@ import { useTranslations } from 'next-intl';
 import { User } from '@/models/user';
 import DropdownMenu from '@/components/DropdownMenu';
 import UserCreationModal from '@/components/modals/UserCreationModal';
+import Toast from '@/components/Toast';
+import { AlertType } from '@/components/Alert';
+import { revalidatePath } from 'next/cache';
 
 type Props = {
 	users: User[];
@@ -21,6 +24,7 @@ export default function UsersTable({ users }: Props) {
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
 	const [filteredUsers, setFilteredUsers] = useState(users);
 	const [searchTerm, setSearchTerm] = useState('');
+	const [isCreationSuccess, setIsCreationSuccess] = useState(false);
 
 	const filters = Object.values(Constants.userStatuses).map((status) => t(`filters.${status.label}`));
 
@@ -48,7 +52,7 @@ export default function UsersTable({ users }: Props) {
 					user.email.toLowerCase().includes(searchTerm.toLowerCase()))
 		);
 		setFilteredUsers(filtered);
-	}, [selectedFilter, searchTerm]);
+	}, [selectedFilter, searchTerm, users]);
 
 	const handleFilterChanged = (filterIndex: number) => {
 		setSelectedFilter(filters[filterIndex].toLowerCase());
@@ -58,8 +62,21 @@ export default function UsersTable({ users }: Props) {
 		setSearchTerm(search);
 	};
 
+	const handleUserCreation = (user: User | undefined) => {
+		setIsModalOpen(false);
+		setIsCreationSuccess(true);
+
+		// Dismiss toast after 3 seconds
+		setTimeout(() => setIsCreationSuccess(false), 3000);
+	};
+
 	return (
 		<div>
+			{isCreationSuccess && (
+				<>
+					<Toast message={"L'utilisateur a bien été créé"} alertType={AlertType.success} />
+				</>
+			)}
 			<div className="mb-4 flex justify-between items-center space-x-4">
 				<div className="flex items-center space-x-4 flex-1">
 					<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
@@ -67,7 +84,7 @@ export default function UsersTable({ users }: Props) {
 						<Dropdown title={t('filters.all')} items={filters} onFilterChange={handleFilterChanged} />
 					</div>
 				</div>
-				{isModalOpen && <UserCreationModal onClose={toggleModal} />}
+				{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
 				<button className="btn btn-primary text-base-100" onClick={toggleModal}>
 					{t('create-new-account')}
 				</button>

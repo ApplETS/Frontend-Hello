@@ -121,7 +121,7 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 								<td className="text-base">{publication.title}</td>
 								<td>{formatDate(new Date(publication.publicationDate), locale)}</td>
 								<td>{formatDate(new Date(publication.eventStartDate), locale)}</td>
-								<td>{0}</td> {/* Replace with number of views when implemented */}
+								<td>{0}</td> {/* TODO Replace with number of views when implemented */}
 								<td className="text-base">
 									<div
 										className={`py-4 px-4 badge ${

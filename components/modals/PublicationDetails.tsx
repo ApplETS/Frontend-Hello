@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddTag from '@/components/AddTag';
 import Constants from '@/utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,6 +13,8 @@ import { AlertType } from '../Alert';
 import Preview from './Preview';
 import { User } from '@/models/user';
 import { HelloEvent } from '@/models/hello-event';
+import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
+import { createPublication } from '@/lib/publications/actions/create-publication';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -25,21 +27,24 @@ interface PublicationDetailsProps {
 }
 
 export default function PublicationDetails({ locale, publication, modalMode, user, onClose }: PublicationDetailsProps) {
-	const tags = ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile']; // TODO: Replace with actual tags
 	const t = useTranslations('Publications');
 	const { isLight } = useTheme();
+
+	const tags = ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile']; // TODO: Replace with actual tags
 	const [showToast, setShowToast] = useState(false);
 	const [toastMessage, setToastMessage] = useState('');
 
-	const [title, setTitle] = useState('');
-	const [imageSrc, setImageSrc] = useState('');
-	const [altText, setAltText] = useState('');
-	const [content, setContent] = useState('');
-	const [eventStartDate, setEventStartDate] = useState('');
-	const [eventEndDate, setEventEndDate] = useState('');
-	const [publishedDate, setPublishedDate] = useState('');
-	const [selectedTags, setSelectedTags] = useState<string[]>([]);
-	const [availableTags, setAvailableTags] = useState(tags);
+	// PUBLICATION DETAILS
+	const [title, setTitle] = useState(publication?.title || '');
+	const [imageSrc, setImageSrc] = useState(publication?.imageUrl || '');
+	const [altText, setAltText] = useState(''); // TODO: Missing alttext in backend
+	const [content, setContent] = useState(publication?.content || '');
+	const [eventStartDate, setEventStartDate] = useState(publication?.eventStartDate.slice(0, 16) || '');
+	const [eventEndDate, setEventEndDate] = useState(''); // TODO : Missing eventEndDate in backend. replace with : publication?.eventEndDate.slice(0, 16) || ''
+	const [publishedDate, setPublishedDate] = useState(publication?.publicationDate.slice(0, 10) || '');
+	const [selectedTags, setSelectedTags] = useState<string[]>(publication?.tags || []);
+	const [availableTags, setAvailableTags] = useState(tags); // TODO: Replace with actual tags from Backend
+
 	const isDisabled =
 		modalMode === Constants.publicationModalStatus.view || modalMode === Constants.publicationModalStatus.delete;
 	const addTagButtonIsDisabled = selectedTags.length >= 5;
@@ -80,10 +85,6 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 			break;
 	}
 
-	const handleClose = () => {
-		onClose();
-	};
-
 	const submit = () => {
 		if (!title || !imageSrc || !altText || !content || !eventStartDate || !eventEndDate || !publishedDate) {
 			setShowToast(true);
@@ -97,7 +98,22 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 			return;
 		}
 
-		// TODO Submit to backend
+		if (modalMode === Constants.publicationModalStatus.modify) {
+			// TODO : Changer l'ancienne publication par la nouvelle
+		} else {
+			createPublication(
+				title,
+				content,
+				imageSrc,
+				1, // Jsp c quoi les state
+				publishedDate,
+				eventStartDate,
+				selectedTags
+			);
+
+			// TODO : Display toast if success of failure
+		}
+
 		onClose();
 	};
 
@@ -114,14 +130,8 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 		});
 	};
 
-	const handleTagDelete = (tagValue: string) => {
-		setSelectedTags((prevTags) => prevTags.filter((tag) => tag !== tagValue));
-	};
-
 	const handleFileDrop = (file: File) => {
 		const allowedTypes = ['image/jpeg', 'image/png'];
-		console.log(file.type);
-		console.log(allowedTypes.includes(file.type));
 
 		if (!allowedTypes.includes(file.type)) {
 			setToastMessage(t('modal.image-format-error-toast-message'));
@@ -264,7 +274,9 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 														<FontAwesomeIcon
 															icon={faXmark}
 															className="ml-2 cursor-pointer"
-															onClick={() => handleTagDelete(tag)}
+															onClick={() =>
+																setSelectedTags((prevTags) => prevTags.filter((currentTag) => currentTag !== tag))
+															}
 														/>
 													</div>
 												))}
@@ -315,28 +327,32 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 								{!isDisabled ? (
 									<EditorComp markdown={content} onContentChange={handleContentChange} />
 								) : (
-									<input
-										type="text"
-										value={content}
-										className="input input-ghost w-full border-base-content"
-										disabled={true}
+									<MDXEditor
+										className={` text-sm text-justify ${
+											isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
+										}`}
+										plugins={[linkPlugin(), linkDialogPlugin()]}
+										markdown={content}
 									/>
 								)}
 							</div>
 
-							<div className="divider my-1"></div>
+							<div style={{ borderTop: '1px solid #ccc', margin: '20px 0' }}></div>
+
 							<div className="modal-action">
 								<button
 									className={`btn text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
-									onClick={handleClose}
+									onClick={() => onClose()}
 								>
 									{t('modal.cancel-button')}
 								</button>
-								<button className="btn btn-success text-black ml-3" onClick={submit}>
-									{modalMode === Constants.publicationModalStatus.modify
-										? t('modal.resubmit-button')
-										: t('modal.submit-button')}
-								</button>
+								{modalMode !== Constants.publicationModalStatus.view && (
+									<button className="btn btn-success text-black ml-3" onClick={submit}>
+										{modalMode === Constants.publicationModalStatus.modify
+											? t('modal.resubmit-button')
+											: t('modal.submit-button')}
+									</button>
+								)}
 							</div>
 						</div>
 					</div>

@@ -6,18 +6,18 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface Props {
 	items: { text: string; icon: IconProp; color: string }[];
-	selectedIndex?: (index: number) => void;
+	onSelect?: (publicationIndex: number, dropdownIndex: number) => void;
+	publicationIndex: number;
 }
 
-export default function DropdownMenu({ items, selectedIndex }: Props) {
+export default function DropdownMenu({ items, onSelect, publicationIndex }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
-	const handleItemClick = (event: React.MouseEvent<HTMLAnchorElement>, index: number) => {
+	const handleItemClick = (event: React.MouseEvent<HTMLAnchorElement>, dropdownIndex: number) => {
 		event.preventDefault();
-		selectedIndex && selectedIndex(index);
-
+		onSelect && onSelect(publicationIndex, dropdownIndex);
 		setIsDropdownOpen(false);
 	};
 

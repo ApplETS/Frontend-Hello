@@ -60,8 +60,10 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 		setIsModalOpen(!isModalOpen);
 	};
 
-	const handleSelection = (index: number) => {
-		switch (index) {
+	const handleSelection = (index: number, dropdownIndex?: number) => {
+		setSelectedPublication(filteredPublications[index]);
+
+		switch (dropdownIndex) {
 			case 0:
 				setModalType(Constants.publicationModalStatus.view);
 				toggleModal();
@@ -75,23 +77,19 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 				toggleModal();
 				break;
 			case 3:
-				showDeleteModal();
+				setIsDeleteModalOpen(true);
 				break;
 		}
 	};
 
-	const createNewPost = () => {
+	const handleCreateNewPost = () => {
 		setModalType(Constants.publicationModalStatus.create);
+		setSelectedPublication(null);
 		toggleModal();
 	};
 
-	const showDeleteModal = () => {
-		setIsDeleteModalOpen(true);
-	};
-
 	const deletePost = () => {
-		// TODO
-		console.log('Delete post');
+		// TODO - Implement delete post
 		setIsDeleteModalOpen(false);
 	};
 
@@ -105,7 +103,7 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 					</div>
 				</div>
 				<div className="right-0">
-					<button className="btn btn-primary text-base-100" onClick={createNewPost}>
+					<button className="btn btn-primary text-base-100" onClick={handleCreateNewPost}>
 						{t('create-new-post')}
 					</button>
 				</div>
@@ -124,14 +122,7 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 				<tbody>
 					{filteredPublications.length > 0 ? (
 						filteredPublications.map((publication, index) => (
-							<tr
-								key={index}
-								className="border-b-2 border-base-300 cursor-pointer"
-								onClick={() => {
-									// setSelectedPublication(publication);
-									// viewPost();
-								}}
-							>
+							<tr key={index} className="border-b-2 border-base-300 cursor-pointer">
 								<td className="text-base">{publication.title}</td>
 								<td>{formatDate(new Date(publication.publicationDate), locale)}</td>
 								<td>{formatDate(new Date(publication.eventStartDate), locale)}</td>
@@ -146,7 +137,11 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 									</div>
 								</td>
 								<td>
-									<DropdownMenu items={menuItems} selectedIndex={handleSelection} />
+									<DropdownMenu
+										items={menuItems}
+										onSelect={(publicationIndex, dropdownIndex) => handleSelection(publicationIndex, dropdownIndex)}
+										publicationIndex={index}
+									/>
 								</td>
 							</tr>
 						))

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faFilter } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
 	title: string;
@@ -47,6 +47,7 @@ export default function DropdownSelect({ title, items, onFilterChange }: Props) 
 		<div className="flex items-center space-x-4" ref={dropdownRef}>
 			<div className="dropdown relative">
 				<button className="m-1 btn flex items-center btn-outline btn-accent" onClick={toggleDropdown}>
+					<FontAwesomeIcon icon={faFilter} size="lg" />
 					{title}
 					<FontAwesomeIcon icon={isDropdownOpen ? faAngleUp : faAngleDown} className="w-5 ml-2" />
 				</button>

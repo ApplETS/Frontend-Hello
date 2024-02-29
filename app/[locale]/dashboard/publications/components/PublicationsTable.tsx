@@ -29,15 +29,22 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 	const [selectedPublication, setSelectedPublication] = useState<HelloEvent | null>(null);
 
 	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
+	const menuItems = Constants.publicationMenuItems.map((item) => {
+		return {
+			text: t(`menu.${item.label}`),
+			icon: item.icon,
+			color: item.color,
+		};
+	});
 
 	useEffect(() => {
-		const filtered = publications.filter(
+		const filteredPublications = publications.filter(
 			(publication) =>
 				(t(`filters.${Constants.newsStatuses[publication.state]?.label}`).toLowerCase() === selectedFilter ||
 					selectedFilter === filterAll) &&
 				(searchTerm === '' || publication.title.toLowerCase().includes(searchTerm.toLowerCase()))
 		);
-		setFilteredPublications(filtered);
+		setFilteredPublications(filteredPublications);
 	}, [selectedFilter, searchTerm]);
 
 	const handleFilterChanged = (filterIndex: number) => {
@@ -48,33 +55,21 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 		setSearchTerm(search);
 	};
 
-	const menuItems = Constants.publicationMenuItems.map((item) => {
-		return {
-			text: t(`menu.${item.label}`),
-			icon: item.icon,
-			color: item.color,
-		};
-	});
-
-	const toggleModal = () => {
-		setIsModalOpen(!isModalOpen);
-	};
-
-	const handleSelection = (index: number, dropdownIndex?: number) => {
+	const handleDropdownSelection = (index: number, dropdownIndex?: number) => {
 		setSelectedPublication(filteredPublications[index]);
 
 		switch (dropdownIndex) {
 			case 0:
 				setModalType(Constants.publicationModalStatus.view);
-				toggleModal();
+				setIsModalOpen(!isModalOpen);
 				break;
 			case 1:
 				setModalType(Constants.publicationModalStatus.modify);
-				toggleModal();
+				setIsModalOpen(!isModalOpen);
 				break;
 			case 2:
 				setModalType(Constants.publicationModalStatus.duplicate);
-				toggleModal();
+				setIsModalOpen(!isModalOpen);
 				break;
 			case 3:
 				setIsDeleteModalOpen(true);
@@ -85,11 +80,11 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 	const handleCreateNewPost = () => {
 		setModalType(Constants.publicationModalStatus.create);
 		setSelectedPublication(null);
-		toggleModal();
+		setIsModalOpen(!isModalOpen);
 	};
 
 	const deletePost = () => {
-		// TODO - Implement delete post
+		// TODO : Implement delete post
 		setIsDeleteModalOpen(false);
 	};
 
@@ -139,7 +134,9 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 								<td>
 									<DropdownMenu
 										items={menuItems}
-										onSelect={(publicationIndex, dropdownIndex) => handleSelection(publicationIndex, dropdownIndex)}
+										onSelect={(publicationIndex, dropdownIndex) =>
+											handleDropdownSelection(publicationIndex, dropdownIndex)
+										}
 										publicationIndex={index}
 									/>
 								</td>
@@ -152,7 +149,6 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 							</td>
 						</tr>
 					)}
-
 					{isModalOpen && (
 						<PublicationsDetails
 							locale={locale}

@@ -30,7 +30,6 @@ export default function PublicationDetails({
 	};
 
 	const submit = () => {
-		// TODO Submit to backend
 		onClose();
 	};
 

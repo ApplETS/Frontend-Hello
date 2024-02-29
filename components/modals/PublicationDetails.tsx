@@ -140,7 +140,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 							<div className="flex items-center gap-2">
 								<h1 className="text-2xl block mb-2">{t('modal.create-page-title')}</h1>
 								{modalMode === Constants.publicationModalStatus.modify && (
-									<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.event-tool-tip-text')}>
+									<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.tool-tip-text')}>
 										<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
 											!
 										</button>
@@ -170,8 +170,8 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 										<div className="grid grid-cols-2 gap-4 mt-3">
 											<div className="">
 												<div className="z-30 mt-3">
-													<label className="block mb-1">{t('modal.activity-area')}</label>
-													<div className="btn bg-inherit border-current w-full hover:bg-base-300">
+													<label className="block mb-2">{t('modal.activity-area')}</label>
+													<div className="btn btn-disabled g-inherit border-current w-full hover:bg-inherit hover:border-current">
 														{user.activityArea}
 													</div>
 												</div>
@@ -179,7 +179,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 											<div className="mb-3">
 												<div className="flex items-center">
 													<label className="block">{t('modal.published-date')}</label>
-													<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.tool-tip-text')}>
+													<div className="tooltip tooltip-top ml-2" data-tip={t('modal.published-date-tool-tip-text')}>
 														<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
 															?
 														</button>
@@ -199,7 +199,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 											<div className="mb-3">
 												<div className="flex items-center">
 													<label className="block">{t('modal.event-start-date')}</label>
-													<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.start-date-tool-tip-text')}>
+													<div className="tooltip tooltip-top ml-2" data-tip={t('modal.start-date-tool-tip-text')}>
 														<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
 															?
 														</button>
@@ -216,7 +216,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 											<div className="mb-3">
 												<div className="flex items-center">
 													<label className="block">{t('modal.event-end-date')}</label>
-													<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.end-date-tool-tip-text')}>
+													<div className="tooltip tooltip-top ml-2" data-tip={t('modal.end-date-tool-tip-text')}>
 														<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
 															?
 														</button>
@@ -234,7 +234,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 										</div>
 
 										<div className="mb-3">
-											<label className="block">{t('modal.tags-title')}</label>
+											<label className="block mt-3">{t('modal.tags-title')}</label>
 											<div
 												className={`flex flex-wrap items-center gap-2 py-2 px-2 border border-base-content rounded-md ${
 													isDisabled ? 'h-10' : ''

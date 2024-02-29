@@ -34,8 +34,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 	const [showToast, setShowToast] = useState(false);
 	const [toastMessage, setToastMessage] = useState('');
 	const [showPreview, setShowPreview] = useState(false);
-	const fieldsShouldBeDisabled =
-		modalMode === Constants.publicationModalStatus.view || modalMode === Constants.publicationModalStatus.delete;
+	const fieldsShouldBeDisabled = modalMode === Constants.publicationModalStatus.delete;
 
 	// PUBLICATION DETAILS
 	const [title, setTitle] = useState(publication?.title || '');
@@ -73,9 +72,6 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 			break;
 		case Constants.publicationModalStatus.duplicate:
 			pageTitle = t('modal.create-page-title');
-			break;
-		case Constants.publicationModalStatus.view:
-			pageTitle = t('modal.view-page-title');
 			break;
 		default:
 			pageTitle = '';
@@ -359,13 +355,11 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 									>
 										{t('modal.cancel-button')}
 									</button>
-									{modalMode !== Constants.publicationModalStatus.view && (
-										<button className="btn btn-success text-black ml-3" type="submit">
-											{modalMode === Constants.publicationModalStatus.modify
-												? t('modal.resubmit-button')
-												: t('modal.submit-button')}
-										</button>
-									)}
+									<button className="btn btn-success text-black ml-3" type="submit">
+										{modalMode === Constants.publicationModalStatus.modify
+											? t('modal.resubmit-button')
+											: t('modal.submit-button')}
+									</button>
 								</div>
 							</div>
 						</div>

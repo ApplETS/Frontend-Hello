@@ -25,7 +25,7 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-	const [modalType, setModalType] = useState(Constants.publicationModalStatus.view);
+	const [modalType, setModalType] = useState(Constants.publicationModalStatus.create);
 	const [selectedPublication, setSelectedPublication] = useState<HelloEvent | null>(null);
 
 	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
@@ -60,18 +60,14 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 
 		switch (dropdownIndex) {
 			case 0:
-				setModalType(Constants.publicationModalStatus.view);
-				setIsModalOpen(!isModalOpen);
-				break;
-			case 1:
 				setModalType(Constants.publicationModalStatus.modify);
 				setIsModalOpen(!isModalOpen);
 				break;
-			case 2:
+			case 1:
 				setModalType(Constants.publicationModalStatus.duplicate);
 				setIsModalOpen(!isModalOpen);
 				break;
-			case 3:
+			case 2:
 				setIsDeleteModalOpen(true);
 				break;
 		}

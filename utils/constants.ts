@@ -12,11 +12,10 @@ interface NewsStatuses {
 
 export default {
 	publicationModalStatus: {
-		view: 1,
-		create: 2,
-		duplicate: 3,
-		modify: 4,
-		delete: 5,
+		create: 0,
+		modify: 1,
+		duplicate: 2,
+		delete: 3,
 	},
 	newsStatuses: {
 		[NewsStates.ON_HOLD]: { color: 'bg-pink', label: 'on-hold' },
@@ -35,24 +34,18 @@ export default {
 	publicationMenuItems: [
 		{
 			id: 1,
-			label: 'open',
-			icon: faEye,
-			color: '',
-		},
-		{
-			id: 2,
 			label: 'modify',
 			icon: faPenToSquare,
 			color: '',
 		},
 		{
-			id: 3,
+			id: 2,
 			label: 'duplicate',
 			icon: faClone,
 			color: '',
 		},
 		{
-			id: 4,
+			id: 3,
 			label: 'delete',
 			icon: faTrashCan,
 			color: 'text-error',

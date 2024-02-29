@@ -60,23 +60,29 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 		setIsModalOpen(!isModalOpen);
 	};
 
+	const handleSelection = (index: number) => {
+		switch (index) {
+			case 0:
+				setModalType(Constants.publicationModalStatus.view);
+				toggleModal();
+				break;
+			case 1:
+				setModalType(Constants.publicationModalStatus.modify);
+				toggleModal();
+				break;
+			case 2:
+				setModalType(Constants.publicationModalStatus.duplicate);
+				toggleModal();
+				break;
+			case 3:
+				showDeleteModal();
+				toggleModal();
+				break;
+		}
+	};
+
 	const createNewPost = () => {
 		setModalType(Constants.publicationModalStatus.create);
-		toggleModal();
-	};
-
-	const viewPost = () => {
-		setModalType(Constants.publicationModalStatus.view);
-		toggleModal();
-	};
-
-	const modifyPost = () => {
-		setModalType(Constants.publicationModalStatus.modify);
-		toggleModal();
-	};
-
-	const duplicatePost = () => {
-		setModalType(Constants.publicationModalStatus.duplicate);
 		toggleModal();
 	};
 
@@ -141,13 +147,7 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 									</div>
 								</td>
 								<td>
-									<DropdownMenu
-										items={menuItems}
-										viewPublicationModal={viewPost}
-										modifyPublicationModal={modifyPost}
-										duplicatePublicationModal={duplicatePost}
-										deletePublicationModal={showDeleteModal}
-									/>
+									<DropdownMenu items={menuItems} selectedIndex={handleSelection} />
 								</td>
 							</tr>
 						))

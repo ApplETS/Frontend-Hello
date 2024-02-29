@@ -60,6 +60,26 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 		selectedTags: selectedTags,
 	};
 
+	let pageTitle;
+
+	switch (modalMode) {
+		case Constants.publicationModalStatus.create:
+			pageTitle = t('modal.create-page-title');
+			break;
+		case Constants.publicationModalStatus.modify:
+			pageTitle = t('modal.modify-page-title');
+			break;
+		case Constants.publicationModalStatus.duplicate:
+			pageTitle = t('modal.create-page-title');
+			break;
+		case Constants.publicationModalStatus.view:
+			pageTitle = t('modal.view-page-title');
+			break;
+		default:
+			pageTitle = '';
+			break;
+	}
+
 	const handleClose = () => {
 		onClose();
 	};
@@ -138,7 +158,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 						<div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200 max-h-[80vh]">
 							<div className="grid grid-cols-2 gap-2"></div>
 							<div className="flex items-center gap-2">
-								<h1 className="text-2xl block mb-2">{t('modal.create-page-title')}</h1>
+								<h1 className="text-2xl block mb-2">{pageTitle}</h1>
 								{modalMode === Constants.publicationModalStatus.modify && (
 									<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.tool-tip-text')}>
 										<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">

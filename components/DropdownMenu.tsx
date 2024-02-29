@@ -3,39 +3,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import Constants from '@/utils/constants';
 
 interface Props {
 	items: { text: string; icon: IconProp; color: string }[];
-	viewPublicationModal?: () => void;
-	modifyPublicationModal?: () => void;
-	duplicatePublicationModal?: () => void;
-	deletePublicationModal?: () => void;
+	selectedIndex?: (index: number) => void;
 }
 
-export default function DropdownMenu({
-	items,
-	viewPublicationModal,
-	modifyPublicationModal,
-	duplicatePublicationModal,
-	deletePublicationModal,
-}: Props) {
+export default function DropdownMenu({ items, selectedIndex }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	const handleItemClick = (event: React.MouseEvent<HTMLAnchorElement>, index: number) => {
 		event.preventDefault();
-
-		if (index === Constants.publicationMenuItemsStatus.open) {
-			viewPublicationModal && viewPublicationModal();
-		} else if (index === Constants.publicationMenuItemsStatus.modify) {
-			modifyPublicationModal && modifyPublicationModal();
-		} else if (index === Constants.publicationMenuItemsStatus.duplicate) {
-			duplicatePublicationModal && duplicatePublicationModal();
-		} else if (index === Constants.publicationMenuItemsStatus.delete) {
-			deletePublicationModal && deletePublicationModal();
-		}
+		selectedIndex && selectedIndex(index);
 
 		setIsDropdownOpen(false);
 	};

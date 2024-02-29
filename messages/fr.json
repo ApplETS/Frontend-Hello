@@ -86,7 +86,7 @@
 		"modal": {
 			"create-page-title": "Créer une publication",
 			"modify-page-title": "Modifier une publication",
-			"consult-page-title": "Consulter une publication",
+			"view-page-title": "Consulter une publication",
 			"title": "Titre",
 			"activity-area": "Secteur d'activité",
 			"alt-text": "Texte alternatif de l'image",

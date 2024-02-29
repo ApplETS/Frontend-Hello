@@ -86,7 +86,7 @@
 		"modal": {
 			"create-page-title": "Create a news",
 			"modify-page-title": "Modify a news",
-			"consult-page-title": "Consult a news",
+			"view-page-title": "Consult a news",
 			"title": "Title",
 			"activity-area": "Activity area",
 			"alt-text": "Alt text",

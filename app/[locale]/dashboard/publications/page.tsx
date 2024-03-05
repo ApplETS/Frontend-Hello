@@ -1,5 +1,5 @@
 import React from 'react';
-import { getPublications as getPublications } from '@/lib/get-publications';
+import { getPublications } from '@/lib/publications/get-publications';
 import PublicationsTable from './components/PublicationsTable';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import { getTags } from '@/lib/get-tags';

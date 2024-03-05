@@ -11,6 +11,7 @@ import { HelloEvent } from '@/models/hello-event';
 import { User } from '@/models/user';
 import PublicationsDetails from '@/components/modals/PublicationDetails';
 import { Tag } from '@/models/tag';
+import { attemptRevalidation } from '@/lib/attempt-revalidation';
 
 type Props = {
 	locale: string;
@@ -154,7 +155,10 @@ export default function PublicationsTable({ locale, publications, tags, user }: 
 							tags={tags}
 							modalMode={modalType}
 							user={user}
-							onClose={() => setIsModalOpen(false)}
+							onClose={() => {
+								setIsModalOpen(false);
+								attemptRevalidation(Constants.tags.publications);
+							}}
 						/>
 					)}
 					{isDeleteModalOpen && (

@@ -17,6 +17,8 @@ import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
 import { createPublication } from '@/lib/publications/actions/create-publication';
 import { Tag } from '@/models/tag';
 import { NewsStates } from '@/models/news-states';
+import { attemptRevalidation } from '@/lib/attempt-revalidation';
+import constants from '@/utils/constants';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -49,11 +51,12 @@ export default function PublicationDetails({
 	const [isPending, startTransition] = useTransition();
 	const [title, setTitle] = useState(publication?.title || '');
 	const [imageSrc, setImageSrc] = useState(publication?.imageUrl || '');
-	const [altText, setAltText] = useState(publication?.imageAltText || '');
+	const [imageBinary, setImageBinary] = useState<Blob>();
+	const [imageAltText, setImageAltText] = useState(publication?.imageAltText || '');
 	const [content, setContent] = useState(publication?.content || '');
 	const [eventStartDate, setEventStartDate] = useState(publication?.eventStartDate.slice(0, 16) || '');
 	const [eventEndDate, setEventEndDate] = useState(publication?.eventEndDate.slice(0, 16) || '');
-	const [publishedDate, setPublishedDate] = useState(publication?.publicationDate.slice(0, 10) || '');
+	const [publicationDate, setPublicationDate] = useState(publication?.publicationDate.slice(0, 10) || '');
 	const [selectedTags, setSelectedTags] = useState(
 		(publication?.tags
 			.map((id) => {
@@ -67,14 +70,14 @@ export default function PublicationDetails({
 		news: t('modal.news'),
 		title: title,
 		imageSrc: imageSrc,
-		altText: altText,
+		altText: imageAltText,
 		author: user.organisation,
 		activityArea: user.activityArea,
 		content: content,
 		eventDateTitle: t('modal.event-date'),
 		eventStartDate: eventStartDate,
 		eventEndDate: eventEndDate,
-		publishedDate: publishedDate,
+		publishedDate: publicationDate,
 		selectedTags: selectedTags?.map((tag) => tag.name) ?? [],
 	};
 
@@ -94,13 +97,8 @@ export default function PublicationDetails({
 			break;
 	}
 
-	const handleSubmit = (event: { preventDefault: () => void }) => {
-		event.preventDefault(); // Prevent the default form submission behavior
-		submit();
-	};
-
-	const submit = () => {
-		if (!title || !imageSrc || !altText || !content || !eventStartDate || !eventEndDate || !publishedDate) {
+	const createOrUpdate = (formData: FormData) => {
+		if (!title || !imageSrc || !imageAltText || !content || !eventStartDate || !eventEndDate || !publicationDate) {
 			setShowToast(true);
 			setToastMessage(t('modal.error-toast-message'));
 			return;
@@ -116,19 +114,21 @@ export default function PublicationDetails({
 			// TODO : Changer l'ancienne publication par la nouvelle
 		} else {
 			startTransition(async () => {
-				let publication = await createPublication(
-					title,
-					content,
-					altText,
-					imageSrc,
-					NewsStates.ON_HOLD,
-					publishedDate,
-					eventStartDate,
-					eventEndDate,
-					selectedTags.map((tag) => tag.id)
-				);
+				// Generate a unique filename for the image using date timestamp
+				const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
+				const filename = `image_${timestamp}.jpg`;
+				formData.append('image', imageBinary!, filename);
+
+				formData.append('publicationDate', new Date(publicationDate).toUTCString());
+				formData.append('eventStartDate', new Date(eventStartDate).toUTCString());
+				formData.append('eventEndDate', new Date(eventEndDate).toUTCString());
+				formData.append('content', content);
+				selectedTags.forEach((tag) => formData.append('tags', tag.id));
+
+				let publication = await createPublication(formData);
 				setToastMessage(t(`modal.${publication ? 'success' : 'post-error'}-toast-message`));
 				setShowToast(true);
+
 				if (!publication) return;
 				else onClose();
 			});
@@ -159,10 +159,15 @@ export default function PublicationDetails({
 
 		const reader = new FileReader();
 		reader.onloadend = () => {
-			setImageSrc(reader.result as string);
+			const arrayBuffer = reader.result as ArrayBuffer;
+
+			const blob = new Blob([arrayBuffer], { type: file.type });
+			const imageUrl = URL.createObjectURL(blob);
+			setImageSrc(imageUrl);
+			setImageBinary(blob);
 		};
 
-		reader.readAsDataURL(file);
+		reader.readAsArrayBuffer(file);
 	};
 
 	const handleContentChange = (newContent: string) => {
@@ -173,7 +178,7 @@ export default function PublicationDetails({
 		<>
 			<div className="fixed inset-0 bg-black bg-opacity-30 z-40">
 				<dialog id="publication_modal" className="modal overflow-y-auto p-4" open={true}>
-					<form onSubmit={handleSubmit} className="overflow-y-auto w-full">
+					<form action={createOrUpdate} className="overflow-y-auto w-full">
 						{showToast && (
 							<Toast message={toastMessage} alertType={AlertType.error} onCloseToast={() => setShowToast(false)} />
 						)}
@@ -207,6 +212,7 @@ export default function PublicationDetails({
 												<input
 													type="text"
 													value={title}
+													name="title"
 													className="input input-ghost w-full border-base-content"
 													onChange={(e) => setTitle(e.target.value)}
 													disabled={fieldsShouldBeDisabled}
@@ -239,9 +245,9 @@ export default function PublicationDetails({
 													</div>
 													<input
 														type="date"
-														value={publishedDate}
+														value={publicationDate}
 														className="input input-ghost w-full border-base-content"
-														onChange={(e) => setPublishedDate(e.target.value)}
+														onChange={(e) => setPublicationDate(e.target.value)}
 														disabled={fieldsShouldBeDisabled}
 													/>
 												</div>
@@ -330,9 +336,10 @@ export default function PublicationDetails({
 												<label className="block">{t('modal.alt-text')}</label>
 												<input
 													type="text"
-													value={altText}
+													name="imageAltText"
+													value={imageAltText}
 													className="input input-ghost w-full border-base-content"
-													onChange={(e) => setAltText(e.target.value)}
+													onChange={(e) => setImageAltText(e.target.value)}
 													disabled={fieldsShouldBeDisabled}
 												/>
 											</div>
@@ -348,7 +355,7 @@ export default function PublicationDetails({
 												}}
 											/>
 											{imageSrc ? (
-												<img src={imageSrc} alt={altText} className="w-full h-48 object-cover rounded-lg mt-2" />
+												<img src={imageSrc} alt={imageAltText} className="w-full h-48 object-cover rounded-lg mt-2" />
 											) : (
 												<div
 													className={`w-full h-48 rounded-lg mt-2 ${isLight ? 'bg-base-300 ' : 'bg-base-100'}`}

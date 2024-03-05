@@ -1,37 +1,15 @@
 'use server';
 
-import { redirect } from 'next/navigation';
 import { addPublication } from '../add-publication';
 import { revalidateTag } from 'next/cache';
 import constants from '@/utils/constants';
 
-export async function createPublication(
-	title: string,
-	content: string,
-	altText: string,
-	imageUrl: string,
-	state: number,
-	publicationDate: string,
-	eventStartDate: string,
-	eventEndDate: string,
-	tags: string[]
-) {
+export async function createPublication(formData: FormData) {
 	var publication;
+
 	try {
-		publication = await addPublication(
-			title,
-			content,
-			altText,
-			imageUrl,
-			state,
-			publicationDate,
-			eventStartDate,
-			eventEndDate,
-			tags
-		);
-		console.log(publication);
+		publication = await addPublication(formData);
 	} catch (e) {
-		console.log(e);
 		return;
 	}
 

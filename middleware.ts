@@ -16,13 +16,13 @@ export async function middleware(req: NextRequest) {
 	const url = req.nextUrl.clone();
 	const path = url.pathname;
 
-	const publicPaths = ['/login', '/signup', '/updatepassword', '/forgotpassword'];
+	const publicPaths = ['/login', '/signup', '/updatepassword', '/forgotpassword', '/news'];
 	const publicRoutes = locales.flatMap((locale) => publicPaths.map((path) => `/${locale}${path}`));
 
 	if (publicRoutes.includes(path)) {
 		return NextResponse.next();
 	}
-	
+
 	// User check logic for non-public routes
 	if (!user) {
 		const locale = req.nextUrl.locale || 'fr';

@@ -1,4 +1,3 @@
-'use client';
 import React, { ReactElement } from 'react';
 import DashboardLayout from '../dashboard/components/dashboardLayout';
 import { useTheme } from '@/utils/provider/ThemeProvider';

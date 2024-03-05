@@ -61,14 +61,12 @@ const cardVariants = {
 		scale: 1.2,
 		transition: { duration: 0.35 },
 		zIndex: 10,
-		boxShadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
 	},
 	notSelected: (i: any) => ({
 		scale: 1 - Math.abs(i * 0.05),
 		y: i ? i * 50 : 0,
-		opacity: 1 - Math.abs(i * 0.15),
+		opacity: 1 - Math.abs(i * 0.35) < 0.15 ? 0.15 : 1 - Math.abs(i * 0.35),
 		zIndex: 10 - Math.abs(i),
-		boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
 		transition: { duration: 0.35 },
 	}),
 };

@@ -1,11 +1,12 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
+import { Tag } from '@/models/tag';
 
 interface Props {
 	titleButton: string;
-	items: string[];
-	onTagSelected: (value: string) => void;
+	items: Tag[];
+	onTagSelected: (value: Tag) => void;
 }
 
 export default function AddTag({ titleButton, items, onTagSelected }: Props) {
@@ -14,7 +15,7 @@ export default function AddTag({ titleButton, items, onTagSelected }: Props) {
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const { isLight } = useTheme();
 
-	const handleItemClick = (item: string) => {
+	const handleItemClick = (item: Tag) => {
 		setSelectedItem(item);
 		setIsDropdownOpen(false);
 		onTagSelected(item);
@@ -46,7 +47,7 @@ export default function AddTag({ titleButton, items, onTagSelected }: Props) {
 				<ul tabIndex={-1} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
 					{items.map((item, index) => (
 						<li key={index}>
-							<a onClick={() => handleItemClick(item)}>{item}</a>
+							<a onClick={() => handleItemClick(item)}>{item.name}</a>
 						</li>
 					))}
 				</ul>

@@ -52,4 +52,7 @@ export default {
 		},
 	],
 	colors: ['bg-blue', 'bg-green', 'bg-pink', 'bg-orange', 'bg-purple'],
+	tags: {
+		publications: 'publications',
+	},
 };

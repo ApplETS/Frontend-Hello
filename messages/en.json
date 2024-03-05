@@ -109,6 +109,8 @@
 			"error-toast-message": "Please fill all the fields",
 			"date-error-toast-message": "The event start date must be before the event end date",
 			"image-format-error-toast-message": "The image format is not supported",
+			"success-toast-message": "The news has been sent for approbation",
+			"post-error-toast-message": "An error occurred while sending the news for approbation",
 			"preview": "Preview",
 			"delete-title": "Are your sure you want to delete this news?",
 			"delete-button": "Delete",

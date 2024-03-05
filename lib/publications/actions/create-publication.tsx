@@ -2,31 +2,39 @@
 
 import { redirect } from 'next/navigation';
 import { addPublication } from '../add-publication';
+import { revalidateTag } from 'next/cache';
+import constants from '@/utils/constants';
 
 export async function createPublication(
 	title: string,
 	content: string,
-	// altText: string,
+	altText: string,
 	imageUrl: string,
 	state: number,
 	publicationDate: string,
 	eventStartDate: string,
-	// eventEndDate: string,
+	eventEndDate: string,
 	tags: string[]
 ) {
+	var publication;
 	try {
-		addPublication(
+		publication = await addPublication(
 			title,
 			content,
+			altText,
 			imageUrl,
-			1, // Jsp c quoi les state
+			state,
 			publicationDate,
 			eventStartDate,
-			// eventEndDate,
+			eventEndDate,
 			tags
 		);
+		console.log(publication);
 	} catch (e) {
-		redirect('dashboard'); // TODO : Change
+		console.log(e);
 		return;
 	}
+
+	revalidateTag(constants.tags.publications);
+	return publication;
 }

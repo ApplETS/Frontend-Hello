@@ -5,23 +5,23 @@ import { HelloEvent } from '@/models/hello-event';
 export async function addPublication(
 	title: string,
 	content: string,
-	// altText: string,
+	imageAltText: string,
 	imageUrl: string,
 	state: number,
 	publicationDate: string,
 	eventStartDate: string,
-	// eventEndDate: string,
+	eventEndDate: string,
 	tags: string[]
 ) {
 	const response = await fetchWithSession('organizer/events', Method.POST, {
 		title,
 		content,
-		// altText,
+		imageAltText,
 		imageUrl,
 		state,
 		publicationDate,
 		eventStartDate,
-		// eventEndDate,
+		eventEndDate,
 		tags,
 	});
 

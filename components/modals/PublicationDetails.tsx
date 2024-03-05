@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useTransition } from 'react';
 import AddTag from '@/components/AddTag';
 import Constants from '@/utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -46,7 +46,7 @@ export default function PublicationDetails({
 	const fieldsShouldBeDisabled = modalMode === Constants.publicationModalStatus.delete;
 
 	// PUBLICATION DETAILS
-	console.log(publication);
+	const [isPending, startTransition] = useTransition();
 	const [title, setTitle] = useState(publication?.title || '');
 	const [imageSrc, setImageSrc] = useState(publication?.imageUrl || '');
 	const [altText, setAltText] = useState(publication?.imageAltText || '');
@@ -54,8 +54,14 @@ export default function PublicationDetails({
 	const [eventStartDate, setEventStartDate] = useState(publication?.eventStartDate.slice(0, 16) || '');
 	const [eventEndDate, setEventEndDate] = useState(publication?.eventEndDate.slice(0, 16) || '');
 	const [publishedDate, setPublishedDate] = useState(publication?.publicationDate.slice(0, 10) || '');
-	const [selectedTags, setSelectedTags] = useState<string[]>(publication?.tags || []);
-	const [availableTags, setAvailableTags] = useState(tags.map((tag) => tag.name));
+	const [selectedTags, setSelectedTags] = useState(
+		(publication?.tags
+			.map((id) => {
+				return tags.find((tag) => tag.id === id);
+			})
+			.filter((tag) => tag !== null) as Tag[]) ?? []
+	);
+	const [availableTags, setAvailableTags] = useState(tags);
 
 	const PublicationInfosForPreview = {
 		news: t('modal.news'),
@@ -69,7 +75,7 @@ export default function PublicationDetails({
 		eventStartDate: eventStartDate,
 		eventEndDate: eventEndDate,
 		publishedDate: publishedDate,
-		selectedTags: selectedTags,
+		selectedTags: selectedTags?.map((tag) => tag.name) ?? [],
 	};
 
 	let pageTitle;
@@ -109,20 +115,31 @@ export default function PublicationDetails({
 		if (modalMode === Constants.publicationModalStatus.modify) {
 			// TODO : Changer l'ancienne publication par la nouvelle
 		} else {
-			// Javais pas encore transformer en form quand j'ai fait le code en dessous mais mtn c'est fait !
-			createPublication(title, content, imageSrc, NewsStates.ON_HOLD, publishedDate, eventStartDate, selectedTags);
-
-			// TODO : Display toast if success of failure
+			startTransition(async () => {
+				let publication = await createPublication(
+					title,
+					content,
+					altText,
+					imageSrc,
+					NewsStates.ON_HOLD,
+					publishedDate,
+					eventStartDate,
+					eventEndDate,
+					selectedTags.map((tag) => tag.id)
+				);
+				setToastMessage(t(`modal.${publication ? 'success' : 'post-error'}-toast-message`));
+				setShowToast(true);
+				if (!publication) return;
+				else onClose();
+			});
 		}
-
-		onClose();
 	};
 
 	useEffect(() => {
-		setAvailableTags(tags.filter((tag) => !selectedTags.includes(tag.name)).map((tag) => tag.name));
+		setAvailableTags(tags.filter((tag) => !selectedTags.includes(tag)));
 	}, [selectedTags]);
 
-	const handleTagSelect = (tagValue: string) => {
+	const handleTagSelect = (tagValue: Tag) => {
 		setSelectedTags((prevTags) => {
 			if (!prevTags.includes(tagValue)) {
 				return [...prevTags, tagValue];
@@ -283,11 +300,11 @@ export default function PublicationDetails({
 												>
 													{selectedTags.map((tag, index) => (
 														<div
-															key={tag}
+															key={tag.id}
 															className={`badge ${Constants.colors[index]} text-black py-4 px-3 flex items-center whitespace-nowrap overflow-hidden`}
 															style={{ maxWidth: 'calc(100% - 30px)' }}
 														>
-															<span className="truncate">{tag}</span>
+															<span className="truncate">{tag.name}</span>
 															<FontAwesomeIcon
 																icon={faXmark}
 																className="ml-2 cursor-pointer"

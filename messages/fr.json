@@ -109,6 +109,8 @@
 			"error-toast-message": "Veuillez remplir tous les champs",
 			"date-error-toast-message": "La date de fin de l'événement doit être postérieure à la date de début",
 			"image-format-error-toast-message": "Le format de l'image n'est pas supporté",
+			"success-toast-message": "Publication envoyée pour approbation",
+			"post-error-toast-message": "Une erreur est survenue lors de l'envoi de la publication",
 			"preview": "Aperçu",
 			"delete-title": "Êtes-vous sûr de vouloir supprimer cette publication?",
 			"delete-button": "Supprimer",

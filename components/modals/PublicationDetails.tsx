@@ -15,6 +15,8 @@ import { User } from '@/models/user';
 import { HelloEvent } from '@/models/hello-event';
 import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
 import { createPublication } from '@/lib/publications/actions/create-publication';
+import { Tag } from '@/models/tag';
+import { NewsStates } from '@/models/news-states';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -22,30 +24,38 @@ interface PublicationDetailsProps {
 	locale: string;
 	modalMode: Number;
 	publication: HelloEvent | null;
+	tags: Tag[];
 	user: User;
 	onClose: () => void;
 }
 
-export default function PublicationDetails({ locale, publication, modalMode, user, onClose }: PublicationDetailsProps) {
+export default function PublicationDetails({
+	locale,
+	publication,
+	modalMode,
+	user,
+	tags,
+	onClose,
+}: PublicationDetailsProps) {
 	const t = useTranslations('Publications');
 	const { isLight } = useTheme();
 
-	const tags = ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile']; // TODO: Replace with actual tags
 	const [showToast, setShowToast] = useState(false);
 	const [toastMessage, setToastMessage] = useState('');
 	const [showPreview, setShowPreview] = useState(false);
 	const fieldsShouldBeDisabled = modalMode === Constants.publicationModalStatus.delete;
 
 	// PUBLICATION DETAILS
+	console.log(publication);
 	const [title, setTitle] = useState(publication?.title || '');
 	const [imageSrc, setImageSrc] = useState(publication?.imageUrl || '');
-	const [altText, setAltText] = useState(''); // TODO: Missing alttext in backend
+	const [altText, setAltText] = useState(publication?.imageAltText || '');
 	const [content, setContent] = useState(publication?.content || '');
 	const [eventStartDate, setEventStartDate] = useState(publication?.eventStartDate.slice(0, 16) || '');
-	const [eventEndDate, setEventEndDate] = useState(''); // TODO : Missing eventEndDate in backend. replace with : publication?.eventEndDate.slice(0, 16) || ''
+	const [eventEndDate, setEventEndDate] = useState(publication?.eventEndDate.slice(0, 16) || '');
 	const [publishedDate, setPublishedDate] = useState(publication?.publicationDate.slice(0, 10) || '');
 	const [selectedTags, setSelectedTags] = useState<string[]>(publication?.tags || []);
-	const [availableTags, setAvailableTags] = useState(tags); // TODO: Replace with actual tags from Backend
+	const [availableTags, setAvailableTags] = useState(tags.map((tag) => tag.name));
 
 	const PublicationInfosForPreview = {
 		news: t('modal.news'),
@@ -100,15 +110,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 			// TODO : Changer l'ancienne publication par la nouvelle
 		} else {
 			// Javais pas encore transformer en form quand j'ai fait le code en dessous mais mtn c'est fait !
-			createPublication(
-				title,
-				content,
-				imageSrc,
-				1, // Jsp c quoi les state
-				publishedDate,
-				eventStartDate,
-				selectedTags
-			);
+			createPublication(title, content, imageSrc, NewsStates.ON_HOLD, publishedDate, eventStartDate, selectedTags);
 
 			// TODO : Display toast if success of failure
 		}
@@ -117,7 +119,7 @@ export default function PublicationDetails({ locale, publication, modalMode, use
 	};
 
 	useEffect(() => {
-		setAvailableTags(tags.filter((tag) => !selectedTags.includes(tag)));
+		setAvailableTags(tags.filter((tag) => !selectedTags.includes(tag.name)).map((tag) => tag.name));
 	}, [selectedTags]);
 
 	const handleTagSelect = (tagValue: string) => {

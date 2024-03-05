@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
-interface PublicationDetailsProps {
+interface ConfirmationProps {
 	title: string;
 	firstButtonTitle: string;
 	secondButtonTitle: string;
@@ -13,7 +13,7 @@ interface PublicationDetailsProps {
 	onClose: () => void;
 }
 
-export default function PublicationDetails({
+export default function Confirmation({
 	title,
 	firstButtonTitle,
 	secondButtonTitle,
@@ -21,7 +21,7 @@ export default function PublicationDetails({
 	secondButtonHoverColor,
 	inputTitle,
 	onClose,
-}: PublicationDetailsProps) {
+}: ConfirmationProps) {
 	const { isLight } = useTheme();
 	const [inputText, setInputText] = useState('');
 

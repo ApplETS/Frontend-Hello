@@ -5,9 +5,11 @@ export interface HelloEvent {
 	title: string;
 	content: string;
 	imageUrl: string;
+	imageAltText: string;
 	state: number;
 	publicationDate: string;
 	eventStartDate: string;
+	eventEndDate: string;
 	createdAt: string;
 	updatedAt: string;
 	moderator: User | null;

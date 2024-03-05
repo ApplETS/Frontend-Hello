@@ -10,14 +10,16 @@ import { formatDate } from '@/utils/formatDate';
 import { HelloEvent } from '@/models/hello-event';
 import { User } from '@/models/user';
 import PublicationsDetails from '@/components/modals/PublicationDetails';
+import { Tag } from '@/models/tag';
 
 type Props = {
 	locale: string;
 	publications: HelloEvent[];
+	tags: Tag[];
 	user: User;
 };
 
-export default function PublicationsTable({ locale, publications, user }: Props) {
+export default function PublicationsTable({ locale, publications, tags, user }: Props) {
 	const t = useTranslations('Publications');
 	const filterAll = t('filters.all').toLowerCase();
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
@@ -149,6 +151,7 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 						<PublicationsDetails
 							locale={locale}
 							publication={selectedPublication}
+							tags={tags}
 							modalMode={modalType}
 							user={user}
 							onClose={() => setIsModalOpen(false)}

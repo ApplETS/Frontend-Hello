@@ -29,7 +29,9 @@ export default function DashboardLayout({ children, pages, signOut, user }: Prop
 		<>
 			{user !== null ? <Navbar activePage={activePage} pages={pages} signOut={signOut} user={user} /> : <NewsNavbar />}
 			<div className="flex flex-col flex-grow overflow-auto page-content animate-in p-7 bg-base-100">
-				{pages[activePage]?.title && user !== null && <div className="text-2xl mb-7">{pages[activePage].title}</div>}
+				{pages[activePage]?.title && activePage !== 'news' && (
+					<div className="text-2xl mb-7">{pages[activePage].title}</div>
+				)}
 				{children}
 			</div>
 		</>

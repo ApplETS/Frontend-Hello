@@ -23,7 +23,7 @@ export const signIn = async (formData: FormData) => {
 		return redirect(`/${locale}/login?code=${error.status}&type=error`);
 	}
 
-	return redirect(`/${locale}/dashboard`);
+	return redirect(`/${locale}/news`);
 };
 
 export const signUp = async (formData: FormData) => {
@@ -67,7 +67,7 @@ export const signUp = async (formData: FormData) => {
 		body: JSON.stringify(userObject),
 	});
 
-	return redirect(`/${locale}/dashboard`);
+	return redirect(`/${locale}/news`);
 };
 
 export const forgotPassword = async (formData: FormData) => {
@@ -115,7 +115,7 @@ export const updatePassword = async (formData: FormData) => {
 		return redirect(`/${locale}/updatepassword?code=${error.status}&type=error`);
 	}
 
-	return redirect(`/${locale}/dashboard`);
+	return redirect(`/${locale}/news`);
 };
 
 export const updatePasswordSettings = async (formData: FormData) => {

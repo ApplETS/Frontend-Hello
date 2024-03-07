@@ -52,13 +52,13 @@ export const CalendarHeader = ({
 				<div className="flex flex-row items-center gap-2">
 					<div className="flex flex-row items-center gap-4">
 						<div>
-							<button type="button" className="btn btn-primary btn-sm" onClick={() => handleDateChange('prev')}>
+							<button type="button" className="btn btn-sm" onClick={() => handleDateChange('prev')}>
 								<FontAwesomeIcon icon={faChevronLeft} />
 							</button>
 						</div>
 						<p className="text-lg">{date?.locale(locale).format('MMMM YYYY')}</p>
 						<div>
-							<button type="button" className="btn btn-primary btn-sm" onClick={() => handleDateChange('next')}>
+							<button type="button" className="btn btn-sm" onClick={() => handleDateChange('next')}>
 								<FontAwesomeIcon icon={faChevronRight} />
 							</button>
 						</div>
@@ -66,7 +66,7 @@ export const CalendarHeader = ({
 				</div>
 			</div>
 			<div />
-			<div>
+			<div className="mb-1">
 				<DropdownSelect
 					title={'Filters'}
 					items={filterItems.map((item) => item.name)}

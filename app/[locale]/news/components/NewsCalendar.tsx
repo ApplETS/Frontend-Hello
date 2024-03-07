@@ -53,36 +53,38 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				handleFilterChange={handleFilterChange}
 				filterItems={filterItems}
 			/>
-			<FullCalendar
-				ref={calendarRef}
-				plugins={[dayGridPlugin, interactionPlugin, momentPlugin]}
-				initialView="dayGridMonth"
-				locales={[frLocale, enLocale]}
-				locale={locale}
-				events={shownEvents.map((event) => {
-					return {
-						title: event.title,
-						start: event.eventStartDate,
-					};
-				})}
-				eventContent={(arg: EventContentArg) => {
-					return (
-						<div className="bg-primary p-2 cursor-pointer">
-							<p className="text-left truncate">{`${arg.timeText} - ${arg.event.title}`}</p>
-						</div>
-					);
-				}}
-				eventTimeFormat={{
-					hour: '2-digit',
-					minute: '2-digit',
-					hour12: false,
-				}}
-				eventClick={(info) => {
-					handleEventSelect(events.find((event) => event.title === info.event.title)?.cardId ?? null);
-				}}
-				eventDisplay="block"
-				headerToolbar={false}
-			/>
+			<div className="rounded-lg border border-gray-300">
+				<FullCalendar
+					ref={calendarRef}
+					plugins={[dayGridPlugin, interactionPlugin, momentPlugin]}
+					initialView="dayGridMonth"
+					locales={[frLocale, enLocale]}
+					locale={locale}
+					events={shownEvents.map((event) => {
+						return {
+							title: event.title,
+							start: event.eventStartDate,
+						};
+					})}
+					eventContent={(arg: EventContentArg) => {
+						return (
+							<div className="bg-primary p-2 cursor-pointer">
+								<p className="text-left truncate">{`${arg.timeText} - ${arg.event.title}`}</p>
+							</div>
+						);
+					}}
+					eventTimeFormat={{
+						hour: '2-digit',
+						minute: '2-digit',
+						hour12: false,
+					}}
+					eventClick={(info) => {
+						handleEventSelect(events.find((event) => event.title === info.event.title)?.cardId ?? null);
+					}}
+					eventDisplay="block"
+					headerToolbar={false}
+				/>
+			</div>
 		</div>
 	);
 }

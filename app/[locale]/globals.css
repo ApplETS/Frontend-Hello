@@ -86,3 +86,7 @@
 .fc-h-event .fc-event-main-frame {
 	display: block; /* for make fc-event-title-container expand */
 }
+
+.fc .fc-scrollgrid {
+    border: transparent !important;
+}

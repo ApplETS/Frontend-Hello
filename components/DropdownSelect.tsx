@@ -52,13 +52,13 @@ export default function DropdownSelect({ title, items, onFilterChange }: Props) 
 					<FontAwesomeIcon icon={isDropdownOpen ? faAngleUp : faAngleDown} className="w-5 ml-2" />
 				</button>
 				{isDropdownOpen && (
-					<ul className="p-2 shadow menu bg-base-100 rounded-box absolute z-10">
+					<ul className="p-2 shadow-xl menu bg-base-100 rounded-box absolute z-10" style={{ minWidth: '250px' }}>
 						{items.map((item, index) => (
 							<li className="flex" key={index}>
 								<a className="flex items-center justify-start space-x-2" onClick={() => handleItemClick(index)}>
 									<input
 										type="checkbox"
-										className="checkbox checkbox-primary"
+										className="checkbox checkbox-primary w-5 h-5"
 										checked={selectedItems.includes(index)}
 									/>
 									<span>{item}</span>

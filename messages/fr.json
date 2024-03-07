@@ -8,6 +8,10 @@
 		"publications": "Publications",
 		"approbations": "Approbations"
 	},
+	"Navbar": {
+		"settings": "Paramètres",
+		"sign-out": "Déconnexion"
+	},
 	"Login": {
 		"welcome": "Bienvenue !",
 		"email": "Courriel",

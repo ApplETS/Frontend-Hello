@@ -5,11 +5,12 @@ import ThemeButton from '@/components/themeButton';
 import LanguageButton from '@/components/languageButton';
 import { Page } from './dashboardLayout';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@/models/user';
 import { useTranslations } from 'next-intl';
+import Constants from '@/utils/constants';
+import { UserTypes } from '@/models/user-types';
 
 interface Props {
 	activePage: string;
@@ -24,7 +25,7 @@ export default function Navbar({ activePage, pages, signOut, user }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 	const t = useTranslations('Navbar');
-	const router = useRouter();
+	const isModerator = user.type == UserTypes.MODERATOR;
 
 	return (
 		<div className="navbar w-full bg-base-300">
@@ -53,7 +54,11 @@ export default function Navbar({ activePage, pages, signOut, user }: Props) {
 
 				<div className="dropdown dropdown-end mr-5">
 					<div tabIndex={0} role="button" className="btn btn-ghost" onClick={toggleDropdown}>
-						<div className="text-base mr-1">{user.organisation}</div>
+						{isModerator ? (
+							<div className="text-base mr-1">{t('moderator')}</div>
+						) : (
+							<div className="text-base mr-1">{user.organisation}</div>
+						)}
 						<div className="avatar">
 							<div className="w-10 rounded-full">
 								<img
@@ -73,7 +78,11 @@ export default function Navbar({ activePage, pages, signOut, user }: Props) {
 										</div>
 									</div>
 									<div className="flex flex-col gap-1">
-										<p className="text-base font-bold ml-0">{user.organisation}</p>
+										{isModerator ? (
+											<p className="text-base font-bold ml-0">{t('moderator')}</p>
+										) : (
+											<p className="text-base font-bold ml-0">{user.organisation}</p>
+										)}
 										<p className="text-xs ml-0 text-secondary">{user.activityArea}</p>
 									</div>
 								</div>

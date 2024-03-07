@@ -5,10 +5,11 @@ import ThemeButton from '@/components/themeButton';
 import LanguageButton from '@/components/languageButton';
 import { Page } from './dashboardLayout';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@/models/user';
+import { useTranslations } from 'next-intl';
 
 interface Props {
 	activePage: string;
@@ -22,6 +23,8 @@ interface Props {
 export default function Navbar({ activePage, pages, signOut, user }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+	const t = useTranslations('Navbar');
+	const router = useRouter();
 
 	return (
 		<div className="navbar w-full bg-base-300">
@@ -76,12 +79,12 @@ export default function Navbar({ activePage, pages, signOut, user }: Props) {
 								</div>
 							</li>
 							<li>
-								<form action={() => redirect('/fr/dashboard/settings/profile')}>
-									<div className="flex flex-row gap-2">
-										<FontAwesomeIcon icon={faCog} className="pt-1" />
-										<button>Paramètres</button>
-									</div>
-								</form>
+								<div className="flex flex-row gap-2">
+									<Link href={'/fr/dashboard/settings/profile'}>
+										<FontAwesomeIcon icon={faCog} className="pr-2" />
+										{t('settings')}
+									</Link>
+								</div>
 							</li>
 							<div className="divider my-0"></div>
 							<li>
@@ -89,7 +92,7 @@ export default function Navbar({ activePage, pages, signOut, user }: Props) {
 									<input type="hidden" name="redirectLink" value={`/fr/login`} />
 									<div className="flex flex-row gap-2">
 										<FontAwesomeIcon icon={faSignOut} className="pt-1" />
-										<button>Sign out</button>
+										<button>{t('sign-out')}</button>
 									</div>
 								</form>
 							</li>

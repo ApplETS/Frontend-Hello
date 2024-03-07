@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Navbar from './navbar';
 import { ReactElement } from 'react';
@@ -17,7 +17,7 @@ interface Props {
 export interface Page {
 	title: string;
 	link: string;
-  isVisible: boolean;
+	isVisible: boolean;
 }
 
 export default function DashboardLayout({ children, pages, signOut, user }: Props) {

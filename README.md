@@ -1,10 +1,10 @@
 <a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
+  <img width="1081" alt="image" src="https://github.com/projets-fin-bac-24/frontend-ps/assets/25663435/ce8c7702-4e5c-4b49-861b-678ba03cf820">
+  <h1 align="center">Hello Frontend</h1>
 </a>
 
 <p align="center">
- The fastest way to build apps with Next.js and Supabase
+ Hello Frontend is the main interface to handle all things related to publication of news on the platform ÉTSMobile. It connects to [Backend Hello](https://github.com/ApplETS/Backend-Hello)
 </p>
 
 <p align="center">

@@ -52,7 +52,7 @@ export default function UpdatePassword({
 								required
 							/>
 							<label className="text-md" htmlFor="password">
-								{t('password')}
+								{t('new-password')}
 							</label>
 							<PasswordInput style="mb-4" />
 							<label className="text-md" htmlFor="password">
@@ -61,7 +61,7 @@ export default function UpdatePassword({
 							<PasswordInput inputName="confirmPassword" />
 							<div className="flex justify-center mt-6">
 								<ConfirmButton
-									buttonText={'Réinitialiser le mot de passe'}
+									buttonText={t('update')}
 									style="btn btn-primary rounded-md text-base mb-8 w-64"
 									inputsConfig={{
 										match: ['password', 'confirmPassword'],

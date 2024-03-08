@@ -1,14 +1,10 @@
 import Checkbox from '@/components/Checkbox';
 import { signIn } from '@/utils/supabase/auth';
 import Link from 'next/link';
-import ETSImage from '@/components/ETSImage';
 import PasswordInput from './components/PasswordInput';
 import Alert, { AlertType } from '@/components/Alert';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
-import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import ThemeButton from '@/components/themeButton';
-import LanguageButton from '@/components/languageButton';
 import Footer from '@/components/Footer';
 import EmailInput from '@/components/EmailInput';
 import { getTranslationsWithDefault } from '@/utils/traductions/trads';
@@ -64,14 +60,6 @@ export default async function Login({
 								{t('forgot-info')}
 								<Link href={`/${params.locale}/forgotpassword`} className="pl-1 underline text-primary font-semibold">
 									{t('reset-password')}
-								</Link>
-							</p>
-						</div>
-						<div className="flex justify-center">
-							<p className="pb-10">
-								{t('no-account')}
-								<Link href={`/${params.locale}/signup`} className="pl-1 underline text-primary  font-semibold">
-									{t('signup')}
 								</Link>
 							</p>
 						</div>

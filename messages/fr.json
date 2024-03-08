@@ -10,7 +10,8 @@
 	},
 	"Navbar": {
 		"settings": "Paramètres",
-		"sign-out": "Déconnexion"
+		"sign-out": "Déconnexion",
+		"moderator": "Modérateur"
 	},
 	"Login": {
 		"welcome": "Bienvenue !",

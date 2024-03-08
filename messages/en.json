@@ -10,7 +10,8 @@
 	},
 	"Navbar": {
 		"settings": "Settings",
-		"sign-out": "Sign out"
+		"sign-out": "Sign out",
+		"moderator": "Moderator"
 	},
 	"Login": {
 		"welcome": "Welcome !",

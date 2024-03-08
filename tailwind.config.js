@@ -47,6 +47,7 @@ module.exports = {
 					'base-100': '#1D232A',
 					'base-200': '#252c35',
 					'base-300': '#15191E',
+					'base-400': '#0E1014',
 					primary: '#747FFF',
 					accent: '#00CDB7',
 					success: '#62EFBD',

@@ -1,9 +1,5 @@
-import Dropzone from '@/components/Dropzone';
-import Toast from '@/components/Toast';
-import { AlertType } from '@/components/Alert';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import facebookIcon from '@/public/Socials/Facebook.svg';
 import discordIcon from '@/public/Socials/Discord.svg';
 import instagramIcon from '@/public/Socials/Instagram.svg';
@@ -11,8 +7,6 @@ import linkedinIcon from '@/public/Socials/Linkedin.svg';
 import tiktokIcon from '@/public/Socials/Tiktok.svg';
 import redditIcon from '@/public/Socials/Reddit.svg';
 import xIcon from '@/public/Socials/X.svg';
-import Image from 'next/image';
-import CancelButton from '@/components/CancelButton';
 import SettingsFooter from '../components/SettingsFooter';
 import SocialInput from './components/SocialInput';
 

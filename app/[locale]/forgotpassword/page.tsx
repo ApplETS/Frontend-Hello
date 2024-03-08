@@ -16,38 +16,41 @@ export default function ForgotPassword({
 	unstable_setRequestLocale(params.locale);
 	const t = useTranslations('ForgotPassword');
 	return (
-		<div className="animate-in relative flex items-center justify-center rounded-2xl w-full h-screen">
-			<div className="relative grid justify-items-center content-center bg-base-100 rounded-2xl w-[34rem] h-[26rem]">
-				<h1 className="text-4xl mb-8 pt-4 font-semibold">{t('title')}</h1>
-				{(searchParams?.message || searchParams?.code) && (
-					<Alert
-						customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
-						text={searchParams.message ?? t(searchParams.code)}
-						alertType={AlertType[searchParams.type as keyof typeof AlertType] as AlertType}
-						icon={faTriangleExclamation}
-					/>
-				)}
-				<form className="w-full px-28" action={forgotPassword}>
-					<input type="hidden" name="locale" value={params.locale} />
-					<div className="grid grid-cols-1 gap-8 w-full">
-						<div className="flex flex-col col-span-1">
-							<label className="text-md mb-2" htmlFor="email">
+		<div className="flex justify-center items-center h-screen">
+			<div className="grid justify-items-center content-center bg-base-100 rounded-2xl w-[36rem]">
+				<h1 className="py-16 text-4xl font-semibold">{t('title')}</h1>
+				<div className="flex-1 flex flex-col w-full px-8 justify-center gap-2">
+					<div className="mx-16">
+						{(searchParams?.message || searchParams?.code) && (
+							<Alert
+								customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
+								text={searchParams.message ?? t(searchParams.code)}
+								alertType={AlertType[searchParams.type as keyof typeof AlertType] as AlertType}
+								icon={faTriangleExclamation}
+							/>
+						)}
+						<form className="flex-1 flex flex-col w-full justify-center gap-2" action={forgotPassword}>
+							<input type="hidden" name="locale" value={params.locale} />
+							<label className="text-md" htmlFor="email">
 								{t('email')}
 							</label>
-							<input className="input input-ghost" name="email" required />
-						</div>
-						<div className="flex flex-col col-span-1">
-							<button className="btn btn-primary text-base mb-8">{t('send')}</button>
+							<input className="input input-ghost mb-6" name="email" required />
+							<div className="flex justify-center">
+								<button className="btn btn-primary rounded-md text-base mb-8 w-64">{t('send')}</button>
+							</div>
+						</form>
+					</div>
+
+					<div className="text-s mt-6 pb-10">
+						<div className="flex justify-center mb-3">
+							<p className="">
+								{t('remember')}
+								<Link href={`/${params.locale}/login`} className="text-md font-semibold text-primary pl-1 underline">
+									{t('rememberLink')}
+								</Link>
+							</p>
 						</div>
 					</div>
-				</form>
-				<div className="flex justify-center">
-					<p className="text-md">
-						{t('remember')}
-						<Link href={`/${params.locale}/login`} className="text-md font-semibold text-primary pl-1 underline">
-							{t('rememberLink')}
-						</Link>
-					</p>
 				</div>
 			</div>
 			<Footer locale={params.locale} />

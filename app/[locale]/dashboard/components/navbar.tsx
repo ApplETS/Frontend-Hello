@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ThemeButton from '@/components/themeButton';
 import LanguageButton from '@/components/languageButton';
 import { Page } from './dashboardLayout';
@@ -24,8 +24,21 @@ interface Props {
 export default function Navbar({ activePage, pages, signOut, user }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+	const dropdownRef = useRef<HTMLDivElement>(null);
 	const t = useTranslations('Navbar');
 	const isModerator = user.type == UserTypes.MODERATOR;
+
+	// Close dropdown when clicking outside
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+				setIsDropdownOpen(false);
+			}
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => document.removeEventListener('mousedown', handleClickOutside);
+	}, []);
 
 	return (
 		<div className="navbar w-full bg-base-300">
@@ -52,7 +65,7 @@ export default function Navbar({ activePage, pages, signOut, user }: Props) {
 				<ThemeButton />
 				<div className="divider divider-horizontal before:bg-base-content after:bg-base-content my-2"></div>
 
-				<div className="dropdown dropdown-end mr-5">
+				<div className="dropdown dropdown-end mr-5" ref={dropdownRef}>
 					<div tabIndex={0} role="button" className="btn btn-ghost" onClick={toggleDropdown}>
 						{isModerator ? (
 							<div className="text-base mr-1">{t('moderator')}</div>

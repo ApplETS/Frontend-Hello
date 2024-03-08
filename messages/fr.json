@@ -58,7 +58,8 @@
 		"update": "Réinitialiser le mot de passe",
 		"remember": "Vous avez un compte?",
 		"rememberLink": "Connectez-vous",
-		"401": "Le code de réinitialisation est invalide ou a expiré"
+		"401": "Le code de réinitialisation est invalide ou a expiré",
+		"token-placeholder": "Code reçu par courriel"
 	},
 	"Publications": {
 		"title": "Publications",

@@ -39,7 +39,7 @@ export default function UpdatePassword({
 							<input
 								className="input input-ghost bg-inherit mb-4"
 								name="token"
-								placeholder="Token reçu par courriel"
+								placeholder={t('token-placeholder')}
 								required
 							/>
 							<label className="text-md" htmlFor="email">

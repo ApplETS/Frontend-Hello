@@ -15,10 +15,11 @@ export default function UpdatePassword({
 }) {
 	unstable_setRequestLocale(params.locale);
 	const t = useTranslations('UpdatePassword');
+
 	return (
 		<div className="animate-in relative flex items-center justify-center rounded-2xl w-screen h-screen">
 			<div className="min-w-fit min-h-fit max-w-full max-h-full relative z-10 grid justify-items-center content-center bg-base-100 rounded-2xl shadow-2xl p-10 ">
-				<h1 className="py-10 text-4xl text-wrap text-center font-semibold">Réinitialisez votre mot de passe</h1>
+				<h1 className="py-10 text-4xl text-wrap text-center font-semibold">{t('title')}</h1>
 				{(searchParams?.message || searchParams?.code) && (
 					<Alert
 						customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
@@ -31,7 +32,7 @@ export default function UpdatePassword({
 					<form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground" action={updatePassword}>
 						<input type="hidden" name="locale" value={params.locale} />
 						<label className="text-md" htmlFor="email">
-							Token
+							{t('token')}
 						</label>
 						<input
 							className="input input-ghost bg-inherit mb-4"
@@ -40,7 +41,7 @@ export default function UpdatePassword({
 							required
 						/>
 						<label className="text-md" htmlFor="email">
-							Courriel
+							{t('email')}
 						</label>
 						<input
 							className="input input-ghost bg-inherit mb-4"
@@ -49,11 +50,11 @@ export default function UpdatePassword({
 							required
 						/>
 						<label className="text-md" htmlFor="password">
-							Nouveau mot de passe
+							{t('password')}
 						</label>
 						<PasswordInput style="mb-4" />
 						<label className="text-md" htmlFor="password">
-							Confirmation de mot de passe
+							{t('confirm-password')}
 						</label>
 						<PasswordInput inputName="confirmPassword" />
 						<ConfirmButton

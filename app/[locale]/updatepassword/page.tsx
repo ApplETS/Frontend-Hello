@@ -59,7 +59,7 @@ export default function UpdatePassword({
 								{t('confirm-password')}
 							</label>
 							<PasswordInput inputName="confirmPassword" />
-							<div className="flex justify-center mt-6">
+							<div className="flex justify-center mt-12">
 								<ConfirmButton
 									buttonText={t('update')}
 									style="btn btn-primary rounded-md text-base mb-8 w-64"

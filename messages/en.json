@@ -53,11 +53,13 @@
 		"title": "Reset your password",
 		"token": "Token",
 		"email": "Email",
-		"password": "New password",
+		"new-password": "New password",
+		"confirm-password": "Confirm password",
 		"update": "Update your password",
 		"remember": "Already have an account?",
 		"rememberLink": "Login here",
-		"401": "Invalid token"
+		"401": "Invalid token",
+		"token-placeholder": "Token received by email"
 	},
 	"Publications": {
 		"title": "Publications",

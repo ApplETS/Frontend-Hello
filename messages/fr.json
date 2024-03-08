@@ -53,11 +53,13 @@
 		"title": "Réinitialiser votre mot de passe",
 		"token": "Code de réinitialisation",
 		"email": "Courriel",
-		"password": "Nouveau mot de passe",
+		"new-password": "Nouveau mot de passe",
+		"confirm-password": "Confirmation de mot de passe",
 		"update": "Réinitialiser le mot de passe",
 		"remember": "Vous avez un compte?",
 		"rememberLink": "Connectez-vous",
-		"401": "Le code de réinitialisation est invalide ou a expiré"
+		"401": "Le code de réinitialisation est invalide ou a expiré",
+		"token-placeholder": "Code reçu par courriel"
 	},
 	"Publications": {
 		"title": "Publications",

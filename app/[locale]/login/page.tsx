@@ -19,6 +19,7 @@ export default async function Login({
 	unstable_setRequestLocale(params.locale);
 	const t = await getTranslations('Login');
 	const t_default = await getTranslationsWithDefault('Login');
+
 	return (
 		<div className="flex justify-center items-center h-screen">
 			<div className="grid justify-items-center content-center bg-base-100 rounded-2xl w-[36rem]">
@@ -50,11 +51,13 @@ export default async function Login({
 								text={t('remember')}
 								textStyle="text-base"
 							/>
-							<button className="btn btn-primary rounded-md text-base mb-2">{t('login')}</button>
+							<div className="flex justify-center">
+								<button className="btn btn-primary rounded-md text-base mb-2 w-64">{t('login')}</button>
+							</div>
 						</form>
 					</div>
 
-					<div className="text-s mt-10">
+					<div className="text-s mt-12 pb-10">
 						<div className="flex justify-center mb-3">
 							<p className="">
 								{t('forgot-info')}

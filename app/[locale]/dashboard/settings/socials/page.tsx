@@ -32,16 +32,14 @@ export default function Page({ params }: Props) {
 	return (
 		<form className="flex flex-col basis-3/4">
 			<input type="hidden" name="locale" value={params.locale} />
-			<div className="flex-grow">
-				<div className="flex flex-col gap-2">
-					<label className="text-xl font-bold">{t('title')}</label>
-					<label className="text-md font-extralight">{t('info')}</label>
-				</div>
-				<div className="grid grid-cols-6 gap-6 justify-left items-center pt-10">
-					{socials.map((social, index) => (
-						<SocialInput key={index} icon={social.icon} inputName={social.inputName} />
-					))}
-				</div>
+			<div className="flex flex-col gap-2">
+				<label className="text-xl font-bold">{t('title')}</label>
+				<label className="text-md font-extralight">{t('info')}</label>
+			</div>
+			<div className="grid grid-cols-6 gap-6 justify-left items-center pt-10">
+				{socials.map((social, index) => (
+					<SocialInput key={index} icon={social.icon} inputName={social.inputName} />
+				))}
 			</div>
 			<SettingsFooter
 				locale={params.locale}

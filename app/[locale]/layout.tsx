@@ -5,6 +5,7 @@ import { ReactNode } from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { locales } from '../../config';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
+import NextTopLoader from 'nextjs-toploader';
 
 type Props = {
 	children: ReactNode;
@@ -30,6 +31,7 @@ export default function RootLayout({ children, params: { locale } }: Props) {
 	return (
 		<html lang={locale} className={GeistSans.className}>
 			<body className="bg-base-300 text-base-content">
+			<NextTopLoader showSpinner={false} />
 				<main className="flex flex-col h-screen">
 					<NextIntlClientProvider locale={locale} messages={messages}>
 						{children}

@@ -1,11 +1,7 @@
 import { AlertType } from '@/components/Alert';
-import CancelButton from '@/components/CancelButton';
-import ConfirmButton from '@/components/ConfirmButton';
-import Dropzone from '@/components/Dropzone';
 import PasswordInput from '@/components/PasswordInput';
 import Toast from '@/components/Toast';
 import { updatePasswordSettings } from '@/utils/supabase/auth';
-import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import SettingsFooter from '../components/SettingsFooter';
 import { getTranslationsWithDefault } from '@/utils/traductions/trads';

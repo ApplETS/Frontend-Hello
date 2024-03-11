@@ -125,7 +125,7 @@ export default function Profile({ params: { locale, userId } }: Props) {
 				<div className="w-1/4 flex-none mt-5">
 					<div className="flex flex-col items-center">
 						<div className="avatar">
-							<div className="w-40 mb-2 rounded-full">
+							<div className="w-40 mb-2 max-h-[200px] rounded-full">
 								<img alt="Profile" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
 							</div>
 						</div>

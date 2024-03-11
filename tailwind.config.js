@@ -11,6 +11,7 @@ module.exports = {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				blue: '#06B6D4',
+				lightblue: '#87CEFA',
 				purple: '#AB7CDB',
 				lilac: '#B794F4',
 				green: '#64C788',
@@ -54,6 +55,7 @@ module.exports = {
 					error: '#FF5861',
 					warning: '#EAB308',
 					secondary: '#9CA3AF',
+					'--fc-today-bg-color': '#15191e',
 				},
 				light: {
 					...require('daisyui/src/theming/themes')['light'],
@@ -78,6 +80,7 @@ module.exports = {
 					'base-content': '181A2A',
 					'secondary-content': '#BABABA',
 					secondary: '#646464',
+					'--fc-today-bg-color': '#9a9ea2',
 				},
 			},
 		],

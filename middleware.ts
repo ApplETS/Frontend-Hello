@@ -16,7 +16,7 @@ export async function middleware(req: NextRequest) {
 	const url = req.nextUrl.clone();
 	const path = url.pathname;
 
-	const publicPaths = ['/login', '/updatepassword', '/forgotpassword'];
+	const publicPaths = ['/login', '/updatepassword', '/forgotpassword', '/news'];
 	const publicRoutes = locales.flatMap((locale) => publicPaths.map((path) => `/${locale}${path}`));
 
 	if (publicRoutes.includes(path)) {

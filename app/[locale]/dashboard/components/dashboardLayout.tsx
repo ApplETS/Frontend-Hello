@@ -4,6 +4,7 @@ import Navbar from './navbar';
 import { ReactElement } from 'react';
 import { usePathname } from 'next/navigation';
 import { User } from '@/models/user';
+import NewsNavbar from '../../news/components/NewsNavbar';
 
 interface Props {
 	children: ReactElement;
@@ -11,7 +12,7 @@ interface Props {
 		[key: string]: Page;
 	};
 	signOut: (formData: FormData) => Promise<never>;
-	user: User;
+	user: User | null;
 }
 
 export interface Page {
@@ -26,9 +27,11 @@ export default function DashboardLayout({ children, pages, signOut, user }: Prop
 
 	return (
 		<>
-			<Navbar activePage={activePage} pages={pages} signOut={signOut} user={user} />
+			{user !== null ? <Navbar activePage={activePage} pages={pages} signOut={signOut} user={user} /> : <NewsNavbar />}
 			<div className="flex flex-col flex-grow overflow-auto page-content animate-in p-7 bg-base-100">
-				{pages[activePage]?.title && <div className="text-2xl mb-7">{pages[activePage].title}</div>}
+				{pages[activePage]?.title && activePage !== 'news' && (
+					<div className="text-2xl mb-7">{pages[activePage].title}</div>
+				)}
 				{children}
 			</div>
 		</>

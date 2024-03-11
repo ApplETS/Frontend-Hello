@@ -4,18 +4,18 @@
 
 /* width */
 ::-webkit-scrollbar {
-    width: 6px;
+	width: 6px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5px;
+	background: #888;
+	border-radius: 5px;
 }
- 
+
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+	background: #555;
 }
 
 @layer base {
@@ -68,4 +68,39 @@
 .input-ghost {
 	@apply input-bordered;
 	@apply border-current;
+}
+
+.fc-day {
+	@apply h-[15%];
+	@apply overflow-y-auto;
+}
+
+.fc-daygrid-day-events {
+	@apply px-1;
+}
+
+.fc-daygrid-event-harness {
+	@apply py-1;
+}
+
+.fc-h-event .fc-event-main-frame {
+	display: block; /* for make fc-event-title-container expand */
+}
+
+.fc .fc-scrollgrid {
+	border: transparent !important;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+	border: none;
+}
+
+.fc-theme-standard td[role='gridcell'],
+.fc-theme-standard th[role='columnheader'] {
+	border: 1px solid var(--fc-border-color);
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+	background-color: var(--fallback-b3, oklch(var(--b3) / var(--tw-bg-opacity)));
 }

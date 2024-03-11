@@ -59,7 +59,13 @@ export default async function Page({ searchParams, params }: Props) {
 						</>
 					)}
 					<label>{t('email')}</label>
-					<input type="text" className="input input-ghost col-span-2" name="email" required defaultValue={user.email} />
+					<input
+						type="text"
+						className="input input-ghost col-span-2"
+						name="email"
+						required
+						defaultValue={user.email ?? ''}
+					/>
 
 					<label className="">{t('activity')}</label>
 					<Dropdown
@@ -68,13 +74,16 @@ export default async function Page({ searchParams, params }: Props) {
 						defaultItem={{ title: user.activityArea ?? '' }}
 						customStyle="col-span-2"
 					/>
-					{isOrganizer ? (
+					{isOrganizer && (
 						<>
 							<label className="justify-self-center">{t('website')}</label>
-							<input type="text" className="input input-ghost col-span-2" name="website" />
+							<input
+								type="text"
+								className="input input-ghost col-span-2"
+								name="website"
+								defaultValue={user.webSiteLink ?? ''}
+							/>
 						</>
-					) : (
-						<div />
 					)}
 					<div className="col-span-3" />
 				</div>

@@ -8,9 +8,11 @@ export interface HelloEvent {
 	state: number;
 	publicationDate: string;
 	eventStartDate: string;
+	eventEndDate: string;
 	createdAt: string;
 	updatedAt: string;
 	moderator: User | null;
 	organizer: User | null;
 	tags: string[];
+	cardId?: number;
 }

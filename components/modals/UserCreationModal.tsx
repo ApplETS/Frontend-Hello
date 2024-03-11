@@ -70,7 +70,12 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 						<div className="divider divider-accent"></div>
 						<div className="flex flex-row space-x-4 mb-4">
 							<div className="w-3/5"></div>
-							<button type="button" className="btn btn-secondary text-base-100 font-normal w-1/5" onClick={onClose}>
+							<button
+								type="button"
+								className="btn btn-secondary text-base-100 font-normal w-1/5"
+								style={{ backgroundColor: '#DCDCDC' }}
+								onClick={onClose}
+							>
 								{t('close')}
 							</button>
 							<button className="btn btn-primary text-base-100 font-normal w-1/5">{t('send')}</button>

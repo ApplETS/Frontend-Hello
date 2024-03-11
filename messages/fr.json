@@ -127,10 +127,11 @@
 			"deleted": "Supprimé"
 		}
 	},
-	"Accounts" : {
+	"Accounts": {
 		"title": "Comptes",
 		"search": "Rechercher",
 		"create-new-account": "Créer un compte",
+		"no-accounts-found": "Aucun compte trouvé",
 		"table": {
 			"organisation": "Nom de l'organisation",
 			"email": "Courriel",
@@ -153,14 +154,16 @@
 			"organisation": "Nom de l'organisation",
 			"activityarea": "Secteur d'activité",
 			"email": "Courriel",
-			"send" : "Send",
+			"send": "Send",
 			"close": "Close",
 			"activity": {
 				"scientificClub": "Club scientifique",
 				"ets": "ETS",
 				"sve": "Service à la vie étudiante",
 				"aeets": "AEETS"
-			}
+			},
+			"success": "Compte créé avec succès",
+			"error": "Erreur lors de la création du compte"
 		}
 	},
 	"Settings": {

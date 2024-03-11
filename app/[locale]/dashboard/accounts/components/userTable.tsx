@@ -11,6 +11,7 @@ import UserCreationModal from '@/components/modals/UserCreationModal';
 import Toast from '@/components/Toast';
 import { AlertType } from '@/components/Alert';
 import { revalidatePath } from 'next/cache';
+import { useToast } from '@/utils/provider/ToastProvider';
 
 type Props = {
 	users: User[];
@@ -24,7 +25,7 @@ export default function UsersTable({ users }: Props) {
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
 	const [filteredUsers, setFilteredUsers] = useState(users);
 	const [searchTerm, setSearchTerm] = useState('');
-	const [isCreationSuccess, setIsCreationSuccess] = useState(false);
+	const { setToast } = useToast();
 
 	const filters = Object.values(Constants.userStatuses).map((status) => t(`filters.${status.label}`));
 
@@ -64,19 +65,13 @@ export default function UsersTable({ users }: Props) {
 
 	const handleUserCreation = (user: User | undefined) => {
 		setIsModalOpen(false);
-		setIsCreationSuccess(true);
-
-		// Dismiss toast after 3 seconds
-		setTimeout(() => setIsCreationSuccess(false), 3000);
+		console.log(user);
+		if (user) setToast(t('create.success'), AlertType.success);
+		else setToast(t('create.error'), AlertType.error);
 	};
 
 	return (
 		<div>
-			{isCreationSuccess && (
-				<>
-					<Toast message={"L'utilisateur a bien été créé"} alertType={AlertType.success} />
-				</>
-			)}
 			<div className="mb-4 flex justify-between items-center space-x-4">
 				<div className="flex items-center space-x-4 flex-1">
 					<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
@@ -89,35 +84,41 @@ export default function UsersTable({ users }: Props) {
 					{t('create-new-account')}
 				</button>
 			</div>
-			<table className="table w-full rounded-lg">
-				<thead className="bg-base-300 rounded-t-lg h-17">
-					<tr className="text-base-content text-base font-bold">
-						{/* <th className="rounded-tl-lg">{t('table.author')}</th> */}
-						<th>{t('table.organisation')}</th>
-						<th>{t('table.email')}</th>
-						<th>{t('table.activityarea')}</th>
-						<th>{t('table.status')}</th>
-						<th className="w-[5%] rounded-tr-lg"></th>
-					</tr>
-				</thead>
-				<tbody>
-					{filteredUsers.map((user, index) => (
-						<tr key={index} className="border-b-2 border-base-300">
-							<td>{user.organisation ?? '-'}</td>
-							<td>{user.email}</td>
-							<td>{user.activityArea ?? '-'}</td>
-							<td className="text-base">
-								<div className={`py-4 px-4 badge ${Constants.userStatuses[1].color || 'badge-neutral'} text-black`}>
-									{t(`filters.${Constants.userStatuses[1].label}`)}
-								</div>
-							</td>
-							<td>
-								<DropdownMenu items={menuItems} />
-							</td>
-						</tr>
-					))}
-				</tbody>
-			</table>
+			{filteredUsers.length === 0 ? (
+				<div className="text-center py-4">{t('no-users-found')}</div>
+			) : (
+				<div className="h-64 overflow-y-auto pr-5">
+					<table className="table w-full rounded-lg">
+						<thead className="bg-base-300 rounded-t-lg h-17">
+							<tr className="text-base-content text-base font-bold">
+								{/* <th className="rounded-tl-lg">{t('table.author')}</th> */}
+								<th>{t('table.organisation')}</th>
+								<th>{t('table.email')}</th>
+								<th>{t('table.activityarea')}</th>
+								<th>{t('table.status')}</th>
+								<th className="w-[5%] rounded-tr-lg"></th>
+							</tr>
+						</thead>
+						<tbody>
+							{filteredUsers.map((user, index) => (
+								<tr key={index} className="border-b-2 border-base-300">
+									<td>{user.organisation ?? '-'}</td>
+									<td>{user.email}</td>
+									<td>{user.activityArea ?? '-'}</td>
+									<td className="text-base">
+										<div className={`py-4 px-4 badge ${Constants.userStatuses[1].color || 'badge-neutral'} text-black`}>
+											{t(`filters.${Constants.userStatuses[1].label}`)}
+										</div>
+									</td>
+									<td>
+										<DropdownMenu items={menuItems} />
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+			)}
 		</div>
 	);
 }

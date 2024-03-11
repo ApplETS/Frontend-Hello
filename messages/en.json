@@ -127,10 +127,11 @@
 			"deleted": "Deleted"
 		}
 	},
-	"Accounts" : {
+	"Accounts": {
 		"title": "Accounts",
 		"search": "Search",
 		"create-new-account": "Create account",
+		"no-accounts-found": "No accounts found",
 		"table": {
 			"organisation": "Organization name",
 			"email": "Email",
@@ -153,14 +154,16 @@
 			"organisation": "Organization name",
 			"activityarea": "Activity area",
 			"email": "Email",
-			"send" : "Send",
+			"send": "Send",
 			"close": "Close",
 			"activity": {
 				"scientificClub": "Scientific Club",
 				"ets": "ETS",
 				"sve": "Student Life Service",
 				"aeets": "AEETS"
-			}
+			},
+			"success": "Account created",
+			"error": "An error occurred"
 		}
 	},
 	"Settings": {

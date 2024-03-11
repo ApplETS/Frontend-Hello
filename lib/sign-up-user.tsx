@@ -10,14 +10,15 @@ export async function signUpUser(email: string, organisation: string, activityAr
 	});
 
 	if (!response.ok) {
-		throw new Error('Failed to fetch events');
+		throw new Error('Failed to create user');
 	}
 
 	const responseData: ApiResponse<User> = await response.json();
+	console.log(responseData);
 
 	// Check for errors in response
 	if (responseData.error) {
-		throw new Error('Error in response data');
+		throw new Error('Error in user creation');
 	}
 
 	return responseData.data;

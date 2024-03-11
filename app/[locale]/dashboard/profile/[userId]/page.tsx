@@ -154,7 +154,7 @@ export default function Profile({ params: { locale, userId } }: Props) {
 			<div className="flex flex-row gap-8">
 				<FontAwesomeIcon
 					icon={faArrowLeft}
-					onClick={() => router.push(`/${locale}/news`)}
+					onClick={() => router.push(`/${locale}/dashboard/news`)}
 					className="cursor-pointer"
 					size="xl"
 				/>

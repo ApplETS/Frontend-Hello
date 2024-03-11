@@ -1,13 +1,20 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
-import Search from '@/components/Search';
 import { faArrowLeft, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslations } from 'next-intl';
+import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
+import { HelloEvent } from '@/models/hello-event';
+import { Organizer } from '@/models/Organizer';
 import Constants from '@/utils/constants';
+import Image from 'next/image';
+import Search from '@/components/Search';
+import EventDateAndImage from '@/components/EventDateAndImage';
+
 import facebookIcon from '@/public/Socials/Facebook.svg';
 import discordIcon from '@/public/Socials/Discord.svg';
 import instagramIcon from '@/public/Socials/Instagram.svg';
@@ -15,11 +22,6 @@ import linkedinIcon from '@/public/Socials/Linkedin.svg';
 import tiktokIcon from '@/public/Socials/Tiktok.svg';
 import redditIcon from '@/public/Socials/Reddit.svg';
 import xIcon from '@/public/Socials/X.svg';
-import Image from 'next/image';
-import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
-import { useRouter } from 'next/navigation';
-import { HelloEvent } from '@/models/hello-event';
-import EventDateAndImage from '@/components/EventDateAndImage';
 
 type Props = {
 	params: { locale: string; userId: string };
@@ -31,13 +33,16 @@ export default function Profile({ params: { locale, userId } }: Props) {
 	const router = useRouter();
 
 	// TODO : Change with the real user, the user id is in userId
-	const user = {
+	const user: Organizer = {
+		id: 'some-unique-id',
 		name: 'Prénom Nom',
 		email: 'applets@ens.etsmtl.ca',
-		description: 'Je suis une description longue longue longue longue longue longue longue longue longue.',
-		// TODO : Change with the real tags
+		type: null,
+		organisation: null,
+		activityArea: 'Club scientifique',
+		imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
+		profileDescription: 'Je suis une description longue longue longue longue longue longue longue longue longue.',
 		interests: ['Développement mobile', 'Conférence', 'Programmation', 'Génie logiciel'],
-		// TODO : Change with the real socials
 		socials: [
 			{ icon: facebookIcon, inputName: 'facebook', link: 'https://www.facebook.com/' },
 			{ icon: discordIcon, inputName: 'discord', link: 'https://discord.com/' },
@@ -47,6 +52,9 @@ export default function Profile({ params: { locale, userId } }: Props) {
 			{ icon: redditIcon, inputName: 'reddit', link: 'https://www.reddit.com/' },
 			{ icon: xIcon, inputName: 'x', link: 'https://twitter.com/' },
 		],
+		webSiteLink: null,
+		createdAt: new Date().toISOString(),
+		updatedAt: new Date().toISOString(),
 	};
 
 	// TODO : Change the "t('notify-me')"" with the user preference
@@ -152,11 +160,12 @@ export default function Profile({ params: { locale, userId } }: Props) {
 					<div className="flex flex-col items-center">
 						<div className="avatar">
 							<div className="w-40 mb-2 rounded-full">
-								<img alt="Profile" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+								<img alt="Profile" src={user.imageUrl} />
 							</div>
 						</div>
-						<h2 className="text-xl font-bold mb-2">{user.name}</h2>
-						<p className="text-sm mb-4 text-center">{user.description}</p>
+						<p className="text-xl font-bold">{user.name}</p>
+						<h4 className="mb-2">{user.activityArea}</h4>
+						<p className="text-sm mb-4 text-center">{user.profileDescription}</p>
 						<button className="btn btn-accent w-64 mb-4" onClick={notify}>
 							{notifyButtonTitle}
 						</button>

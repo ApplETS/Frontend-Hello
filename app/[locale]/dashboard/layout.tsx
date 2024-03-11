@@ -7,10 +7,10 @@ import { UserTypes } from '@/models/user-types';
 
 type Props = {
 	children: ReactElement;
-	params: { locale: string };
+	params: { locale: string; userId: string };
 };
 
-export default async function Layout({ children, params: { locale } }: Props) {
+export default async function Layout({ children, params: { locale, userId } }: Props) {
 	unstable_setRequestLocale(locale);
 
 	const t = await getTranslations('Dashboard');
@@ -23,6 +23,11 @@ export default async function Layout({ children, params: { locale } }: Props) {
 			title: t('news'),
 			link: `/${locale}/news`,
 			isVisible: true,
+		},
+		profile: {
+			title: t('profile'),
+			link: `/${locale}/dashboard/profile/${userId}`,
+			isVisible: false,
 		},
 		publications: {
 			title: t('publications'),

@@ -3,62 +3,22 @@ import { motion } from 'framer-motion';
 import { HiCodeBracketSquare, HiMagnifyingGlass, HiMapPin, HiTag, HiWindow } from 'react-icons/hi2';
 import { useEffect, useRef, useState } from 'react';
 import { HelloEvent } from '@/models/hello-event';
+import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
+import { useTheme } from '@/utils/provider/ThemeProvider';
+import EventDateAndImage from './EventDateAndImage';
 
 interface Props {
 	events: HelloEvent[];
 	selectedCard: number | null;
 	setSelectedCard: (cardId: number | null) => void;
+	locale: string;
 }
 
-const cards = [
-	{
-		id: 1,
-		icon: <HiMagnifyingGlass className="h-10 w-10 text-4xl text-sky-500 stroke-[3px]" />,
-	},
-	{
-		id: 2,
-		icon: <HiMapPin className="h-10 w-10 text-4xl text-sky-500 stroke-[3px]" />,
-	},
-	{
-		id: 3,
-		icon: <HiTag className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 4,
-		icon: <HiWindow className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 5,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 6,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 7,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 8,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 9,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 10,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 11,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-];
 const cardVariants = {
 	selected: {
-		scale: 1.2,
+		scale: 1.07,
 		transition: { duration: 0.35 },
 		zIndex: 10,
 	},
@@ -70,7 +30,12 @@ const cardVariants = {
 		transition: { duration: 0.35 },
 	}),
 };
-export const CardRotation = ({ events, selectedCard, setSelectedCard }: Props) => {
+
+export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: Props) => {
+	const t = useTranslations('NewsPage');
+	const { isLight } = useTheme();
+	const router = useRouter();
+
 	const [{ startY, startScrollTop, isDragging }, setDragStart] = useState({
 		startY: undefined as any,
 		startScrollTop: undefined as any,
@@ -109,6 +74,9 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard }: Props) =
 		}
 	};
 	const handleCardMouseUp = (e: any, card: any) => {
+		if ((e.target as HTMLElement).closest('button')) {
+			return;
+		}
 		if (isDragging) {
 			const y = e.pageY - containerRef.current.offsetTop;
 			const walk = y - startY;
@@ -124,9 +92,14 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard }: Props) =
 		});
 	};
 
+	const handleViewProfileClick = (e: React.MouseEvent, url: string) => {
+		e.stopPropagation();
+		router.push(url);
+	};
+
 	return (
 		<div
-			className="h-full w-full flex flex-col items-center justify-center  max-w-2xl   relative"
+			className="h-full w-full flex flex-col items-center justify-center max-w-2xl relative"
 			onMouseDown={handleMouseDown}
 			onMouseUp={() => setDragStart((prev) => ({ ...prev, isDragging: false }))}
 			onMouseMove={handleMouseMove}
@@ -134,14 +107,13 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard }: Props) =
 			<div
 				className="overflow-y-scroll w-full h-full no-visible-scrollbar relative"
 				style={{
-					whiteSpace: 'nowrap',
 					perspective: '150px',
 				}}
 				ref={containerRef}
 			>
 				{events.map((event, i) => (
 					<motion.div
-						className="card relative block items-center justify-center h-fit w-4/5 my-10 mx-auto rounded-md cursor-pointer"
+						className="card relative block items-center h-fit w-4/5 my-7 mx-auto rounded-md cursor-pointer"
 						key={event.cardId}
 						ref={(el) => cardRefs.current.push(el)}
 						onMouseUp={(e) => handleCardMouseUp(e, event.cardId)}
@@ -149,15 +121,24 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard }: Props) =
 						animate={selectedCard === event.cardId ? 'selected' : 'notSelected'}
 						custom={selectedCard ? selectedCard - (event.cardId ?? 0) : 0}
 					>
-						<p className="font-mono italic">{event.eventStartDate.substring(0, 10)}</p>
 						<div className="flex flex-col justify-around bg-base-200 rounded-3xl h-full">
-							<div className="text-3xl font-bold p-6">{event.title}</div>
-							<div className="w-full aspect-[2/1]">
-								<img src={event.imageUrl} alt={event.title} className="w-full h-full" />
+							<div className="card justify-center w-full rounded-lg bg-base-200">
+								<div className="grid grid-rows-[auto_auto_auto_1fr_auto] rounded-3xl h-full">
+									<div className="text-xl font-bold px-4 pt-4 overflow-hidden line-clamp-3">
+										<div className="mb-2">{event.title}</div>
+									</div>
+								</div>
 							</div>
-							<div className="flex flex-row gap-2 p-6">
+							<EventDateAndImage
+								eventStartDate={event.eventStartDate}
+								eventEndDate={event.eventEndDate}
+								imageUrl={event.imageUrl}
+								locale={locale}
+							/>
+							<div className="flex flex-row gap-2 px-6 py-2 items-center">
 								<div className="avatar">
 									<div className="w-14 rounded-full">
+										{/* TODO : Change with real image when it will be done in backend */}
 										<img
 											alt="Tailwind CSS Navbar component"
 											src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
@@ -165,12 +146,29 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard }: Props) =
 									</div>
 								</div>
 								<div className="flex flex-col pt-2 pl-2">
-									<p className="text-base font-bold ml-0">{event.organizer?.organisation ?? 'Organisateur'}</p>
-									<p className="text-xs ml-0 text-secondary">{event.organizer?.activityArea}</p>
+									<p className="text-base font-bold">{event.organizer?.organisation ?? 'Organisateur'}</p>
+									<p className="text-xs text-secondary">{event.organizer?.activityArea}</p>
 								</div>
+								{selectedCard === event.cardId && (
+									<button
+										className="ml-auto btn btn-primary"
+										onClick={(e) => handleViewProfileClick(e, `/fr/dashboard/profile/${event.organizer?.id}`)}
+									>
+										{t('view-profile')}
+									</button>
+								)}
 							</div>
+
 							{selectedCard === event.cardId && (
-								<div className="text-sm font-light p-6 whitespace-normal">{event.content}</div>
+								<div className="text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto h-44 mb-6">
+									<MDXEditor
+										className={` text-sm text-justify ${
+											isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
+										}`}
+										plugins={[linkPlugin(), linkDialogPlugin()]}
+										markdown={event.content}
+									/>
+								</div>
 							)}
 						</div>
 					</motion.div>

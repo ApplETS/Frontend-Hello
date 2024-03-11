@@ -62,6 +62,9 @@
 		"401": "Invalid token",
 		"token-placeholder": "Token received by email"
 	},
+	"NewsPage": {
+		"view-profile": "View profile"
+	},
 	"Publications": {
 		"title": "Publications",
 		"search": "Search",
@@ -132,6 +135,18 @@
 			"approved": "Approved",
 			"deleted": "Deleted"
 		}
+	},
+	"Profile": {
+		"notify-me": "Notify me",
+		"dont-notify-me": "Don't notify me",
+		"interests": "Interests",
+		"search": "Search",
+		"to": " to ",
+		"from": " from ",
+		"until": " until ",
+		"informations": "Informations",
+		"website": "Website",
+		"email": "Email"
 	},
 	"Settings": {
 		"title": "Settings",

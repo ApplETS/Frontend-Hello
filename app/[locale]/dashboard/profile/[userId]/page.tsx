@@ -18,6 +18,8 @@ import xIcon from '@/public/Socials/X.svg';
 import Image from 'next/image';
 import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import { useRouter } from 'next/navigation';
+import { HelloEvent } from '@/models/hello-event';
+import EventDate from '@/components/EventDate';
 
 type Props = {
 	params: { locale: string; userId: string };
@@ -51,47 +53,71 @@ export default function Profile({ params: { locale, userId } }: Props) {
 	const [notifyButtonTitle, setNotifyButtonTitle] = useState(t('notify-me'));
 
 	// TODO : Change to the real publications
-	const publications = [
+	const publications: HelloEvent[] = [
 		{
+			id: '1',
 			title:
 				'Compétition de développement mobile en 24 heures top chrono et oui cest bien chronométré avec un minuteur',
-			description:
+			content:
 				"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
-			eventStartDate: new Date(2023, 3, 11, 15, 0, 0),
-			eventEndDate: new Date(2023, 3, 11, 16, 0, 0),
-			image: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-			club: 'Club scientifique',
+			imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
+			state: 1,
+			publicationDate: '2023-03-11T15:00:00.000Z',
+			eventStartDate: '2023-03-11T15:00:00.000Z',
+			eventEndDate: '2023-03-11T16:00:00.000Z',
+			createdAt: '2023-03-11T15:00:00.000Z',
+			updatedAt: '2023-03-11T15:00:00.000Z',
+			moderator: null,
+			organizer: null,
 			tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
 		},
 		{
-			title: 'Pas même jour mais même mois',
-			description:
-				"Nous sommes ravis de vous inviter à un 5 à 7 spécial en partenariat avec Intact, où nous explorerons deux sujets passionnants : le white labelling et l'observabilité dans le monde du développement mobile.",
-			eventStartDate: new Date(2023, 3, 11, 15, 0, 0),
-			eventEndDate: new Date(2023, 3, 13, 16, 0, 0),
-			image: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-			club: 'Club scientifique',
-			tags: ['Développement mobile', 'White labelling', 'Réseautage', 'Club scientifique'],
+			id: '2',
+			title: 'Conférence (Pas même jour mais même mois)',
+			content:
+				"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
+			imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
+			state: 1,
+			publicationDate: '2023-03-11T15:00:00.000Z',
+			eventStartDate: '2023-03-11T15:00:00.000Z',
+			eventEndDate: '2023-03-12T16:00:00.000Z',
+			createdAt: '2023-03-11T15:00:00.000Z',
+			updatedAt: '2023-03-11T15:00:00.000Z',
+			moderator: null,
+			organizer: null,
+			tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
 		},
 		{
-			title: 'Pas même mois',
-			description:
-				"Nous avons le plaisir de vous inviter à une opportunité passionnante pour apprendre auprès d'experts de l'industrie. Nous sommes fiers d'accueillir des représentants de chez GOOGLE et ARCTIQ qui donneront une présentation exclusive sur DevOps et Kubernetes Anthos, et cet événement est ouvert à tous. Ils présenteront également Kubernetes Anthos, une plateforme de gestion des conteneurs qui simplifie le déploiement et la gestion des applications dans des environnements de cloud hybrides et multicloud.",
-			eventStartDate: new Date(2023, 3, 11, 15, 0, 0),
-			eventEndDate: new Date(2023, 4, 11, 16, 0, 0),
-			image: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-			club: 'Club scientifique',
-			tags: ['Devops', 'Club scientifique', 'Conférence', 'Développement mobile', 'Kubernetes'],
+			id: '2',
+			title: 'Conférence (Pas même jour et pas même mois)',
+			content:
+				"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
+			imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
+			state: 1,
+			publicationDate: '2023-03-11T15:00:00.000Z',
+			eventStartDate: '2023-03-11T15:00:00.000Z',
+			eventEndDate: '2023-04-12T16:00:00.000Z',
+			createdAt: '2023-03-11T15:00:00.000Z',
+			updatedAt: '2023-03-11T15:00:00.000Z',
+			moderator: null,
+			organizer: null,
+			tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
 		},
 		{
-			title: 'Conférence sur le développement mobile',
-			eventStartDate: new Date(2023, 3, 11, 15, 0, 0),
-			eventEndDate: new Date(2023, 4, 11, 16, 0, 0),
-			description:
-				"Nous avons le plaisir de vous inviter à une opportunité passionnante pour apprendre auprès d'experts de l'industrie. Nous sommes fiers d'accueillir des représentants de chez GOOGLE et ARCTIQ qui donneront une présentation exclusive sur DevOps et Kubernetes Anthos, et cet événement est ouvert à tous. Ils présenteront également Kubernetes Anthos, une plateforme de gestion des conteneurs qui simplifie le déploiement et la gestion des applications dans des environnements de cloud hybrides et multicloud.",
-			image: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-			club: 'Club scientifique',
-			tags: ['Devops', 'Club scientifique', 'Conférence', 'Développement mobile', 'Kubernetes'],
+			id: '3',
+			title: 'Conférence (Sans date de fin)',
+			content:
+				"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
+			imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
+			state: 1,
+			publicationDate: '2023-03-11T15:00:00.000Z',
+			eventStartDate: '2023-03-11T15:00:00.000Z',
+			eventEndDate: '',
+			createdAt: '2023-03-11T15:00:00.000Z',
+			updatedAt: '2023-03-11T15:00:00.000Z',
+			moderator: null,
+			organizer: null,
+			tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
 		},
 	];
 
@@ -171,137 +197,26 @@ export default function Profile({ params: { locale, userId } }: Props) {
 				<div className="flex-grow">
 					<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
 					<div className="grid grid-cols-3 gap-4 mt-4">
-						{filteredPublications.map((publication, index) => (
+						{filteredPublications.map((event, index) => (
 							<div className="card justify-center w-full rounded-lg bg-base-200" key={index}>
 								<div className="grid grid-rows-[auto_auto_auto_1fr_auto] rounded-3xl h-full">
 									<div className="text-xl font-bold px-4 pt-4 h-24 overflow-hidden line-clamp-3">
-										<div className="mb-2">{publication.title}</div>
+										<div className="mb-2">{event.title}</div>
 									</div>
-									<div className="mx-4 mt-1">
-										{publication.eventStartDate && (
-											<div className="text-sm font-normal">
-												{/* If there is only a start date */}
-												{publication.eventStartDate && !publication.eventEndDate && (
-													<p>
-														{new Date(publication.eventStartDate).toLocaleDateString(locale, {
-															day: 'numeric',
-															month: 'long',
-															year: 'numeric',
-															hour: 'numeric',
-															minute: 'numeric',
-														})}
-													</p>
-												)}
-												{/* If there is a start date and an end date with the same day and month */}
-												{publication.eventStartDate &&
-													publication.eventEndDate &&
-													new Date(publication.eventStartDate).getDate() ===
-														new Date(publication.eventEndDate).getDate() &&
-													new Date(publication.eventStartDate).getMonth() ===
-														new Date(publication.eventEndDate).getMonth() && (
-														<div className="mb-1">
-															<span>
-																{new Date(publication.eventStartDate).toLocaleDateString(locale, {
-																	day: 'numeric',
-																	month: 'long',
-																	year: 'numeric',
-																})}
-																{t('from')}
-																{new Date(publication.eventStartDate).toLocaleTimeString(locale, {
-																	hour: 'numeric',
-																	minute: 'numeric',
-																})}
-																{t('to')}
-																{new Date(publication.eventEndDate).toLocaleTimeString(locale, {
-																	hour: 'numeric',
-																	minute: 'numeric',
-																})}
-															</span>
-														</div>
-													)}
-												{/* If there is a start date and an end date with only the same month */}
-												{publication.eventStartDate &&
-													publication.eventEndDate &&
-													new Date(publication.eventStartDate).getDate() !==
-														new Date(publication.eventEndDate).getDate() &&
-													new Date(publication.eventStartDate).getMonth() ===
-														new Date(publication.eventEndDate).getMonth() && (
-														<div className="mb-1">
-															<span>
-																{new Date(publication.eventStartDate).toLocaleDateString(locale, {
-																	day: 'numeric',
-																})}
-																{' - '}
-																{new Date(publication.eventEndDate).toLocaleDateString(locale, {
-																	day: 'numeric',
-																	month: 'long',
-																	year: 'numeric',
-																})}
-																{t('from')}
-																{new Date(publication.eventStartDate).toLocaleTimeString(locale, {
-																	hour: 'numeric',
-																	minute: 'numeric',
-																})}
-																{t('to')}
-																{new Date(publication.eventEndDate).toLocaleTimeString(locale, {
-																	hour: 'numeric',
-																	minute: 'numeric',
-																})}
-															</span>
-														</div>
-													)}
-												{/* If there is a start date and an end date not in the same month */}
-												{publication.eventStartDate &&
-													publication.eventEndDate &&
-													new Date(publication.eventStartDate).getMonth() !==
-														new Date(publication.eventEndDate).getMonth() && (
-														<>
-															<div className="mb-1">
-																<span>
-																	{new Date(publication.eventStartDate).toLocaleDateString(locale, {
-																		day: 'numeric',
-																		month: 'long',
-																		year: 'numeric',
-																	})}
-																	{t('to')}
-																	{new Date(publication.eventStartDate).toLocaleTimeString(locale, {
-																		hour: 'numeric',
-																		minute: 'numeric',
-																	})}
-																	{t('until')}
-																	{new Date(publication.eventEndDate).toLocaleDateString(locale, {
-																		day: 'numeric',
-																		month: 'long',
-																		year: 'numeric',
-																	})}
-																	{t('to')}
-																	{new Date(publication.eventEndDate).toLocaleTimeString(locale, {
-																		hour: 'numeric',
-																		minute: 'numeric',
-																	})}
-																</span>
-															</div>
-														</>
-													)}
-											</div>
-										)}
-									</div>
-									<div className="w-full aspect-[2/1]">
-										<img src={publication.image} alt="Publication" className="w-full h-full" />
-									</div>
+									<EventDate eventStartDate={event.eventStartDate} eventEndDate={event.eventEndDate} locale={locale} />
 									<div className="text-sm text-justify font-light p-2 whitespace-normal overflow-y-auto h-44">
 										<MDXEditor
 											className={` text-sm text-justify ${
 												isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
 											}`}
 											plugins={[linkPlugin(), linkDialogPlugin()]}
-											markdown={publication.description}
+											markdown={event.content}
 										/>
 									</div>
 								</div>
 								<div className="flex flex-wrap gap-2 p-6">
 									<div className="flex flex-wrap gap-2 overflow-x-auto">
-										{publication.tags.map((tag, index) => (
+										{event.tags.map((tag, index) => (
 											<div
 												key={tag}
 												className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}

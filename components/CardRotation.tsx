@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import { useTheme } from '@/utils/provider/ThemeProvider';
+import EventDate from './EventDate';
 
 interface Props {
 	events: HelloEvent[];
@@ -15,52 +16,6 @@ interface Props {
 	locale: string;
 }
 
-const cards = [
-	{
-		id: 1,
-		icon: <HiMagnifyingGlass className="h-10 w-10 text-4xl text-sky-500 stroke-[3px]" />,
-	},
-	{
-		id: 2,
-		icon: <HiMapPin className="h-10 w-10 text-4xl text-sky-500 stroke-[3px]" />,
-	},
-	{
-		id: 3,
-		icon: <HiTag className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 4,
-		icon: <HiWindow className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 5,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 6,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 7,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 8,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 9,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 10,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-	{
-		id: 11,
-		icon: <HiCodeBracketSquare className="h-10 w-10 text-4xl text-sky-500 " />,
-	},
-];
 const cardVariants = {
 	selected: {
 		scale: 1.2,
@@ -75,6 +30,7 @@ const cardVariants = {
 		transition: { duration: 0.35 },
 	}),
 };
+
 export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: Props) => {
 	const t = useTranslations('NewsPage');
 	const { isLight } = useTheme();
@@ -143,7 +99,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 
 	return (
 		<div
-			className="h-full w-full flex flex-col items-center justify-center  max-w-2xl   relative"
+			className="h-full w-full flex flex-col items-center justify-center max-w-2xl relative"
 			onMouseDown={handleMouseDown}
 			onMouseUp={() => setDragStart((prev) => ({ ...prev, isDragging: false }))}
 			onMouseMove={handleMouseMove}
@@ -151,14 +107,13 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 			<div
 				className="overflow-y-scroll w-full h-full no-visible-scrollbar relative"
 				style={{
-					whiteSpace: 'nowrap',
 					perspective: '150px',
 				}}
 				ref={containerRef}
 			>
 				{events.map((event, i) => (
 					<motion.div
-						className="card relative block items-center justify-center h-fit w-4/5 my-10 mx-auto rounded-md cursor-pointer"
+						className="card relative block items-center h-fit w-4/5 my-7 mx-auto rounded-md cursor-pointer"
 						key={event.cardId}
 						ref={(el) => cardRefs.current.push(el)}
 						onMouseUp={(e) => handleCardMouseUp(e, event.cardId)}
@@ -166,16 +121,15 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 						animate={selectedCard === event.cardId ? 'selected' : 'notSelected'}
 						custom={selectedCard ? selectedCard - (event.cardId ?? 0) : 0}
 					>
-						<p className="font-mono italic">{event.eventStartDate.substring(0, 10)}</p>
 						<div className="flex flex-col justify-around bg-base-200 rounded-3xl h-full">
-							<div className="text-3xl font-bold p-6">{event.title}</div>
-							<div className="w-full aspect-[2/1] max-h-[200px]">
-								<img
-									src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-									alt={event.title}
-									className="w-full h-full"
-								/>
+							<div className="card justify-center w-full rounded-lg bg-base-200">
+								<div className="grid grid-rows-[auto_auto_auto_1fr_auto] rounded-3xl h-full">
+									<div className="text-xl font-bold px-4 pt-4 overflow-hidden line-clamp-3">
+										<div className="mb-2">{event.title}</div>
+									</div>
+								</div>
 							</div>
+							<EventDate eventStartDate={event.eventStartDate} eventEndDate={event.eventEndDate} locale={locale} />
 							<div className="flex flex-row gap-2 px-6 py-2 items-center">
 								<div className="avatar">
 									<div className="w-14 rounded-full">

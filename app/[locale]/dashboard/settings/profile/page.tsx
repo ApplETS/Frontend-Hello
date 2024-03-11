@@ -20,7 +20,7 @@ export default async function Page({ searchParams, params }: Props) {
 	const t_default = await getTranslationsWithDefault('Settings.profile-section');
 	const t_dialog = await getTranslations('Settings.dialog');
 	const user = await getAuthenticatedUser();
-	const isOrganizer = true; //user.type == UserTypes.ORGANIZER;
+	const isOrganizer = user.type == UserTypes.ORGANIZER;
 
 	return (
 		<form className="flex flex-col basis-3/4" action={updateProfile}>

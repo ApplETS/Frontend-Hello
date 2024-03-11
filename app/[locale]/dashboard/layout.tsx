@@ -7,17 +7,16 @@ import { UserTypes } from '@/models/user-types';
 
 type Props = {
 	children: ReactElement;
-	params: { locale: string };
+	params: { locale: string; userId: string };
 };
 
-export default async function Layout({ children, params: { locale } }: Props) {
+export default async function Layout({ children, params: { locale, userId } }: Props) {
 	unstable_setRequestLocale(locale);
 
 	const t = await getTranslations('Dashboard');
 	const user = await getAuthenticatedUser();
 	const isOrganizer = user.type == UserTypes.ORGANIZER;
 	const isModerator = user.type == UserTypes.MODERATOR;
-	const userId = 'c8ca8f86-d666-4c83-80fa-0d004f4291e2';
 
 	var pages = {
 		news: {

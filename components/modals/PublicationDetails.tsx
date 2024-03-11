@@ -120,8 +120,6 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 
 	const handleFileDrop = (file: File) => {
 		const allowedTypes = ['image/jpeg', 'image/png'];
-		console.log(file.type);
-		console.log(allowedTypes.includes(file.type));
 
 		if (!allowedTypes.includes(file.type)) {
 			setToastMessage(props.imageFormatErrorToastMessage);

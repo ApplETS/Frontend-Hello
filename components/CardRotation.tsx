@@ -182,11 +182,10 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 									<p className="text-base font-bold">{event.organizer?.organisation ?? 'Organisateur'}</p>
 									<p className="text-xs text-secondary">{event.organizer?.activityArea}</p>
 								</div>
-								{/* /${event.organizer?.id} */}
 								{selectedCard === event.cardId && (
 									<button
 										className="ml-auto btn btn-accent"
-										onClick={(e) => handleViewProfileClick(e, `/fr/dashboard/profile`)}
+										onClick={(e) => handleViewProfileClick(e, `/fr/dashboard/profile/${event.organizer?.id}`)}
 									>
 										{t('view-profile')}
 									</button>

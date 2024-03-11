@@ -20,15 +20,16 @@ import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import { useRouter } from 'next/navigation';
 
 type Props = {
-	params: { locale: string };
+	params: { locale: string; userId: string };
 };
 
-export default function Profile({ params: { locale } }: Props) {
+export default function Profile({ params: { locale, userId } }: Props) {
 	const { isLight } = useTheme();
 	const t = useTranslations('Profile');
 	const router = useRouter();
 
 	// TODO : Change with the real user
+	console.log(userId);
 	const user = {
 		name: 'Prénom Nom',
 		email: 'applets@ens.etsmtl.ca',

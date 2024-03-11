@@ -55,6 +55,7 @@ export default async function Page({ searchParams, params }: Props) {
 							<textarea
 								className="textarea textarea-ghost border-current row-span-2 h-full self-start mt-3 col-span-2"
 								name="description"
+								defaultValue={user.profileDescription ?? ''}
 							/>
 						</>
 					)}

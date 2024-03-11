@@ -143,7 +143,9 @@
 		"search": "Search",
 		"to": " to ",
 		"from": " from ",
-		"until": " until "
+		"until": " until ",
+		"website": "Website",
+		"email": "Email"
 	},
 	"Settings": {
 		"title": "Settings",

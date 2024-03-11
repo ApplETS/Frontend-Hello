@@ -4,12 +4,11 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
-import { faArrowLeft, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslations } from 'next-intl';
 import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
-import { HelloEvent } from '@/models/hello-event';
-import { Organizer } from '@/models/Organizer';
+import { Organizer } from '@/models/organizer';
 import Constants from '@/utils/constants';
 import Image from 'next/image';
 import Search from '@/components/Search';
@@ -52,7 +51,74 @@ export default function Profile({ params: { locale, userId } }: Props) {
 			{ icon: redditIcon, inputName: 'reddit', link: 'https://www.reddit.com/' },
 			{ icon: xIcon, inputName: 'x', link: 'https://twitter.com/' },
 		],
-		webSiteLink: null,
+		webSiteLink: 'https://clubapplets.ca/',
+		events: [
+			{
+				id: '1',
+				title:
+					'Compétition de développement mobile en 24 heures top chrono et oui cest bien chronométré avec un minuteur',
+				content:
+					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
+				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
+				state: 1,
+				publicationDate: '2023-03-11T15:00:00.000Z',
+				eventStartDate: '2023-03-11T15:00:00.000Z',
+				eventEndDate: '2023-03-11T16:00:00.000Z',
+				createdAt: '2023-03-11T15:00:00.000Z',
+				updatedAt: '2023-03-11T15:00:00.000Z',
+				moderator: null,
+				organizer: null,
+				tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
+			},
+			{
+				id: '2',
+				title: 'Conférence (Pas même jour mais même mois)',
+				content:
+					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
+				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
+				state: 1,
+				publicationDate: '2023-03-11T15:00:00.000Z',
+				eventStartDate: '2023-03-11T15:00:00.000Z',
+				eventEndDate: '2023-03-12T16:00:00.000Z',
+				createdAt: '2023-03-11T15:00:00.000Z',
+				updatedAt: '2023-03-11T15:00:00.000Z',
+				moderator: null,
+				organizer: null,
+				tags: ['Développement mobile', 'ApplETS', 'Club scientifique', 'Conférence'],
+			},
+			{
+				id: '2',
+				title: 'Conférence (Pas même jour et pas même mois)',
+				content:
+					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
+				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
+				state: 1,
+				publicationDate: '2023-03-11T15:00:00.000Z',
+				eventStartDate: '2023-03-11T15:00:00.000Z',
+				eventEndDate: '2023-04-12T16:00:00.000Z',
+				createdAt: '2023-03-11T15:00:00.000Z',
+				updatedAt: '2023-03-11T15:00:00.000Z',
+				moderator: null,
+				organizer: null,
+				tags: ['Développement mobile', 'ApplETS', 'Club scientifique', 'Conférence', 'Génie logiciel'],
+			},
+			{
+				id: '3',
+				title: 'Conférence (Sans date de fin)',
+				content:
+					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
+				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
+				state: 1,
+				publicationDate: '2023-03-11T15:00:00.000Z',
+				eventStartDate: '2023-03-11T15:00:00.000Z',
+				eventEndDate: '',
+				createdAt: '2023-03-11T15:00:00.000Z',
+				updatedAt: '2023-03-11T15:00:00.000Z',
+				moderator: null,
+				organizer: null,
+				tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
+			},
+		],
 		createdAt: new Date().toISOString(),
 		updatedAt: new Date().toISOString(),
 	};
@@ -60,84 +126,15 @@ export default function Profile({ params: { locale, userId } }: Props) {
 	// TODO : Change the "t('notify-me')"" with the user preference
 	const [notifyButtonTitle, setNotifyButtonTitle] = useState(t('notify-me'));
 
-	// TODO : Change to the real publications
-	const publications: HelloEvent[] = [
-		{
-			id: '1',
-			title:
-				'Compétition de développement mobile en 24 heures top chrono et oui cest bien chronométré avec un minuteur',
-			content:
-				"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
-			imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-			state: 1,
-			publicationDate: '2023-03-11T15:00:00.000Z',
-			eventStartDate: '2023-03-11T15:00:00.000Z',
-			eventEndDate: '2023-03-11T16:00:00.000Z',
-			createdAt: '2023-03-11T15:00:00.000Z',
-			updatedAt: '2023-03-11T15:00:00.000Z',
-			moderator: null,
-			organizer: null,
-			tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
-		},
-		{
-			id: '2',
-			title: 'Conférence (Pas même jour mais même mois)',
-			content:
-				"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
-			imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-			state: 1,
-			publicationDate: '2023-03-11T15:00:00.000Z',
-			eventStartDate: '2023-03-11T15:00:00.000Z',
-			eventEndDate: '2023-03-12T16:00:00.000Z',
-			createdAt: '2023-03-11T15:00:00.000Z',
-			updatedAt: '2023-03-11T15:00:00.000Z',
-			moderator: null,
-			organizer: null,
-			tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
-		},
-		{
-			id: '2',
-			title: 'Conférence (Pas même jour et pas même mois)',
-			content:
-				"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
-			imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-			state: 1,
-			publicationDate: '2023-03-11T15:00:00.000Z',
-			eventStartDate: '2023-03-11T15:00:00.000Z',
-			eventEndDate: '2023-04-12T16:00:00.000Z',
-			createdAt: '2023-03-11T15:00:00.000Z',
-			updatedAt: '2023-03-11T15:00:00.000Z',
-			moderator: null,
-			organizer: null,
-			tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
-		},
-		{
-			id: '3',
-			title: 'Conférence (Sans date de fin)',
-			content:
-				"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
-			imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-			state: 1,
-			publicationDate: '2023-03-11T15:00:00.000Z',
-			eventStartDate: '2023-03-11T15:00:00.000Z',
-			eventEndDate: '',
-			createdAt: '2023-03-11T15:00:00.000Z',
-			updatedAt: '2023-03-11T15:00:00.000Z',
-			moderator: null,
-			organizer: null,
-			tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
-		},
-	];
-
 	// SEARCH
 	const [searchTerm, setSearchTerm] = useState('');
-	const [filteredPublications, setFilteredPublications] = useState(publications);
+	const [filteredPublications, setFilteredPublications] = useState(user.events);
 	const handleSearchChanged = (search: string) => {
 		setSearchTerm(search);
 	};
 	useEffect(() => {
-		const filtered = publications.filter(
-			(publication) => searchTerm === '' || publication.title.toLowerCase().includes(searchTerm.toLowerCase())
+		const filtered = user.events.filter(
+			(event) => searchTerm === '' || event.title.toLowerCase().includes(searchTerm.toLowerCase())
 		);
 		setFilteredPublications(filtered);
 	}, [searchTerm]);
@@ -154,7 +151,7 @@ export default function Profile({ params: { locale, userId } }: Props) {
 
 	return (
 		<div className="w-full">
-			<div className="flex flex-row gap-4">
+			<div className="flex flex-row gap-8">
 				<FontAwesomeIcon icon={faArrowLeft} onClick={() => router.back()} className="cursor-pointer" size="xl" />
 				<div className="w-1/4 flex-none mt-5">
 					<div className="flex flex-col items-center">
@@ -164,22 +161,44 @@ export default function Profile({ params: { locale, userId } }: Props) {
 							</div>
 						</div>
 						<p className="text-xl font-bold">{user.name}</p>
-						<h4 className="mb-2">{user.activityArea}</h4>
+						<h4 className="mb-2 text-sm text-secondary">{user.activityArea}</h4>
 						<p className="text-sm mb-4 text-center">{user.profileDescription}</p>
-						<button className="btn btn-accent w-64 mb-4" onClick={notify}>
+						<button className="btn btn-accent w-64 mb-2" onClick={notify}>
 							{notifyButtonTitle}
 						</button>
 
-						<div className="flex justify-center mb-8 mt-5">
-							<div className="grid grid-cols-4 gap-6 items-center justify-items-center w-full">
-								{user.email && (
-									<div className="avatar bg-lightblue rounded-full p-2 inline-flex items-center justify-center w-12 h-12">
-										<a href={`mailto:${user.email}`} target="_blank" rel="noopener noreferrer" className="avatar">
-											<FontAwesomeIcon icon={faEnvelope} className="text-black" size="xl" />
+						<p className="text-lg mb-2 mt-2 self-start w-full text-bold">Informations</p>
+
+						<div className="w-full">
+							<div className="flex flex-col">
+								{user.webSiteLink && (
+									<div className="flex justify-between items-center mb-4">
+										<div className="flex items-center text-secondary">
+											<FontAwesomeIcon icon={faGlobe} size="lg" className="mr-2" />
+											<p>{t('website')}</p>
+										</div>
+										<a href={user.webSiteLink} target="_blank" rel="noopener noreferrer" className="text-right">
+											{user.webSiteLink}
 										</a>
 									</div>
 								)}
 
+								{user.email && (
+									<div className="flex justify-between items-center mb-4">
+										<div className="flex items-center text-secondary">
+											<FontAwesomeIcon icon={faEnvelope} size="lg" className="mr-2" />
+											<p>{t('email')}</p>
+										</div>
+										<a href={`mailto:${user.email}`} target="_blank" rel="noopener noreferrer" className="text-right">
+											{user.email}
+										</a>
+									</div>
+								)}
+							</div>
+						</div>
+
+						<div className="flex mt-2">
+							<div className="grid grid-cols-5 gap-3 w-full">
 								{user.socials.map((social, index) => (
 									<a href={social.link} target="_blank" rel="noopener noreferrer" key={index} className="avatar">
 										<Image src={social.icon} alt={social.inputName} width={40} height={40} />
@@ -188,7 +207,7 @@ export default function Profile({ params: { locale, userId } }: Props) {
 							</div>
 						</div>
 
-						<h3 className="text-lg mb-2 mt-5 self-start w-full">{t('interests')}</h3>
+						<p className="text-lg mb-2 mt-5 self-start w-full text-bold">{t('interests')}</p>
 
 						<div className="flex flex-wrap gap-2 self-start w-full">
 							{user.interests.map((tag, index) => (

@@ -1,3 +1,5 @@
+import { HelloEvent } from './hello-event';
+
 export interface Organizer {
 	id: string;
 	name: string | null;
@@ -10,6 +12,7 @@ export interface Organizer {
 	interests: string[];
 	socials: { icon: string; inputName: string; link: string }[];
 	webSiteLink: string | null;
+	events: HelloEvent[];
 	createdAt: string;
 	updatedAt: string;
 }

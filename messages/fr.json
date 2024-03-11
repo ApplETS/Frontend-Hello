@@ -143,7 +143,9 @@
 		"search": "Rechercher",
 		"to": " à ",
 		"from": " de ",
-		"until": " jusqu'au "
+		"until": " jusqu'au ",
+		"website": "Site web",
+		"email": "Courriel"
 	},
 	"Settings": {
 		"title": "Paramètres",

@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from 'react';
 import { HelloEvent } from '@/models/hello-event';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
+import { useTheme } from '@/utils/provider/ThemeProvider';
 
 interface Props {
 	events: HelloEvent[];
@@ -75,6 +77,7 @@ const cardVariants = {
 };
 export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: Props) => {
 	const t = useTranslations('NewsPage');
+	const { isLight } = useTheme();
 	const router = useRouter();
 
 	const [{ startY, startScrollTop, isDragging }, setDragStart] = useState({
@@ -166,10 +169,14 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 						<p className="font-mono italic">{event.eventStartDate.substring(0, 10)}</p>
 						<div className="flex flex-col justify-around bg-base-200 rounded-3xl h-full">
 							<div className="text-3xl font-bold p-6">{event.title}</div>
-							<div className="w-full aspect-[2/1]">
-								<img src={event.imageUrl} alt={event.title} className="w-full h-full" />
+							<div className="w-full aspect-[2/1] max-h-[200px]">
+								<img
+									src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+									alt={event.title}
+									className="w-full h-full"
+								/>
 							</div>
-							<div className="flex flex-row gap-2 p-6 items-center">
+							<div className="flex flex-row gap-2 px-6 py-2 items-center">
 								<div className="avatar">
 									<div className="w-14 rounded-full">
 										<img
@@ -193,7 +200,15 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 							</div>
 
 							{selectedCard === event.cardId && (
-								<div className="text-sm font-light px-6 pb-6 whitespace-normal">{event.content}</div>
+								<div className="text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto h-44 mb-6">
+									<MDXEditor
+										className={` text-sm text-justify ${
+											isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
+										}`}
+										plugins={[linkPlugin(), linkDialogPlugin()]}
+										markdown="AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement."
+									/>
+								</div>
 							)}
 						</div>
 					</motion.div>

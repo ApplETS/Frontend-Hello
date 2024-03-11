@@ -44,10 +44,8 @@ export default async function Layout({ children, params: { locale } }: Props) {
 	};
 
 	return (
-		<SettingsProvider>
-			<SettingsLayout locale={locale} pages={pages} sectionTitle={t('title')}>
-				{children}
-			</SettingsLayout>
-		</SettingsProvider>
+		<SettingsLayout locale={locale} pages={pages} sectionTitle={t('title')}>
+			{children}
+		</SettingsLayout>
 	);
 }

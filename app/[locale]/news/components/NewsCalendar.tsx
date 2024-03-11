@@ -23,15 +23,12 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 
 	const calendarRef = createRef<FullCalendar>();
 
-	const { isLight } = useTheme();
-	const themeColors = isLight ? daisyuiColors.light : daisyuiColors.dark;
-
 	const filterItems = [
 		// Will need to get from backend
-		{ id: 0, name: 'Club scientifique' },
-		{ id: 1, name: 'ÉTS' },
-		{ id: 2, name: 'Service à la vie étudiante' },
-		{ id: 3, name: 'AEETS' },
+		{ id: 0, name: 'Club scientifique', color: '#06B6D4' },
+		{ id: 1, name: 'ETS', color: '#64C788' },
+		{ id: 2, name: 'Service à la vie étudiante', color: '#EA7CB7' },
+		{ id: 3, name: 'AEETS', color: '#E7A455' },
 	];
 	const handleFilterChange = (selectedIndices: number[]) => {
 		if (selectedIndices.length !== 0) {
@@ -64,12 +61,13 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 						return {
 							title: event.title,
 							start: event.eventStartDate,
+							color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
 						};
 					})}
 					eventContent={(arg: EventContentArg) => {
 						return (
-							<div className="bg-primary p-2 cursor-pointer">
-								<p className="text-left truncate">{`${arg.timeText} - ${arg.event.title}`}</p>
+							<div className={`p-2 cursor-pointer`}>
+								<p className="text-left truncate">{`${arg.event.title}`}</p>
 							</div>
 						);
 					}}

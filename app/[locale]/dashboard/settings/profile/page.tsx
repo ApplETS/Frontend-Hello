@@ -20,7 +20,7 @@ export default async function Page({ searchParams, params }: Props) {
 	const t_default = await getTranslationsWithDefault('Settings.profile-section');
 	const t_dialog = await getTranslations('Settings.dialog');
 	const user = await getAuthenticatedUser();
-	const isOrganizer = user.type == UserTypes.ORGANIZER;
+	const isOrganizer = true; //user.type == UserTypes.ORGANIZER;
 
 	return (
 		<form className="flex flex-col basis-3/4" action={updateProfile}>
@@ -39,7 +39,7 @@ export default async function Page({ searchParams, params }: Props) {
 					<ProfilePicture dropzoneText={t('dropPicture')} buttonText={t('deletePicture')} />
 					<div className="col-span-3" />
 					{isOrganizer && (
-						<div>
+						<>
 							<label>{t('companyName')}</label>
 							<input
 								type="text"
@@ -47,16 +47,16 @@ export default async function Page({ searchParams, params }: Props) {
 								name="organization"
 								defaultValue={user.organisation ?? ''}
 							/>
-						</div>
+						</>
 					)}
 					{isOrganizer && (
-						<div>
-							<label className="justify-self-center">{t('description')}</label>
+						<>
+							<label className="justify-self-center align-top row-span-2">{t('description')}</label>
 							<textarea
 								className="textarea textarea-ghost border-current row-span-2 h-full self-start mt-3 col-span-2"
 								name="description"
 							/>
-						</div>
+						</>
 					)}
 					<label>{t('email')}</label>
 					<input
@@ -75,10 +75,15 @@ export default async function Page({ searchParams, params }: Props) {
 						customStyle="col-span-2"
 					/>
 					{isOrganizer && (
-						<div>
+						<>
 							<label className="justify-self-center">{t('website')}</label>
-							<input type="text" className="input input-ghost col-span-2" name="website" defaultValue={user.webSiteLink ?? ''} />
-						</div>
+							<input
+								type="text"
+								className="input input-ghost col-span-2"
+								name="website"
+								defaultValue={user.webSiteLink ?? ''}
+							/>
+						</>
 					)}
 					<div className="col-span-3" />
 				</div>

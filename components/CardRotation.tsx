@@ -18,7 +18,7 @@ interface Props {
 
 const cardVariants = {
 	selected: {
-		scale: 1.2,
+		scale: 1.07,
 		transition: { duration: 0.35 },
 		zIndex: 10,
 	},

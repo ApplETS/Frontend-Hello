@@ -129,10 +129,16 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 									</div>
 								</div>
 							</div>
-							<EventDate eventStartDate={event.eventStartDate} eventEndDate={event.eventEndDate} locale={locale} />
+							<EventDate
+								eventStartDate={event.eventStartDate}
+								eventEndDate={event.eventEndDate}
+								imageUrl={event.imageUrl}
+								locale={locale}
+							/>
 							<div className="flex flex-row gap-2 px-6 py-2 items-center">
 								<div className="avatar">
 									<div className="w-14 rounded-full">
+										{/* TODO : Change with real image when it will be done in backend */}
 										<img
 											alt="Tailwind CSS Navbar component"
 											src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
@@ -160,7 +166,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 											isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
 										}`}
 										plugins={[linkPlugin(), linkDialogPlugin()]}
-										markdown="AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement."
+										markdown={event.content}
 									/>
 								</div>
 							)}

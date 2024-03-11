@@ -5,10 +5,11 @@ import { useTranslations } from 'next-intl';
 interface Props {
 	eventStartDate: string;
 	eventEndDate: string;
+	imageUrl: string;
 	locale: string;
 }
 
-export default function EventDate({ eventStartDate, eventEndDate, locale }: Props) {
+export default function EventDate({ eventStartDate, eventEndDate, imageUrl, locale }: Props) {
 	const t = useTranslations('Profile');
 
 	return (
@@ -118,12 +119,7 @@ export default function EventDate({ eventStartDate, eventEndDate, locale }: Prop
 				)}
 			</div>
 			<div className="w-full aspect-[2/1]">
-				{/* {imageUrl}  */}
-				<img
-					src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-					alt="event"
-					className="w-full h-full"
-				/>
+				<img src={imageUrl} alt="event" className="w-full h-full" />
 			</div>
 		</div>
 	);

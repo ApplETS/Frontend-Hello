@@ -203,7 +203,12 @@ export default function Profile({ params: { locale, userId } }: Props) {
 									<div className="text-xl font-bold px-4 pt-4 h-24 overflow-hidden line-clamp-3">
 										<div className="mb-2">{event.title}</div>
 									</div>
-									<EventDate eventStartDate={event.eventStartDate} eventEndDate={event.eventEndDate} locale={locale} />
+									<EventDate
+										eventStartDate={event.eventStartDate}
+										eventEndDate={event.eventEndDate}
+										imageUrl={event.imageUrl}
+										locale={locale}
+									/>
 									<div className="text-sm text-justify font-light p-2 whitespace-normal overflow-y-auto h-44">
 										<MDXEditor
 											className={` text-sm text-justify ${

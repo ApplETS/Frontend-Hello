@@ -28,10 +28,10 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 
 	const filterItems = [
 		// Will need to get from backend
-		{ id: 0, name: 'Club scientifique' },
-		{ id: 1, name: 'ÉTS' },
-		{ id: 2, name: 'Service à la vie étudiante' },
-		{ id: 3, name: 'AEETS' },
+		{ id: 0, name: 'Club scientifique', color: 'bg-blue' },
+		{ id: 1, name: 'ÉTS', color: 'bg-green' },
+		{ id: 2, name: 'Service à la vie étudiante', color: 'bg-pink' },
+		{ id: 3, name: 'AEETS', color: 'bg-orange' },
 	];
 	const handleFilterChange = (selectedIndices: number[]) => {
 		if (selectedIndices.length !== 0) {
@@ -68,7 +68,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 					})}
 					eventContent={(arg: EventContentArg) => {
 						return (
-							<div className="bg-lightBlue p-2 cursor-pointer">
+							<div className={`p-2 cursor-pointer`}>
 								<p className="text-left truncate">{`${arg.timeText} - ${arg.event.title}`}</p>
 							</div>
 						);

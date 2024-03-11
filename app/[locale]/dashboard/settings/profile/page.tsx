@@ -74,11 +74,16 @@ export default async function Page({ searchParams, params }: Props) {
 						defaultItem={{ title: user.activityArea ?? '' }}
 						customStyle="col-span-2"
 					/>
-					{isOrganizer ? (
+					{isOrganizer && (
 						<>
 							<label className="justify-self-center">{t('website')}</label>
-							<input type="text" className="input input-ghost col-span-2" name="website" defaultValue={user.webSiteLink ?? ''} />
-						</div>
+							<input
+								type="text"
+								className="input input-ghost col-span-2"
+								name="website"
+								defaultValue={user.webSiteLink ?? ''}
+							/>
+						</>
 					)}
 					<div className="col-span-3" />
 				</div>

@@ -22,6 +22,6 @@ export default function SocialInput({ icon, inputName, defaultValue }: Props) {
 				defaultValue={defaultValue}
 				onChange={() => setHasChanges(true)}
 			/>
-		</>
+		</div>
 	);
 }

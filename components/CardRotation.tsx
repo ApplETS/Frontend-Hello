@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import { useTheme } from '@/utils/provider/ThemeProvider';
-import EventDate from './EventDate';
+import EventDateAndImage from './EventDateAndImage';
 
 interface Props {
 	events: HelloEvent[];
@@ -129,7 +129,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 									</div>
 								</div>
 							</div>
-							<EventDate
+							<EventDateAndImage
 								eventStartDate={event.eventStartDate}
 								eventEndDate={event.eventEndDate}
 								imageUrl={event.imageUrl}

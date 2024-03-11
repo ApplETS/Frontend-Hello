@@ -19,7 +19,7 @@ import Image from 'next/image';
 import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import { useRouter } from 'next/navigation';
 import { HelloEvent } from '@/models/hello-event';
-import EventDate from '@/components/EventDate';
+import EventDateAndImage from '@/components/EventDateAndImage';
 
 type Props = {
 	params: { locale: string; userId: string };
@@ -203,7 +203,7 @@ export default function Profile({ params: { locale, userId } }: Props) {
 									<div className="text-xl font-bold px-4 pt-4 h-24 overflow-hidden line-clamp-3">
 										<div className="mb-2">{event.title}</div>
 									</div>
-									<EventDate
+									<EventDateAndImage
 										eventStartDate={event.eventStartDate}
 										eventEndDate={event.eventEndDate}
 										imageUrl={event.imageUrl}

@@ -9,7 +9,7 @@ interface Props {
 	locale: string;
 }
 
-export default function EventDate({ eventStartDate, eventEndDate, imageUrl, locale }: Props) {
+export default function EventDateAndImage({ eventStartDate, eventEndDate, imageUrl, locale }: Props) {
 	const t = useTranslations('Profile');
 
 	return (
@@ -118,8 +118,8 @@ export default function EventDate({ eventStartDate, eventEndDate, imageUrl, loca
 					</div>
 				)}
 			</div>
-			<div className="w-full aspect-[2/1]">
-				<img src={imageUrl} alt="event" className="w-full h-full" />
+			<div className="w-full aspect-[2/1] bg-base-300">
+				<img src={imageUrl} alt="event" className="w-full h-full object-cover" />
 			</div>
 		</div>
 	);

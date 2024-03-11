@@ -26,7 +26,7 @@ type Props = {
 	params: { locale: string; userId: string };
 };
 
-export default function Profile({ params: { locale, userId } }: Props) {
+export default function Profile({ params: { locale } }: Props) {
 	const { isLight } = useTheme();
 	const t = useTranslations('Profile');
 	const router = useRouter();

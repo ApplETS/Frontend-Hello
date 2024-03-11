@@ -167,7 +167,7 @@ export default function Profile({ params: { locale, userId } }: Props) {
 							{notifyButtonTitle}
 						</button>
 
-						<p className="text-lg mb-2 mt-2 self-start w-full text-bold">Informations</p>
+						<p className="text-lg mb-2 mt-2 self-start w-full text-bold">{t('informations')}</p>
 
 						<div className="w-full">
 							<div className="flex flex-col">
@@ -177,7 +177,12 @@ export default function Profile({ params: { locale, userId } }: Props) {
 											<FontAwesomeIcon icon={faGlobe} size="lg" className="mr-2" />
 											<p>{t('website')}</p>
 										</div>
-										<a href={user.webSiteLink} target="_blank" rel="noopener noreferrer" className="text-right">
+										<a
+											href={user.webSiteLink}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="underline text-right"
+										>
 											{user.webSiteLink}
 										</a>
 									</div>
@@ -189,7 +194,12 @@ export default function Profile({ params: { locale, userId } }: Props) {
 											<FontAwesomeIcon icon={faEnvelope} size="lg" className="mr-2" />
 											<p>{t('email')}</p>
 										</div>
-										<a href={`mailto:${user.email}`} target="_blank" rel="noopener noreferrer" className="text-right">
+										<a
+											href={`mailto:${user.email}`}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="underline text-right"
+										>
 											{user.email}
 										</a>
 									</div>

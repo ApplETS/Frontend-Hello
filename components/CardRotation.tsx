@@ -3,11 +3,14 @@ import { motion } from 'framer-motion';
 import { HiCodeBracketSquare, HiMagnifyingGlass, HiMapPin, HiTag, HiWindow } from 'react-icons/hi2';
 import { useEffect, useRef, useState } from 'react';
 import { HelloEvent } from '@/models/hello-event';
+import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 
 interface Props {
 	events: HelloEvent[];
 	selectedCard: number | null;
 	setSelectedCard: (cardId: number | null) => void;
+	locale: string;
 }
 
 const cards = [
@@ -70,7 +73,10 @@ const cardVariants = {
 		transition: { duration: 0.35 },
 	}),
 };
-export const CardRotation = ({ events, selectedCard, setSelectedCard }: Props) => {
+export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: Props) => {
+	const t = useTranslations('NewsPage');
+	const router = useRouter();
+
 	const [{ startY, startScrollTop, isDragging }, setDragStart] = useState({
 		startY: undefined as any,
 		startScrollTop: undefined as any,
@@ -109,6 +115,9 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard }: Props) =
 		}
 	};
 	const handleCardMouseUp = (e: any, card: any) => {
+		if ((e.target as HTMLElement).closest('button')) {
+			return;
+		}
 		if (isDragging) {
 			const y = e.pageY - containerRef.current.offsetTop;
 			const walk = y - startY;
@@ -122,6 +131,11 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard }: Props) =
 			block: 'nearest',
 			inline: 'center',
 		});
+	};
+
+	const handleViewProfileClick = (e: React.MouseEvent, url: string) => {
+		e.stopPropagation();
+		router.push(url);
 	};
 
 	return (
@@ -155,7 +169,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard }: Props) =
 							<div className="w-full aspect-[2/1]">
 								<img src={event.imageUrl} alt={event.title} className="w-full h-full" />
 							</div>
-							<div className="flex flex-row gap-2 p-6">
+							<div className="flex flex-row gap-2 p-6 items-center">
 								<div className="avatar">
 									<div className="w-14 rounded-full">
 										<img
@@ -165,12 +179,22 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard }: Props) =
 									</div>
 								</div>
 								<div className="flex flex-col pt-2 pl-2">
-									<p className="text-base font-bold ml-0">{event.organizer?.organisation ?? 'Organisateur'}</p>
-									<p className="text-xs ml-0 text-secondary">{event.organizer?.activityArea}</p>
+									<p className="text-base font-bold">{event.organizer?.organisation ?? 'Organisateur'}</p>
+									<p className="text-xs text-secondary">{event.organizer?.activityArea}</p>
 								</div>
+								{/* /${event.organizer?.id} */}
+								{selectedCard === event.cardId && (
+									<button
+										className="ml-auto btn btn-accent"
+										onClick={(e) => handleViewProfileClick(e, `/fr/dashboard/profile`)}
+									>
+										{t('view-profile')}
+									</button>
+								)}
 							</div>
+
 							{selectedCard === event.cardId && (
-								<div className="text-sm font-light p-6 whitespace-normal">{event.content}</div>
+								<div className="text-sm font-light px-6 pb-6 whitespace-normal">{event.content}</div>
 							)}
 						</div>
 					</motion.div>

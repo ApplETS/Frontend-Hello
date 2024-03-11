@@ -17,12 +17,18 @@ export default async function Layout({ children, params: { locale } }: Props) {
 	const user = await getAuthenticatedUser();
 	const isOrganizer = user.type == UserTypes.ORGANIZER;
 	const isModerator = user.type == UserTypes.MODERATOR;
+	const userId = 'c8ca8f86-d666-4c83-80fa-0d004f4291e2';
 
 	var pages = {
 		news: {
 			title: t('news'),
 			link: `/${locale}/news`,
 			isVisible: true,
+		},
+		profile: {
+			title: t('profile'),
+			link: `/${locale}/dashboard/profile/${userId}`,
+			isVisible: false,
 		},
 		publications: {
 			title: t('publications'),

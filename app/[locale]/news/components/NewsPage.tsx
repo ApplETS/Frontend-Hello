@@ -21,7 +21,12 @@ export default function NewsPage({ eventsCards, locale }: Props) {
 				<NewsCalendar events={eventsCards} locale={locale} handleEventSelect={handleEventSelect} />
 			</div>
 			<div className="basis-[40%]">
-				<CardRotation events={eventsCards} selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+				<CardRotation
+					events={eventsCards}
+					selectedCard={selectedCard}
+					setSelectedCard={setSelectedCard}
+					locale={locale}
+				/>
 			</div>
 		</div>
 	);

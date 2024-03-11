@@ -62,6 +62,9 @@
 		"401": "Le code de réinitialisation est invalide ou a expiré",
 		"token-placeholder": "Code reçu par courriel"
 	},
+	"NewsPage": {
+		"view-profile": "Voir le profil"
+	},
 	"Publications": {
 		"title": "Publications",
 		"search": "Rechercher",
@@ -132,6 +135,12 @@
 			"approved": "Approuvé",
 			"deleted": "Supprimé"
 		}
+	},
+	"Profile": {
+		"notify-me": "Me notifier",
+		"dont-notify-me": "Ne plus recevoir de notifications",
+		"interests": "Champs d'intérêts",
+		"search": "Rechercher"
 	},
 	"Settings": {
 		"title": "Paramètres",

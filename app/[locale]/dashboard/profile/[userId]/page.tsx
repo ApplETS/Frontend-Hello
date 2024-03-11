@@ -152,7 +152,12 @@ export default function Profile({ params: { locale, userId } }: Props) {
 	return (
 		<div className="w-full">
 			<div className="flex flex-row gap-8">
-				<FontAwesomeIcon icon={faArrowLeft} onClick={() => router.back()} className="cursor-pointer" size="xl" />
+				<FontAwesomeIcon
+					icon={faArrowLeft}
+					onClick={() => router.push(`/${locale}/news`)}
+					className="cursor-pointer"
+					size="xl"
+				/>
 				<div className="w-1/4 flex-none mt-5">
 					<div className="flex flex-col items-center">
 						<div className="avatar">

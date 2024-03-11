@@ -28,8 +28,7 @@ export default function Profile({ params: { locale, userId } }: Props) {
 	const t = useTranslations('Profile');
 	const router = useRouter();
 
-	// TODO : Change with the real user
-	console.log(userId);
+	// TODO : Change with the real user, the user id is in userId
 	const user = {
 		name: 'Prénom Nom',
 		email: 'applets@ens.etsmtl.ca',

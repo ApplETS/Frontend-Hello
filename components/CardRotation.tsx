@@ -184,7 +184,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 								</div>
 								{selectedCard === event.cardId && (
 									<button
-										className="ml-auto btn btn-accent"
+										className="ml-auto btn btn-primary"
 										onClick={(e) => handleViewProfileClick(e, `/fr/dashboard/profile/${event.organizer?.id}`)}
 									>
 										{t('view-profile')}

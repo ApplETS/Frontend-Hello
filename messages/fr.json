@@ -140,7 +140,10 @@
 		"notify-me": "Me notifier",
 		"dont-notify-me": "Ne plus recevoir de notifications",
 		"interests": "Champs d'intérêts",
-		"search": "Rechercher"
+		"search": "Rechercher",
+		"to": " à ",
+		"from": " de ",
+		"until": " jusqu'au "
 	},
 	"Settings": {
 		"title": "Paramètres",

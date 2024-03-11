@@ -140,7 +140,10 @@
 		"notify-me": "Notify me",
 		"dont-notify-me": "Don't notify me",
 		"interests": "Interests",
-		"search": "Search"
+		"search": "Search",
+		"to": " to ",
+		"from": " from ",
+		"until": " until "
 	},
 	"Settings": {
 		"title": "Settings",

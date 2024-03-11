@@ -23,9 +23,6 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 
 	const calendarRef = createRef<FullCalendar>();
 
-	const { isLight } = useTheme();
-	const themeColors = isLight ? daisyuiColors.light : daisyuiColors.dark;
-
 	const filterItems = [
 		// Will need to get from backend
 		{ id: 0, name: 'Club scientifique', color: '#06B6D4' },

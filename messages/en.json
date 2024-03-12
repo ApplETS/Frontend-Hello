@@ -6,7 +6,8 @@
 	"Dashboard": {
 		"news": "News",
 		"publications": "Publications",
-		"approbations": "Approbations"
+		"approbations": "Approbations",
+		"login": "Login"
 	},
 	"Navbar": {
 		"settings": "Settings",

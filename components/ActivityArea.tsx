@@ -1,12 +1,12 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 
-interface PublicationDetailsProps {
+interface Props {
 	isDisabled: boolean;
 	items: string[];
 }
 
-export default function Dropdown({ items, isDisabled }: PublicationDetailsProps) {
+export default function ActivityAreaDropdown({ items, isDisabled }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState(items[0] || 'Dropdown');
 	const dropdownRef = useRef<HTMLDivElement>(null);

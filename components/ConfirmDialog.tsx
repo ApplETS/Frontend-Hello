@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Props interface to type-check our component's props
-interface ConfirmDialogProps {
+interface Props {
 	title: string;
 	message: string;
 	yesMessage: string;
@@ -11,14 +11,7 @@ interface ConfirmDialogProps {
 	onCancel: () => void;
 }
 
-export default function ConfirmDialog({
-	title,
-	message,
-	yesMessage,
-	noMessage,
-	onConfirm,
-	onCancel,
-}: ConfirmDialogProps) {
+export default function ConfirmDialog({ title, message, yesMessage, noMessage, onConfirm, onCancel }: Props) {
 	return (
 		<div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
 			<div className="bg-base-200 rounded-lg shadow-lg p-5 max-w-sm w-full">

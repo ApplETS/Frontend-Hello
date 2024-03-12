@@ -1,7 +1,7 @@
 {
 	"LocaleLayout": {
 		"title": "Frontend-PS",
-		"defaultError": "Une erreur est survenue"
+		"default-error": "Une erreur est survenue"
 	},
 	"Dashboard": {
 		"news": "Annonces",
@@ -34,14 +34,14 @@
 		"name": "Nom de l'organisation",
 		"email": "Courriel",
 		"activity": "Secteur d'activité",
-		"scientificClub": "Club scientifique",
-		"ets": "École de technologie supérieure",
+		"scientific-club": "Club scientifique",
+		"ets": "ETS",
 		"sve": "Service à la vie étudiante",
 		"aeets": "AEETS",
 		"password": "Mot de passe",
 		"confirm": "Confirmation de mot de passe",
 		"already": "Vous avez déjà un compte?",
-		"alreadyLink": "Connectez-vous",
+		"already-link": "Connectez-vous",
 		"422": "Le mot de passe devrait contenir au moins 6 caractères"
 	},
 	"ForgotPassword": {
@@ -49,7 +49,7 @@
 		"email": "Courriel",
 		"send": "Envoyer",
 		"remember": "Vous avez un compte?",
-		"rememberLink": "Connectez-vous"
+		"remember-link": "Connectez-vous"
 	},
 	"UpdatePassword": {
 		"title": "Réinitialiser votre mot de passe",
@@ -59,7 +59,7 @@
 		"confirm-password": "Confirmation de mot de passe",
 		"update": "Réinitialiser le mot de passe",
 		"remember": "Vous avez un compte?",
-		"rememberLink": "Connectez-vous",
+		"remember-link": "Connectez-vous",
 		"401": "Le code de réinitialisation est invalide ou a expiré",
 		"token-placeholder": "Code reçu par courriel"
 	},
@@ -167,13 +167,13 @@
 		},
 		"profile-section": {
 			"title": "Profil",
-			"dropPicture": "Cliquez pour téléverser ou glissez-déposez une image ici",
-			"deletePicture": "Supprimer l'image",
-			"companyName": "Nom de l'organisation",
+			"drop-picture": "Cliquez pour téléverser ou glissez-déposez une image ici",
+			"delete-picture": "Supprimer l'image",
+			"company-name": "Nom de l'organisation",
 			"email": "Courriel",
 			"activity": "Secteur d'activité",
-			"scientificClub": "Club scientifique",
-			"ets": "École de technologie supérieure",
+			"scientific-club": "Club scientifique",
+			"ets": "ETS",
 			"sve": "Service à la vie étudiante",
 			"aeets": "AEETS",
 			"description": "Description",
@@ -185,8 +185,8 @@
 		},
 		"password-section": {
 			"title": "Mot de passe",
-			"newPassword": "Nouveau mot de passe",
-			"confirmNewPassword": "Confirmer le nouveau mot de passe",
+			"new-password": "Nouveau mot de passe",
+			"confirm-new-password": "Confirmer le nouveau mot de passe",
 			"save": "Enregistrer",
 			"200": "Mot de passe enregistré",
 			"changes": "Changements détectés, enregistrez pour appliquer les modifications",

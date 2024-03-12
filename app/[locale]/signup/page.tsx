@@ -45,7 +45,7 @@ export default function SignUp({
 							</label>
 							<ActivityAreaDropdown
 								items={[
-									{ title: t('scientificClub') },
+									{ title: t('scientific-club') },
 									{ title: t('ets') },
 									{ title: t('sve') },
 									{ title: t('aeets') },
@@ -78,7 +78,7 @@ export default function SignUp({
 							<p className="text-center">
 								{t('already')}
 								<Link href={`/${params.locale}/login`} className="pl-1 underline text-primary font-semibold">
-									{t('alreadyLink')}
+									{t('already-link')}
 								</Link>
 							</p>
 						</div>

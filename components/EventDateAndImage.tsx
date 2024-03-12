@@ -1,5 +1,5 @@
 'use client';
-import { HelloEvent } from '@/models/hello-event';
+
 import { useTranslations } from 'next-intl';
 
 interface Props {

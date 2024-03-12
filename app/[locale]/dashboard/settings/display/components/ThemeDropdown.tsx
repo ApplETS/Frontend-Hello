@@ -1,4 +1,5 @@
 'use client';
+
 import ActivityAreaDropdown from '@/components/ActivityAreaDropdown';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 

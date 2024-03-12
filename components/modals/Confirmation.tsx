@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
-interface PublicationDetailsProps {
+interface Props {
 	title: string;
 	firstButtonTitle: string;
 	secondButtonTitle: string;
@@ -12,14 +12,14 @@ interface PublicationDetailsProps {
 	onClose: () => void;
 }
 
-export default function PublicationDetails({
+export default function Confirmation({
 	title,
 	firstButtonTitle,
 	secondButtonTitle,
 	secondButtonColor,
 	inputTitle,
 	onClose,
-}: PublicationDetailsProps) {
+}: Props) {
 	const { isLight } = useTheme();
 	const [inputText, setInputText] = useState('');
 
@@ -28,7 +28,7 @@ export default function PublicationDetails({
 	};
 
 	const submit = () => {
-		// TODO Submit to backend
+		// TODO : Submit to backend
 		onClose();
 	};
 

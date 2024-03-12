@@ -7,8 +7,6 @@ import { EventContentArg } from '@fullcalendar/core';
 import { HelloEvent } from '@/models/hello-event';
 import frLocale from '@fullcalendar/core/locales/fr';
 import enLocale from '@fullcalendar/core/locales/en-gb';
-import daisyuiColors from 'daisyui/src/theming/themes';
-import { useTheme } from '@/utils/provider/ThemeProvider';
 import { createRef, useState } from 'react';
 import { CalendarHeader } from './NewsCalendarHeader';
 
@@ -23,6 +21,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 
 	const calendarRef = createRef<FullCalendar>();
 
+	// TODO : Will need to get from backend
 	const filterItems = [
 		// TODO : Will need to get from backend
 		{ id: 0, name: 'Club scientifique', color: '#06B6D4' },

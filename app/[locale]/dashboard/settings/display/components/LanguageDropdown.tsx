@@ -24,13 +24,10 @@ export default function LanguageDropdown({
 			redirect: '/fr/dashboard/settings/display',
 		},
 	];
-	const [selectedValue, setSelectedValue] = useState(
-		locale === 'en' ? languageDropdownItems[0] : languageDropdownItems[1]
-	);
+	const [selectedValue] = useState(locale === 'en' ? languageDropdownItems[0] : languageDropdownItems[1]);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
-	// Toggle dropdown open/close
 	const toggleDropdown = () => {
 		setIsDropdownOpen(!isDropdownOpen);
 	};

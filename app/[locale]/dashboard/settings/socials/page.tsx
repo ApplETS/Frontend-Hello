@@ -1,8 +1,6 @@
-import Dropzone from '@/components/Dropzone';
 import Toast from '@/components/Toast';
 import { AlertType } from '@/components/Alert';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { useTranslations } from 'next-intl';
 import facebookIcon from '@/public/Socials/Facebook.svg';
 import discordIcon from '@/public/Socials/Discord.svg';
 import instagramIcon from '@/public/Socials/Instagram.svg';
@@ -12,7 +10,7 @@ import redditIcon from '@/public/Socials/Reddit.svg';
 import xIcon from '@/public/Socials/X.svg';
 import SettingsFooter from '../components/SettingsFooter';
 import SocialInput from './components/SocialInput';
-import { updateProfile, updateSocials } from '@/utils/supabase/auth';
+import { updateSocials } from '@/utils/supabase/auth';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import { getTranslationsWithDefault } from '@/utils/traductions/trads';
 
@@ -21,7 +19,7 @@ type Props = {
 	searchParams: { message: string; type: string; code: string };
 };
 
-export default async function Page({ params, searchParams }: Props) {
+export default async function Socials({ params, searchParams }: Props) {
 	unstable_setRequestLocale(params.locale);
 	const t = await getTranslations('Settings.socials-section');
 	const t_default = await getTranslationsWithDefault('Settings.profile-section');

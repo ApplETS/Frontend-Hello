@@ -1,6 +1,9 @@
 'use client';
+
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 export default function LanguageDropdown({
 	locale,
@@ -25,6 +28,7 @@ export default function LanguageDropdown({
 		locale === 'en' ? languageDropdownItems[0] : languageDropdownItems[1]
 	);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	// Toggle dropdown open/close
 	const toggleDropdown = () => {
@@ -32,15 +36,16 @@ export default function LanguageDropdown({
 	};
 
 	return (
-		<div className="dropdown">
+		<div className="dropdown" ref={dropdownRef}>
 			<div
 				tabIndex={0}
 				role="button"
 				id={'dropdown'}
-				className="btn bg-inherit border-current w-full hover:bg-base-300"
+				className="flex justify-between items-center w-full btn bg-base-200 border-current hover:bg-base-300"
 				onClick={toggleDropdown}
 			>
-				{selectedValue.title}
+				<span>{selectedValue.title}</span>
+				<FontAwesomeIcon icon={isDropdownOpen ? faAngleUp : faAngleDown} className="w-5" />
 			</div>
 			{isDropdownOpen && (
 				<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-full">

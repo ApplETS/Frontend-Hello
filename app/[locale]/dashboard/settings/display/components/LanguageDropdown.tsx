@@ -1,7 +1,5 @@
 'use client';
-import Dropdown from '@/components/SignUpActivity';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { useState } from 'react';
 
 export default function LanguageDropdown({

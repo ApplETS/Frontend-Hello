@@ -11,7 +11,7 @@ interface Props {
 	customStyle?: string;
 }
 
-export default function Dropdown({ items, inputName, defaultItem, defaultItemTheme, customStyle }: Props) {
+export default function ActivityAreaDropdown({ items, inputName, defaultItem, defaultItemTheme, customStyle }: Props) {
 	const [selectedValue, setSelectedValue] = useState(defaultItem ?? items[0]);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
@@ -60,7 +60,6 @@ export default function Dropdown({ items, inputName, defaultItem, defaultItemThe
 					))}
 				</ul>
 			)}
-			{/* Hidden input to store the selected value */}
 			<input type="hidden" name={inputName} value={selectedValue.title} />
 		</div>
 	);

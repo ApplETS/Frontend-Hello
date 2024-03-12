@@ -1,5 +1,5 @@
 'use client';
-import Dropdown from '@/components/SignUpActivity';
+import ActivityAreaDropdown from '@/components/ActivityAreaDropdown';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
 export default function ThemeDropdown({ lightTitle, darkTitle }: { lightTitle: string; darkTitle: string }) {
@@ -21,7 +21,7 @@ export default function ThemeDropdown({ lightTitle, darkTitle }: { lightTitle: s
 	];
 
 	return (
-		<Dropdown
+		<ActivityAreaDropdown
 			items={themeDropdownItems}
 			inputName="theme"
 			defaultItemTheme={isLight ? themeDropdownItems[0] : themeDropdownItems[1]}

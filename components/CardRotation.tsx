@@ -1,6 +1,6 @@
 'use client';
+
 import { motion } from 'framer-motion';
-import { HiCodeBracketSquare, HiMagnifyingGlass, HiMapPin, HiTag, HiWindow } from 'react-icons/hi2';
 import { useEffect, useRef, useState } from 'react';
 import { HelloEvent } from '@/models/hello-event';
 import { useTranslations } from 'next-intl';
@@ -35,7 +35,6 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 	const t = useTranslations('NewsPage');
 	const { isLight } = useTheme();
 	const router = useRouter();
-
 	const [{ startY, startScrollTop, isDragging }, setDragStart] = useState({
 		startY: undefined as any,
 		startScrollTop: undefined as any,
@@ -43,16 +42,19 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 	});
 	const containerRef = useRef<any>();
 	const cardRefs = useRef<any>(new Array());
+
 	useEffect(() => {
 		const { scrollHeight, clientHeight } = containerRef.current;
 		const halfScroll = (scrollHeight - clientHeight) / 2;
 		containerRef.current.scrollTop = halfScroll;
 	}, [containerRef.current]);
+
 	useEffect(() => {
 		if (selectedCard !== null) {
 			scrollToCard(selectedCard);
 		}
 	}, [selectedCard]);
+
 	const handleMouseDown = (e: any) => {
 		setDragStart({
 			startY: e.pageY - containerRef.current.offsetTop,
@@ -60,12 +62,14 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 			isDragging: true,
 		});
 	};
+
 	const handleMouseMove = (e: any) => {
 		if (!isDragging || selectedCard) return;
 		const y = e.pageY - containerRef.current.offsetTop;
 		const walk = y - startY;
 		containerRef.current.scrollTop = startScrollTop - walk;
 	};
+
 	const selectCard = (card: any) => {
 		setSelectedCard(selectedCard ? null : card);
 
@@ -73,6 +77,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 			scrollToCard(card);
 		}
 	};
+
 	const handleCardMouseUp = (e: any, card: any) => {
 		if ((e.target as HTMLElement).closest('button')) {
 			return;

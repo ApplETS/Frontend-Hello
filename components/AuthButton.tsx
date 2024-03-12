@@ -1,45 +1,42 @@
-import { createClient } from "@/utils/supabase/server";
-import Link from "next/link";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { createClient } from '@/utils/supabase/server';
+import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-interface Props {
-  locale: string;
-}
+export default async function AuthButton() {
+	const cookieStore = cookies();
+	const supabase = createClient(cookieStore);
+	const redirectLink = `/fr/login`;
 
-export default async function AuthButton({ locale }: Props) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-  const redirectLink = `/fr/login`;
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+	const signOut = async () => {
+		'use server';
 
-  const signOut = async () => {
-    "use server";
+		const cookieStore = cookies();
+		const supabase = createClient(cookieStore);
+		await supabase.auth.signOut();
+		return redirect(redirectLink);
+	};
 
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-    await supabase.auth.signOut();
-    return redirect(redirectLink);
-  };
-
-  return user ? (
-    <div className="flex items-center gap-4">
-      Hey, {user.email}!
-      <form action={signOut}>
-        <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-          Logout
-        </button>
-      </form>
-    </div>
-  ) : (
-    <Link
-      href={redirectLink}
-      className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
-    >
-      Login
-    </Link>
-  );
+	return user ? (
+		<div className="flex h-screen justify-center items-center">
+			{/* TODO : Internationaliser cette page ou la retirer */}
+			<div className="flex flex-col items-center gap-4">
+				Hey, {user.email}!
+				<form action={signOut}>
+					<button className="py-2 px-4 rounded-md no-underline bg-primary hover:bg-base-200">Logout</button>
+				</form>
+			</div>
+		</div>
+	) : (
+		<Link
+			href={redirectLink}
+			className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+		>
+			Login
+		</Link>
+	);
 }

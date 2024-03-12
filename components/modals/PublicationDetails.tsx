@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import ActivityArea from '@/components/ActivityArea';
 import AddTag from '@/components/AddTag';
 import Constants from '@/utils/constants';
@@ -15,7 +15,7 @@ import { User } from '@/models/user';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
-interface PublicationDetailsProps {
+interface Props {
 	locale: string;
 	modalMode: Number;
 	props: {
@@ -45,7 +45,7 @@ interface PublicationDetailsProps {
 	onClose: () => void;
 }
 
-export default function PublicationDetails({ locale, props, modalMode, user, onClose }: PublicationDetailsProps) {
+export default function PublicationDetails({ locale, props, modalMode, user, onClose }: Props) {
 	const { isLight } = useTheme();
 	const [showToast, setShowToast] = useState(false);
 	const [toastMessage, setToastMessage] = useState('');
@@ -54,6 +54,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 	const [imageSrc, setImageSrc] = useState('');
 	const [altText, setAltText] = useState('');
 	const [content, setContent] = useState('');
+	// TODO : Use activityArea
 	const [activityArea, setActivityArea] = useState(user.activityArea);
 	const [eventStartDate, setEventStartDate] = useState('');
 	const [eventEndDate, setEventEndDate] = useState('');

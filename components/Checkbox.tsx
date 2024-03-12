@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-interface CheckboxProps {
+interface Props {
 	inputName?: string;
 	checked?: boolean;
 	checkboxStyle?: string;
@@ -11,7 +11,7 @@ interface CheckboxProps {
 	style?: string;
 }
 
-export default function Checkbox({ inputName, textStyle, text, style }: CheckboxProps) {
+export default function Checkbox({ inputName, textStyle, text, style }: Props) {
 	const [checked, setChecked] = useState(false);
 
 	useEffect(() => {

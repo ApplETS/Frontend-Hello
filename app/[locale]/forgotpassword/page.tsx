@@ -15,6 +15,7 @@ export default function ForgotPassword({
 }) {
 	unstable_setRequestLocale(params.locale);
 	const t = useTranslations('ForgotPassword');
+
 	return (
 		<div className="flex justify-center items-center h-screen">
 			<div className="grid justify-items-center content-center bg-base-100 rounded-2xl w-[36rem]">
@@ -46,7 +47,7 @@ export default function ForgotPassword({
 							<p className="">
 								{t('remember')}
 								<Link href={`/${params.locale}/login`} className="text-md font-semibold text-primary pl-1 underline">
-									{t('rememberLink')}
+									{t('remember-link')}
 								</Link>
 							</p>
 						</div>

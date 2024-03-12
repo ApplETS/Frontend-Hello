@@ -7,7 +7,7 @@ import { faCalendar, faClose, faEllipsisVertical } from '@fortawesome/free-solid
 import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
 import Constants from '@/utils/constants';
 
-interface PublicationDetailsProps {
+interface Props {
 	locale: string;
 	infos: {
 		news: string;
@@ -26,7 +26,7 @@ interface PublicationDetailsProps {
 	onClosePreview: () => void;
 }
 
-export default function Preview({ locale, infos, onClosePreview }: PublicationDetailsProps) {
+export default function Preview({ locale, infos, onClosePreview }: Props) {
 	const { isLight } = useTheme();
 
 	return (

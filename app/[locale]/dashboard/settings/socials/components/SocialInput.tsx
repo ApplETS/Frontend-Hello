@@ -13,7 +13,7 @@ export default function SocialInput({ icon, inputName, defaultValue }: Props) {
 	return (
 		<div className="flex flex-row justify-evenly gap-6 col-span-3 h-min">
 			<div className="avatar justify-self-center">
-				<Image src={icon} alt="Facebook" />
+				<Image src={icon} alt={inputName} />
 			</div>
 			<input
 				type="text"

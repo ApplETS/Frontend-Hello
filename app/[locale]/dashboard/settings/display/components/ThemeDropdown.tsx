@@ -1,4 +1,5 @@
 'use client';
+
 import Dropdown from '@/components/SignUpActivity';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 

@@ -1,7 +1,7 @@
 import Toast from '@/components/Toast';
 import { AlertType } from '@/components/Alert';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import Dropdown from '@/components/SignUpActivity';
+import ActivityAreaDropdown from '@/components/ActivityAreaDropdown';
 import { updateProfile } from '@/utils/supabase/auth';
 import SettingsFooter from '../components/SettingsFooter';
 import ProfilePicture from './components/ProfilePicture';
@@ -69,8 +69,8 @@ export default async function Profile({ searchParams, params }: Props) {
 					/>
 
 					<label className="">{t('activity')}</label>
-					<Dropdown
-						items={[{ title: t('scientific-club') }, { title: t('ets') }, { title: t('sve') }, { title: t('aeets') }]}
+					<ActivityAreaDropdown
+						items={[{ title: t('scientificClub') }, { title: t('ets') }, { title: t('sve') }, { title: t('aeets') }]}
 						inputName="activity"
 						defaultItem={{ title: user.activityArea ?? '' }}
 						customStyle="col-span-2"

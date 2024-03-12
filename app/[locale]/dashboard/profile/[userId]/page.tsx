@@ -253,13 +253,25 @@ export default function Profile({ params: { locale } }: Props) {
 										locale={locale}
 									/>
 									<div className="text-sm text-justify font-light p-2 whitespace-normal overflow-y-auto h-44">
-										<MDXEditor
-											className={` text-sm text-justify ${
-												isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
-											}`}
-											plugins={[linkPlugin(), linkDialogPlugin()]}
-											markdown={event.content}
-										/>
+										<div style={{ position: 'relative' }}>
+											<MDXEditor
+												className={`text-sm text-justify ${
+													isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
+												}`}
+												plugins={[linkPlugin(), linkDialogPlugin()]}
+												markdown={event.content}
+											/>
+											<div
+												style={{
+													position: 'absolute',
+													top: 0,
+													right: 0,
+													bottom: 0,
+													left: 0,
+													cursor: 'normal',
+												}}
+											/>
+										</div>
 									</div>
 								</div>
 								<div className="flex flex-wrap gap-2 p-6">

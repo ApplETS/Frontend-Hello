@@ -1,9 +1,9 @@
-import AuthButton from "../../components/AuthButton";
+import { redirect } from 'next/navigation';
 
 interface Props {
-  params: { locale: string };
+	params: { locale: string };
 }
 
 export default function Index({ params: { locale } }: Props) {
-  return <AuthButton locale={locale} />;
+	return redirect(`${locale}/login`);
 }

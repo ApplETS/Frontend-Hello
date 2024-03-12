@@ -24,7 +24,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 	const calendarRef = createRef<FullCalendar>();
 
 	const filterItems = [
-		// Will need to get from backend
+		// TODO : Will need to get from backend
 		{ id: 0, name: 'Club scientifique', color: '#06B6D4' },
 		{ id: 1, name: 'ETS', color: '#64C788' },
 		{ id: 2, name: 'Service à la vie étudiante', color: '#EA7CB7' },

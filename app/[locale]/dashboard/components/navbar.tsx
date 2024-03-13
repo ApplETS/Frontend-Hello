@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@/models/user';
 import { useTranslations } from 'next-intl';
-import Constants from '@/utils/constants';
 import { UserTypes } from '@/models/user-types';
 
 interface Props {
@@ -74,6 +73,7 @@ export default function Navbar({ activePage, pages, signOut, user }: Props) {
 						)}
 						<div className="avatar">
 							<div className="w-10 rounded-full">
+								{/* TODO : Replace with the real user image */}
 								<img
 									alt="Tailwind CSS Navbar component"
 									src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"

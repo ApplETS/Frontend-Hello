@@ -1,12 +1,13 @@
 {
 	"LocaleLayout": {
 		"title": "Frontend-PS",
-		"defaultError": "An error occurred"
+		"default-error": "An error occurred"
 	},
 	"Dashboard": {
 		"news": "News",
 		"publications": "Publications",
-		"approbations": "Approbations"
+		"approbations": "Approbations",
+		"login": "Login"
 	},
 	"Navbar": {
 		"settings": "Settings",
@@ -33,14 +34,14 @@
 		"name": "Organization Name",
 		"email": "Email",
 		"activity": "Activity field",
-		"scientificClub": "Scientific Club",
+		"scientific-club": "Scientific Club",
 		"ets": "ETS",
 		"sve": "Student Life Service",
 		"aeets": "AEETS",
 		"password": "Password",
 		"confirm": "Confirm Password",
 		"already": "Already have an account?",
-		"alreadyLink": "Login here",
+		"already-link": "Login here",
 		"422": "The password should be at least 6 characters"
 	},
 	"ForgotPassword": {
@@ -48,7 +49,7 @@
 		"email": "Email",
 		"send": "Reset your password",
 		"remember": "Already have an account?",
-		"rememberLink": "Login here"
+		"remember-link": "Login here"
 	},
 	"UpdatePassword": {
 		"title": "Reset your password",
@@ -58,9 +59,12 @@
 		"confirm-password": "Confirm password",
 		"update": "Update your password",
 		"remember": "Already have an account?",
-		"rememberLink": "Login here",
+		"remember-link": "Login here",
 		"401": "Invalid token",
 		"token-placeholder": "Token received by email"
+	},
+	"NewsPage": {
+		"view-profile": "View profile"
 	},
 	"Publications": {
 		"title": "Publications",
@@ -138,6 +142,18 @@
 			"reject-button": "Refuse"
 		}
 	},
+	"Profile": {
+		"notify-me": "Notify me",
+		"dont-notify-me": "Don't notify me",
+		"interests": "Interests",
+		"search": "Search",
+		"to": " to ",
+		"from": " from ",
+		"until": " until ",
+		"informations": "Informations",
+		"website": "Website",
+		"email": "Email"
+	},
 	"Settings": {
 		"title": "Settings",
 		"save": "Save",
@@ -156,12 +172,12 @@
 		},
 		"profile-section": {
 			"title": "Profile",
-			"dropPicture": "Drop a picture here or click to upload",
-			"deletePicture": "Delete picture",
-			"companyName": "Company name",
+			"drop-picture": "Drop a picture here or click to upload",
+			"delete-picture": "Delete picture",
+			"company-name": "Company name",
 			"email": "Email",
 			"activity": "Activity field",
-			"scientificClub": "Scientific Club",
+			"scientific-club": "Scientific Club",
 			"ets": "ETS",
 			"sve": "Student Life Service",
 			"aeets": "AEETS",
@@ -174,8 +190,8 @@
 		},
 		"password-section": {
 			"title": "Password",
-			"newPassword": "New password",
-			"confirmNewPassword": "Confirm new password",
+			"new-password": "New password",
+			"confirm-new-password": "Confirm new password",
 			"save": "Save",
 			"200": "Password saved",
 			"changes": "Changes detected, save to update",

@@ -17,11 +17,16 @@ export default function NewsPage({ eventsCards, locale }: Props) {
 	};
 	return (
 		<div className="flex flex-row h-full">
-			<div className="basis-[60%]">
+			<div className="basis-[70%]">
 				<NewsCalendar events={eventsCards} locale={locale} handleEventSelect={handleEventSelect} />
 			</div>
-			<div className="basis-[40%]">
-				<CardRotation events={eventsCards} selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+			<div className="basis-[30%]">
+				<CardRotation
+					events={eventsCards}
+					selectedCard={selectedCard}
+					setSelectedCard={setSelectedCard}
+					locale={locale}
+				/>
 			</div>
 		</div>
 	);

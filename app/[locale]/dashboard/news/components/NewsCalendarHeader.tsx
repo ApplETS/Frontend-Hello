@@ -1,8 +1,7 @@
+import 'moment/locale/fr';
 import { ReactElement, RefObject, useEffect, useMemo, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import moment, { Moment } from 'moment';
-import 'moment/locale/fr';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import DropdownSelect from '@/components/DropdownSelect';

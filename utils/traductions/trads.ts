@@ -8,7 +8,7 @@ export async function getTranslationsWithDefault(namespace: string) {
 		const translatedString = trads(key);
 		// if translatedstring contains key, return defaultMsg
 		if (translatedString && translatedString.includes(key)) {
-			return defaultMsg ?? defaultTrad('defaultError');
+			return defaultMsg ?? defaultTrad('default-error');
 		}
 		return translatedString;
 	};

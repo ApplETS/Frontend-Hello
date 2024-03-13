@@ -3,7 +3,6 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import { UserTypes } from '@/models/user-types';
 import { faGear, faKey, faLink, faUser } from '@fortawesome/free-solid-svg-icons';
-import { SettingsProvider } from '@/utils/provider/SettingsProvider';
 import SettingsLayout from './components/settingsLayout';
 
 type Props = {

@@ -1,7 +1,7 @@
 import Toast from '@/components/Toast';
 import { AlertType } from '@/components/Alert';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import Dropdown from '@/components/SignUpActivity';
+import ActivityAreaDropdown from '@/components/ActivityAreaDropdown';
 import { updateProfile } from '@/utils/supabase/auth';
 import SettingsFooter from '../components/SettingsFooter';
 import ProfilePicture from './components/ProfilePicture';
@@ -14,7 +14,7 @@ type Props = {
 	params: { locale: string };
 };
 
-export default async function Page({ searchParams, params }: Props) {
+export default async function Profile({ searchParams, params }: Props) {
 	unstable_setRequestLocale(params.locale);
 	const t = await getTranslations('Settings.profile-section');
 	const t_default = await getTranslationsWithDefault('Settings.profile-section');
@@ -36,11 +36,11 @@ export default async function Page({ searchParams, params }: Props) {
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>
 				<div className="grid grid-cols-6 gap-6 justify-left items-center pt-10">
-					<ProfilePicture dropzoneText={t('dropPicture')} buttonText={t('deletePicture')} />
+					<ProfilePicture dropzoneText={t('drop-picture')} buttonText={t('delete-picture')} />
 					<div className="col-span-3" />
 					{isOrganizer && (
 						<>
-							<label>{t('companyName')}</label>
+							<label>{t('company-name')}</label>
 							<input
 								type="text"
 								className="input input-ghost col-span-2"
@@ -69,7 +69,7 @@ export default async function Page({ searchParams, params }: Props) {
 					/>
 
 					<label className="">{t('activity')}</label>
-					<Dropdown
+					<ActivityAreaDropdown
 						items={[{ title: t('scientificClub') }, { title: t('ets') }, { title: t('sve') }, { title: t('aeets') }]}
 						inputName="activity"
 						defaultItem={{ title: user.activityArea ?? '' }}

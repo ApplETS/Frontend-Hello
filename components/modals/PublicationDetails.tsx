@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import ActivityArea from '@/components/ActivityArea';
 import AddTag from '@/components/AddTag';
 import Constants from '@/utils/constants';
@@ -16,7 +16,7 @@ import { HelloEvent } from '@/models/hello-event';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
-interface PublicationDetailsProps {
+interface Props {
 	locale: string;
 	modalMode: Number;
 	props: {
@@ -132,8 +132,6 @@ export default function PublicationDetails({
 
 	const handleFileDrop = (file: File) => {
 		const allowedTypes = ['image/jpeg', 'image/png'];
-		console.log(file.type);
-		console.log(allowedTypes.includes(file.type));
 
 		if (!allowedTypes.includes(file.type)) {
 			setToastMessage(props.imageFormatErrorToastMessage);

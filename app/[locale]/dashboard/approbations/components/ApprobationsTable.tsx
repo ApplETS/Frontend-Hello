@@ -111,6 +111,7 @@ export default function ApprobationsTable({ events, locale, user }: Props) {
 					{filteredEvents.map((event, index) => (
 						<tr key={index} className="border-b-2 border-base-300">
 							<td className="text-base flex items-center space-x-2">
+								{/* TODO : Replace the img src with the real image*/}
 								<img src="https://placehold.co/500x500" alt="Placeholder" className="w-10 h-10 mr-3 rounded-full"></img>
 								<div>
 									<div>{event.organizer?.organisation}</div>

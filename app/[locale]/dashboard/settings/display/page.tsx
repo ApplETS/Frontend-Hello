@@ -7,7 +7,7 @@ type Props = {
 	params: { locale: string };
 };
 
-export default function Page({ params }: Props) {
+export default function Display({ params }: Props) {
 	unstable_setRequestLocale(params.locale);
 	const t = useTranslations('Settings.display-section');
 

@@ -131,6 +131,11 @@
 			"refused": "Refused",
 			"approved": "Approved",
 			"deleted": "Deleted"
+		},
+		"modal": {
+			"moderator-page-title": "Consult a news",
+			"approve-button": "Approve",
+			"reject-button": "Refuse"
 		}
 	},
 	"Settings": {

@@ -17,6 +17,7 @@ export default {
 		duplicate: 3,
 		modify: 4,
 		delete: 5,
+		moderator: 6,
 	},
 	newsStatuses: {
 		[NewsStates.ON_HOLD]: { color: 'bg-pink', label: 'on-hold' },

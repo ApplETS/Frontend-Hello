@@ -23,6 +23,8 @@ interface Props {
 		chooseFile: string;
 		cancelButton: string;
 		submitButton: string;
+		approveButton?: string;
+		rejectButton?: string;
 		tags: string[];
 		toolTipText: string;
 		errorToastMessage: string;

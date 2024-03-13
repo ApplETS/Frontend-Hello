@@ -131,6 +131,11 @@
 			"refused": "Refusé",
 			"approved": "Approuvé",
 			"deleted": "Supprimé"
+		},
+		"modal": {
+			"moderator-page-title": "Consulter une publication",
+			"approve-button": "Approuver",
+			"reject-button": "Refuser"
 		}
 	},
 	"Settings": {

@@ -21,7 +21,6 @@ interface PublicationDetailsProps {
 	modalMode: Number;
 	props: {
 		pageTitle: any;
-		pageTitleModerator?: any;
 		title: string;
 		activityArea: string;
 		altText: string;
@@ -36,8 +35,6 @@ interface PublicationDetailsProps {
 		chooseFile: string;
 		cancelButton: string;
 		submitButton: string;
-		approveButton?: string;
-		rejectButton?: string;
 		tags: string[];
 		toolTipText: string;
 		errorToastMessage: string;
@@ -47,10 +44,10 @@ interface PublicationDetailsProps {
 	};
 	user: User;
 	onClose: () => void;
-	selectedEvent?: HelloEvent | null;
+	selectedEvent: HelloEvent | null;
 }
 
-export default function PublicationDetails({
+export default function ApprobationDetails({
 	locale,
 	props,
 	modalMode,
@@ -170,11 +167,7 @@ export default function PublicationDetails({
 						<div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200 max-h-[80vh]">
 							<div className="grid grid-cols-2 gap-2"></div>
 							<div className="flex items-center gap-2">
-								<h1 className="text-2xl block mb-2">
-									{modalMode === Constants.publicationModalStatus.moderator
-										? props.pageTitleModerator
-										: props.pageTitle}
-								</h1>
+								<h1 className="text-2xl block mb-2">{props.pageTitle}</h1>
 								{modalMode === Constants.publicationModalStatus.modify && (
 									<div className="tooltip tooltip-bottom ml-2" data-tip={props.toolTipText}>
 										<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
@@ -323,35 +316,16 @@ export default function PublicationDetails({
 							</div>
 
 							<div className="divider my-1"></div>
-							<div
-								className={`${
-									modalMode === Constants.publicationModalStatus.moderator ? 'flex justify-between' : 'modal-action'
-								}`}
-							>
-								{modalMode === Constants.publicationModalStatus.moderator && (
-									<div className="flex flex-row gap-4">
-										<button className={`btn btn-success`} onClick={handleClose}>
-											{props.approveButton}
-										</button>
-										<button className={`btn btn-error`} onClick={handleClose}>
-											{props.rejectButton}
-										</button>
-									</div>
-								)}
-
-								<div className="">
-									<button
-										className={`btn text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
-										onClick={handleClose}
-									>
-										{props.cancelButton}
-									</button>
-									{modalMode !== Constants.publicationModalStatus.moderator && (
-										<button className="btn btn-success text-black ml-3" onClick={submit}>
-											{props.submitButton}
-										</button>
-									)}
-								</div>
+							<div className="modal-action">
+								<button
+									className={`btn text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
+									onClick={handleClose}
+								>
+									{props.cancelButton}
+								</button>
+								<button className="btn btn-success text-black ml-3" onClick={submit}>
+									{props.submitButton}
+								</button>
 							</div>
 						</div>
 					</div>

@@ -16,7 +16,7 @@ import { HelloEvent } from '@/models/hello-event';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
-interface Props {
+interface PublicationDetailsProps {
 	locale: string;
 	modalMode: Number;
 	props: {

@@ -7,7 +7,6 @@ import Constants from '@/utils/constants';
 import { useTranslations } from 'next-intl';
 import { HelloEvent } from '@/models/hello-event';
 import { formatDate } from '@/utils/formatDate';
-import ApprobationDetails from '@/components/modals/ApprobationDetails';
 import { User } from '@/models/user';
 import PublicationDetails from '@/components/modals/PublicationDetails';
 

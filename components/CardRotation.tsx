@@ -166,8 +166,12 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 							</div>
 
 							{selectedCard === event.cardId && (
-								<div>
-									<div className="text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto h-44 mb-2">
+								<>
+									<div
+										className={`text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto h-44 ${
+											event.tags.length > 0 ? 'mb-2' : 'mb-4'
+										}`}
+									>
 										<MDXEditor
 											className={` text-sm text-justify ${
 												isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
@@ -176,17 +180,19 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 											markdown={event.content}
 										/>
 									</div>
-									<div className="flex flex-wrap gap-2 self-start w-full px-6 pb-6">
-										{event.tags.map((tag, index) => (
-											<div
-												key={tag}
-												className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
-											>
-												{tag}
-											</div>
-										))}
-									</div>
-								</div>
+									{event.tags.length > 0 && (
+										<div className="flex flex-wrap gap-2 self-start w-full px-6 mb-6">
+											{event.tags.map((tag, index) => (
+												<div
+													key={tag}
+													className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
+												>
+													{tag}
+												</div>
+											))}
+										</div>
+									)}
+								</>
 							)}
 						</div>
 					</motion.div>

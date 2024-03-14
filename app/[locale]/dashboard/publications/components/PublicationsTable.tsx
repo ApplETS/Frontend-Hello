@@ -92,40 +92,44 @@ export default function PublicationsTable({ locale, publications, user }: Props)
 					/>
 				</div>
 			</div>
-			<table className="table w-full rounded-lg">
-				<thead className="bg-base-300 rounded-t-lg h-17">
-					<tr className="text-base-content text-base font-bold">
-						<th className="rounded-tl-lg">{t('table.title')}</th>
-						<th>{t('table.release-date')}</th>
-						<th>{t('table.event-date')}</th>
-						<th>{t('table.number-of-views')}</th>
-						<th>{t('table.status')}</th>
-						<th className="w-[5%] rounded-tr-lg"></th>
-					</tr>
-				</thead>
-				<tbody>
-					{filteredPublications.map((publication, index) => (
-						<tr key={index} className="border-b-2 border-base-300">
-							<td className="text-base">{publication.title} </td>
-							<td>{formatDate(new Date(publication.publicationDate), locale)}</td>
-							<td>{formatDate(new Date(publication.eventStartDate), locale)}</td>
-							<td>{0}</td> {/** Replace with number of views when implemented */}
-							<td className="text-base">
-								<div
-									className={`py-4 px-4 badge ${
-										Constants.newsStatuses[publication.state].color || 'badge-neutral'
-									} text-black`}
-								>
-									{t(`filters.${Constants.newsStatuses[publication.state].label}`)}
-								</div>
-							</td>
-							<td>
-								<DropdownMenu items={menuItems} />
-							</td>
+			{filteredPublications.length === 0 ? (
+				<div className="text-center py-4">{t('no-publications')}</div>
+			) : (
+				<table className="table w-full rounded-lg">
+					<thead className="bg-base-300 rounded-t-lg h-17">
+						<tr className="text-base-content text-base font-bold">
+							<th className="rounded-tl-lg">{t('table.title')}</th>
+							<th>{t('table.release-date')}</th>
+							<th>{t('table.event-date')}</th>
+							<th>{t('table.number-of-views')}</th>
+							<th>{t('table.status')}</th>
+							<th className="w-[5%] rounded-tr-lg"></th>
 						</tr>
-					))}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{filteredPublications.map((publication, index) => (
+							<tr key={index} className="border-b-2 border-base-300">
+								<td className="text-base">{publication.title} </td>
+								<td>{formatDate(new Date(publication.publicationDate), locale)}</td>
+								<td>{formatDate(new Date(publication.eventStartDate), locale)}</td>
+								<td>{0}</td> {/** Replace with number of views when implemented */}
+								<td className="text-base">
+									<div
+										className={`py-4 px-4 badge ${
+											Constants.newsStatuses[publication.state].color || 'badge-neutral'
+										} text-black`}
+									>
+										{t(`filters.${Constants.newsStatuses[publication.state].label}`)}
+									</div>
+								</td>
+								<td>
+									<DropdownMenu items={menuItems} />
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			)}
 		</div>
 	);
 }

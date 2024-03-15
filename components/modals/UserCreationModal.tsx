@@ -1,6 +1,7 @@
 import { createUser } from '@/app/[locale]/dashboard/accounts/actions/create';
 import Dropdown from '@/components/SignUpActivity';
 import { User } from '@/models/user';
+import { useTheme } from '@/utils/provider/ThemeProvider';
 import { useTranslations } from 'next-intl';
 import { useState, useTransition } from 'react';
 
@@ -12,6 +13,7 @@ interface Props {
 export default function UserCreationModal({ onClose, onCreate }: Props) {
 	const t = useTranslations('Accounts.create');
 	const [isPending, startTransition] = useTransition();
+	const { isLight } = useTheme();
 
 	const create = (formData: FormData) => {
 		startTransition(async () => {
@@ -72,13 +74,14 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 							<div className="w-3/5"></div>
 							<button
 								type="button"
-								className="btn btn-secondary text-base-100 font-normal w-1/5"
-								style={{ backgroundColor: '#DCDCDC' }}
+								className={`btn font-normal text-black w-1/5 ${
+									isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary bg-[#DCDCDC]'
+								}`}
 								onClick={onClose}
 							>
 								{t('close')}
 							</button>
-							<button className="btn btn-primary text-base-100 font-normal w-1/5">{t('send')}</button>
+							<button className={`btn text-black btn-primary font-normal w-1/5 `}>{t('send')}</button>
 						</div>
 					</form>
 				)}

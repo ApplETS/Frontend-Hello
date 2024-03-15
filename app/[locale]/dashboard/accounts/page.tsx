@@ -1,7 +1,7 @@
 'use server';
 
 import React from 'react';
-import UsersTable from './components/userTable';
+import UsersTable from './components/user-table';
 import { getUsers } from '@/lib/get-users';
 
 type Props = {

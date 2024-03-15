@@ -80,9 +80,11 @@ export default function UsersTable({ users }: Props) {
 					</div>
 				</div>
 				{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
-				<button className="btn btn-primary text-base-100" onClick={toggleModal}>
-					{t('create-new-account')}
-				</button>
+				<div>
+					<button className="btn btn-primary text-base-100" onClick={toggleModal}>
+						{t('create-new-account')}
+					</button>
+				</div>
 			</div>
 			{filteredUsers.length === 0 ? (
 				<div className="text-center py-4">{t('no-users-found')}</div>

@@ -72,6 +72,10 @@
 	animation: animateOut 0.3s ease 0.15s both;
 }
 
+.btn-primary.text-black {
+	color: black !important;
+}
+
 .input-ghost:focus {
 	@apply focus:outline-primary;
 }

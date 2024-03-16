@@ -205,6 +205,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 													<ActivityArea
 														items={['Clubs scientifiques', 'ÉTS', 'Service à la Vie Étudiante', 'AEETS']}
 														isDisabled={isDisabled}
+														onItemChange={setActivityArea}
 													/>
 												</div>
 												<div className="mt-3">

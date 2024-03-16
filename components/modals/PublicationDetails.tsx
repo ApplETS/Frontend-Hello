@@ -5,7 +5,7 @@ import ActivityArea from '@/components/ActivityArea';
 import AddTag from '@/components/AddTag';
 import Constants from '@/utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faMobileScreen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import Toast from '@/components/Toast';
@@ -168,6 +168,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 								<div className="ml-auto mb-2">
 									<button className="btn btn-primary" onClick={() => setShowPreview(true)}>
 										{props.previewTitle}
+										<FontAwesomeIcon icon={faMobileScreen} className="ml-1" />
 									</button>
 								</div>
 							</div>

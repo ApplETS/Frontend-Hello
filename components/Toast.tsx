@@ -3,20 +3,24 @@
 import React, { useState } from 'react';
 import { AlertType } from './Alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faWarning, faCheck } from '@fortawesome/free-solid-svg-icons';
 
-type Props = {
+export interface ToastProps {
 	message: string;
 	alertType: AlertType;
 	onCloseToast?: () => void;
-};
+}
 
-export default function Toast(props: Props) {
+export default function Toast(toastProps: ToastProps) {
+	const { message, alertType, onCloseToast } = toastProps;
 	const [isVisible, setIsVisible] = useState(true);
 
 	const handleClose = () => {
-		setIsVisible(false);
-		props.onCloseToast?.();
+		if (onCloseToast) {
+			onCloseToast();
+		} else {
+			setIsVisible(false);
+		}
 	};
 
 	if (!isVisible) return null;
@@ -24,14 +28,14 @@ export default function Toast(props: Props) {
 	return (
 		<div
 			className={`absolute top-4 right-4 alert ${
-				props.alertType ?? 'alert-info'
-			} flex items-center w-full max-w-md p-4 shadow-xl`}
+				alertType ?? 'alert-info'
+			} flex items-center w-full max-w-md p-4 shadow-xl z-20`}
 			role="alert"
 		>
 			<div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-				<FontAwesomeIcon icon={faWarning} className="pt-1" />
+				<FontAwesomeIcon icon={alertType === AlertType.success ? faCheck : faWarning} size="xl" className="pt-1" />
 			</div>
-			<div className="ms-3 text-sm font-normal">{props.message}</div>
+			<div className="ms-3 text-base font-normal">{message}</div>
 			<button
 				type="button"
 				onClick={handleClose}

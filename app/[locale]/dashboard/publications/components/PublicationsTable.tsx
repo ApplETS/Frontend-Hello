@@ -8,16 +8,17 @@ import Constants from '@/utils/constants';
 import { formatDate } from '@/utils/formatDate';
 import { HelloEvent } from '@/models/hello-event';
 import PostButton from '@/components/PostButton';
-import { User } from '@/models/user';
+import { useUser } from '@/utils/provider/UserProvider';
 
 type Props = {
 	locale: string;
 	publications: HelloEvent[];
-	user: User;
 };
 
-export default function PublicationsTable({ locale, publications, user }: Props) {
+export default function PublicationsTable({ locale, publications }: Props) {
 	const t = useTranslations('Publications');
+	const { user } = useUser();
+
 	const filterAll = t('filters.all').toLowerCase();
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
 	const [filteredPublications, setFilteredPublications] = useState(publications);

@@ -43,16 +43,16 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 	return (
 		<>
 			{user !== null ? (
-				<Navbar activePage={activePage} pages={pages} signOut={signOut} user={user} />
+				<Navbar activePage={activePage} pages={pages} signOut={signOut} user={user} locale={locale} />
 			) : (
 				<NewsNavbar locale={locale} />
 			)}
+			{message && (
+				<div className={`${show ? 'animate-in' : 'animate-out'} z-50`}>
+					<Toast message={message} alertType={alertType} onCloseToast={() => showToast(false)} />
+				</div>
+			)}
 			<div className="flex flex-col flex-grow overflow-auto page-content animate-in p-7 bg-base-100">
-				{message && (
-					<div className={`${show ? 'animate-in' : 'animate-out'} z-50`}>
-						<Toast message={message} alertType={alertType} onCloseToast={() => showToast(false)} />
-					</div>
-				)}
 				{pages[activePage]?.title && activePage !== 'news' && pages[activePage]?.isVisible && (
 					<div className="text-2xl mb-7">{pages[activePage].title}</div>
 				)}

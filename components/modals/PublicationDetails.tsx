@@ -41,7 +41,7 @@ interface Props {
 		imageFormatErrorToastMessage: string;
 		previewTitle: string;
 	};
-	user: User;
+	user?: User;
 	onClose: () => void;
 }
 
@@ -55,7 +55,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 	const [altText, setAltText] = useState('');
 	const [content, setContent] = useState('');
 	// TODO : Use activityArea
-	const [activityArea, setActivityArea] = useState(user.activityArea);
+	const [activityArea, setActivityArea] = useState(user?.activityArea);
 	const [eventStartDate, setEventStartDate] = useState('');
 	const [eventEndDate, setEventEndDate] = useState('');
 	const [publishedDate, setPublishedDate] = useState('');
@@ -71,8 +71,8 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 		title: title,
 		imageSrc: imageSrc,
 		altText: altText,
-		author: user.organisation,
-		activityArea: user.activityArea,
+		author: user?.organisation ?? '',
+		activityArea: user?.activityArea ?? '',
 		content: content,
 		eventDateTitle: props.eventTitle,
 		eventStartDate: eventStartDate,

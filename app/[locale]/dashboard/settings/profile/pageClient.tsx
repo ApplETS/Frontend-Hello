@@ -10,6 +10,7 @@ import { handleSubmitForm } from '@/app/actions/settings/submitForm';
 import { updateProfile } from '@/app/actions/settings/update-profile';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import { useToast } from '@/utils/provider/ToastProvider';
+import { useEffect } from 'react';
 
 export default function ProfileClient() {
 	const t = useTranslations('Settings.profile-section');
@@ -19,6 +20,10 @@ export default function ProfileClient() {
 	const { startTransition } = useLoading();
 	const { setToast } = useToast();
 	const isOrganizer = user?.type == UserTypes.ORGANIZER;
+
+	useEffect(() => {
+		// Fixes activity dropdown
+	}, [user]);
 
 	return (
 		<form
@@ -38,6 +43,7 @@ export default function ProfileClient() {
 								className="input input-ghost col-span-2"
 								name="organization"
 								defaultValue={user.organisation ?? ''}
+								required
 							/>
 						</>
 					)}

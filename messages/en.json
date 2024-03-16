@@ -70,6 +70,7 @@
 		"title": "Publications",
 		"search": "Search",
 		"create-new-post": "Create a post",
+		"no-publications": "No publications found",
 		"table": {
 			"title": "Title",
 			"release-date": "Release date",
@@ -120,6 +121,7 @@
 	"Approbations": {
 		"title": "Approbations",
 		"search": "Search",
+		"no-publications": "No publications found",
 		"table": {
 			"author": "Author",
 			"title": "Title",

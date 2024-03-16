@@ -71,7 +71,7 @@ export default function UsersTable({ users }: Props) {
 	};
 
 	return (
-		<div>
+		<div className="flex flex-col">
 			<div className="mb-4 flex justify-between items-center space-x-4">
 				<div className="flex items-center space-x-4 flex-1">
 					<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
@@ -89,7 +89,7 @@ export default function UsersTable({ users }: Props) {
 			{filteredUsers.length === 0 ? (
 				<div className="text-center py-4">{t('no-users-found')}</div>
 			) : (
-				<div className="h-64 overflow-y-auto pr-5">
+				<div className="h-64 overflow-y-auto">
 					<table className="table w-full rounded-lg">
 						<thead className="bg-base-300 rounded-t-lg h-17">
 							<tr className="text-base-content text-base font-bold">

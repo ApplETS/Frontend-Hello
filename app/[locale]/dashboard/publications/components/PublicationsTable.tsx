@@ -12,6 +12,7 @@ import { User } from '@/models/user';
 import PublicationsDetails from '@/components/modals/PublicationDetails';
 import { Tag } from '@/models/tag';
 import { attemptRevalidation } from '@/lib/attempt-revalidation';
+import { removePublication } from '@/lib/publications/actions/remove-publication';
 
 type Props = {
 	locale: string;
@@ -48,7 +49,7 @@ export default function PublicationsTable({ locale, publications, tags, user }: 
 				(searchTerm === '' || publication.title.toLowerCase().includes(searchTerm.toLowerCase()))
 		);
 		setFilteredPublications(filteredPublications);
-	}, [selectedFilter, searchTerm]);
+	}, [selectedFilter, searchTerm, publications]);
 
 	const handleFilterChanged = (filterIndex: number) => {
 		setSelectedFilter(filters[filterIndex].toLowerCase());
@@ -82,8 +83,8 @@ export default function PublicationsTable({ locale, publications, tags, user }: 
 		setIsModalOpen(!isModalOpen);
 	};
 
-	const deletePost = () => {
-		// TODO : Implement delete post
+	const deletePost = async () => {
+		const success = await removePublication(selectedPublication!.id);
 		setIsDeleteModalOpen(false);
 	};
 
@@ -168,7 +169,8 @@ export default function PublicationsTable({ locale, publications, tags, user }: 
 							secondButtonTitle={t('modal.delete-button')}
 							secondButtonColor="bg-error"
 							secondButtonHoverColor="hover:bg-red"
-							onClose={() => deletePost()}
+							onClose={() => setIsDeleteModalOpen(false)}
+							confirmationAction={deletePost}
 						/>
 					)}
 				</tbody>

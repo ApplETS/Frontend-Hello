@@ -8,6 +8,7 @@ export enum Method {
 	DELETE = 'DELETE',
 	PATCH = 'PATCH',
 	POSTFORM = 'POSTFORM',
+	PATCHFORM = 'PATCHFORM',
 }
 
 export async function fetchWithSession(
@@ -21,9 +22,14 @@ export async function fetchWithSession(
 	const session = await getSession();
 
 	const fetchOptions: RequestInit = {
-		method: method !== Method.POSTFORM ? method : Method.POST,
+		method:
+			method !== Method.POSTFORM && method !== Method.PATCHFORM
+				? method
+				: method === Method.POSTFORM
+				? Method.POST
+				: Method.PATCH,
 		headers:
-			method !== Method.POSTFORM
+			method !== Method.POSTFORM && method !== Method.PATCHFORM
 				? {
 						'Content-Type': 'application/json',
 						Authorization: 'Bearer ' + session?.access_token,
@@ -33,7 +39,7 @@ export async function fetchWithSession(
 	};
 
 	if (body && method !== Method.GET) {
-		fetchOptions.body = method !== Method.POSTFORM ? JSON.stringify(body) : body;
+		fetchOptions.body = method !== Method.POSTFORM && method !== Method.PATCHFORM ? JSON.stringify(body) : body;
 	}
 
 	if (tag && fetchOptions.next) {

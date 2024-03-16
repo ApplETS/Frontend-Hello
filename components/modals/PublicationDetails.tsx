@@ -19,6 +19,7 @@ import { Tag } from '@/models/tag';
 import { NewsStates } from '@/models/news-states';
 import { attemptRevalidation } from '@/lib/attempt-revalidation';
 import constants from '@/utils/constants';
+import { updatePublication } from '@/lib/publications/actions/update-publication';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -97,6 +98,25 @@ export default function PublicationDetails({
 			break;
 	}
 
+	const updateFormData = (formData: FormData) => {
+		// Generate a unique filename for the image using date timestamp
+		const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
+		const filename = `image_${timestamp}.jpg`;
+		formData.set('image', imageBinary!, filename);
+
+		formData.set('title', title);
+		formData.set('imageAltText', imageAltText);
+		formData.set('publicationDate', new Date(publicationDate).toUTCString());
+		formData.set('eventStartDate', new Date(eventStartDate).toUTCString());
+		formData.set('eventEndDate', new Date(eventEndDate).toUTCString());
+		formData.set('content', content);
+
+		if (formData.has('tags')) formData.delete('tags');
+		selectedTags.forEach((tag) => formData.append('tags', tag.id));
+
+		return formData;
+	};
+
 	const createOrUpdate = (formData: FormData) => {
 		if (!title || !imageSrc || !imageAltText || !content || !eventStartDate || !eventEndDate || !publicationDate) {
 			setShowToast(true);
@@ -110,29 +130,22 @@ export default function PublicationDetails({
 			return;
 		}
 
-		if (modalMode === Constants.publicationModalStatus.modify) {
-			// TODO : Changer l'ancienne publication par la nouvelle
-		} else {
-			startTransition(async () => {
-				// Generate a unique filename for the image using date timestamp
-				const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
-				const filename = `image_${timestamp}.jpg`;
-				formData.append('image', imageBinary!, filename);
+		startTransition(async () => {
+			var helloEvent;
+			formData = updateFormData(formData);
 
-				formData.append('publicationDate', new Date(publicationDate).toUTCString());
-				formData.append('eventStartDate', new Date(eventStartDate).toUTCString());
-				formData.append('eventEndDate', new Date(eventEndDate).toUTCString());
-				formData.append('content', content);
-				selectedTags.forEach((tag) => formData.append('tags', tag.id));
+			if (modalMode === Constants.publicationModalStatus.modify) {
+				helloEvent = await updatePublication(publication!.id, formData);
+			} else {
+				helloEvent = await createPublication(formData);
+			}
 
-				let publication = await createPublication(formData);
-				setToastMessage(t(`modal.${publication ? 'success' : 'post-error'}-toast-message`));
-				setShowToast(true);
+			setShowToast(true);
+			setToastMessage(t(`modal.${helloEvent ? 'success' : 'post-error'}-toast-message`));
 
-				if (!publication) return;
-				else onClose();
-			});
-		}
+			if (!helloEvent) return;
+			else onClose();
+		});
 	};
 
 	useEffect(() => {

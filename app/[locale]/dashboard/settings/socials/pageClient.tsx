@@ -24,7 +24,7 @@ export default function SocialsClient() {
 	const t_dialog = useTranslations('Settings.dialog');
 	const { user } = useUser();
 	const { startTransition } = useLoading();
-	const { addToast } = useToast();
+	const { setToast } = useToast();
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const socials = [
@@ -41,7 +41,7 @@ export default function SocialsClient() {
 		<form
 			className="flex flex-col basis-3/4"
 			ref={formRef}
-			action={(formData) => handleSubmitForm(formData, updateSocials, startTransition, addToast, t_default)}
+			action={(formData) => handleSubmitForm(formData, updateSocials, startTransition, setToast, t_default)}
 		>
 			<div className="flex-grow">
 				<div className="flex flex-col gap-2">

@@ -18,7 +18,7 @@ export default function ProfileClient() {
 	const t_dialog = useTranslations('Settings.dialog');
 	const { user } = useUser();
 	const { startTransition } = useLoading();
-	const { addToast } = useToast();
+	const { setToast } = useToast();
 	const isOrganizer = user?.type == UserTypes.ORGANIZER;
 
 	useEffect(() => {
@@ -28,7 +28,7 @@ export default function ProfileClient() {
 	return (
 		<form
 			className="flex flex-col basis-3/4"
-			action={(formData) => handleSubmitForm(formData, updateProfile, startTransition, addToast, t_default)}
+			action={(formData) => handleSubmitForm(formData, updateProfile, startTransition, setToast, t_default)}
 		>
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>

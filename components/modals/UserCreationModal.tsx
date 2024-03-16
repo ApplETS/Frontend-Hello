@@ -1,9 +1,11 @@
 import { createUser } from '@/app/[locale]/dashboard/accounts/actions/create';
-import Dropdown from '@/components/SignUpActivity';
 import { User } from '@/models/user';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { useTranslations } from 'next-intl';
 import { useState, useTransition } from 'react';
+import Dropdown from '../Dropdown';
+import DropdownSelect from '../DropdownSelect';
+import ActivityAreaDropdown from '../ActivityArea';
 
 interface Props {
 	onClose: () => void;
@@ -45,14 +47,9 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 								<label className="mb-2 text-base font-normal" htmlFor="activity">
 									{t('activityarea')}
 								</label>
-								<Dropdown
-									items={[
-										{ title: t('activity.scientificClub') },
-										{ title: t('activity.ets') },
-										{ title: t('activity.sve') },
-										{ title: t('activity.aeets') },
-									]}
-									inputName="activity"
+								<ActivityAreaDropdown
+									items={[t('activity.scientificClub'), t('activity.ets'), t('activity.sve'), t('activity.aeets')]}
+									isDisabled={false}
 								/>
 							</div>
 						</div>

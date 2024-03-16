@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-interface CheckboxProps {
+interface Props {
 	inputName?: string;
 	checked?: boolean;
 	checkboxStyle?: string;
@@ -11,7 +11,7 @@ interface CheckboxProps {
 	style?: string;
 }
 
-export default function Checkbox({ inputName, textStyle, text, style }: CheckboxProps) {
+export default function Checkbox({ inputName, textStyle, text, style }: Props) {
 	const [checked, setChecked] = useState(false);
 
 	useEffect(() => {
@@ -36,12 +36,12 @@ export default function Checkbox({ inputName, textStyle, text, style }: Checkbox
 		<div className={`${style} flex flex-row`}>
 			<input
 				name={inputName ?? 'checkbox'}
-				type='checkbox'
-				id='checkbox'
+				type="checkbox"
+				id="checkbox"
 				value={inputName ?? 'checkbox'}
 				checked={checked}
 				onChange={handleChange}
-				className='checkbox'
+				className="checkbox"
 			/>
 			<p className={`${textStyle} pl-4`}>{text}</p>
 		</div>

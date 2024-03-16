@@ -1,20 +1,21 @@
 import React, { ReactElement } from 'react';
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
-import { signOut } from '@/utils/supabase/auth';
-import SettingsLayout from './components/settingsLayout';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
+import { UserTypes } from '@/models/user-types';
 import { faGear, faKey, faLink, faUser } from '@fortawesome/free-solid-svg-icons';
-import { SettingsProvider } from '@/utils/provider/SettingsProvider';
+import SettingsLayout from './components/settingsLayout';
 
 type Props = {
 	children: ReactElement;
 	params: { locale: string };
 };
 
-export default function Layout({ children, params: { locale } }: Props) {
+export default async function Layout({ children, params: { locale } }: Props) {
 	unstable_setRequestLocale(locale);
 
-	const t = useTranslations('Settings');
+	const t = await getTranslations('Settings');
+	const user = await getAuthenticatedUser();
+	const isOrganizer = user.type == UserTypes.ORGANIZER;
 
 	const pages = {
 		profile: {
@@ -22,11 +23,13 @@ export default function Layout({ children, params: { locale } }: Props) {
 			link: `/${locale}/dashboard/settings/profile`,
 			icon: faUser,
 		},
-		socials: {
-			title: t('socials'),
-			link: `/${locale}/dashboard/settings/socials`,
-			icon: faLink,
-		},
+		...(isOrganizer && {
+			socials: {
+				title: t('socials'),
+				link: `/${locale}/dashboard/settings/socials`,
+				icon: faLink,
+			},
+		}),
 		password: {
 			title: t('password'),
 			link: `/${locale}/dashboard/settings/password`,
@@ -40,10 +43,8 @@ export default function Layout({ children, params: { locale } }: Props) {
 	};
 
 	return (
-		<SettingsProvider>
-			<SettingsLayout locale={locale} pages={pages} sectionTitle={t('title')}>
-				{children}
-			</SettingsLayout>
-		</SettingsProvider>
+		<SettingsLayout locale={locale} pages={pages} sectionTitle={t('title')}>
+			{children}
+		</SettingsLayout>
 	);
 }

@@ -1,11 +1,7 @@
 import { AlertType } from '@/components/Alert';
-import CancelButton from '@/components/CancelButton';
-import ConfirmButton from '@/components/ConfirmButton';
-import Dropzone from '@/components/Dropzone';
 import PasswordInput from '@/components/PasswordInput';
 import Toast from '@/components/Toast';
 import { updatePasswordSettings } from '@/utils/supabase/auth';
-import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import SettingsFooter from '../components/SettingsFooter';
 import { getTranslationsWithDefault } from '@/utils/traductions/trads';
@@ -15,7 +11,7 @@ type Props = {
 	params: { locale: string };
 };
 
-export default async function Page({ searchParams, params }: Props) {
+export default async function Password({ searchParams, params }: Props) {
 	unstable_setRequestLocale(params.locale);
 	const t = await getTranslations('Settings.password-section');
 	const t_dialog = await getTranslations('Settings.dialog');
@@ -34,10 +30,9 @@ export default async function Page({ searchParams, params }: Props) {
 			<div className="flex-grow p-4">
 				<label className="text-xl font-bold">{t('title')}</label>
 				<div className="grid grid-cols-4 gap-6 justify-left items-center pt-10">
-					<label>{t('newPassword')}</label>
+					<label>{t('new-password')}</label>
 					<PasswordInput />
-
-					<label className="pl-10">{t('confirmNewPassword')}</label>
+					<label className="pl-10">{t('confirm-new-password')}</label>
 					<PasswordInput inputName="confirmPassword" />
 				</div>
 			</div>

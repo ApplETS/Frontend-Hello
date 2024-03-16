@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState } from 'react';
 import PublicationsDetails from '@/components/modals/PublicationDetails';
 import { User } from '@/models/user';

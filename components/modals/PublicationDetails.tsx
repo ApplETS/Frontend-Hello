@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import ActivityArea from '@/components/ActivityArea';
 import AddTag from '@/components/AddTag';
 import Constants from '@/utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faMobileScreen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import Toast from '@/components/Toast';
@@ -15,7 +15,7 @@ import { User } from '@/models/user';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
-interface PublicationDetailsProps {
+interface Props {
 	locale: string;
 	modalMode: Number;
 	props: {
@@ -45,7 +45,7 @@ interface PublicationDetailsProps {
 	onClose: () => void;
 }
 
-export default function PublicationDetails({ locale, props, modalMode, user, onClose }: PublicationDetailsProps) {
+export default function PublicationDetails({ locale, props, modalMode, user, onClose }: Props) {
 	const { isLight } = useTheme();
 	const [showToast, setShowToast] = useState(false);
 	const [toastMessage, setToastMessage] = useState('');
@@ -54,6 +54,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 	const [imageSrc, setImageSrc] = useState('');
 	const [altText, setAltText] = useState('');
 	const [content, setContent] = useState('');
+	// TODO : Use activityArea
 	const [activityArea, setActivityArea] = useState(user.activityArea);
 	const [eventStartDate, setEventStartDate] = useState('');
 	const [eventEndDate, setEventEndDate] = useState('');
@@ -120,8 +121,6 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 
 	const handleFileDrop = (file: File) => {
 		const allowedTypes = ['image/jpeg', 'image/png'];
-		console.log(file.type);
-		console.log(allowedTypes.includes(file.type));
 
 		if (!allowedTypes.includes(file.type)) {
 			setToastMessage(props.imageFormatErrorToastMessage);
@@ -169,6 +168,7 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 								<div className="ml-auto mb-2">
 									<button className="btn btn-primary" onClick={() => setShowPreview(true)}>
 										{props.previewTitle}
+										<FontAwesomeIcon icon={faMobileScreen} className="ml-1" />
 									</button>
 								</div>
 							</div>

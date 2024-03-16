@@ -1,24 +1,26 @@
 import Toast from '@/components/Toast';
 import { AlertType } from '@/components/Alert';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import Dropdown from '@/components/SignUpActivity';
+import ActivityAreaDropdown from '@/components/ActivityAreaDropdown';
 import { updateProfile } from '@/utils/supabase/auth';
 import SettingsFooter from '../components/SettingsFooter';
 import ProfilePicture from './components/ProfilePicture';
 import { getTranslationsWithDefault } from '@/utils/traductions/trads';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
+import { UserTypes } from '@/models/user-types';
 
 type Props = {
 	searchParams: { message: string; type: string; code: string };
 	params: { locale: string };
 };
 
-export default async function Page({ searchParams, params }: Props) {
+export default async function Profile({ searchParams, params }: Props) {
 	unstable_setRequestLocale(params.locale);
 	const t = await getTranslations('Settings.profile-section');
 	const t_default = await getTranslationsWithDefault('Settings.profile-section');
 	const t_dialog = await getTranslations('Settings.dialog');
 	const user = await getAuthenticatedUser();
+	const isOrganizer = user.type == UserTypes.ORGANIZER;
 
 	return (
 		<form className="flex flex-col basis-3/4" action={updateProfile}>
@@ -34,37 +36,56 @@ export default async function Page({ searchParams, params }: Props) {
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>
 				<div className="grid grid-cols-6 gap-6 justify-left items-center pt-10">
-					<ProfilePicture dropzoneText={t('dropPicture')} buttonText={t('deletePicture')} />
+					<ProfilePicture dropzoneText={t('drop-picture')} buttonText={t('delete-picture')} />
 					<div className="col-span-3" />
-					<label>{t('companyName')}</label>
+					{isOrganizer && (
+						<>
+							<label>{t('company-name')}</label>
+							<input
+								type="text"
+								className="input input-ghost col-span-2"
+								name="organization"
+								defaultValue={user.organisation ?? ''}
+							/>
+						</>
+					)}
+					{isOrganizer && (
+						<>
+							<label className="justify-self-center align-top row-span-2">{t('description')}</label>
+							<textarea
+								className="textarea textarea-ghost border-current row-span-2 h-full self-start mt-3 col-span-2"
+								name="description"
+								defaultValue={user.profileDescription ?? ''}
+							/>
+						</>
+					)}
+					<label>{t('email')}</label>
 					<input
 						type="text"
 						className="input input-ghost col-span-2"
-						name="organization"
-						defaultValue={user.organisation ?? ''}
+						name="email"
+						required
+						defaultValue={user.email ?? ''}
 					/>
-
-					<label className="justify-self-center">{t('description')}</label>
-					<textarea
-						className="textarea textarea-ghost border-current row-span-2 h-full self-start mt-3 col-span-2"
-						name="description"
-					/>
-
-					<label>{t('email')}</label>
-					<input type="text" className="input input-ghost col-span-2" name="email" required defaultValue={user.email} />
-
-					<div />
 
 					<label className="">{t('activity')}</label>
-					<Dropdown
+					<ActivityAreaDropdown
 						items={[{ title: t('scientificClub') }, { title: t('ets') }, { title: t('sve') }, { title: t('aeets') }]}
 						inputName="activity"
 						defaultItem={{ title: user.activityArea ?? '' }}
 						customStyle="col-span-2"
 					/>
-					<label className="justify-self-center">{t('website')}</label>
-					<input type="text" className="input input-ghost col-span-2" name="website" />
-
+					{isOrganizer && (
+						<>
+							<label className="justify-self-center">{t('website')}</label>
+							<input
+								type="text"
+								className="input input-ghost col-span-2"
+								name="website"
+								defaultValue={user.webSiteLink ?? ''}
+							/>
+						</>
+					)}
 					<div className="col-span-3" />
 				</div>
 			</div>

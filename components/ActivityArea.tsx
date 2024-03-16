@@ -1,12 +1,12 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 
-interface PublicationDetailsProps {
+interface Props {
 	isDisabled: boolean;
 	items: string[];
 }
 
-export default function Dropdown({ items, isDisabled }: PublicationDetailsProps) {
+export default function ActivityAreaDropdown({ items, isDisabled }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState(items[0] || 'Dropdown');
 	const dropdownRef = useRef<HTMLDivElement>(null);
@@ -30,6 +30,7 @@ export default function Dropdown({ items, isDisabled }: PublicationDetailsProps)
 	return (
 		<div ref={dropdownRef} className="dropdown w-full">
 			<button
+				type="button"
 				className="btn bg-inherit border-current w-full hover:bg-base-300"
 				onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 				disabled={isDisabled}

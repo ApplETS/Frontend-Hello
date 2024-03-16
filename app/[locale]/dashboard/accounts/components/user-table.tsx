@@ -90,7 +90,6 @@ export default function UsersTable({ users }: Props) {
 					<table className="table w-full rounded-lg">
 						<thead className="bg-base-300 rounded-t-lg h-17">
 							<tr className="text-base-content text-base font-bold">
-								{/* <th className="rounded-tl-lg">{t('table.author')}</th> */}
 								<th>{t('table.organisation')}</th>
 								<th>{t('table.email')}</th>
 								<th>{t('table.activityarea')}</th>

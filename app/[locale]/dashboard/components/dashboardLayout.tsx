@@ -58,7 +58,7 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 									alertType={toast.alertType}
 									delay={toast.delay}
 									onCloseToast={() => hideToast(index)}
-									isLastToast={index === toasts.length - 1}
+									isLastToast={index === 0}
 								/>
 							</div>
 						))}

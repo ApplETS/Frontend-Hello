@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, CSSProperties } from 'react';
 import { AlertType } from './Alert';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faWarning, faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,11 @@ export interface ToastProps {
 	delay: number;
 	onCloseToast?: () => void;
 	isLastToast: boolean;
+}
+
+interface ExtendedCSSProperties extends CSSProperties {
+	'--value'?: number;
+	'--size'?: string;
 }
 
 export default function Toast(toastProps: ToastProps) {
@@ -49,6 +54,8 @@ export default function Toast(toastProps: ToastProps) {
 
 	if (!isVisible) return null;
 
+	const style: ExtendedCSSProperties = { '--value': progress, '--size': '2rem' };
+
 	return (
 		<div className={`alert ${alertType ?? 'alert-info'} flex items-center w-full p-4 shadow-xl`} role="alert">
 			<div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
@@ -57,7 +64,7 @@ export default function Toast(toastProps: ToastProps) {
 			<div className="ms-3 text-base font-normal">{message}</div>
 			<div
 				className="flex flex-col cursor-pointer justify-center items-center radial-progress ms-auto h-8 w-8"
-				style={{ '--value': progress, '--size': '2rem' }}
+				style={style}
 				role="progressbar"
 				onClick={handleClose}
 			>

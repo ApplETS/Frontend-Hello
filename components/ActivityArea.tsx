@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from 'react';
 interface Props {
 	isDisabled: boolean;
 	items: string[];
+	onItemChange: (item: string) => void;
 }
 
-export default function ActivityAreaDropdown({ items, isDisabled }: Props) {
+export default function ActivityAreaDropdown({ items, isDisabled, onItemChange }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState(items[0] || 'Dropdown');
 	const dropdownRef = useRef<HTMLDivElement>(null);
@@ -14,6 +15,7 @@ export default function ActivityAreaDropdown({ items, isDisabled }: Props) {
 	const handleItemClick = (item: string) => {
 		setSelectedItem(item);
 		setIsDropdownOpen(false);
+		onItemChange(item);
 	};
 
 	useEffect(() => {

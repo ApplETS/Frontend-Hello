@@ -15,10 +15,13 @@ interface Props {
 export default function UserCreationModal({ onClose, onCreate }: Props) {
 	const t = useTranslations('Accounts.create');
 	const [isPending, startTransition] = useTransition();
+	//default at "Club Scientifique"
+	const [selectedActivity, setSelectedActivity] = useState(t('activity.scientificClub'));
 	const { isLight } = useTheme();
 
 	const create = (formData: FormData) => {
 		startTransition(async () => {
+			formData.set('activity', selectedActivity);
 			const user = await createUser(formData);
 			onCreate(user);
 		});
@@ -50,6 +53,7 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 								<ActivityAreaDropdown
 									items={[t('activity.scientificClub'), t('activity.ets'), t('activity.sve'), t('activity.aeets')]}
 									isDisabled={false}
+									onItemChange={(item: string) => setSelectedActivity(item)}
 								/>
 							</div>
 						</div>

@@ -30,7 +30,7 @@ export interface Page {
 export default function DashboardLayout({ children, pages, signOut, user, locale }: Props) {
 	const pathname = usePathname();
 	const activePage = pathname.split('/').pop() ?? 'dashboard';
-	const { show, message, alertType, showToast } = useToast();
+	const { toasts, hideToast } = useToast();
 	const { isLoading } = useLoading();
 	const { setUser } = useUser();
 
@@ -47,12 +47,23 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 			) : (
 				<NewsNavbar locale={locale} />
 			)}
-			{message && (
-				<div className={`${show ? 'animate-in' : 'animate-out'} z-50`}>
-					<Toast message={message} alertType={alertType} onCloseToast={() => showToast(false)} />
-				</div>
-			)}
 			<div className="flex flex-col flex-grow overflow-auto page-content animate-in p-7 bg-base-100">
+				<div className="absolute shadow-md top-4 right-4 w-[32rem] z-50">
+					<div className="w-full stack">
+						{toasts.reverse().map((toast, index) => (
+							<div className={`${toast.showToast ? 'animate-in' : 'animate-out'} w-full`}>
+								<Toast
+									key={index}
+									message={toast.message}
+									alertType={toast.alertType}
+									delay={toast.delay}
+									onCloseToast={() => hideToast(index)}
+									isLastToast={index === toasts.length - 1}
+								/>
+							</div>
+						))}
+					</div>
+				</div>
 				{pages[activePage]?.title && activePage !== 'news' && pages[activePage]?.isVisible && (
 					<div className="text-2xl mb-7">{pages[activePage].title}</div>
 				)}

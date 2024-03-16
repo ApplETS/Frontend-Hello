@@ -15,14 +15,14 @@ export default function PasswordClient() {
 	const t_default = useTranslationsWithDefault('Settings.password-section');
 	const formRef = useRef<HTMLFormElement>(null);
 	const { startTransition } = useLoading();
-	const { setToast } = useToast();
+	const { addToast } = useToast();
 
 	return (
 		<form
 			className="flex flex-col basis-3/4"
 			ref={formRef}
 			action={(formData) =>
-				handleSubmitForm(formData, updatePassword, startTransition, setToast, t_default, formRef.current)
+				handleSubmitForm(formData, updatePassword, startTransition, addToast, t_default, formRef.current)
 			}
 		>
 			<div className="flex-grow p-4">

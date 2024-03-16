@@ -1,61 +1,82 @@
-"use client";
+'use client';
 
-import { AlertType } from "@/components/Alert";
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useState,
-} from "react";
+import { AlertType } from '@/components/Alert';
+import { ReactNode, createContext, useContext, useState, useEffect } from 'react';
 
 type Props = {
-  children: ReactNode;
+	children: ReactNode;
 };
 
 export enum ToastDelay {
-  short = 3000,
-  long = 10000,
+	short = 3000,
+	long = 10000,
+}
+
+interface Toast {
+	message: string;
+	alertType: AlertType;
+	showToast: boolean;
+	delay: ToastDelay;
 }
 
 interface ToastContextType {
-  show: boolean;
-  message: string;
-  alertType: AlertType;
-  setToast: (message: string, alertType: AlertType, delay?: ToastDelay) => void;
-  showToast: (show: boolean) => void;
+	toasts: Toast[];
+	addToast: (message: string, alertType: AlertType, delay?: ToastDelay) => void;
+	hideToast: (id: number) => void;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 export default function ToastProvider({ children }: Props) {
-  const [show, showToast] = useState(false);
-  const [message, setMessage] = useState("");
-  const [alertType, setAlertType] = useState(AlertType.error);
+	const [toasts, setToasts] = useState<Toast[]>([]);
 
-	const setToast = (message: string, alertType: AlertType, delay: ToastDelay = ToastDelay.short) => {
-		setMessage(message);
-    setAlertType(alertType);
-    showToast(true);
-    setTimeout(() => {showToast(false)}, delay)
+	const addToast = (message: string, alertType: AlertType, delay: ToastDelay = ToastDelay.short) => {
+		const toast: Toast = {
+			message: message,
+			alertType: alertType,
+			showToast: true,
+			delay: delay,
+		};
+
+		setToasts((oldToasts) => [...oldToasts, toast]);
 	};
 
-  const toast = {
-    show,
-    message,
-    alertType,
-    setToast,
-    showToast,
-  };
+	const hideToast = (id: number) => {
+		setToasts((oldToasts) =>
+			oldToasts.map((toast, index) => {
+				return { ...toast, showToast: id === index ? false : toast.showToast };
+			})
+		);
 
-  return (
-    <ToastContext.Provider value={toast}>{children}</ToastContext.Provider>
-  );
+		setTimeout(() => {
+			setToasts((oldToasts) => oldToasts.filter((_, index) => index !== id));
+		}, 400);
+	};
+
+	useEffect(() => {
+		if (toasts.length > 0) {
+			const lastToast = toasts[toasts.length - 1];
+			const timeoutId = setTimeout(() => {
+				hideToast(toasts.length - 1);
+			}, lastToast.delay);
+
+			return () => clearTimeout(timeoutId);
+		}
+	}, [toasts]);
+
+	const toast = {
+		toasts,
+		addToast,
+		hideToast,
+	};
+
+	return <ToastContext.Provider value={toast}>{children}</ToastContext.Provider>;
 }
 
 export const useToast = () => {
-  const context = useContext(ToastContext);
-  if (!context) {
-    throw new Error("useToast must be used within a ToastProvider");
-  }
-  return context;
+	const context = useContext(ToastContext);
+	if (!context) {
+		throw new Error('useToast must be used within a ToastProvider');
+	}
+	return context;
 };

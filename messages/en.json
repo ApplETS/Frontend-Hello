@@ -142,6 +142,8 @@
 	"Profile": {
 		"notify-me": "Notify me",
 		"dont-notify-me": "Don't notify me",
+		"tooltip-notify-me": "Click on 'Notify me' to receive an email when {author} publishes a news.",
+		"tooltip-dont-notify-me": "Click on 'Don't notify me' to no longer receive an email when {author} publishes a news.",
 		"interests": "Interests",
 		"search": "Search",
 		"to": " to ",

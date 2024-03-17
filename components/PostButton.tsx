@@ -31,7 +31,7 @@ interface Props {
 		imageFormatErrorToastMessage: string;
 		previewTitle: string;
 	};
-	user: User;
+	user?: User;
 }
 
 export default function PostButton({ locale, text, props, modalMode, user }: Props) {

@@ -64,8 +64,17 @@ export const CalendarHeader = ({
 					<FontAwesomeIcon icon={faChevronLeft} />
 				</button>
 				<p className="text-lg">
-					{viewType === 'timeGridDay' ? date?.locale(locale).format('LL') : date?.locale(locale).format('MMMM YYYY')}
+					{viewType === 'timeGridDay'
+						? date?.locale(locale).format('LL')
+						: viewType === 'timeGridWeek'
+						? `${date?.clone().startOf('week').locale(locale).format('LL')} - ${date
+								?.clone()
+								.endOf('week')
+								.locale(locale)
+								.format('LL')}`
+						: date?.locale(locale).format('MMMM YYYY')}
 				</p>
+
 				<button type="button" className="btn btn-sm" onClick={() => handleDateChange('next')}>
 					<FontAwesomeIcon icon={faChevronRight} />
 				</button>

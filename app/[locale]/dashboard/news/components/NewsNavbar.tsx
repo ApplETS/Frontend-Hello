@@ -28,7 +28,7 @@ export default function NewsNavbar({ locale }: Props) {
 					<Link href={`/${locale}/login`} className="btn btn-ghost">
 						<div className="text-base mr-1">{t('login')}</div>
 						<div className="avatar rounded-full bg-base-100">
-							<div className="w-10 pt-2">
+							<div className="w-10 pt-2 pr-1">
 								<FontAwesomeIcon icon={faSignIn} size="xl" />
 							</div>
 						</div>

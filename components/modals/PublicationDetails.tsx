@@ -5,14 +5,14 @@ import ActivityArea from '@/components/ActivityArea';
 import AddTag from '@/components/AddTag';
 import Constants from '@/utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faMobileScreen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import { useTheme } from '@/utils/provider/ThemeProvider';
-import Toast from '@/components/Toast';
 import { AlertType } from '../Alert';
 import Preview from './Preview';
 import { User } from '@/models/user';
 import { HelloEvent } from '@/models/hello-event';
+import { useToast } from '@/utils/provider/ToastProvider';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -45,7 +45,7 @@ interface PublicationDetailsProps {
 		imageFormatErrorToastMessage: string;
 		previewTitle: string;
 	};
-	user: User;
+	user?: User;
 	onClose: () => void;
 	selectedEvent?: HelloEvent | null;
 }
@@ -59,8 +59,7 @@ export default function PublicationDetails({
 	selectedEvent,
 }: PublicationDetailsProps) {
 	const { isLight } = useTheme();
-	const [showToast, setShowToast] = useState(false);
-	const [toastMessage, setToastMessage] = useState('');
+	const { setToast } = useToast();
 
 	const [title, setTitle] = useState(selectedEvent?.title || '');
 	const [imageSrc, setImageSrc] = useState(selectedEvent?.imageUrl || '');
@@ -82,8 +81,8 @@ export default function PublicationDetails({
 		title: title,
 		imageSrc: imageSrc,
 		altText: altText,
-		author: user.organisation,
-		activityArea: user.activityArea,
+		author: user?.organisation ?? '',
+		activityArea: user?.activityArea ?? '',
 		content: content,
 		eventDateTitle: props.eventTitle,
 		eventStartDate: eventStartDate,
@@ -98,14 +97,12 @@ export default function PublicationDetails({
 
 	const submit = () => {
 		if (!title || !imageSrc || !altText || !content || !eventStartDate || !eventEndDate || !publishedDate) {
-			setShowToast(true);
-			setToastMessage(props.errorToastMessage);
+			setToast(props.errorToastMessage, AlertType.error);
 			return;
 		}
 
 		if (new Date(eventEndDate).getTime() < new Date(eventStartDate).getTime()) {
-			setShowToast(true);
-			setToastMessage(props.dateErrorToastMessage);
+			setToast(props.dateErrorToastMessage, AlertType.error);
 			return;
 		}
 
@@ -134,8 +131,7 @@ export default function PublicationDetails({
 		const allowedTypes = ['image/jpeg', 'image/png'];
 
 		if (!allowedTypes.includes(file.type)) {
-			setToastMessage(props.imageFormatErrorToastMessage);
-			setShowToast(true);
+			setToast(props.imageFormatErrorToastMessage, AlertType.error);
 			return;
 		}
 
@@ -151,10 +147,6 @@ export default function PublicationDetails({
 		setContent(newContent);
 	};
 
-	const handleCloseToast = () => {
-		setShowToast(false);
-	};
-
 	const handleClosePreview = () => {
 		setShowPreview(false);
 	};
@@ -163,7 +155,6 @@ export default function PublicationDetails({
 		<>
 			<div className="fixed inset-0 bg-black bg-opacity-30 z-40">
 				<dialog id="publication_modal" className="modal overflow-y-auto p-4" open={true}>
-					{showToast && <Toast message={toastMessage} alertType={AlertType.error} onCloseToast={handleCloseToast} />}
 					<div className="overflow-y-auto w-full">
 						<div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200 max-h-[80vh]">
 							<div className="grid grid-cols-2 gap-2"></div>
@@ -183,6 +174,7 @@ export default function PublicationDetails({
 								<div className="ml-auto mb-2">
 									<button className="btn btn-primary" onClick={() => setShowPreview(true)}>
 										{props.previewTitle}
+										<FontAwesomeIcon icon={faMobileScreen} className="ml-1" />
 									</button>
 								</div>
 							</div>

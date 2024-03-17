@@ -168,9 +168,23 @@ export default function Profile({ params: { locale } }: Props) {
 						<p className="text-xl font-bold">{user.name}</p>
 						<h4 className="mb-2 text-sm text-secondary">{user.activityArea}</h4>
 						<p className="text-sm mb-4 text-center">{user.profileDescription}</p>
-						<button className="btn btn-accent w-64 mb-2" onClick={notify}>
-							{notifyButtonTitle}
-						</button>
+						<div className="flex items-center mb-2">
+							<button className="btn btn-accent w-64" onClick={notify}>
+								{notifyButtonTitle}
+							</button>
+							<div
+								className="tooltip tooltip-bottom ml-2"
+								data-tip={
+									notifyButtonTitle === t('notify-me')
+										? t('tooltip-notify-me', { author: user.name })
+										: t('tooltip-dont-notify-me', { author: user.name })
+								}
+							>
+								<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center">
+									?
+								</button>
+							</div>
+						</div>
 
 						<p className="text-lg mb-2 mt-2 self-start w-full text-bold">{t('informations')}</p>
 

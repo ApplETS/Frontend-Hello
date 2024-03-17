@@ -70,6 +70,7 @@
 		"title": "Publications",
 		"search": "Search",
 		"create-new-post": "Create a post",
+		"no-publications": "No publications found",
 		"table": {
 			"title": "Title",
 			"release-date": "Release date",
@@ -120,6 +121,7 @@
 	"Approbations": {
 		"title": "Approbations",
 		"search": "Search",
+		"no-publications": "No publications found",
 		"table": {
 			"author": "Author",
 			"title": "Title",
@@ -145,6 +147,8 @@
 	"Profile": {
 		"notify-me": "Notify me",
 		"dont-notify-me": "Don't notify me",
+		"tooltip-notify-me": "Click on 'Notify me' to receive an email when {author} publishes a news.",
+		"tooltip-dont-notify-me": "Click on 'Don't notify me' to no longer receive an email when {author} publishes a news.",
 		"interests": "Interests",
 		"search": "Search",
 		"to": " to ",
@@ -213,5 +217,8 @@
 			"yes": "Yes",
 			"no": "No"
 		}
+	},
+	"Calendar": {
+		"today": "Today"
 	}
 }

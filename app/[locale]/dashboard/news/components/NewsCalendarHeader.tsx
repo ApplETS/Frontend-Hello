@@ -5,6 +5,7 @@ import moment, { Moment } from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import DropdownSelect from '@/components/DropdownSelect';
+import { useTranslations } from 'next-intl';
 
 export type TCalendarHeader = {
 	calendarRef: RefObject<FullCalendar>;
@@ -20,6 +21,7 @@ export const CalendarHeader = ({
 	filterItems,
 }: TCalendarHeader): ReactElement => {
 	const [date, setDate] = useState<Moment | null>(moment(calendarRef.current?.getApi().getDate()));
+	const t = useTranslations('Calendar');
 
 	useEffect(() => {
 		const calApi = calendarRef.current?.getApi();
@@ -50,17 +52,16 @@ export const CalendarHeader = ({
 			<div className="py-2">
 				<div className="flex flex-row items-center gap-2">
 					<div className="flex flex-row items-center gap-4">
-						<div>
-							<button type="button" className="btn btn-sm" onClick={() => handleDateChange('prev')}>
-								<FontAwesomeIcon icon={faChevronLeft} />
-							</button>
-						</div>
+						<button type="button" className="btn btn-sm" onClick={() => handleDateChange('prev')}>
+							<FontAwesomeIcon icon={faChevronLeft} />
+						</button>
 						<p className="text-lg">{date?.locale(locale).format('MMMM YYYY')}</p>
-						<div>
-							<button type="button" className="btn btn-sm" onClick={() => handleDateChange('next')}>
-								<FontAwesomeIcon icon={faChevronRight} />
-							</button>
-						</div>
+						<button type="button" className="btn btn-sm" onClick={() => handleDateChange('next')}>
+							<FontAwesomeIcon icon={faChevronRight} />
+						</button>
+						<button type="button" className="btn btn-sm" onClick={() => handleDateChange('today')}>
+							{t('today')}
+						</button>
 					</div>
 				</div>
 			</div>

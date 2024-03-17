@@ -18,9 +18,10 @@ interface Props {
 	};
 	signOut: (formData: FormData) => Promise<never>;
 	user: User;
+	locale: string;
 }
 
-export default function Navbar({ activePage, pages, signOut, user }: Props) {
+export default function Navbar({ activePage, pages, signOut, user, locale }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 	const dropdownRef = useRef<HTMLDivElement>(null);
@@ -111,7 +112,7 @@ export default function Navbar({ activePage, pages, signOut, user }: Props) {
 							<div className="divider my-0"></div>
 							<li>
 								<form action={signOut}>
-									<input type="hidden" name="redirectLink" value={`/fr/login`} />
+									<input type="hidden" name="redirectLink" value={`/${locale}/login`} />
 									<div className="flex flex-row gap-2">
 										<FontAwesomeIcon icon={faSignOut} className="pt-1" />
 										<button>{t('sign-out')}</button>

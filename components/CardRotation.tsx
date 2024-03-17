@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import EventDateAndImage from './EventDateAndImage';
+import Constants from '@/utils/constants';
 
 interface Props {
 	events: HelloEvent[];
@@ -165,15 +166,33 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 							</div>
 
 							{selectedCard === event.cardId && (
-								<div className="text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto h-44 mb-6">
-									<MDXEditor
-										className={` text-sm text-justify ${
-											isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
+								<>
+									<div
+										className={`text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto h-44 ${
+											event.tags.length > 0 ? 'mb-2' : 'mb-4'
 										}`}
-										plugins={[linkPlugin(), linkDialogPlugin()]}
-										markdown={event.content}
-									/>
-								</div>
+									>
+										<MDXEditor
+											className={` text-sm text-justify ${
+												isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
+											}`}
+											plugins={[linkPlugin(), linkDialogPlugin()]}
+											markdown={event.content}
+										/>
+									</div>
+									{event.tags.length > 0 && (
+										<div className="flex flex-wrap gap-2 self-start w-full px-6 mb-6">
+											{event.tags.map((tag, index) => (
+												<div
+													key={tag}
+													className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
+												>
+													{tag}
+												</div>
+											))}
+										</div>
+									)}
+								</>
 							)}
 						</div>
 					</motion.div>

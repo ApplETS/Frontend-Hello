@@ -2,7 +2,7 @@
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import momentPlugin from '@fullcalendar/moment';
-import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
+import interactionPlugin from '@fullcalendar/interaction';
 import { EventContentArg } from '@fullcalendar/core';
 import { HelloEvent } from '@/models/hello-event';
 import frLocale from '@fullcalendar/core/locales/fr';

@@ -5,6 +5,8 @@ import { signOut } from '@/utils/supabase/auth';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import { UserTypes } from '@/models/user-types';
 import ToastProvider from '@/utils/provider/ToastProvider';
+import UserProvider from '@/utils/provider/UserProvider';
+import LoadingProvider from '@/utils/provider/LoadingProvider';
 
 type Props = {
 	children: ReactElement;
@@ -49,9 +51,13 @@ export default async function Layout({ children, params: { locale } }: Props) {
 
 	return (
 		<ToastProvider>
-			<DashboardLayout pages={pages} signOut={signOut} user={user} locale={locale}>
-				{children}
-			</DashboardLayout>
+			<UserProvider>
+				<LoadingProvider>
+					<DashboardLayout pages={pages} signOut={signOut} user={user} locale={locale}>
+						{children}
+					</DashboardLayout>
+				</LoadingProvider>
+			</UserProvider>
 		</ToastProvider>
 	);
 }

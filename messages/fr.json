@@ -143,6 +143,8 @@
 	"Profile": {
 		"notify-me": "Me notifier",
 		"dont-notify-me": "Ne plus recevoir de notifications",
+		"tooltip-notify-me": "Cliquez sur 'Me notifier' pour recevoir un courriel lorsque {author} publiera une annonce.",
+		"tooltip-dont-notify-me": "Cliquez sur 'Ne plus recevoir de notifications' pour arrêter de recevoir des courriels lorsque {author} publiera une annonce.",
 		"interests": "Champs d'intérêts",
 		"search": "Rechercher",
 		"to": " à ",

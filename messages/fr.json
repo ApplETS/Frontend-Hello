@@ -212,5 +212,8 @@
 			"yes": "Oui",
 			"no": "Non"
 		}
+	},
+	"Calendar": {
+		"today": "Aujourd'hui"
 	}
 }

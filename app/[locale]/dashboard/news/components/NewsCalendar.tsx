@@ -1,6 +1,8 @@
 'use client';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import timeGridDay from '@fullcalendar/timegrid';
 import momentPlugin from '@fullcalendar/moment';
 import interactionPlugin from '@fullcalendar/interaction';
 import { EventContentArg } from '@fullcalendar/core';
@@ -18,17 +20,17 @@ interface Props {
 
 export default function NewsCalendar({ events, locale, handleEventSelect }: Props) {
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>(events);
+	const [view, setView] = useState('dayGridMonth');
 
 	const calendarRef = createRef<FullCalendar>();
 
-	// TODO : Will need to get from backend
 	const filterItems = [
-		// TODO : Will need to get from backend
 		{ id: 0, name: 'Club scientifique', color: '#06B6D4' },
 		{ id: 1, name: 'ETS', color: '#64C788' },
 		{ id: 2, name: 'Service à la vie étudiante', color: '#EA7CB7' },
 		{ id: 3, name: 'AEETS', color: '#E7A455' },
 	];
+
 	const handleFilterChange = (selectedIndices: number[]) => {
 		if (selectedIndices.length !== 0) {
 			setShownEvents(
@@ -41,6 +43,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 			setShownEvents(events);
 		}
 	};
+
 	return (
 		<div>
 			<CalendarHeader
@@ -52,8 +55,8 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 			<div className="rounded-lg border border-gray-300">
 				<FullCalendar
 					ref={calendarRef}
-					plugins={[dayGridPlugin, interactionPlugin, momentPlugin]}
-					initialView="dayGridMonth"
+					plugins={[dayGridPlugin, interactionPlugin, momentPlugin, timeGridPlugin, timeGridDay]}
+					initialView={view}
 					locales={[frLocale, enLocale]}
 					locale={locale}
 					events={shownEvents.map((event) => {

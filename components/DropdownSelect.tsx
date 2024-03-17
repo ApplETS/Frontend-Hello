@@ -47,7 +47,7 @@ export default function DropdownSelect({ title, items, onFilterChange }: Props) 
 		<div className="flex items-center space-x-4" ref={dropdownRef}>
 			<div className="dropdown relative">
 				<button className="m-1 btn flex items-center btn-outline btn-accent" onClick={toggleDropdown}>
-					<FontAwesomeIcon icon={faFilter} size="lg" />
+					<FontAwesomeIcon icon={faFilter} />
 					{title}
 					<FontAwesomeIcon icon={isDropdownOpen ? faAngleUp : faAngleDown} className="w-5 ml-2" />
 				</button>

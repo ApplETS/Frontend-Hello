@@ -214,6 +214,9 @@
 		}
 	},
 	"Calendar": {
-		"today": "Today"
+		"today": "Today",
+		"week": "Week",
+		"month": "Month",
+		"day": "Jour"
 	}
 }

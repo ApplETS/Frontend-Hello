@@ -287,19 +287,33 @@ export default function PublicationDetails({
 										isDisabled ? 'h-10' : ''
 									}`}
 								>
-									{selectedTags.map((tag, index) => (
-										<div
-											key={tag}
-											className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
-										>
-											{tag}
-											<FontAwesomeIcon
-												icon={faXmark}
-												className="ml-2 cursor-pointer"
-												onClick={() => handleTagDelete(tag)}
-											/>
-										</div>
-									))}
+									{modalMode !== Constants.publicationModalStatus.moderator
+										? selectedTags.map((tag, index) => (
+												<div
+													key={tag}
+													className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
+												>
+													{tag}
+													<FontAwesomeIcon
+														icon={faXmark}
+														className="ml-2 cursor-pointer"
+														onClick={() => handleTagDelete(tag)}
+													/>
+												</div>
+										  ))
+										: selectedEvent?.tags.map((tag, index) => (
+												<div
+													key={tag}
+													className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
+												>
+													{tag}
+													<FontAwesomeIcon
+														icon={faXmark}
+														className="ml-2 cursor-pointer"
+														onClick={() => handleTagDelete(tag)}
+													/>
+												</div>
+										  ))}
 									{!isDisabled && !addTagButtonIsDisabled && (
 										<AddTag titleButton={props.addTag} items={availableTags} onTagSelected={handleTagSelect} />
 									)}

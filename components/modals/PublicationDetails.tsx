@@ -13,6 +13,7 @@ import Preview from './Preview';
 import { User } from '@/models/user';
 import { HelloEvent } from '@/models/hello-event';
 import { useToast } from '@/utils/provider/ToastProvider';
+import Confirmation from './Confirmation';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -65,7 +66,7 @@ export default function PublicationDetails({
 	const [imageSrc, setImageSrc] = useState(selectedEvent?.imageUrl || '');
 	const [altText, setAltText] = useState('');
 	const [content, setContent] = useState(selectedEvent?.content || '');
-	const [activityArea, setActivityArea] = useState(selectedEvent?.organizer?.activityArea || user.activityArea);
+	const [activityArea, setActivityArea] = useState(selectedEvent?.organizer?.activityArea || user?.activityArea);
 	const [eventStartDate, setEventStartDate] = useState(selectedEvent?.eventStartDate.substring(0, 16) || '');
 	const [eventEndDate, setEventEndDate] = useState(selectedEvent?.eventEndDate.substring(0, 16) || '');
 	const [publishedDate, setPublishedDate] = useState(selectedEvent?.publicationDate.substring(0, 10) || '');
@@ -75,6 +76,7 @@ export default function PublicationDetails({
 		modalMode === Constants.publicationModalStatus.view || modalMode === Constants.publicationModalStatus.delete;
 	const addTagButtonIsDisabled = selectedTags.length >= 5;
 	const [showPreview, setShowPreview] = useState(false);
+	const [rejectModalOpen, setRejectModalOpen] = useState(false);
 
 	const previewInfos = {
 		news: props.newsTitle,
@@ -149,6 +151,14 @@ export default function PublicationDetails({
 
 	const handleClosePreview = () => {
 		setShowPreview(false);
+	};
+
+	const handleReject = () => {
+		setRejectModalOpen(true);
+	};
+
+	const handleRejectClose = () => {
+		setRejectModalOpen(false);
 	};
 
 	return (
@@ -306,9 +316,11 @@ export default function PublicationDetails({
 													/>
 												</div>
 										  ))}
-									{!isDisabled && !addTagButtonIsDisabled && (
-										<AddTag titleButton={props.addTag} items={availableTags} onTagSelected={handleTagSelect} />
-									)}
+									{!isDisabled &&
+										!addTagButtonIsDisabled &&
+										modalMode !== Constants.publicationModalStatus.moderator && (
+											<AddTag titleButton={props.addTag} items={availableTags} onTagSelected={handleTagSelect} />
+										)}
 								</div>
 							</div>
 
@@ -337,10 +349,20 @@ export default function PublicationDetails({
 										<button className={`btn btn-success`} onClick={handleClose}>
 											{props.approveButton}
 										</button>
-										<button className={`btn btn-error`} onClick={handleClose}>
+										<button className={`btn btn-error`} onClick={handleReject}>
 											{props.rejectButton}
 										</button>
 									</div>
+								)}
+								{rejectModalOpen && (
+									<Confirmation
+										title={'Pourquoi voulez vous refuser cette annonce?'}
+										firstButtonTitle={'Cancel'}
+										secondButtonTitle={"Refuser l'annonce"}
+										secondButtonColor={'btn-error'}
+										inputTitle="Raison"
+										onClose={handleRejectClose}
+									/>
 								)}
 
 								<div className="">

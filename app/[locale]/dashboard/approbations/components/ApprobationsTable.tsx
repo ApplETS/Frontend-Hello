@@ -136,7 +136,9 @@ export default function ApprobationsTable({ events, locale, user }: Props) {
 									</div>
 								</td>
 								<td className="text-base">
-									<button className="btn btn-accent w-full">{t('table.open')}</button>
+									<button className="btn btn-accent w-full" onClick={() => openModal(event)}>
+										{t('table.open')}
+									</button>
 								</td>
 							</tr>
 						))}

@@ -20,10 +20,11 @@ interface Props {
 
 export default function NewsCalendar({ events, locale, handleEventSelect }: Props) {
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>(events);
-	const [view, setView] = useState('dayGridMonth');
+	const [view] = useState('dayGridMonth');
 
 	const calendarRef = createRef<FullCalendar>();
 
+	// TODO : Will need to get from backend
 	const filterItems = [
 		{ id: 0, name: 'Club scientifique', color: '#06B6D4' },
 		{ id: 1, name: 'ETS', color: '#64C788' },

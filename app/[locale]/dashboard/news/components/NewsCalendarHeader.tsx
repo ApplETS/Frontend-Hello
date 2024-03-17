@@ -79,7 +79,7 @@ export const CalendarHeader = ({
 					<FontAwesomeIcon icon={faChevronRight} />
 				</button>
 				<button type="button" className="btn btn-sm" onClick={() => handleDateChange('today')}>
-					{t('today')}
+					<FontAwesomeIcon icon={faCalendarDay} />
 				</button>
 			</div>
 			<div className="flex justify-center">

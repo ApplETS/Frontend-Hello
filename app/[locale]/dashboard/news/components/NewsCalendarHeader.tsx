@@ -63,7 +63,9 @@ export const CalendarHeader = ({
 				<button type="button" className="btn btn-sm" onClick={() => handleDateChange('prev')}>
 					<FontAwesomeIcon icon={faChevronLeft} />
 				</button>
-				<p className="text-lg">{date?.locale(locale).format('MMMM YYYY')}</p>
+				<p className="text-lg">
+					{viewType === 'timeGridDay' ? date?.locale(locale).format('LL') : date?.locale(locale).format('MMMM YYYY')}
+				</p>
 				<button type="button" className="btn btn-sm" onClick={() => handleDateChange('next')}>
 					<FontAwesomeIcon icon={faChevronRight} />
 				</button>

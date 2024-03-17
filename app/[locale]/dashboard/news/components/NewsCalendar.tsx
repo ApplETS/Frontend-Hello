@@ -46,46 +46,46 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 	};
 
 	return (
-		<div>
+		<div className="flex flex-col flex-grow h-full">
 			<CalendarHeader
 				calendarRef={calendarRef}
 				locale={locale}
 				handleFilterChange={handleFilterChange}
 				filterItems={filterItems}
 			/>
-			<div className="rounded-lg border border-gray-300">
-				<FullCalendar
-					ref={calendarRef}
-					plugins={[dayGridPlugin, interactionPlugin, momentPlugin, timeGridPlugin, timeGridDay]}
-					initialView={view}
-					locales={[frLocale, enLocale]}
-					locale={locale}
-					events={shownEvents.map((event) => {
-						return {
-							title: event.title,
-							start: event.eventStartDate,
-							color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
-						};
-					})}
-					eventContent={(arg: EventContentArg) => {
-						return (
-							<div className={`p-2 cursor-pointer`}>
-								<p className="text-left truncate text-black">{`${arg.event.title}`}</p>
-							</div>
-						);
-					}}
-					eventTimeFormat={{
-						hour: '2-digit',
-						minute: '2-digit',
-						hour12: false,
-					}}
-					eventClick={(info) => {
-						handleEventSelect(events.find((event) => event.title === info.event.title)?.cardId ?? null);
-					}}
-					eventDisplay="block"
-					headerToolbar={false}
-				/>
-			</div>
+			<FullCalendar
+				viewClassNames={'rounded-lg border border-gray-300'}
+				ref={calendarRef}
+				height={'100%'}
+				plugins={[dayGridPlugin, interactionPlugin, momentPlugin, timeGridPlugin, timeGridDay]}
+				initialView={view}
+				locales={[frLocale, enLocale]}
+				locale={locale}
+				events={shownEvents.map((event) => {
+					return {
+						title: event.title,
+						start: event.eventStartDate,
+						color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
+					};
+				})}
+				eventContent={(arg: EventContentArg) => {
+					return (
+						<div className={`p-2 cursor-pointer`}>
+							<p className="text-left truncate text-black">{`${arg.event.title}`}</p>
+						</div>
+					);
+				}}
+				eventTimeFormat={{
+					hour: '2-digit',
+					minute: '2-digit',
+					hour12: false,
+				}}
+				eventClick={(info) => {
+					handleEventSelect(events.find((event) => event.title === info.event.title)?.cardId ?? null);
+				}}
+				eventDisplay="block"
+				headerToolbar={false}
+			/>
 		</div>
 	);
 }

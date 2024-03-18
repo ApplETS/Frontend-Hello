@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
 interface Props {
@@ -8,8 +8,11 @@ interface Props {
 	firstButtonTitle: string;
 	secondButtonTitle: string;
 	secondButtonColor: string;
+	secondButtonHoverColor: string;
 	inputTitle?: string;
 	onClose: () => void;
+	handleError?: () => void;
+	confirmationAction?: () => Promise<unknown>;
 }
 
 export default function Confirmation({
@@ -17,9 +20,13 @@ export default function Confirmation({
 	firstButtonTitle,
 	secondButtonTitle,
 	secondButtonColor,
+	secondButtonHoverColor,
 	inputTitle,
 	onClose,
+	handleError,
+	confirmationAction,
 }: Props) {
+	const [isPending, startTransition] = useTransition();
 	const { isLight } = useTheme();
 	const [inputText, setInputText] = useState('');
 
@@ -28,8 +35,14 @@ export default function Confirmation({
 	};
 
 	const submit = () => {
-		// TODO : Submit to backend
-		onClose();
+		startTransition(async () => {
+			if (confirmationAction) {
+				const response = await confirmationAction();
+				if (response === false || response === undefined) {
+					handleError && handleError();
+				}
+			}
+		});
 	};
 
 	return (
@@ -44,26 +57,34 @@ export default function Confirmation({
 					style={{ top: '50%', left: '50%' }}
 				>
 					<p>{title}</p>
-					{inputTitle && (
-						<input
-							type="text"
-							placeholder={inputTitle}
-							value={inputText}
-							className="input input-ghost w-full border-base-content mt-2"
-							onChange={(e) => setInputText(e.target.value)}
-						/>
+					{isPending ? (
+						<div className="flex justify-center items-center w-full h-full">
+							<div className="loading loading-spinner loading-lg"></div>
+						</div>
+					) : (
+						<>
+							{inputTitle && (
+								<input
+									type="text"
+									placeholder={inputTitle}
+									value={inputText}
+									className="input input-ghost w-full border-base-content mt-2"
+									onChange={(e) => setInputText(e.target.value)}
+								/>
+							)}
+							<div className="mt-2">
+								<button
+									className={`btn text-black mr-3 ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
+									onClick={handleClose}
+								>
+									{firstButtonTitle}
+								</button>
+								<button className={`btn ${secondButtonColor} ${secondButtonHoverColor} text-black`} onClick={submit}>
+									{secondButtonTitle}
+								</button>
+							</div>
+						</>
 					)}
-					<div className="mt-2">
-						<button
-							className={`btn text-black mr-3 ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
-							onClick={handleClose}
-						>
-							{firstButtonTitle}
-						</button>
-						<button className={`btn ${secondButtonColor} text-black`} onClick={submit}>
-							{secondButtonTitle}
-						</button>
-					</div>
 				</dialog>
 			</div>
 		</>

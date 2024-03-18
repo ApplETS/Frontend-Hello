@@ -111,7 +111,7 @@ export default function UsersTable({ users }: Props) {
 											</div>
 										</td>
 										<td>
-											<DropdownMenu items={menuItems} />
+											<DropdownMenu items={menuItems} publicationIndex={0} />
 										</td>
 									</tr>
 								))}

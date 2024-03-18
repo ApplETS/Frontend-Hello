@@ -1,4 +1,5 @@
 import { getSession } from '@/utils/supabase/auth';
+import { Session } from '@supabase/supabase-js';
 
 export enum Method {
 	GET = 'GET',
@@ -6,6 +7,8 @@ export enum Method {
 	PUT = 'PUT',
 	DELETE = 'DELETE',
 	PATCH = 'PATCH',
+	POSTFORM = 'POSTFORM',
+	PATCHFORM = 'PATCHFORM',
 }
 
 export async function fetchWithSession(
@@ -19,16 +22,24 @@ export async function fetchWithSession(
 	const session = await getSession();
 
 	const fetchOptions: RequestInit = {
-		method: method,
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + session?.access_token,
-		},
+		method:
+			method !== Method.POSTFORM && method !== Method.PATCHFORM
+				? method
+				: method === Method.POSTFORM
+				? Method.POST
+				: Method.PATCH,
+		headers:
+			method !== Method.POSTFORM && method !== Method.PATCHFORM
+				? {
+						'Content-Type': 'application/json',
+						Authorization: 'Bearer ' + session?.access_token,
+				  }
+				: { Authorization: 'Bearer ' + session?.access_token },
 		next: {},
 	};
 
-	if (body && method.toUpperCase() !== 'GET') {
-		fetchOptions.body = JSON.stringify(body);
+	if (body && method !== Method.GET) {
+		fetchOptions.body = method !== Method.POSTFORM && method !== Method.PATCHFORM ? JSON.stringify(body) : body;
 	}
 
 	if (tag && fetchOptions.next) {

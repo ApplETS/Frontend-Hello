@@ -11,6 +11,10 @@ interface Statuses {
 	[key: number]: Status;
 }
 
+interface NewsStatuses {
+	[key: string]: Status;
+}
+
 export default {
 	publicationModalStatus: {
 		view: 1,
@@ -26,7 +30,13 @@ export default {
 		[NewsStates.APPROVED]: { color: 'bg-green', label: 'approved' },
 		[NewsStates.PUBLISHED]: { color: 'bg-blue', label: 'published' },
 		[NewsStates.ALL]: { color: 'bg-orange', label: 'all' },
-	} as Statuses,
+	} as NewsStatuses,
+	publicationMenuItemsStatus: {
+		open: 0,
+		modify: 1,
+		duplicate: 2,
+		delete: 3,
+	},
 	userStatuses: {
 		[UserStates.PENDING]: { color: 'bg-pink', label: 'pending' },
 		[UserStates.DEACTIVATED]: { color: 'bg-error', label: 'deactivated' },
@@ -36,8 +46,8 @@ export default {
 	publicationMenuItems: [
 		{
 			id: 1,
-			label: 'open',
-			icon: faPenToSquare,
+			label: 'modify',
+			icon: faPencil,
 			color: '',
 		},
 		{
@@ -75,6 +85,7 @@ export default {
 	],
 	colors: ['bg-blue', 'bg-green', 'bg-pink', 'bg-orange', 'bg-purple'],
 	tags: {
+		publications: 'publications',
 		users: 'users',
 	},
 };

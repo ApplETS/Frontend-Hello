@@ -14,7 +14,6 @@ export async function signUpUser(email: string, organisation: string, activityAr
 	}
 
 	const responseData: ApiResponse<User> = await response.json();
-	console.log(responseData);
 
 	// Check for errors in response
 	if (responseData.error) {

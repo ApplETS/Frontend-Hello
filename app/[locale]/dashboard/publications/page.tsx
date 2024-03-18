@@ -1,6 +1,7 @@
 import React from 'react';
-import { getEvents as getPublications } from '@/lib/get-publications';
+import { getPublications } from '@/lib/publications/get-publications';
 import PublicationsTable from './components/PublicationsTable';
+import { getTags } from '@/lib/get-tags';
 
 type Props = {
 	params: { locale: string };
@@ -8,6 +9,7 @@ type Props = {
 
 export default async function Publications({ params: { locale } }: Props) {
 	const publications = await getPublications();
+	const tags = await getTags();
 
-	return <PublicationsTable locale={locale} publications={publications} />;
+	return <PublicationsTable locale={locale} publications={publications} tags={tags} />;
 }

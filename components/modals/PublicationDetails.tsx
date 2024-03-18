@@ -195,19 +195,19 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 							<div className="flex mb-3">
 								<div className="grid grid-cols-3 gap-4">
-									<div className="col-span-2">
+									<div className="col-span-2 mt-4">
+										<div>
+											<label className="block mb-3">{t('modal.title')}</label>
+											<input
+												type="text"
+												value={title}
+												className="input input-ghost w-full border-base-content"
+												onChange={(e) => setTitle(e.target.value)}
+												disabled={isDisabled}
+											/>
+										</div>
 										<div className="grid grid-cols-2 gap-4">
 											<div>
-												<div>
-													<label className="block">{t('modal.title')}</label>
-													<input
-														type="text"
-														value={title}
-														className="input input-ghost w-full border-base-content"
-														onChange={(e) => setTitle(e.target.value)}
-														disabled={isDisabled}
-													/>
-												</div>
 												<div className="mt-3">
 													<label className="block">{t('modal.published-date')}</label>
 													<input
@@ -221,7 +221,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 											</div>
 											<div>
 												<div className="z-30">
-													<label className="block">{t('modal.activity-area')}</label>
+													<label className="block mt-3">{t('modal.activity-area')}</label>
 													<div style={{ pointerEvents: 'none', opacity: 0.5 }}>
 														<ActivityAreaDropdown
 															items={[
@@ -235,17 +235,6 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 															customStyle="w-full"
 														/>
 													</div>
-												</div>
-
-												<div className="mt-3">
-													<label className="block">{t('modal.alt-text')}</label>
-													<input
-														type="text"
-														value={imageAltText}
-														className="input input-ghost w-full border-base-content"
-														onChange={(e) => setImageAltText(e.target.value)}
-														disabled={isDisabled}
-													/>
 												</div>
 											</div>
 
@@ -271,57 +260,79 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 												/>
 											</div>
 										</div>
-									</div>
-
-									<div className="flex-1 ml-4 h-64 overflow-hidden rounded-lg">
-										<input
-											type="file"
-											className="file-input file-input-bordered file-input-accent w-full"
-											disabled={isDisabled}
-											accept="image/*"
-											onChange={(e) => {
-												if (e.target.files && e.target.files.length > 0) {
-													handleFileDrop(e.target.files[0]);
-												}
-											}}
-										/>
-										{imageSrc ? (
-											<img src={imageSrc} alt={imageAltText} className="w-full h-full object-cover rounded-lg mt-2" />
-										) : (
+										<div className="mb-3">
+											<label className="block">{t('modal.tags-title')}</label>
 											<div
-												className={`w-full h-full rounded-lg mt-2 ${isLight ? 'bg-base-300 ' : 'bg-base-100'}`}
-											></div>
-										)}
+												className={`flex items-center gap-2 py-2 px-2 border border-base-content rounded-md ${
+													isDisabled ? 'h-10' : ''
+												}`}
+											>
+												{selectedTags.map((tag, index) => (
+													<div
+														key={tag.id}
+														className={`badge ${Constants.colors[index]} text-black py-4 px-3 flex items-center whitespace-nowrap overflow-hidden`}
+														style={{ maxWidth: 'calc(100% - 30px)' }}
+													>
+														<span className="truncate">{tag.name}</span>
+														<FontAwesomeIcon
+															icon={faXmark}
+															className="ml-2 cursor-pointer"
+															onClick={() =>
+																setSelectedTags((prevTags) => prevTags.filter((currentTag) => currentTag !== tag))
+															}
+														/>
+													</div>
+												))}
+												{!isDisabled && !addTagButtonIsDisabled && (
+													<AddTag
+														titleButton={t('modal.add-tag')}
+														items={availableTags}
+														onTagSelected={handleTagSelect}
+													/>
+												)}
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
 
-							<div className="mb-3">
-								<label className="block">{t('modal.tags-title')}</label>
-								<div
-									className={`flex items-center gap-2 py-2 px-2 border border-base-content rounded-md ${
-										isDisabled ? 'h-10' : ''
-									}`}
-								>
-									{selectedTags.map((tag, index) => (
-										<div
-											key={tag.id}
-											className={`badge ${Constants.colors[index]} text-black py-4 px-3 flex items-center whitespace-nowrap overflow-hidden`}
-											style={{ maxWidth: 'calc(100% - 30px)' }}
-										>
-											<span className="truncate">{tag.name}</span>
-											<FontAwesomeIcon
-												icon={faXmark}
-												className="ml-2 cursor-pointer"
-												onClick={() =>
-													setSelectedTags((prevTags) => prevTags.filter((currentTag) => currentTag !== tag))
-												}
+									<div className="ml-4 flex flex-col gap-3">
+										<div>
+											<div className="flex items-center mt-1">
+												<label className="block">{t('modal.alt-text')}</label>
+												<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.alt-text-tooltip')}>
+													<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
+														?
+													</button>
+												</div>
+											</div>
+											<input
+												type="text"
+												value={imageAltText}
+												className="input input-ghost w-full border-base-content"
+												onChange={(e) => setImageAltText(e.target.value)}
+												disabled={isDisabled}
 											/>
 										</div>
-									))}
-									{!isDisabled && !addTagButtonIsDisabled && (
-										<AddTag titleButton={t('modal.add-tag')} items={availableTags} onTagSelected={handleTagSelect} />
-									)}
+										<div className="flex-1 h-64 overflow-hidden rounded-lg">
+											<input
+												type="file"
+												className="file-input file-input-bordered file-input-accent w-full"
+												disabled={isDisabled}
+												accept="image/*"
+												onChange={(e) => {
+													if (e.target.files && e.target.files.length > 0) {
+														handleFileDrop(e.target.files[0]);
+													}
+												}}
+											/>
+											{imageSrc ? (
+												<img src={imageSrc} alt={imageAltText} className="w-full h-full object-cover rounded-lg mt-2" />
+											) : (
+												<div
+													className={`w-full h-full rounded-lg mt-2 ${isLight ? 'bg-base-300 ' : 'bg-base-100'}`}
+												></div>
+											)}
+										</div>
+									</div>
 								</div>
 							</div>
 

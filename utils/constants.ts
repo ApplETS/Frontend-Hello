@@ -1,13 +1,18 @@
-import { faPenToSquare, faClone, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faClone, faTrashCan, faPencil, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import { NewsStates } from '@/models/news-states';
+import { UserStates } from '@/models/user-states';
 
-interface NewsStatus {
+interface Status {
 	color: string;
 	label: string;
 }
 
+interface Statuses {
+	[key: number]: Status;
+}
+
 interface NewsStatuses {
-	[key: number]: NewsStatus;
+	[key: string]: Status;
 }
 
 export default {
@@ -27,11 +32,23 @@ export default {
 		[NewsStates.PUBLISHED]: { color: 'bg-blue', label: 'published' },
 		[NewsStates.ALL]: { color: 'bg-orange', label: 'all' },
 	} as NewsStatuses,
+	publicationMenuItemsStatus: {
+		open: 0,
+		modify: 1,
+		duplicate: 2,
+		delete: 3,
+	},
+	userStatuses: {
+		[UserStates.PENDING]: { color: 'bg-pink', label: 'pending' },
+		[UserStates.DEACTIVATED]: { color: 'bg-error', label: 'deactivated' },
+		[UserStates.ACTIVE]: { color: 'bg-purple', label: 'active' },
+		[UserStates.ALL]: { color: 'bg-orange', label: 'all' },
+	} as Statuses,
 	publicationMenuItems: [
 		{
 			id: 1,
-			label: 'open',
-			icon: faPenToSquare,
+			label: 'modify',
+			icon: faPencil,
 			color: '',
 		},
 		{
@@ -47,5 +64,30 @@ export default {
 			color: 'text-error',
 		},
 	],
+	userMenuItems: [
+		{
+			id: 1,
+			label: 'activate',
+			icon: faLockOpen,
+			color: '',
+		},
+		{
+			id: 2,
+			label: 'deactivate',
+			icon: faLock,
+			color: '',
+		},
+		{
+			id: 3,
+			label: 'delete',
+			icon: faTrashCan,
+			color: 'text-error',
+		},
+	],
 	colors: ['bg-blue', 'bg-green', 'bg-pink', 'bg-orange', 'bg-purple'],
+	tags: {
+		publications: 'publications',
+		approbations: 'approbations',
+		users: 'users',
+	},
 };

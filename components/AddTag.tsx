@@ -1,11 +1,12 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
+import { Tag } from '@/models/tag';
 
 interface Props {
 	titleButton: string;
-	items: string[];
-	onTagSelected: (value: string) => void;
+	items: Tag[];
+	onTagSelected: (value: Tag) => void;
 }
 
 export default function AddTag({ titleButton, items, onTagSelected }: Props) {
@@ -14,7 +15,7 @@ export default function AddTag({ titleButton, items, onTagSelected }: Props) {
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const { isLight } = useTheme();
 
-	const handleItemClick = (item: string) => {
+	const handleItemClick = (item: Tag) => {
 		setSelectedItem(item);
 		setIsDropdownOpen(false);
 		onTagSelected(item);
@@ -32,8 +33,9 @@ export default function AddTag({ titleButton, items, onTagSelected }: Props) {
 	}, []);
 
 	return (
-		<div ref={dropdownRef} className="dropdown w-full z-40">
+		<div ref={dropdownRef} className="dropdown w-fit z-40">
 			<button
+				type="button"
 				className={` badge py-4 px-4 bg-base-300 ${
 					isLight ? 'hover:bg-secondary text-black' : 'hover:bg-base-100 text-white'
 				}`}
@@ -45,7 +47,7 @@ export default function AddTag({ titleButton, items, onTagSelected }: Props) {
 				<ul tabIndex={-1} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
 					{items.map((item, index) => (
 						<li key={index}>
-							<a onClick={() => handleItemClick(item)}>{item}</a>
+							<a onClick={() => handleItemClick(item)}>{item.name}</a>
 						</li>
 					))}
 				</ul>

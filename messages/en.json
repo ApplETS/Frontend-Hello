@@ -7,7 +7,8 @@
 		"news": "News",
 		"publications": "Publications",
 		"approbations": "Approbations",
-		"login": "Login"
+		"login": "Login",
+		"accounts": "Accounts"
 	},
 	"Navbar": {
 		"settings": "Settings",
@@ -70,6 +71,7 @@
 		"title": "Publications",
 		"search": "Search",
 		"create-new-post": "Create a post",
+		"no-posts": "No posts",
 		"no-publications": "No publications found",
 		"table": {
 			"title": "Title",
@@ -91,12 +93,13 @@
 		"menu": {
 			"duplicate": "Duplicate",
 			"delete": "Delete",
-			"open": "Open"
+			"open": "Open",
+			"modify": "Modifier"
 		},
 		"modal": {
 			"create-page-title": "Create a news",
 			"modify-page-title": "Modify a news",
-			"consult-page-title": "Consult a news",
+			"view-page-title": "Consult a news",
 			"title": "Title",
 			"activity-area": "Activity area",
 			"alt-text": "Alt text",
@@ -111,11 +114,28 @@
 			"choose-file": "Choose a file",
 			"cancel-button": "Close",
 			"submit-button": "Send for approbation",
+			"resubmit-button": "Resubmit for approbation",
 			"tool-tip-text": "It will go back to pending approval and your previous post will be deleted",
+			"published-date-tool-tip-text": "The date that the event will be published",
+			"start-date-tool-tip-text": "This is the start date of the event",
+			"end-date-tool-tip-text": "This is the end date of the event",
 			"error-toast-message": "Please fill all the fields",
 			"date-error-toast-message": "The event start date must be before the event end date",
 			"image-format-error-toast-message": "The image format is not supported",
-			"preview": "Preview"
+			"success-toast-message": "The news has been sent for approbation",
+			"post-error-toast-message": "An error occurred while sending the news for approbation",
+			"preview": "Preview",
+			"delete-title": "Are your sure you want to delete this news?",
+			"delete-button": "Delete",
+			"delete-success-toast-message": "The news has been deleted",
+			"delete-error-toast-message": "An error occurred while deleting the news",
+			"cancel": "Cancel",
+			"activity-area-items": {
+				"scientificClub": "Scientific Club",
+				"ets": "ETS",
+				"sve": "Student Life Service",
+				"aeets": "AEETS"
+			}
 		}
 	},
 	"Approbations": {
@@ -158,6 +178,45 @@
 		"informations": "Informations",
 		"website": "Website",
 		"email": "Email"
+	},
+	"Accounts": {
+		"title": "Accounts",
+		"search": "Search",
+		"create-new-account": "Create account",
+		"no-accounts-found": "No accounts found",
+		"table": {
+			"organisation": "Organization name",
+			"email": "Email",
+			"status": "Status",
+			"activityarea": "Activity area"
+		},
+		"filters": {
+			"all": "All",
+			"deactivated": "Deactivated",
+			"pending": "Pending",
+			"active": "Active"
+		},
+		"menu": {
+			"activate": "Activate",
+			"deactivate": "Deactivate",
+			"delete": "Delete"
+		},
+		"create": {
+			"title": "Create account",
+			"organisation": "Organization name",
+			"activityarea": "Activity area",
+			"email": "Email",
+			"send": "Send",
+			"close": "Close",
+			"activity": {
+				"scientificClub": "Scientific Club",
+				"ets": "ETS",
+				"sve": "Student Life Service",
+				"aeets": "AEETS"
+			},
+			"success": "Account created",
+			"error": "An error occurred"
+		}
 	},
 	"Settings": {
 		"title": "Settings",
@@ -220,6 +279,8 @@
 		}
 	},
 	"Calendar": {
-		"today": "Today"
+		"week": "Week",
+		"month": "Month",
+		"day": "Day"
 	}
 }

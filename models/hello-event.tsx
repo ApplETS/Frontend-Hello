@@ -1,3 +1,4 @@
+import { Tag } from './tag';
 import { User } from './user';
 
 export interface HelloEvent {
@@ -5,7 +6,8 @@ export interface HelloEvent {
 	title: string;
 	content: string;
 	imageUrl: string;
-	state: number;
+	imageAltText: string;
+	state: string;
 	publicationDate: string;
 	eventStartDate: string;
 	eventEndDate: string;
@@ -13,6 +15,6 @@ export interface HelloEvent {
 	updatedAt: string;
 	moderator: User | null;
 	organizer: User | null;
-	tags: string[];
+	tags: Tag[];
 	cardId?: number;
 }

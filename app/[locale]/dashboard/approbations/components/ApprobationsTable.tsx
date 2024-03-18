@@ -9,14 +9,17 @@ import { HelloEvent } from '@/models/hello-event';
 import { formatDate } from '@/utils/formatDate';
 import { User } from '@/models/user';
 import PublicationDetails from '@/components/modals/PublicationDetails';
+import { Tag } from '@/models/tag';
+import { attemptRevalidation } from '@/lib/attempt-revalidation';
 
 type Props = {
 	events: HelloEvent[];
 	locale: string;
 	user: User;
+	tags: Tag[];
 };
 
-export default function ApprobationsTable({ events, locale, user }: Props) {
+export default function ApprobationsTable({ events, locale, user, tags }: Props) {
 	const t = useTranslations('Approbations');
 	const tp = useTranslations('Publications');
 	const filterAll = t('filters.all').toLowerCase();
@@ -60,37 +63,13 @@ export default function ApprobationsTable({ events, locale, user }: Props) {
 			{isModalOpen && (
 				<PublicationDetails
 					locale={locale}
-					props={{
-						pageTitle: tp('modal.create-page-title'),
-						pageTitleModerator: t('modal.moderator-page-title'),
-						title: tp('modal.title'),
-						activityArea: tp('modal.activity-area'),
-						altText: tp('modal.alt-text'),
-						publishedDate: tp('modal.published-date'),
-						eventStartDate: tp('modal.event-start-date'),
-						eventEndDate: tp('modal.event-end-date'),
-						tagsTitle: tp('modal.tags-title'),
-						addTag: tp('modal.add-tag'),
-						content: tp('modal.content'),
-						newsTitle: tp('modal.news'),
-						eventTitle: tp('modal.event-date'),
-						chooseFile: tp('modal.choose-file'),
-						cancelButton: tp('modal.cancel-button'),
-						submitButton: tp('modal.submit-button'),
-						approveButton: t('modal.approve-button'),
-						rejectButton: t('modal.reject-button'),
-						deleteButton: t('modal.delete-button'),
-						tags: ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile'], // TODO: Replace with actual tags
-						toolTipText: tp('modal.tool-tip-text'),
-						errorToastMessage: tp('modal.error-toast-message'),
-						dateErrorToastMessage: tp('modal.date-error-toast-message'),
-						imageFormatErrorToastMessage: tp('modal.image-format-error-toast-message'),
-						previewTitle: tp('modal.preview'),
+					publication={selectedEvent}
+					onClose={() => {
+						setIsModalOpen(false);
+						attemptRevalidation(Constants.tags.approbations);
 					}}
-					onClose={() => setIsModalOpen(false)}
 					modalMode={Constants.publicationModalStatus.moderator}
-					user={user}
-					selectedEvent={selectedEvent}
+					tags={tags}
 				/>
 			)}
 			<div className="mb-4 flex items-center space-x-4">

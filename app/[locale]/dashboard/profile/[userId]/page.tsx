@@ -8,7 +8,6 @@ import { faArrowLeft, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslations } from 'next-intl';
 import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
-import { Organizer } from '@/models/organizer';
 import Constants from '@/utils/constants';
 import Image from 'next/image';
 import Search from '@/components/Search';
@@ -21,6 +20,9 @@ import linkedinIcon from '@/public/Socials/Linkedin.svg';
 import tiktokIcon from '@/public/Socials/Tiktok.svg';
 import redditIcon from '@/public/Socials/Reddit.svg';
 import xIcon from '@/public/Socials/X.svg';
+import { HelloEvent } from '@/models/hello-event';
+import { Organizer } from '@/models/organizer';
+import { NewsStates } from '@/models/news-states';
 
 type Props = {
 	params: { locale: string; userId: string };
@@ -60,7 +62,7 @@ export default function Profile({ params: { locale } }: Props) {
 				content:
 					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
 				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-				state: 1,
+				state: NewsStates.ON_HOLD,
 				publicationDate: '2023-03-11T15:00:00.000Z',
 				eventStartDate: '2023-03-11T15:00:00.000Z',
 				eventEndDate: '2023-03-11T16:00:00.000Z',
@@ -68,7 +70,27 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
-				tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
+				imageAltText: 'Image de la compétition AMC',
+				tags: [
+					{
+						id: '1',
+						name: 'Développement mobile',
+						createdAt: '',
+						updatedAt: '',
+					},
+					{
+						id: '2',
+						name: 'ApplETS',
+						createdAt: '',
+						updatedAt: '',
+					},
+					{
+						id: '3',
+						name: 'Club scientifique',
+						createdAt: '',
+						updatedAt: '',
+					},
+				],
 			},
 			{
 				id: '2',
@@ -76,7 +98,7 @@ export default function Profile({ params: { locale } }: Props) {
 				content:
 					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
 				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-				state: 1,
+				state: NewsStates.ON_HOLD,
 				publicationDate: '2023-03-11T15:00:00.000Z',
 				eventStartDate: '2023-03-11T15:00:00.000Z',
 				eventEndDate: '2023-03-12T16:00:00.000Z',
@@ -84,7 +106,33 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
-				tags: ['Développement mobile', 'ApplETS', 'Club scientifique', 'Conférence'],
+				imageAltText: 'Image de la compétition AMC',
+				tags: [
+					{
+						id: '1',
+						name: 'Développement mobile',
+						createdAt: '',
+						updatedAt: '',
+					},
+					{
+						id: '2',
+						name: 'ApplETS',
+						createdAt: '',
+						updatedAt: '',
+					},
+					{
+						id: '3',
+						name: 'Club scientifique',
+						createdAt: '',
+						updatedAt: '',
+					},
+					{
+						id: '4',
+						name: 'Conférence',
+						createdAt: '',
+						updatedAt: '',
+					},
+				],
 			},
 			{
 				id: '2',
@@ -92,7 +140,7 @@ export default function Profile({ params: { locale } }: Props) {
 				content:
 					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
 				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-				state: 1,
+				state: NewsStates.ON_HOLD,
 				publicationDate: '2023-03-11T15:00:00.000Z',
 				eventStartDate: '2023-03-11T15:00:00.000Z',
 				eventEndDate: '2023-04-12T16:00:00.000Z',
@@ -100,7 +148,39 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
-				tags: ['Développement mobile', 'ApplETS', 'Club scientifique', 'Conférence', 'Génie logiciel'],
+				imageAltText: 'Image de la compétition AMC',
+				tags: [
+					{
+						id: '1',
+						name: 'Développement mobile',
+						createdAt: '',
+						updatedAt: '',
+					},
+					{
+						id: '2',
+						name: 'ApplETS',
+						createdAt: '',
+						updatedAt: '',
+					},
+					{
+						id: '3',
+						name: 'Club scientifique',
+						createdAt: '',
+						updatedAt: '',
+					},
+					{
+						id: '4',
+						name: 'Conférence',
+						createdAt: '',
+						updatedAt: '',
+					},
+					{
+						id: '5',
+						name: 'Génie logiciel',
+						createdAt: '',
+						updatedAt: '',
+					},
+				],
 			},
 			{
 				id: '3',
@@ -108,7 +188,7 @@ export default function Profile({ params: { locale } }: Props) {
 				content:
 					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
 				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-				state: 1,
+				state: NewsStates.ON_HOLD,
 				publicationDate: '2023-03-11T15:00:00.000Z',
 				eventStartDate: '2023-03-11T15:00:00.000Z',
 				eventEndDate: '',
@@ -116,7 +196,27 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
-				tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
+				imageAltText: 'Image de la compétition AMC',
+				tags: [
+					{
+						id: '1',
+						name: 'Développement mobile',
+						createdAt: '',
+						updatedAt: '',
+					},
+					{
+						id: '2',
+						name: 'ApplETS',
+						createdAt: '',
+						updatedAt: '',
+					},
+					{
+						id: '3',
+						name: 'Club scientifique',
+						createdAt: '',
+						updatedAt: '',
+					},
+				],
 			},
 		],
 		createdAt: new Date().toISOString(),
@@ -292,10 +392,10 @@ export default function Profile({ params: { locale } }: Props) {
 									<div className="flex flex-wrap gap-2 overflow-x-auto">
 										{event.tags.map((tag, index) => (
 											<div
-												key={tag}
+												key={tag.id}
 												className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
 											>
-												{tag}
+												{tag.name}
 											</div>
 										))}
 									</div>

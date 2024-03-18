@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation';
 import { User } from '@/models/user';
 import NewsNavbar from '../news/components/NewsNavbar';
 import { useToast } from '@/utils/provider/ToastProvider';
-import { useLoading } from '@/utils/provider/LoadingProvider';
 import { useUser } from '@/utils/provider/UserProvider';
 import Toast from '@/components/Toast';
+import { useLoading } from '@/utils/provider/LoadingProvider';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
 
 interface Props {
@@ -56,6 +56,7 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 				{pages[activePage]?.title && activePage !== 'news' && pages[activePage]?.isVisible && (
 					<div className="text-2xl mb-7">{pages[activePage].title}</div>
 				)}
+
 				{children}
 				{isLoading && <LoadingSpinner />}
 			</div>

@@ -9,7 +9,7 @@ import { EventContentArg } from '@fullcalendar/core';
 import { HelloEvent } from '@/models/hello-event';
 import frLocale from '@fullcalendar/core/locales/fr';
 import enLocale from '@fullcalendar/core/locales/en-gb';
-import { createRef, useEffect, useState } from 'react';
+import { createRef, useState } from 'react';
 import { CalendarHeader } from './NewsCalendarHeader';
 
 interface Props {

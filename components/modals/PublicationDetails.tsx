@@ -186,7 +186,10 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 								<h1 className="text-2xl block">{getModalTitle()}</h1>{' '}
 								{modalMode === Constants.publicationModalStatus.modify && (
 									<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.tool-tip-text')}>
-										<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
+										<button
+											type="button"
+											className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2"
+										>
 											!
 										</button>
 									</div>
@@ -305,7 +308,10 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 											<div className="flex items-center mt-1">
 												<label className="block">{t('modal.alt-text')}</label>
 												<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.alt-text-tooltip')}>
-													<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
+													<button
+														type="button"
+														className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2"
+													>
 														?
 													</button>
 												</div>

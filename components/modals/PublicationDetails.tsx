@@ -262,7 +262,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 							</div>
 
 							<div className="flex mb-3">
-								<div className="grid grid-cols-3 gap-4">
+								<div className="grid grid-cols-3 gap-4 w-full">
 									<div className="col-span-2 mt-4">
 										<div>
 											<label className="block mb-3">{t('modal.title')}</label>

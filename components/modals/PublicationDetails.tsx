@@ -255,8 +255,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 													value={eventEndDate}
 													className="input input-ghost w-full border-base-content"
 													onChange={(e) => setEventEndDate(e.target.value)}
-													min={eventStartDate}
-													disabled={isDisabled}
+													disabled={isDisabled || !eventStartDate}
 												/>
 											</div>
 										</div>

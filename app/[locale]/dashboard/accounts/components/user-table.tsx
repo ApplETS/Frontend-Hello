@@ -68,55 +68,59 @@ export default function UsersTable({ users }: Props) {
 	};
 
 	return (
-		<div className="flex flex-col h-screen">
-			<div className="mb-4 flex justify-between items-center space-x-4">
-				<div className="flex items-center space-x-4 flex-1">
-					<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
-					<div className="w-56">
-						<Dropdown title={t('filters.all')} items={filters} onFilterChange={handleFilterChanged} />
+		<>
+			<div className="flex flex-col h-screen">
+				<div className="mb-4 flex justify-between items-center space-x-4">
+					<div className="flex items-center space-x-4 flex-1">
+						<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
+						<div className="w-56">
+							<Dropdown title={t('filters.all')} items={filters} onFilterChange={handleFilterChanged} />
+						</div>
+					</div>
+					<div>
+						<button className="btn btn-primary text-base-100" onClick={toggleModal}>
+							{t('create-new-account')}
+						</button>
 					</div>
 				</div>
-				{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
-				<div>
-					<button className="btn btn-primary text-base-100" onClick={toggleModal}>
-						{t('create-new-account')}
-					</button>
-				</div>
-			</div>
-			{filteredUsers.length === 0 ? (
-				<div className="text-center py-4">{t('no-users-found')}</div>
-			) : (
-				<div className="flex-1 overflow-y-auto">
-					<table className="table w-full rounded-lg">
-						<thead className="bg-base-300 rounded-t-lg h-17">
-							<tr className="text-base-content text-base font-bold">
-								<th>{t('table.organisation')}</th>
-								<th>{t('table.email')}</th>
-								<th>{t('table.activityarea')}</th>
-								<th>{t('table.status')}</th>
-								<th className="w-[5%] rounded-tr-lg"></th>
-							</tr>
-						</thead>
-						<tbody>
-							{filteredUsers.map((user, index) => (
-								<tr key={index} className="border-b-2 border-base-300">
-									<td>{user.organisation ?? '-'}</td>
-									<td>{user.email}</td>
-									<td>{user.activityArea ?? '-'}</td>
-									<td className="text-base">
-										<div className={`py-4 px-4 badge ${Constants.userStatuses[1].color || 'badge-neutral'} text-black`}>
-											{t(`filters.${Constants.userStatuses[1].label}`)}
-										</div>
-									</td>
-									<td>
-										<DropdownMenu items={menuItems} />
-									</td>
+				{filteredUsers.length === 0 ? (
+					<div className="text-center py-4">{t('no-accounts-found')}</div>
+				) : (
+					<div className="flex-1 overflow-y-auto">
+						<table className="table w-full rounded-lg">
+							<thead className="bg-base-300 rounded-t-lg h-17">
+								<tr className="text-base-content text-base font-bold">
+									<th>{t('table.organisation')}</th>
+									<th>{t('table.email')}</th>
+									<th>{t('table.activityarea')}</th>
+									<th>{t('table.status')}</th>
+									<th className="w-[5%] rounded-tr-lg"></th>
 								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
-			)}
-		</div>
+							</thead>
+							<tbody>
+								{filteredUsers.map((user, index) => (
+									<tr key={index} className="border-b-2 border-base-300">
+										<td>{user.organisation ?? '-'}</td>
+										<td>{user.email}</td>
+										<td>{user.activityArea ?? '-'}</td>
+										<td className="text-base">
+											<div
+												className={`py-4 px-4 badge ${Constants.userStatuses[1].color || 'badge-neutral'} text-black`}
+											>
+												{t(`filters.${Constants.userStatuses[1].label}`)}
+											</div>
+										</td>
+										<td>
+											<DropdownMenu items={menuItems} />
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				)}
+			</div>
+			{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
+		</>
 	);
 }

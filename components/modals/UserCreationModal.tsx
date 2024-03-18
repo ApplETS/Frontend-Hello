@@ -3,9 +3,7 @@ import { User } from '@/models/user';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { useTranslations } from 'next-intl';
 import { useState, useTransition } from 'react';
-import Dropdown from '../Dropdown';
-import DropdownSelect from '../DropdownSelect';
-import ActivityAreaDropdown from '../ActivityArea';
+import ActivityAreaDropdown from '../ActivityAreaDropdown';
 
 interface Props {
 	onClose: () => void;
@@ -28,8 +26,8 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 	};
 
 	return (
-		<div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-10">
-			<div className="bg-base-200 rounded-lg shadow-lg p-5 max-w-3xl w-full">
+		<div className="fixed inset-0 bg-black bg-opacity-20 flex justify-center items-center z-10">
+			<div className="bg-base-200 rounded-2xl shadow-lg p-6 max-w-3xl w-full">
 				<h2 className="text-2xl text-center font-semibold pb-4">{t('title')}</h2>
 				{isPending ? (
 					<div className="flex justify-center items-center w-full h-full">
@@ -51,9 +49,15 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 									{t('activityarea')}
 								</label>
 								<ActivityAreaDropdown
-									items={[t('activity.scientificClub'), t('activity.ets'), t('activity.sve'), t('activity.aeets')]}
-									isDisabled={false}
+									items={[
+										{ title: t('activity.scientificClub') },
+										{ title: t('activity.ets') },
+										{ title: t('activity.sve') },
+										{ title: t('activity.aeets') },
+									]}
+									inputName="activity"
 									onItemChange={(item: string) => setSelectedActivity(item)}
+									customStyle="col-span-2"
 								/>
 							</div>
 						</div>
@@ -62,27 +66,21 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 							<label className="text-md mb-2" htmlFor="email">
 								{t('email')}
 							</label>
-							<input
-								className="input input-ghost w-full"
-								type="email"
-								name="email"
-								required
-								placeholder="applets@etsmtl.ca"
-							/>
+							<input className="input input-ghost w-full" type="email" name="email" required />
 						</div>
-						<div className="divider divider-accent"></div>
-						<div className="flex flex-row space-x-4 mb-4">
+						<div className="divider before:bg-base-content after:bg-base-content"></div>
+						<div className="flex flex-row space-x-4">
 							<div className="w-3/5"></div>
 							<button
 								type="button"
-								className={`btn font-normal text-black w-1/5 ${
+								className={`btn text-lg font-normal text-black w-1/5 ${
 									isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary bg-[#DCDCDC]'
 								}`}
 								onClick={onClose}
 							>
 								{t('close')}
 							</button>
-							<button className={`btn text-black btn-primary font-normal w-1/5 `}>{t('send')}</button>
+							<button className={`btn text-lg text-black btn-primary font-normal w-1/5 `}>{t('send')}</button>
 						</div>
 					</form>
 				)}

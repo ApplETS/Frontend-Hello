@@ -5,10 +5,10 @@ import { User } from '@/models/user';
 import Constants from '@/utils/constants';
 
 export async function getUsers(): Promise<User[]> {
-	const response = await fetchWithSession(`moderator/organizer`, Method.GET, null, Constants.tags.users);
+	/*const response = await fetchWithSession(`moderator/organizer`, Method.GET, null, Constants.tags.users);
 
 	if (!response.ok) {
-		throw new Error('Failed to fetch events');
+		throw new Error('Failed to fetch users');
 	}
 
 	const responseData: ApiResponse<User[]> = await response.json();
@@ -18,5 +18,6 @@ export async function getUsers(): Promise<User[]> {
 		throw new Error('Error in response data');
 	}
 
-	return responseData.data;
+	return responseData.data;*/
+	return [];
 }

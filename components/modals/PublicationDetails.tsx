@@ -122,6 +122,12 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		setAvailableTags(tags.filter((tag) => !selectedTags.includes(tag)));
 	}, [selectedTags]);
 
+	useEffect(() => {
+		if (!eventStartDate) {
+			setEventEndDate('');
+		}
+	}, [eventStartDate]);
+
 	const handleTagSelect = (tagValue: Tag) => {
 		setSelectedTags((prevTags) => {
 			if (!prevTags.includes(tagValue)) {
@@ -256,6 +262,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 													className="input input-ghost w-full border-base-content"
 													onChange={(e) => setEventEndDate(e.target.value)}
 													disabled={isDisabled || !eventStartDate}
+													min={eventStartDate}
 												/>
 											</div>
 										</div>

@@ -7,7 +7,7 @@ export interface HelloEvent {
 	content: string;
 	imageUrl: string;
 	imageAltText: string;
-	state: number;
+	state: string;
 	publicationDate: string;
 	eventStartDate: string;
 	eventEndDate: string;

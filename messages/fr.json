@@ -116,7 +116,7 @@
 			"submit-button": "Envoyer pour approbation",
 			"resubmit-button": "Renvoyer pour approbation",
 			"tool-tip-text": "Elle retombera en attente d'approbation et votre publication précédente sera supprimé",
-			"published-date-tool-tip-text": "Il s'agit de la date que l'annonce sera publié",
+			"published-date-tool-tip-text": "Il s'agit de la date que l'annonce sera publiée",
 			"start-date-tool-tip-text": "Il s'agit de la date de début de l'événement",
 			"end-date-tool-tip-text": "Il s'agit de la date de fin de l'événement",
 			"error-toast-message": "Veuillez remplir tous les champs",

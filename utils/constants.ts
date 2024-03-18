@@ -11,6 +11,10 @@ interface Statuses {
 	[key: number]: Status;
 }
 
+interface NewsStatuses {
+	[key: string]: Status;
+}
+
 export default {
 	publicationModalStatus: {
 		view: 1,
@@ -26,7 +30,7 @@ export default {
 		[NewsStates.APPROVED]: { color: 'bg-green', label: 'approved' },
 		[NewsStates.PUBLISHED]: { color: 'bg-blue', label: 'published' },
 		[NewsStates.ALL]: { color: 'bg-orange', label: 'all' },
-	} as Statuses,
+	} as NewsStatuses,
 	publicationMenuItemsStatus: {
 		open: 0,
 		modify: 1,

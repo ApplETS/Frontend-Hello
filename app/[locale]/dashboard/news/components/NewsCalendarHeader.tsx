@@ -59,7 +59,7 @@ export const CalendarHeader = ({
 
 	return (
 		<header className="flex flex-row justify-between items-center">
-			<div className="flex items-center gap-4">
+			<div className="flex items-center gap-4 basis-1/3">
 				<button type="button" className="btn btn-sm" onClick={() => handleDateChange('prev')}>
 					<FontAwesomeIcon icon={faChevronLeft} />
 				</button>
@@ -82,7 +82,7 @@ export const CalendarHeader = ({
 					<FontAwesomeIcon icon={faCalendarDay} />
 				</button>
 			</div>
-			<div className="flex justify-center">
+			<div className="flex justify-center basis-1/3">
 				<div className="tabs tabs-boxed" role="tablist">
 					<a
 						role="tab"
@@ -107,7 +107,7 @@ export const CalendarHeader = ({
 					</a>
 				</div>
 			</div>
-			<div className="mb-1">
+			<div className="flex flex-row mb-1 basis-1/3 justify-end">
 				<DropdownSelect
 					title={'Filters'}
 					items={filterItems.map((item) => item.name)}

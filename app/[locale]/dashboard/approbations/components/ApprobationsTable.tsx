@@ -79,6 +79,7 @@ export default function ApprobationsTable({ events, locale, user }: Props) {
 						submitButton: tp('modal.submit-button'),
 						approveButton: t('modal.approve-button'),
 						rejectButton: t('modal.reject-button'),
+						deleteButton: t('modal.delete-button'),
 						tags: ['Apprentissage', 'Atelier', 'Bourses', 'Carrière', 'Programmation', 'Développement mobile'], // TODO: Replace with actual tags
 						toolTipText: tp('modal.tool-tip-text'),
 						errorToastMessage: tp('modal.error-toast-message'),

@@ -141,7 +141,8 @@
 		"modal": {
 			"moderator-page-title": "Consult a news",
 			"approve-button": "Approve",
-			"reject-button": "Refuse"
+			"reject-button": "Refuse",
+			"delete-button": "Delete"
 		}
 	},
 	"Profile": {

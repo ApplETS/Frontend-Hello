@@ -141,7 +141,8 @@
 		"modal": {
 			"moderator-page-title": "Consulter une publication",
 			"approve-button": "Approuver",
-			"reject-button": "Refuser"
+			"reject-button": "Refuser",
+			"delete-button": "Supprimer"
 		}
 	},
 	"Profile": {

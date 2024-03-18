@@ -14,6 +14,7 @@ import { User } from '@/models/user';
 import { HelloEvent } from '@/models/hello-event';
 import { useToast } from '@/utils/provider/ToastProvider';
 import Confirmation from './Confirmation';
+import { NewsStates } from '@/models/news-states';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -39,6 +40,7 @@ interface PublicationDetailsProps {
 		submitButton: string;
 		approveButton?: string;
 		rejectButton?: string;
+		deleteButton?: string;
 		tags: string[];
 		toolTipText: string;
 		errorToastMessage: string;
@@ -77,6 +79,7 @@ export default function PublicationDetails({
 	const addTagButtonIsDisabled = selectedTags.length >= 5;
 	const [showPreview, setShowPreview] = useState(false);
 	const [rejectModalOpen, setRejectModalOpen] = useState(false);
+	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
 	const previewInfos = {
 		news: props.newsTitle,
@@ -159,6 +162,14 @@ export default function PublicationDetails({
 
 	const handleRejectClose = () => {
 		setRejectModalOpen(false);
+	};
+
+	const handleDelete = () => {
+		setDeleteModalOpen(true);
+	};
+
+	const handleDeleteClose = () => {
+		setDeleteModalOpen(false);
 	};
 
 	return (
@@ -345,14 +356,24 @@ export default function PublicationDetails({
 								}`}
 							>
 								{modalMode === Constants.publicationModalStatus.moderator && (
-									<div className="flex flex-row gap-4">
-										<button className={`btn btn-success`} onClick={handleClose}>
-											{props.approveButton}
-										</button>
-										<button className={`btn btn-error`} onClick={handleReject}>
-											{props.rejectButton}
-										</button>
-									</div>
+									<>
+										{selectedEvent?.state !== NewsStates.PUBLISHED ? (
+											<div className="flex flex-row gap-4">
+												<button className={`btn btn-success`} onClick={handleClose}>
+													{props.approveButton}
+												</button>
+												<button className={`btn btn-error`} onClick={handleReject}>
+													{props.rejectButton}
+												</button>
+											</div>
+										) : (
+											<div className="flex flex-row gap-4">
+												<button className={`btn btn-error`} onClick={handleDelete}>
+													{props.deleteButton}
+												</button>
+											</div>
+										)}
+									</>
 								)}
 								{rejectModalOpen && (
 									<Confirmation
@@ -362,6 +383,16 @@ export default function PublicationDetails({
 										secondButtonColor={'btn-error'}
 										inputTitle="Raison"
 										onClose={handleRejectClose}
+									/>
+								)}
+								{deleteModalOpen && (
+									<Confirmation
+										title={'Pourquoi voulez vous supprimer cette annonce?'}
+										firstButtonTitle={'Cancel'}
+										secondButtonTitle={"Supprimer l'annonce"}
+										secondButtonColor={'btn-error'}
+										inputTitle="Raison"
+										onClose={handleDeleteClose}
 									/>
 								)}
 

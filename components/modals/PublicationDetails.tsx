@@ -20,6 +20,7 @@ import { useUser } from '@/utils/provider/UserProvider';
 import { NewsStates } from '@/models/news-states';
 import Confirmation from './Confirmation';
 import { updatePublicationState } from '@/lib/publications/actions/update-publication-state';
+import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -56,7 +57,9 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 	const [deleteReason, setDeleteReason] = useState('');
 
 	const isDisabled =
-		modalMode === Constants.publicationModalStatus.view || modalMode === Constants.publicationModalStatus.delete;
+		modalMode === Constants.publicationModalStatus.view ||
+		modalMode === Constants.publicationModalStatus.delete ||
+		modalMode === Constants.publicationModalStatus.moderator;
 	const addTagButtonIsDisabled = selectedTags.length >= 5;
 	const [showPreview, setShowPreview] = useState(false);
 	const [rejectModalOpen, setRejectModalOpen] = useState(false);
@@ -263,25 +266,29 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 									<div className="col-span-2 mt-4">
 										<div>
 											<label className="block mb-3">{t('modal.title')}</label>
-											<input
-												type="text"
-												value={title}
-												className="input input-ghost w-full border-base-content"
-												onChange={(e) => setTitle(e.target.value)}
-												disabled={isDisabled}
-											/>
+											<div className="border border-base-content rounded-lg">
+												<input
+													type="text"
+													value={title}
+													className={`input input-ghost w-full border-base-content rounded-lg`}
+													onChange={(e) => setTitle(e.target.value)}
+													disabled={isDisabled}
+												/>
+											</div>
 										</div>
 										<div className="grid grid-cols-2 gap-4">
 											<div>
 												<div className="mt-3">
 													<label className="block">{t('modal.published-date')}</label>
-													<input
-														type="date"
-														value={publishedDate}
-														className="input input-ghost w-full border-base-content"
-														onChange={(e) => setPublishedDate(e.target.value)}
-														disabled={isDisabled}
-													/>
+													<div className="border border-base-content rounded-lg">
+														<input
+															type="date"
+															value={publishedDate}
+															className="input input-ghost w-full border-base-content rounded-lg"
+															onChange={(e) => setPublishedDate(e.target.value)}
+															disabled={isDisabled}
+														/>
+													</div>
 												</div>
 											</div>
 											<div>
@@ -305,33 +312,33 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 											<div className="mb-3">
 												<label className="block">{t('modal.event-start-date')}</label>
-												<input
-													type="datetime-local"
-													value={eventStartDate}
-													className="input input-ghost w-full border-base-content"
-													onChange={(e) => setEventStartDate(e.target.value)}
-													disabled={isDisabled}
-												/>
+												<div className="border border-base-content rounded-lg">
+													<input
+														type="datetime-local"
+														value={eventStartDate}
+														className="input input-ghost w-full border-base-content rounded-lg"
+														onChange={(e) => setEventStartDate(e.target.value)}
+														disabled={isDisabled}
+													/>
+												</div>
 											</div>
 											<div className="mb-3">
 												<label className="block">{t('modal.event-end-date')}</label>
-												<input
-													type="datetime-local"
-													value={eventEndDate}
-													className="input input-ghost w-full border-base-content"
-													onChange={(e) => setEventEndDate(e.target.value)}
-													disabled={isDisabled || !eventStartDate}
-													min={eventStartDate}
-												/>
+												<div className="border border-base-content rounded-lg">
+													<input
+														type="datetime-local"
+														value={eventEndDate}
+														className="input input-ghost w-full border-base-content rounded-lg"
+														onChange={(e) => setEventEndDate(e.target.value)}
+														disabled={isDisabled || !eventStartDate}
+														min={eventStartDate}
+													/>
+												</div>
 											</div>
 										</div>
 										<div className="mb-3">
 											<label className="block">{t('modal.tags-title')}</label>
-											<div
-												className={`flex items-center gap-2 py-2 px-2 border border-base-content rounded-md ${
-													isDisabled ? 'h-10' : ''
-												}`}
-											>
+											<div className={`flex items-center gap-2 py-2 px-2 border border-base-content rounded-md`}>
 												{selectedTags.map((tag, index) => (
 													<div
 														key={tag.id}
@@ -339,13 +346,15 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 														style={{ maxWidth: 'calc(100% - 30px)' }}
 													>
 														<span className="truncate">{tag.name}</span>
-														<FontAwesomeIcon
-															icon={faXmark}
-															className="ml-2 cursor-pointer"
-															onClick={() =>
-																setSelectedTags((prevTags) => prevTags.filter((currentTag) => currentTag !== tag))
-															}
-														/>
+														{!isDisabled && (
+															<FontAwesomeIcon
+																icon={faXmark}
+																className="ml-2 cursor-pointer"
+																onClick={() =>
+																	setSelectedTags((prevTags) => prevTags.filter((currentTag) => currentTag !== tag))
+																}
+															/>
+														)}
 													</div>
 												))}
 												{!isDisabled &&
@@ -374,13 +383,15 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 													</button>
 												</div>
 											</div>
-											<input
-												type="text"
-												value={imageAltText}
-												className="input input-ghost w-full border-base-content"
-												onChange={(e) => setImageAltText(e.target.value)}
-												disabled={isDisabled}
-											/>
+											<div className="border border-base-content rounded-lg">
+												<input
+													type="text"
+													value={imageAltText}
+													className="input input-ghost w-full border-base-content rounded-lg"
+													onChange={(e) => setImageAltText(e.target.value)}
+													disabled={isDisabled}
+												/>
+											</div>
 										</div>
 										<div className="flex-1 h-64 overflow-hidden rounded-lg">
 											<input
@@ -411,12 +422,27 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 								{!isDisabled ? (
 									<EditorComp markdown={content} onContentChange={handleContentChange} />
 								) : (
-									<input
-										type="text"
-										value={content}
-										className="input input-ghost w-full border-base-content"
-										disabled={true}
-									/>
+									<div style={{ position: 'relative' }}>
+										<div className="border border-base-content rounded-lg">
+											<MDXEditor
+												className={`text-sm text-justify ${
+													isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
+												}`}
+												plugins={[linkPlugin(), linkDialogPlugin()]}
+												markdown={content}
+											/>
+										</div>
+										<div
+											style={{
+												position: 'absolute',
+												top: 0,
+												right: 0,
+												bottom: 0,
+												left: 0,
+												cursor: 'normal',
+											}}
+										/>
+									</div>
 								)}
 							</div>
 

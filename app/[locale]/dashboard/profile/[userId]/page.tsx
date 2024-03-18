@@ -68,7 +68,14 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
-				tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
+				tags: [
+					{
+						id: '1',
+						name: 'Développement mobile',
+						createdAt: '2023-03-11T15:00:00.000Z',
+						updatedAt: '2023-03-11T15:00:00.000Z',
+					},
+				],
 			},
 			{
 				id: '2',
@@ -84,7 +91,14 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
-				tags: ['Développement mobile', 'ApplETS', 'Club scientifique', 'Conférence'],
+				tags: [
+					{
+						id: '1',
+						name: 'Développement mobile',
+						createdAt: '2023-03-11T15:00:00.000Z',
+						updatedAt: '2023-03-11T15:00:00.000Z',
+					},
+				],
 			},
 			{
 				id: '2',
@@ -100,7 +114,14 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
-				tags: ['Développement mobile', 'ApplETS', 'Club scientifique', 'Conférence', 'Génie logiciel'],
+				tags: [
+					{
+						id: '1',
+						name: 'Développement mobile',
+						createdAt: '2023-03-11T15:00:00.000Z',
+						updatedAt: '2023-03-11T15:00:00.000Z',
+					},
+				],
 			},
 			{
 				id: '3',
@@ -116,7 +137,14 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
-				tags: ['Développement mobile', 'ApplETS', 'Club scientifique'],
+				tags: [
+					{
+						id: '1',
+						name: 'Développement mobile',
+						createdAt: '2023-03-11T15:00:00.000Z',
+						updatedAt: '2023-03-11T15:00:00.000Z',
+					},
+				],
 			},
 		],
 		createdAt: new Date().toISOString(),
@@ -292,10 +320,10 @@ export default function Profile({ params: { locale } }: Props) {
 									<div className="flex flex-wrap gap-2 overflow-x-auto">
 										{event.tags.map((tag, index) => (
 											<div
-												key={tag}
+												key={tag.id}
 												className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
 											>
-												{tag}
+												{tag.name}
 											</div>
 										))}
 									</div>

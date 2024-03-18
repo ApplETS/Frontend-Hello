@@ -112,6 +112,7 @@ export const CalendarHeader = ({
 					title={'Filters'}
 					items={filterItems.map((item) => item.name)}
 					onFilterChange={handleFilterChange}
+					defaultSelected
 				/>
 			</div>
 		</header>

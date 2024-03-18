@@ -198,7 +198,6 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 						<div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200 max-h-[80vh]">
 							<div className="grid grid-cols-2 gap-2"></div>
 							<div className="flex items-center gap-2">
-								{/** TODO CHANGE TITLE ON MODE */}
 								<h1 className="text-2xl block mb-2">{getModalTitle()}</h1>{' '}
 								{modalMode === Constants.publicationModalStatus.modify && (
 									<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.tool-tip-text')}>

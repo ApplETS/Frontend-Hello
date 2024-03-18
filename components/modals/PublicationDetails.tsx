@@ -293,11 +293,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 													</div>
 												))}
 												{!isDisabled && !addTagButtonIsDisabled && (
-													<AddTag
-														titleButton={t('modal.add-tag')}
-														items={availableTags}
-														onTagSelected={handleTagSelect}
-													/>
+													<AddTag searchText={t('search')} items={availableTags} onTagSelected={handleTagSelect} />
 												)}
 											</div>
 										</div>

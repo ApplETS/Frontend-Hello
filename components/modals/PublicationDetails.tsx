@@ -244,18 +244,21 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 											<div>
 												<div className="z-30">
 													<label className="block">{t('modal.activity-area')}</label>
-													<ActivityAreaDropdown
-														items={[
-															{ title: t('modal.activity-area-items.scientificClub') },
-															{ title: t('modal.activity-area-items.ets') },
-															{ title: t('modal.activity-area-items.sve') },
-															{ title: t('modal.activity-area-items.aeets') },
-														]}
-														inputName="activity"
-														onItemChange={setActivityArea}
-														customStyle="w-full"
-													/>
+													<div style={{ pointerEvents: 'none', opacity: 0.5 }}>
+														<ActivityAreaDropdown
+															items={[
+																{ title: t('modal.activity-area-items.scientificClub') },
+																{ title: t('modal.activity-area-items.ets') },
+																{ title: t('modal.activity-area-items.sve') },
+																{ title: t('modal.activity-area-items.aeets') },
+															]}
+															inputName="activity"
+															onItemChange={setActivityArea}
+															customStyle="w-full"
+														/>
+													</div>
 												</div>
+
 												<div className="mt-3">
 													<label className="block">{t('modal.alt-text')}</label>
 													<input

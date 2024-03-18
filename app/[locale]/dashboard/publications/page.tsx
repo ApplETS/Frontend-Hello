@@ -10,6 +10,7 @@ type Props = {
 export default async function Publications({ params: { locale } }: Props) {
 	const publications = await getPublications();
 	const tags = await getTags();
+	tags.sort((a, b) => a.name.localeCompare(b.name));
 
 	return <PublicationsTable locale={locale} publications={publications} tags={tags} />;
 }

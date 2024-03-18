@@ -22,6 +22,7 @@ import redditIcon from '@/public/Socials/Reddit.svg';
 import xIcon from '@/public/Socials/X.svg';
 import { HelloEvent } from '@/models/hello-event';
 import { Organizer } from '@/models/organizer';
+import { NewsStates } from '@/models/news-states';
 
 type Props = {
 	params: { locale: string; userId: string };
@@ -61,7 +62,7 @@ export default function Profile({ params: { locale } }: Props) {
 				content:
 					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
 				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-				state: 1,
+				state: NewsStates.ON_HOLD,
 				publicationDate: '2023-03-11T15:00:00.000Z',
 				eventStartDate: '2023-03-11T15:00:00.000Z',
 				eventEndDate: '2023-03-11T16:00:00.000Z',
@@ -97,7 +98,7 @@ export default function Profile({ params: { locale } }: Props) {
 				content:
 					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
 				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-				state: 1,
+				state: NewsStates.ON_HOLD,
 				publicationDate: '2023-03-11T15:00:00.000Z',
 				eventStartDate: '2023-03-11T15:00:00.000Z',
 				eventEndDate: '2023-03-12T16:00:00.000Z',
@@ -139,7 +140,7 @@ export default function Profile({ params: { locale } }: Props) {
 				content:
 					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
 				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-				state: 1,
+				state: NewsStates.ON_HOLD,
 				publicationDate: '2023-03-11T15:00:00.000Z',
 				eventStartDate: '2023-03-11T15:00:00.000Z',
 				eventEndDate: '2023-04-12T16:00:00.000Z',
@@ -187,7 +188,7 @@ export default function Profile({ params: { locale } }: Props) {
 				content:
 					"AMC est une compétition de développement mobile organisée par ApplETS, un club étudiant de l'ÉTS. La compétition à lieu du 27 au 28 janvier 2024. Que vous soyez un étudiant universitaire ou collégial, novice ou expérimenté en développement.",
 				imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
-				state: 1,
+				state: NewsStates.ON_HOLD,
 				publicationDate: '2023-03-11T15:00:00.000Z',
 				eventStartDate: '2023-03-11T15:00:00.000Z',
 				eventEndDate: '',

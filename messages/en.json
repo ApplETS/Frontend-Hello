@@ -257,5 +257,11 @@
 		"week": "Week",
 		"month": "Month",
 		"day": "Day"
+	},
+	"ActivityArea": {
+		"scientificClub": "Scientific Club",
+		"ets": "ETS",
+		"sve": "Student Life Service",
+		"aeets": "AEETS"
 	}
 }

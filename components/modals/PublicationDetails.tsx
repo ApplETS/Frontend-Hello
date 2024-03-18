@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import ActivityArea from '@/components/ActivityArea';
 import AddTag from '@/components/AddTag';
 import Constants from '@/utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +11,8 @@ import { AlertType } from '../Alert';
 import Preview from './Preview';
 import { User } from '@/models/user';
 import { useToast } from '@/utils/provider/ToastProvider';
+import ActivityAreaDropdown from '../ActivityAreaDropdown';
+import { useTranslations } from 'next-intl';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -46,6 +47,7 @@ interface Props {
 }
 
 export default function PublicationDetails({ locale, props, modalMode, user, onClose }: Props) {
+	const t = useTranslations('ActivityArea');
 	const { isLight } = useTheme();
 	const { setToast } = useToast();
 
@@ -193,10 +195,16 @@ export default function PublicationDetails({ locale, props, modalMode, user, onC
 											<div>
 												<div className="z-30">
 													<label className="block">{props.activityArea}</label>
-													<ActivityArea
-														items={['Clubs scientifiques', 'ÉTS', 'Service à la Vie Étudiante', 'AEETS']}
-														isDisabled={isDisabled}
+													<ActivityAreaDropdown
+														items={[
+															{ title: t('scientificClub') },
+															{ title: t('ets') },
+															{ title: t('sve') },
+															{ title: t('aeets') },
+														]}
+														inputName="activity"
 														onItemChange={setActivityArea}
+														customStyle="w-full"
 													/>
 												</div>
 												<div className="mt-3">

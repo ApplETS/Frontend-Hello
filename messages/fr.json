@@ -181,8 +181,8 @@
 			"organisation": "Nom de l'organisation",
 			"activityarea": "Secteur d'activité",
 			"email": "Courriel",
-			"send": "Send",
-			"close": "Close",
+			"send": "Envoyer",
+			"close": "Fermer",
 			"activity": {
 				"scientificClub": "Club scientifique",
 				"ets": "ETS",

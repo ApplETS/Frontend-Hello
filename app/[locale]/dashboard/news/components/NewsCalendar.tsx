@@ -9,7 +9,7 @@ import { EventContentArg } from '@fullcalendar/core';
 import { HelloEvent } from '@/models/hello-event';
 import frLocale from '@fullcalendar/core/locales/fr';
 import enLocale from '@fullcalendar/core/locales/en-gb';
-import { createRef, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { CalendarHeader } from './NewsCalendarHeader';
 
 interface Props {
@@ -45,6 +45,22 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 		}
 	};
 
+	const updatedEvents = events.map((event) => {
+		const startDate = new Date(event.eventStartDate);
+		const endDate = new Date(event.eventEndDate);
+
+		startDate.setMinutes(startDate.getMinutes() + 30);
+		endDate.setMinutes(endDate.getMinutes() + 30);
+
+		return {
+			...event,
+			eventStartDate: startDate.toISOString(),
+			eventEndDate: endDate.toISOString(),
+		};
+	});
+
+	events = updatedEvents;
+
 	return (
 		<div className="flex flex-col flex-grow h-full">
 			<CalendarHeader
@@ -66,12 +82,13 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 						title: event.title,
 						start: event.eventStartDate,
 						color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
+						end: event.eventEndDate,
 					};
 				})}
 				eventContent={(arg: EventContentArg) => {
 					return (
 						<div className={`p-2 cursor-pointer`}>
-							<p className="text-left truncate text-black">{`${arg.event.title}`}</p>
+							<p className="truncate text-black text-center">{`${arg.event.title}`}</p>
 						</div>
 					);
 				}}

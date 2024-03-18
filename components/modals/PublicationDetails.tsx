@@ -177,7 +177,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 						<div className="modal-box w-3/4 max-w-7xl mx-auto p-5 bg-base-200 max-h-[80vh]">
 							<div className="grid grid-cols-2 gap-2"></div>
 							<div className="flex items-center gap-2">
-								<h1 className="text-2xl block mb-2">{getModalTitle()}</h1>{' '}
+								<h1 className="text-2xl block">{getModalTitle()}</h1>{' '}
 								{modalMode === Constants.publicationModalStatus.modify && (
 									<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.tool-tip-text')}>
 										<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center mb-2">
@@ -185,7 +185,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 										</button>
 									</div>
 								)}
-								<div className="ml-auto mb-2">
+								<div className="ml-auto">
 									<button type="button" className="btn btn-primary" onClick={() => setShowPreview(true)}>
 										{t('modal.preview')}
 										<FontAwesomeIcon icon={faMobileScreen} className="ml-1" />

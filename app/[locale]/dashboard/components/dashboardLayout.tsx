@@ -4,8 +4,6 @@ import Navbar from './navbar';
 import { ReactElement, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { User } from '@/models/user';
-import { useToast } from '@/utils/provider/ToastProvider';
-import Toast from '@/components/Toast';
 import NewsNavbar from '../news/components/NewsNavbar';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { useLoading } from '@/utils/provider/LoadingProvider';

@@ -10,14 +10,9 @@ import dynamic from 'next/dynamic';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { AlertType } from '../Alert';
 import Preview from './Preview';
-import { User } from '@/models/user';
 import { HelloEvent } from '@/models/hello-event';
-import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
 import { createPublication } from '@/lib/publications/actions/create-publication';
 import { Tag } from '@/models/tag';
-import { NewsStates } from '@/models/news-states';
-import { attemptRevalidation } from '@/lib/attempt-revalidation';
-import constants from '@/utils/constants';
 import { updatePublication } from '@/lib/publications/actions/update-publication';
 import { useToast } from '@/utils/provider/ToastProvider';
 import ActivityAreaDropdown from '../ActivityAreaDropdown';
@@ -72,22 +67,6 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		publishedDate: publishedDate,
 		selectedTags: selectedTags?.map((tag) => tag.name) ?? [],
 	};
-
-	let pageTitle;
-	switch (modalMode) {
-		case Constants.publicationModalStatus.create:
-			pageTitle = t('modal.create-page-title');
-			break;
-		case Constants.publicationModalStatus.modify:
-			pageTitle = t('modal.modify-page-title');
-			break;
-		case Constants.publicationModalStatus.duplicate:
-			pageTitle = t('modal.create-page-title');
-			break;
-		default:
-			pageTitle = '';
-			break;
-	}
 
 	const updateFormData = (formData: FormData) => {
 		// Generate a unique filename for the image using date timestamp

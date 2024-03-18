@@ -58,13 +58,7 @@ export default function PublicationDetails({
 	const [eventStartDate, setEventStartDate] = useState(publication?.eventStartDate.slice(0, 16) || '');
 	const [eventEndDate, setEventEndDate] = useState(publication?.eventEndDate.slice(0, 16) || '');
 	const [publicationDate, setPublicationDate] = useState(publication?.publicationDate.slice(0, 10) || '');
-	const [selectedTags, setSelectedTags] = useState(
-		(publication?.tags
-			.map((id) => {
-				return tags.find((tag) => tag.id === id);
-			})
-			.filter((tag) => tag !== null) as Tag[]) ?? []
-	);
+	const [selectedTags, setSelectedTags] = useState(publication?.tags || []);
 	const [availableTags, setAvailableTags] = useState(tags);
 
 	const PublicationInfosForPreview = {
@@ -102,7 +96,7 @@ export default function PublicationDetails({
 		// Generate a unique filename for the image using date timestamp
 		const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
 		const filename = `image_${timestamp}.jpg`;
-		formData.set('image', imageBinary!, filename);
+		if (imageBinary) formData.set('image', imageBinary, filename);
 
 		formData.set('title', title);
 		formData.set('imageAltText', imageAltText);

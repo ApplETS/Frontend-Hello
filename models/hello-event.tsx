@@ -1,3 +1,4 @@
+import { Tag } from './tag';
 import { User } from './user';
 
 export interface HelloEvent {
@@ -14,5 +15,5 @@ export interface HelloEvent {
 	updatedAt: string;
 	moderator: User | null;
 	organizer: User | null;
-	tags: string[];
+	tags: Tag[];
 }

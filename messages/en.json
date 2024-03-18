@@ -7,7 +7,8 @@
 		"news": "News",
 		"publications": "Publications",
 		"approbations": "Approbations",
-		"login": "Login"
+		"login": "Login",
+		"accounts": "Accounts"
 	},
 	"Navbar": {
 		"settings": "Settings",
@@ -153,6 +154,45 @@
 		"website": "Website",
 		"email": "Email"
 	},
+	"Accounts": {
+		"title": "Accounts",
+		"search": "Search",
+		"create-new-account": "Create account",
+		"no-accounts-found": "No accounts found",
+		"table": {
+			"organisation": "Organization name",
+			"email": "Email",
+			"status": "Status",
+			"activityarea": "Activity area"
+		},
+		"filters": {
+			"all": "All",
+			"deactivated": "Deactivated",
+			"pending": "Pending",
+			"active": "Active"
+		},
+		"menu": {
+			"activate": "Activate",
+			"deactivate": "Deactivate",
+			"delete": "Delete"
+		},
+		"create": {
+			"title": "Create account",
+			"organisation": "Organization name",
+			"activityarea": "Activity area",
+			"email": "Email",
+			"send": "Send",
+			"close": "Close",
+			"activity": {
+				"scientificClub": "Scientific Club",
+				"ets": "ETS",
+				"sve": "Student Life Service",
+				"aeets": "AEETS"
+			},
+			"success": "Account created",
+			"error": "An error occurred"
+		}
+	},
 	"Settings": {
 		"title": "Settings",
 		"save": "Save",
@@ -217,5 +257,11 @@
 		"week": "Week",
 		"month": "Month",
 		"day": "Day"
+	},
+	"ActivityArea": {
+		"scientificClub": "Scientific Club",
+		"ets": "ETS",
+		"sve": "Student Life Service",
+		"aeets": "AEETS"
 	}
 }

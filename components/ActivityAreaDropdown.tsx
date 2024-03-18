@@ -9,9 +9,17 @@ interface Props {
 	defaultItem?: { title: string; onClick?: () => void };
 	defaultItemTheme?: { title: string; onClick?: () => void };
 	customStyle?: string;
+	onItemChange?: (item: string) => void;
 }
 
-export default function ActivityAreaDropdown({ items, inputName, defaultItem, defaultItemTheme, customStyle }: Props) {
+export default function ActivityAreaDropdown({
+	items,
+	inputName,
+	defaultItem,
+	defaultItemTheme,
+	customStyle,
+	onItemChange,
+}: Props) {
 	const [selectedValue, setSelectedValue] = useState(defaultItem ?? items[0]);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
@@ -38,6 +46,12 @@ export default function ActivityAreaDropdown({ items, inputName, defaultItem, de
 		document.addEventListener('mousedown', handleClickOutside);
 		return () => document.removeEventListener('mousedown', handleClickOutside);
 	}, []);
+
+	useEffect(() => {
+		if (onItemChange) {
+			onItemChange(selectedValue.title);
+		}
+	}, [selectedValue]);
 
 	return (
 		<div className={`${customStyle} dropdown`} ref={dropdownRef}>

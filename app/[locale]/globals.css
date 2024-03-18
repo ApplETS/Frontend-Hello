@@ -42,10 +42,6 @@
 	}
 }
 
-.animate-in {
-	animation: animateIn 0.3s ease 0.15s both;
-}
-
 @keyframes animateIn {
 	from {
 		opacity: 0;
@@ -55,6 +51,10 @@
 		opacity: 1;
 		transform: translateY(0);
 	}
+}
+
+.animate-in {
+	animation: animateIn 0.3s ease 0.15s both;
 }
 
 @keyframes animateOut {
@@ -70,6 +70,10 @@
 
 .animate-out {
 	animation: animateOut 0.3s ease 0.15s both;
+}
+
+.btn-primary.text-black {
+	color: black !important;
 }
 
 .input-ghost:focus {

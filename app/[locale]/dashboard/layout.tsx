@@ -42,6 +42,11 @@ export default async function Layout({ children, params: { locale } }: Props) {
 			link: `/${locale}/dashboard/approbations`,
 			isVisible: isModerator,
 		},
+		accounts: {
+			title: t('accounts'),
+			link: `/${locale}/dashboard/accounts`,
+			isVisible: isModerator,
+		},
 	};
 
 	return (

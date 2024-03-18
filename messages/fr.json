@@ -7,7 +7,8 @@
 		"news": "Annonces",
 		"publications": "Publications",
 		"approbations": "Approbations",
-		"login": "Se connecter"
+		"login": "Se connecter",
+		"accounts": "Comptes"
 	},
 	"Navbar": {
 		"settings": "Paramètres",
@@ -153,6 +154,45 @@
 		"website": "Site web",
 		"email": "Courriel"
 	},
+	"Accounts": {
+		"title": "Comptes",
+		"search": "Rechercher",
+		"create-new-account": "Créer un compte",
+		"no-accounts-found": "Aucun compte trouvé",
+		"table": {
+			"organisation": "Nom de l'organisation",
+			"email": "Courriel",
+			"status": "Statut",
+			"activityarea": "Secteur d'activité"
+		},
+		"filters": {
+			"all": "All",
+			"deactivated": "Désactiver",
+			"pending": "En attente",
+			"active": "Activer"
+		},
+		"menu": {
+			"activate": "Activer",
+			"deactivate": "Désactiver",
+			"delete": "Supprimer"
+		},
+		"create": {
+			"title": "Créer un compte",
+			"organisation": "Nom de l'organisation",
+			"activityarea": "Secteur d'activité",
+			"email": "Courriel",
+			"send": "Envoyer",
+			"close": "Fermer",
+			"activity": {
+				"scientificClub": "Club scientifique",
+				"ets": "ETS",
+				"sve": "Service à la vie étudiante",
+				"aeets": "AEETS"
+			},
+			"success": "Compte créé avec succès",
+			"error": "Erreur lors de la création du compte"
+		}
+	},
 	"Settings": {
 		"title": "Paramètres",
 		"save": "Enregistrer",
@@ -217,5 +257,11 @@
 		"week": "Semaine",
 		"month": "Mois",
 		"day": "Jour"
+	},
+	"ActivityArea": {
+		"scientificClub": "Club scientifique",
+		"ets": "ETS",
+		"sve": "Service à la vie étudiante",
+		"aeets": "AEETS"
 	}
 }

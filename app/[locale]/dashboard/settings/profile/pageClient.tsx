@@ -51,7 +51,7 @@ export default function ProfileClient() {
 						<>
 							<label className="justify-self-center align-top row-span-2">{t('description')}</label>
 							<textarea
-								className="textarea textarea-ghost border-current row-span-2 h-full self-start mt-3 col-span-2"
+								className="textarea textarea-ghost border-current row-span-2 h-full self-start col-span-2"
 								name="description"
 								defaultValue={user.profileDescription ?? ''}
 							/>
@@ -62,8 +62,8 @@ export default function ProfileClient() {
 						type="text"
 						className="input input-ghost col-span-2"
 						name="email"
-						required
 						defaultValue={user?.email ?? ''}
+						disabled
 					/>
 
 					<label className="">{t('activity')}</label>

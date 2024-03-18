@@ -252,5 +252,10 @@
 			"yes": "Oui",
 			"no": "Non"
 		}
+	},
+	"Calendar": {
+		"week": "Semaine",
+		"month": "Mois",
+		"day": "Jour"
 	}
 }

@@ -360,11 +360,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 												{!isDisabled &&
 													!addTagButtonIsDisabled &&
 													modalMode !== Constants.publicationModalStatus.moderator && (
-														<AddTag
-															titleButton={t('modal.add-tag')}
-															items={availableTags}
-															onTagSelected={handleTagSelect}
-														/>
+														<AddTag searchText={t('search')} items={availableTags} onTagSelected={handleTagSelect} />
 													)}
 											</div>
 										</div>

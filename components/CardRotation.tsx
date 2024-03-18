@@ -184,10 +184,10 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 										<div className="flex flex-wrap gap-2 self-start w-full px-6 mb-6">
 											{event.tags.map((tag, index) => (
 												<div
-													key={tag}
+													key={tag.id}
 													className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
 												>
-													{tag}
+													{tag.name}
 												</div>
 											))}
 										</div>

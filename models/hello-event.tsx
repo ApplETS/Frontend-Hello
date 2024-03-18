@@ -13,6 +13,13 @@ export interface HelloEvent {
 	updatedAt: string;
 	moderator: User | null;
 	organizer: User | null;
-	tags: string[];
+	tags: Tag[];
 	cardId?: number;
+}
+
+export interface Tag {
+	id: string;
+	name: string;
+	createdAt: string;
+	updatedAt: string;
 }

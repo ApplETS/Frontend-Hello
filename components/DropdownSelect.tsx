@@ -8,11 +8,12 @@ interface Props {
 	title: string;
 	items: string[];
 	onFilterChange?: (selectedIndices: number[]) => void;
+	defaultSelected?: boolean;
 }
 
-export default function DropdownSelect({ title, items, onFilterChange }: Props) {
+export default function DropdownSelect({ title, items, onFilterChange, defaultSelected }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-	const [selectedItems, setSelectedItems] = useState<number[]>([]);
+	const [selectedItems, setSelectedItems] = useState<number[]>(defaultSelected ? items.map((_, index) => index) : []);
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 

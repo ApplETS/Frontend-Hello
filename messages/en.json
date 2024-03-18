@@ -127,6 +127,8 @@
 			"preview": "Preview",
 			"delete-title": "Are your sure you want to delete this news?",
 			"delete-button": "Delete",
+			"delete-success-toast-message": "The news has been deleted",
+			"delete-error-toast-message": "An error occurred while deleting the news",
 			"cancel": "Cancel",
 			"activity-area-items": {
 				"scientificClub": "Scientific Club",

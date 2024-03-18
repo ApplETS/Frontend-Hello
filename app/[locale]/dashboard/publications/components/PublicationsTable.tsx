@@ -15,6 +15,8 @@ import { attemptRevalidation } from '@/lib/attempt-revalidation';
 import { removePublication } from '@/lib/publications/actions/remove-publication';
 import PostButton from '@/components/PostButton';
 import { useUser } from '@/utils/provider/UserProvider';
+import { useToast } from '@/utils/provider/ToastProvider';
+import { AlertType } from '@/components/Alert';
 
 type Props = {
 	locale: string;
@@ -24,7 +26,7 @@ type Props = {
 
 export default function PublicationsTable({ locale, publications, tags }: Props) {
 	const t = useTranslations('Publications');
-	const { user } = useUser();
+	const { setToast } = useToast();
 
 	const filterAll = t('filters.all').toLowerCase();
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
@@ -89,6 +91,10 @@ export default function PublicationsTable({ locale, publications, tags }: Props)
 	const deletePost = async () => {
 		const success = await removePublication(selectedPublication!.id);
 		setIsDeleteModalOpen(false);
+		setToast(
+			t(`modal.delete-${success ? 'success' : 'error'}-toast-message`),
+			success ? AlertType.success : AlertType.error
+		);
 	};
 
 	return (

@@ -129,8 +129,6 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 				helloEvent = await createPublication(formData);
 			}
 
-			console.log('hehe');
-
 			setToast(
 				t(`modal.${helloEvent ? 'success' : 'post-error'}-toast-message`),
 				helloEvent ? AlertType.success : AlertType.error

@@ -8,13 +8,10 @@ import Confirmation from '@/components/modals/Confirmation';
 import Constants from '@/utils/constants';
 import { formatDate } from '@/utils/formatDate';
 import { HelloEvent } from '@/models/hello-event';
-import { User } from '@/models/user';
 import PublicationsDetails from '@/components/modals/PublicationDetails';
 import { Tag } from '@/models/tag';
 import { attemptRevalidation } from '@/lib/attempt-revalidation';
 import { removePublication } from '@/lib/publications/actions/remove-publication';
-import PostButton from '@/components/PostButton';
-import { useUser } from '@/utils/provider/UserProvider';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
 

@@ -8,7 +8,6 @@ import { faArrowLeft, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslations } from 'next-intl';
 import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
-import { Organizer } from '@/models/organizer';
 import Constants from '@/utils/constants';
 import Image from 'next/image';
 import Search from '@/components/Search';
@@ -21,6 +20,8 @@ import linkedinIcon from '@/public/Socials/Linkedin.svg';
 import tiktokIcon from '@/public/Socials/Tiktok.svg';
 import redditIcon from '@/public/Socials/Reddit.svg';
 import xIcon from '@/public/Socials/X.svg';
+import { HelloEvent } from '@/models/hello-event';
+import { Organizer } from '@/models/organizer';
 
 type Props = {
 	params: { locale: string; userId: string };
@@ -68,6 +69,7 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
+				imageAltText: 'Image de la compétition AMC',
 				tags: [
 					{
 						id: '1',
@@ -103,6 +105,7 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
+				imageAltText: 'Image de la compétition AMC',
 				tags: [
 					{
 						id: '1',
@@ -144,6 +147,7 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
+				imageAltText: 'Image de la compétition AMC',
 				tags: [
 					{
 						id: '1',
@@ -191,6 +195,7 @@ export default function Profile({ params: { locale } }: Props) {
 				updatedAt: '2023-03-11T15:00:00.000Z',
 				moderator: null,
 				organizer: null,
+				imageAltText: 'Image de la compétition AMC',
 				tags: [
 					{
 						id: '1',

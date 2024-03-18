@@ -135,7 +135,8 @@
 				"ets": "ETS",
 				"sve": "Student Life Service",
 				"aeets": "AEETS"
-			}
+			},
+			"alt-text-tooltip": "An alt text is a brief written description of an image on a web page, used by screen readers for the visually impaired or when the image cannot be displayed."
 		}
 	},
 	"Approbations": {

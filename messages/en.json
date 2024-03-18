@@ -1,12 +1,19 @@
 {
 	"LocaleLayout": {
 		"title": "Frontend-PS",
-		"defaultError": "An error occurred"
+		"default-error": "An error occurred"
 	},
 	"Dashboard": {
 		"news": "News",
 		"publications": "Publications",
-		"approbations": "Approbations"
+		"approbations": "Approbations",
+		"login": "Login",
+		"accounts": "Accounts"
+	},
+	"Navbar": {
+		"settings": "Settings",
+		"sign-out": "Sign out",
+		"moderator": "Moderator"
 	},
 	"Login": {
 		"welcome": "Welcome !",
@@ -28,14 +35,14 @@
 		"name": "Organization Name",
 		"email": "Email",
 		"activity": "Activity field",
-		"scientificClub": "Scientific Club",
+		"scientific-club": "Scientific Club",
 		"ets": "ETS",
 		"sve": "Student Life Service",
 		"aeets": "AEETS",
 		"password": "Password",
 		"confirm": "Confirm Password",
 		"already": "Already have an account?",
-		"alreadyLink": "Login here",
+		"already-link": "Login here",
 		"422": "The password should be at least 6 characters"
 	},
 	"ForgotPassword": {
@@ -43,23 +50,29 @@
 		"email": "Email",
 		"send": "Reset your password",
 		"remember": "Already have an account?",
-		"rememberLink": "Login here"
+		"remember-link": "Login here"
 	},
 	"UpdatePassword": {
 		"title": "Reset your password",
 		"token": "Token",
 		"email": "Email",
-		"password": "New password",
+		"new-password": "New password",
+		"confirm-password": "Confirm password",
 		"update": "Update your password",
 		"remember": "Already have an account?",
-		"rememberLink": "Login here",
-		"401": "Invalid token"
+		"remember-link": "Login here",
+		"401": "Invalid token",
+		"token-placeholder": "Token received by email"
+	},
+	"NewsPage": {
+		"view-profile": "View profile"
 	},
 	"Publications": {
 		"title": "Publications",
 		"search": "Search",
 		"create-new-post": "Create a post",
 		"no-posts": "No posts",
+		"no-publications": "No publications found",
 		"table": {
 			"title": "Title",
 			"release-date": "Release date",
@@ -114,12 +127,19 @@
 			"preview": "Preview",
 			"delete-title": "Are your sure you want to delete this news?",
 			"delete-button": "Delete",
-			"cancel": "Cancel"
+			"cancel": "Cancel",
+			"activity-area-items": {
+				"scientificClub": "Scientific Club",
+				"ets": "ETS",
+				"sve": "Student Life Service",
+				"aeets": "AEETS"
+			}
 		}
 	},
 	"Approbations": {
 		"title": "Approbations",
 		"search": "Search",
+		"no-publications": "No publications found",
 		"table": {
 			"author": "Author",
 			"title": "Title",
@@ -135,6 +155,59 @@
 			"refused": "Refused",
 			"approved": "Approved",
 			"deleted": "Deleted"
+		}
+	},
+	"Profile": {
+		"notify-me": "Notify me",
+		"dont-notify-me": "Don't notify me",
+		"tooltip-notify-me": "Click on 'Notify me' to receive an email when {author} publishes a news.",
+		"tooltip-dont-notify-me": "Click on 'Don't notify me' to no longer receive an email when {author} publishes a news.",
+		"interests": "Interests",
+		"search": "Search",
+		"to": " to ",
+		"from": " from ",
+		"until": " until ",
+		"informations": "Informations",
+		"website": "Website",
+		"email": "Email"
+	},
+	"Accounts": {
+		"title": "Accounts",
+		"search": "Search",
+		"create-new-account": "Create account",
+		"no-accounts-found": "No accounts found",
+		"table": {
+			"organisation": "Organization name",
+			"email": "Email",
+			"status": "Status",
+			"activityarea": "Activity area"
+		},
+		"filters": {
+			"all": "All",
+			"deactivated": "Deactivated",
+			"pending": "Pending",
+			"active": "Active"
+		},
+		"menu": {
+			"activate": "Activate",
+			"deactivate": "Deactivate",
+			"delete": "Delete"
+		},
+		"create": {
+			"title": "Create account",
+			"organisation": "Organization name",
+			"activityarea": "Activity area",
+			"email": "Email",
+			"send": "Send",
+			"close": "Close",
+			"activity": {
+				"scientificClub": "Scientific Club",
+				"ets": "ETS",
+				"sve": "Student Life Service",
+				"aeets": "AEETS"
+			},
+			"success": "Account created",
+			"error": "An error occurred"
 		}
 	},
 	"Settings": {
@@ -155,12 +228,12 @@
 		},
 		"profile-section": {
 			"title": "Profile",
-			"dropPicture": "Drop a picture here or click to upload",
-			"deletePicture": "Delete picture",
-			"companyName": "Company name",
+			"drop-picture": "Drop a picture here or click to upload",
+			"delete-picture": "Delete picture",
+			"company-name": "Company name",
 			"email": "Email",
 			"activity": "Activity field",
-			"scientificClub": "Scientific Club",
+			"scientific-club": "Scientific Club",
 			"ets": "ETS",
 			"sve": "Student Life Service",
 			"aeets": "AEETS",
@@ -173,8 +246,8 @@
 		},
 		"password-section": {
 			"title": "Password",
-			"newPassword": "New password",
-			"confirmNewPassword": "Confirm new password",
+			"new-password": "New password",
+			"confirm-new-password": "Confirm new password",
 			"save": "Save",
 			"200": "Password saved",
 			"changes": "Changes detected, save to update",
@@ -196,5 +269,10 @@
 			"yes": "Yes",
 			"no": "No"
 		}
+	},
+	"Calendar": {
+		"week": "Week",
+		"month": "Month",
+		"day": "Day"
 	}
 }

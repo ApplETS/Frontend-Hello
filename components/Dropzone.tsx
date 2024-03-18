@@ -1,4 +1,5 @@
 'use client';
+
 import { useCallback, useState } from 'react';
 
 export default function Dropzone({ title, onFileDrop }: { title: string; onFileDrop: (file: File) => void }) {

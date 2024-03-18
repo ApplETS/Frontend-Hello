@@ -1,10 +1,9 @@
 'use client';
-import { redirect } from 'next/navigation';
+
 import { useState } from 'react';
 import ConfirmDialog from './ConfirmDialog';
 
 type Props = {
-	locale: string;
 	buttonText: string;
 	dialogText: {
 		title: string;
@@ -14,7 +13,7 @@ type Props = {
 	};
 };
 
-export default function CancelButton({ locale, buttonText, dialogText }: Props) {
+export default function CancelButton({ buttonText, dialogText }: Props) {
 	const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 	return (
 		<>

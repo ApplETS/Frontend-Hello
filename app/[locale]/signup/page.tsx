@@ -7,7 +7,7 @@ import Captcha from '@/components/Captcha';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import Footer from '@/components/Footer';
-import Dropdown from '@/components/SignUpActivity';
+import ActivityAreaDropdown from '@/components/ActivityAreaDropdown';
 
 export default function SignUp({
 	searchParams,
@@ -43,9 +43,9 @@ export default function SignUp({
 							<label className="text-md mb-2" htmlFor="lastName">
 								{t('activity')}
 							</label>
-							<Dropdown
+							<ActivityAreaDropdown
 								items={[
-									{ title: t('scientificClub') },
+									{ title: t('scientific-club') },
 									{ title: t('ets') },
 									{ title: t('sve') },
 									{ title: t('aeets') },
@@ -78,7 +78,7 @@ export default function SignUp({
 							<p className="text-center">
 								{t('already')}
 								<Link href={`/${params.locale}/login`} className="pl-1 underline text-primary font-semibold">
-									{t('alreadyLink')}
+									{t('already-link')}
 								</Link>
 							</p>
 						</div>

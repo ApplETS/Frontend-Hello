@@ -13,16 +13,19 @@ import PublicationsDetails from '@/components/modals/PublicationDetails';
 import { Tag } from '@/models/tag';
 import { attemptRevalidation } from '@/lib/attempt-revalidation';
 import { removePublication } from '@/lib/publications/actions/remove-publication';
+import PostButton from '@/components/PostButton';
+import { useUser } from '@/utils/provider/UserProvider';
 
 type Props = {
 	locale: string;
 	publications: HelloEvent[];
 	tags: Tag[];
-	user: User;
 };
 
-export default function PublicationsTable({ locale, publications, tags, user }: Props) {
+export default function PublicationsTable({ locale, publications, tags }: Props) {
 	const t = useTranslations('Publications');
+	const { user } = useUser();
+
 	const filterAll = t('filters.all').toLowerCase();
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
 	const [filteredPublications, setFilteredPublications] = useState(publications);
@@ -155,7 +158,6 @@ export default function PublicationsTable({ locale, publications, tags, user }: 
 							publication={selectedPublication}
 							tags={tags}
 							modalMode={modalType}
-							user={user}
 							onClose={() => {
 								setIsModalOpen(false);
 								attemptRevalidation(Constants.tags.publications);

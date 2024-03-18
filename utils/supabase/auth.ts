@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation';
 import { api } from '@/config';
 import { updateUserProfile } from '@/lib/update-profile';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
+import { AlertType } from '@/components/Alert';
+import { Response } from '@/app/actions/settings/submitForm';
 
 export const signIn = async (formData: FormData) => {
 	'use server';
@@ -23,7 +25,7 @@ export const signIn = async (formData: FormData) => {
 		return redirect(`/${locale}/login?code=${error.status}&type=error`);
 	}
 
-	return redirect(`/${locale}/dashboard`);
+	return redirect(`/${locale}/dashboard/news`);
 };
 
 export const signUp = async (formData: FormData) => {
@@ -67,7 +69,7 @@ export const signUp = async (formData: FormData) => {
 		body: JSON.stringify(userObject),
 	});
 
-	return redirect(`/${locale}/dashboard`);
+	return redirect(`/${locale}/dashboard/news`);
 };
 
 export const forgotPassword = async (formData: FormData) => {
@@ -115,7 +117,7 @@ export const updatePassword = async (formData: FormData) => {
 		return redirect(`/${locale}/updatepassword?code=${error.status}&type=error`);
 	}
 
-	return redirect(`/${locale}/dashboard`);
+	return redirect(`/${locale}/dashboard/news`);
 };
 
 export const updatePasswordSettings = async (formData: FormData) => {
@@ -124,12 +126,20 @@ export const updatePasswordSettings = async (formData: FormData) => {
 	const email = formData.get('email') as string;
 	const password = formData.get('password') as string;
 	const confirmPassword = formData.get('confirmPassword') as string;
-	const locale = formData.get('locale') as string;
 	const cookieStore = cookies();
 	const supabase = createClient(cookieStore);
+	let response: Response = {
+		status: '200',
+		type: AlertType.success,
+	};
 
 	if (password !== confirmPassword) {
-		return redirect(`/${locale}/dashboard/settings/password?code=400&type=error`);
+		const error: Response = {
+			status: '400',
+			type: AlertType.error,
+		};
+
+		return error;
 	}
 
 	const { error } = await supabase.auth.updateUser({
@@ -137,11 +147,11 @@ export const updatePasswordSettings = async (formData: FormData) => {
 	});
 
 	if (error) {
-		console.log(error);
-		return redirect(`/${locale}/dashboard/settings/password?code=${error.status}&type=error`);
+		response.status = String(error.status) ?? '400';
+		response.type = AlertType.error;
 	}
 
-	return redirect(`/${locale}/dashboard/settings/password?code=200&type=success`);
+	return response;
 };
 
 export const signOut = async (formData: FormData) => {
@@ -158,18 +168,61 @@ export const signOut = async (formData: FormData) => {
 export const updateProfile = async (formData: FormData) => {
 	'use server';
 
-	const locale = formData.get('locale') as string;
-	const userId = formData.get('userId') as string;
-
 	const userObject = await getAuthenticatedUser();
 
 	userObject.email = formData.get('email') as string;
 	userObject.organisation = formData.get('organization') as string;
 	userObject.activityArea = formData.get('activity') as string;
+	userObject.profileDescription = formData.get('description') as string;
+	userObject.webSiteLink = formData.get('website') as string;
 
-	await updateUserProfile(userObject);
+	let response: Response;
 
-	return redirect(`/${locale}/dashboard/settings/profile?code=200&type=success`);
+	try {
+		await updateUserProfile(userObject);
+		response = {
+			status: '200',
+			type: AlertType.success,
+		};
+	} catch (e) {
+		response = {
+			status: '400',
+			type: AlertType.error,
+		};
+	}
+
+	return response;
+};
+
+export const updateSocials = async (formData: FormData) => {
+	'use server';
+
+	const userObject = await getAuthenticatedUser();
+
+	userObject.facebookLink = formData.get('facebook') as string;
+	userObject.discordLink = formData.get('discord') as string;
+	userObject.instagramLink = formData.get('instagram') as string;
+	userObject.linkedInLink = formData.get('linkedin') as string;
+	userObject.tikTokLink = formData.get('tiktok') as string;
+	userObject.redditLink = formData.get('reddit') as string;
+	userObject.xLink = formData.get('x') as string;
+
+	let response: Response;
+
+	try {
+		await updateUserProfile(userObject);
+		response = {
+			status: '200',
+			type: AlertType.success,
+		};
+	} catch (e) {
+		response = {
+			status: '400',
+			type: AlertType.error,
+		};
+	}
+
+	return response;
 };
 
 export const getSession = async () => {
@@ -178,7 +231,7 @@ export const getSession = async () => {
 	const { data, error } = await supabase.auth.getSession();
 
 	if (error) {
-		console.log('Error getting session', error);
+		console.error('Error getting session', error);
 		return;
 	}
 

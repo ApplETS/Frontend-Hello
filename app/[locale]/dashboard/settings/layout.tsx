@@ -1,49 +1,20 @@
 import React, { ReactElement } from 'react';
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
-import { signOut } from '@/utils/supabase/auth';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import SettingsLayout from './components/settingsLayout';
-import { faGear, faKey, faLink, faUser } from '@fortawesome/free-solid-svg-icons';
-import { SettingsProvider } from '@/utils/provider/SettingsProvider';
 
 type Props = {
 	children: ReactElement;
 	params: { locale: string };
 };
 
-export default function Layout({ children, params: { locale } }: Props) {
+export default async function Layout({ children, params: { locale } }: Props) {
 	unstable_setRequestLocale(locale);
 
-	const t = useTranslations('Settings');
-
-	const pages = {
-		profile: {
-			title: t('profile'),
-			link: `/${locale}/dashboard/settings/profile`,
-			icon: faUser,
-		},
-		socials: {
-			title: t('socials'),
-			link: `/${locale}/dashboard/settings/socials`,
-			icon: faLink,
-		},
-		password: {
-			title: t('password'),
-			link: `/${locale}/dashboard/settings/password`,
-			icon: faKey,
-		},
-		display: {
-			title: t('appearance'),
-			link: `/${locale}/dashboard/settings/display`,
-			icon: faGear,
-		},
-	};
+	const t = await getTranslations('Settings');
 
 	return (
-		<SettingsProvider>
-			<SettingsLayout locale={locale} pages={pages} sectionTitle={t('title')}>
-				{children}
-			</SettingsLayout>
-		</SettingsProvider>
+		<SettingsLayout locale={locale} sectionTitle={t('title')}>
+			{children}
+		</SettingsLayout>
 	);
 }

@@ -16,4 +16,5 @@ export interface HelloEvent {
 	moderator: User | null;
 	organizer: User | null;
 	tags: Tag[];
+	cardId?: number;
 }

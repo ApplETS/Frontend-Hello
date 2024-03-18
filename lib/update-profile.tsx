@@ -1,5 +1,4 @@
 import { fetchWithSession, Method } from '@/lib/fetch-with-refresh';
-import { ApiResponse } from '@/models/api-response';
 import { User } from '@/models/user';
 
 export async function updateUserProfile(userObject: User) {

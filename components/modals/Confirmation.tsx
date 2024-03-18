@@ -3,7 +3,7 @@
 import React, { useState, useTransition } from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
-interface ConfirmationProps {
+interface Props {
 	title: string;
 	firstButtonTitle: string;
 	secondButtonTitle: string;
@@ -25,7 +25,7 @@ export default function Confirmation({
 	onClose,
 	handleError,
 	confirmationAction,
-}: ConfirmationProps) {
+}: Props) {
 	const [isPending, startTransition] = useTransition();
 	const { isLight } = useTheme();
 	const [inputText, setInputText] = useState('');

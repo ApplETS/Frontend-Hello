@@ -4,6 +4,9 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { signOut } from '@/utils/supabase/auth';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import { UserTypes } from '@/models/user-types';
+import ToastProvider from '@/utils/provider/ToastProvider';
+import UserProvider from '@/utils/provider/UserProvider';
+import LoadingProvider from '@/utils/provider/LoadingProvider';
 
 type Props = {
 	children: ReactElement;
@@ -14,14 +17,19 @@ export default async function Layout({ children, params: { locale } }: Props) {
 	unstable_setRequestLocale(locale);
 
 	const t = await getTranslations('Dashboard');
-	const user = await getAuthenticatedUser();
-	const isOrganizer = user.type == UserTypes.ORGANIZER;
-	const isModerator = user.type == UserTypes.MODERATOR;
+	let user;
+	try {
+		user = await getAuthenticatedUser();
+	} catch (error) {
+		user = null;
+	}
+	const isOrganizer = user?.type == UserTypes.ORGANIZER;
+	const isModerator = user?.type == UserTypes.MODERATOR;
 
 	var pages = {
 		news: {
 			title: t('news'),
-			link: `/${locale}/news`,
+			link: `/${locale}/dashboard/news`,
 			isVisible: true,
 		},
 		publications: {
@@ -34,11 +42,22 @@ export default async function Layout({ children, params: { locale } }: Props) {
 			link: `/${locale}/dashboard/approbations`,
 			isVisible: isModerator,
 		},
+		accounts: {
+			title: t('accounts'),
+			link: `/${locale}/dashboard/accounts`,
+			isVisible: isModerator,
+		},
 	};
 
 	return (
-		<DashboardLayout pages={pages} signOut={signOut} user={user}>
-			{children}
-		</DashboardLayout>
+		<ToastProvider>
+			<UserProvider>
+				<LoadingProvider>
+					<DashboardLayout pages={pages} signOut={signOut} user={user} locale={locale}>
+						{children}
+					</DashboardLayout>
+				</LoadingProvider>
+			</UserProvider>
+		</ToastProvider>
 	);
 }

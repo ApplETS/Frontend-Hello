@@ -1,12 +1,19 @@
 {
 	"LocaleLayout": {
 		"title": "Frontend-PS",
-		"defaultError": "Une erreur est survenue"
+		"default-error": "Une erreur est survenue"
 	},
 	"Dashboard": {
 		"news": "Annonces",
 		"publications": "Publications",
-		"approbations": "Approbations"
+		"approbations": "Approbations",
+		"login": "Se connecter",
+		"accounts": "Comptes"
+	},
+	"Navbar": {
+		"settings": "Paramètres",
+		"sign-out": "Déconnexion",
+		"moderator": "Modérateur"
 	},
 	"Login": {
 		"welcome": "Bienvenue !",
@@ -28,14 +35,14 @@
 		"name": "Nom de l'organisation",
 		"email": "Courriel",
 		"activity": "Secteur d'activité",
-		"scientificClub": "Club scientifique",
+		"scientific-club": "Club scientifique",
 		"ets": "ETS",
 		"sve": "Service à la vie étudiante",
 		"aeets": "AEETS",
 		"password": "Mot de passe",
 		"confirm": "Confirmation de mot de passe",
 		"already": "Vous avez déjà un compte?",
-		"alreadyLink": "Connectez-vous",
+		"already-link": "Connectez-vous",
 		"422": "Le mot de passe devrait contenir au moins 6 caractères"
 	},
 	"ForgotPassword": {
@@ -43,22 +50,28 @@
 		"email": "Courriel",
 		"send": "Envoyer",
 		"remember": "Vous avez un compte?",
-		"rememberLink": "Connectez-vous"
+		"remember-link": "Connectez-vous"
 	},
 	"UpdatePassword": {
 		"title": "Réinitialiser votre mot de passe",
 		"token": "Code de réinitialisation",
 		"email": "Courriel",
-		"password": "Nouveau mot de passe",
+		"new-password": "Nouveau mot de passe",
+		"confirm-password": "Confirmation de mot de passe",
 		"update": "Réinitialiser le mot de passe",
 		"remember": "Vous avez un compte?",
-		"rememberLink": "Connectez-vous",
-		"401": "Le code de réinitialisation est invalide ou a expiré"
+		"remember-link": "Connectez-vous",
+		"401": "Le code de réinitialisation est invalide ou a expiré",
+		"token-placeholder": "Code reçu par courriel"
+	},
+	"NewsPage": {
+		"view-profile": "Voir le profil"
 	},
 	"Publications": {
 		"title": "Publications",
 		"search": "Rechercher",
 		"create-new-post": "Créer une publication",
+		"no-publications": "Aucune publication",
 		"no-posts": "Aucune publication trouvée",
 		"table": {
 			"title": "Titre",
@@ -114,12 +127,19 @@
 			"preview": "Aperçu",
 			"delete-title": "Êtes-vous sûr de vouloir supprimer cette publication?",
 			"delete-button": "Supprimer",
-			"cancel": "Annuler"
+			"cancel": "Annuler",
+			"activity-area-items": {
+				"scientificClub": "Club scientifique",
+				"ets": "ETS",
+				"sve": "Service à la vie étudiante",
+				"aeets": "AEETS"
+			}
 		}
 	},
 	"Approbations": {
 		"title": "Approbations",
 		"search": "Rechercher",
+		"no-publications": "Aucune publication",
 		"table": {
 			"author": "Auteur",
 			"title": "Titre",
@@ -135,6 +155,59 @@
 			"refused": "Refusé",
 			"approved": "Approuvé",
 			"deleted": "Supprimé"
+		}
+	},
+	"Profile": {
+		"notify-me": "Me notifier",
+		"dont-notify-me": "Ne plus recevoir de notifications",
+		"tooltip-notify-me": "Cliquez sur 'Me notifier' pour recevoir un courriel lorsque {author} publiera une annonce.",
+		"tooltip-dont-notify-me": "Cliquez sur 'Ne plus recevoir de notifications' pour arrêter de recevoir des courriels lorsque {author} publiera une annonce.",
+		"interests": "Champs d'intérêts",
+		"search": "Rechercher",
+		"to": " à ",
+		"from": " de ",
+		"until": " jusqu'au ",
+		"informations": "Informations",
+		"website": "Site web",
+		"email": "Courriel"
+	},
+	"Accounts": {
+		"title": "Comptes",
+		"search": "Rechercher",
+		"create-new-account": "Créer un compte",
+		"no-accounts-found": "Aucun compte trouvé",
+		"table": {
+			"organisation": "Nom de l'organisation",
+			"email": "Courriel",
+			"status": "Statut",
+			"activityarea": "Secteur d'activité"
+		},
+		"filters": {
+			"all": "All",
+			"deactivated": "Désactiver",
+			"pending": "En attente",
+			"active": "Activer"
+		},
+		"menu": {
+			"activate": "Activer",
+			"deactivate": "Désactiver",
+			"delete": "Supprimer"
+		},
+		"create": {
+			"title": "Créer un compte",
+			"organisation": "Nom de l'organisation",
+			"activityarea": "Secteur d'activité",
+			"email": "Courriel",
+			"send": "Envoyer",
+			"close": "Fermer",
+			"activity": {
+				"scientificClub": "Club scientifique",
+				"ets": "ETS",
+				"sve": "Service à la vie étudiante",
+				"aeets": "AEETS"
+			},
+			"success": "Compte créé avec succès",
+			"error": "Erreur lors de la création du compte"
 		}
 	},
 	"Settings": {
@@ -155,12 +228,12 @@
 		},
 		"profile-section": {
 			"title": "Profil",
-			"dropPicture": "Cliquez pour téléverser ou glissez-déposez une image ici",
-			"deletePicture": "Supprimer l'image",
-			"companyName": "Nom de l'organisation",
+			"drop-picture": "Cliquez pour téléverser ou glissez-déposez une image ici",
+			"delete-picture": "Supprimer l'image",
+			"company-name": "Nom de l'organisation",
 			"email": "Courriel",
 			"activity": "Secteur d'activité",
-			"scientificClub": "Club scientifique",
+			"scientific-club": "Club scientifique",
 			"ets": "ETS",
 			"sve": "Service à la vie étudiante",
 			"aeets": "AEETS",
@@ -173,8 +246,8 @@
 		},
 		"password-section": {
 			"title": "Mot de passe",
-			"newPassword": "Nouveau mot de passe",
-			"confirmNewPassword": "Confirmer le nouveau mot de passe",
+			"new-password": "Nouveau mot de passe",
+			"confirm-new-password": "Confirmer le nouveau mot de passe",
 			"save": "Enregistrer",
 			"200": "Mot de passe enregistré",
 			"changes": "Changements détectés, enregistrez pour appliquer les modifications",
@@ -196,5 +269,10 @@
 			"yes": "Oui",
 			"no": "Non"
 		}
+	},
+	"Calendar": {
+		"week": "Semaine",
+		"month": "Mois",
+		"day": "Jour"
 	}
 }

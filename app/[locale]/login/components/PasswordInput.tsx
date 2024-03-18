@@ -1,7 +1,6 @@
 'use client';
+
 import { useState } from 'react';
-import Eye from '@/public/Eye.svg';
-import Image from 'next/image';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

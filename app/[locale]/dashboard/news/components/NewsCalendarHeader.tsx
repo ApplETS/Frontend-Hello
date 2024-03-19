@@ -109,7 +109,7 @@ export const CalendarHeader = ({
 			</div>
 			<div className="flex flex-row mb-1 basis-1/3 justify-end">
 				<DropdownSelect
-					title={'Filters'}
+					title={t('filters')}
 					items={filterItems.map((item) => item.name)}
 					onFilterChange={handleFilterChange}
 					defaultSelected

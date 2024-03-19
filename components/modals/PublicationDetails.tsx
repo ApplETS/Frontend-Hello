@@ -222,7 +222,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		setRejectModalOpen(false);
 		onClose();
 		setToast(
-			t(`modal.delete-${success ? 'success' : 'error'}-toast-message`),
+			t(`modal.reject-${success ? 'success' : 'error'}-toast-message`),
 			success ? AlertType.success : AlertType.error
 		);
 	};
@@ -231,7 +231,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		const success = await updatePublicationState(publication!.id, NewsStates.APPROVED, null);
 		if (success) publication!.state = NewsStates.APPROVED;
 		onClose();
-		setToast(t(`modal.${success ? 'success' : 'error'}-toast-message`), success ? AlertType.success : AlertType.error);
+		setToast(t(`modal.approve-${success ? 'success' : 'error'}-toast-message`), success ? AlertType.success : AlertType.error);
 	};
 
 	return (

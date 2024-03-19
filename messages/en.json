@@ -128,6 +128,10 @@
 			"delete-button": "Delete",
 			"delete-success-toast-message": "The news has been deleted",
 			"delete-error-toast-message": "An error occurred while deleting the news",
+			"reject-success-toast-message": "The news has been rejected",
+			"reject-error-toast-message": "An error occurred while rejecting the news",
+			"approve-success-toast-message": "The news has been approved",
+			"approve-error-toast-message": "An error occurred while approving the news",
 			"cancel": "Cancel",
 			"activity-area-items": {
 				"scientificClub": "Scientific Club",

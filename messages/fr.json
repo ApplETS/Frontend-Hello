@@ -128,6 +128,10 @@
 			"delete-button": "Supprimer",
 			"delete-success-toast-message": "Publication supprimée",
 			"delete-error-toast-message": "Une erreur est survenue lors de la suppression de la publication",
+			"reject-success-toast-message": "Publication refusée",
+			"reject-error-toast-message": "Une erreur est survenue lors du refus de la publication",
+			"approve-success-toast-message": "Publication approuvée",
+			"approve-error-toast-message": "Une erreur est survenue lors de l'approbation de la publication",
 			"cancel": "Annuler",
 			"activity-area-items": {
 				"scientificClub": "Club scientifique",

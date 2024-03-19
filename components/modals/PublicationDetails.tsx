@@ -17,10 +17,14 @@ import { updatePublication } from '@/lib/publications/actions/update-publication
 import { useToast } from '@/utils/provider/ToastProvider';
 import ActivityAreaDropdown from '../ActivityAreaDropdown';
 import { useUser } from '@/utils/provider/UserProvider';
+import { NewsStates } from '@/models/news-states';
+import Confirmation from './Confirmation';
+import { updatePublicationState } from '@/lib/publications/actions/update-publication-state';
+import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
-interface Props {
+interface PublicationDetailsProps {
 	locale: string;
 	modalMode: Number;
 	publication: HelloEvent | null;
@@ -28,8 +32,9 @@ interface Props {
 	onClose: () => void;
 }
 
-export default function PublicationDetails({ locale, publication, modalMode, tags, onClose }: Props) {
+export default function PublicationDetails({ locale, publication, modalMode, tags, onClose }: PublicationDetailsProps) {
 	const t = useTranslations('Publications');
+	const ta = useTranslations('Approbations');
 	const { isLight } = useTheme();
 	const { setToast } = useToast();
 	const { user } = useUser();
@@ -48,10 +53,17 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 	const [availableTags, setAvailableTags] = useState(tags);
 	const [activityArea, setActivityArea] = useState(user?.activityArea || '');
 
+	const [rejectReason, setRejectReason] = useState('');
+	const [deleteReason, setDeleteReason] = useState('');
+
 	const isDisabled =
-		modalMode === Constants.publicationModalStatus.view || modalMode === Constants.publicationModalStatus.delete;
+		modalMode === Constants.publicationModalStatus.view ||
+		modalMode === Constants.publicationModalStatus.delete ||
+		modalMode === Constants.publicationModalStatus.moderator;
 	const addTagButtonIsDisabled = selectedTags.length >= 5;
 	const [showPreview, setShowPreview] = useState(false);
+	const [rejectModalOpen, setRejectModalOpen] = useState(false);
+	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
 	const PublicationInfosForPreview = {
 		news: t('modal.news'),
@@ -170,10 +182,67 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 				return t('modal.modify-page-title');
 			case Constants.publicationModalStatus.duplicate:
 				return t('modal.create-page-title');
+			case Constants.publicationModalStatus.moderator:
+				return ta('modal.moderator-page-title');
 			default:
 				return '';
 		}
 	};
+
+	const handleRejectOpen = () => {
+		setRejectModalOpen(true);
+	};
+
+	const handleRejectClose = () => {
+		setRejectModalOpen(false);
+	};
+
+	const handleDeleteOpen = () => {
+		setDeleteModalOpen(true);
+	};
+
+	const handleDeleteClose = () => {
+		setDeleteModalOpen(false);
+	};
+
+	const handleDelete = async () => {
+		const success = await updatePublicationState(publication!.id, NewsStates.DELETED, deleteReason);
+		if (success) publication!.state = NewsStates.DELETED;
+		setDeleteModalOpen(false);
+		onClose();
+		setToast(
+			t(`modal.delete-${success ? 'success' : 'error'}-toast-message`),
+			success ? AlertType.success : AlertType.error
+		);
+	};
+
+	const handleReject = async () => {
+		const success = await updatePublicationState(publication!.id, NewsStates.REFUSED, rejectReason);
+		if (success) publication!.state = NewsStates.REFUSED;
+		setRejectModalOpen(false);
+		onClose();
+		setToast(
+			t(`modal.reject-${success ? 'success' : 'error'}-toast-message`),
+			success ? AlertType.success : AlertType.error
+		);
+	};
+
+	const handleApprove = async () => {
+		const success = await updatePublicationState(publication!.id, NewsStates.APPROVED, null);
+		if (success) publication!.state = NewsStates.APPROVED;
+		onClose();
+		setToast(t(`modal.approve-${success ? 'success' : 'error'}-toast-message`), success ? AlertType.success : AlertType.error);
+	};
+
+	const verifyReason = () => {
+		const correct = rejectReason.trim() !== ""
+
+		if (!correct) {
+			setToast(ta('give-reason'), AlertType.error);
+		}
+
+		return !correct;
+	}
 
 	return (
 		<>
@@ -194,12 +263,13 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 										</button>
 									</div>
 								)}
-								<div className="ml-auto">
+								{!isDisabled && <div className="ml-auto">
 									<button type="button" className="btn btn-primary" onClick={() => setShowPreview(true)}>
 										{t('modal.preview')}
 										<FontAwesomeIcon icon={faMobileScreen} className="ml-1" />
 									</button>
-								</div>
+								</div>}
+								
 							</div>
 
 							<div className="flex mb-3">
@@ -207,25 +277,30 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 									<div className="col-span-2 mt-4">
 										<div>
 											<label className="block mb-3">{t('modal.title')}</label>
-											<input
-												type="text"
-												value={title}
-												className="input input-ghost w-full border-base-content"
-												onChange={(e) => setTitle(e.target.value)}
-												disabled={isDisabled}
-											/>
+											<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
+												<input
+													type="text"
+													value={title}
+													className={`input input-ghost w-full`}
+													onChange={(e) => setTitle(e.target.value)}
+													disabled={isDisabled}
+												/>
+											</div>
 										</div>
 										<div className="grid grid-cols-2 gap-4">
 											<div>
 												<div className="mt-3">
 													<label className="block">{t('modal.published-date')}</label>
-													<input
-														type="date"
-														value={publishedDate}
-														className="input input-ghost w-full border-base-content"
-														onChange={(e) => setPublishedDate(e.target.value)}
-														disabled={isDisabled}
-													/>
+													<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
+														<input
+															type="date"
+															value={publishedDate}
+															className="input input-ghost w-full"
+															onChange={(e) => setPublishedDate(e.target.value)}
+															disabled={isDisabled}
+															min={new Date().toISOString().split('T')[0]}
+														/>
+													</div>
 												</div>
 											</div>
 											<div>
@@ -249,33 +324,33 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 											<div className="mb-3">
 												<label className="block">{t('modal.event-start-date')}</label>
-												<input
-													type="datetime-local"
-													value={eventStartDate}
-													className="input input-ghost w-full border-base-content"
-													onChange={(e) => setEventStartDate(e.target.value)}
-													disabled={isDisabled}
-												/>
+												<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
+													<input
+														type="datetime-local"
+														value={eventStartDate}
+														className="input input-ghost w-full"
+														onChange={(e) => setEventStartDate(e.target.value)}
+														disabled={isDisabled}
+													/>
+												</div>
 											</div>
 											<div className="mb-3">
 												<label className="block">{t('modal.event-end-date')}</label>
-												<input
-													type="datetime-local"
-													value={eventEndDate}
-													className="input input-ghost w-full border-base-content"
-													onChange={(e) => setEventEndDate(e.target.value)}
-													disabled={isDisabled || !eventStartDate}
-													min={eventStartDate}
-												/>
+												<div className={`${isDisabled || !eventStartDate ? 'border border-base-content rounded-lg' : ''}`}>
+													<input
+														type="datetime-local"
+														value={eventEndDate}
+														className="input input-ghost w-full"
+														onChange={(e) => setEventEndDate(e.target.value)}
+														disabled={isDisabled || !eventStartDate}
+														min={eventStartDate}
+													/>
+												</div>
 											</div>
 										</div>
 										<div className="mb-3">
 											<label className="block">{t('modal.tags-title')}</label>
-											<div
-												className={`flex items-center gap-2 py-2 px-2 border border-base-content rounded-md ${
-													isDisabled ? 'h-10' : ''
-												}`}
-											>
+											<div className={`flex items-center min-h-[3rem] gap-2 py-2 px-2 border border-base-content rounded-lg`}>
 												{selectedTags.map((tag, index) => (
 													<div
 														key={tag.id}
@@ -283,22 +358,22 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 														style={{ maxWidth: 'calc(100% - 30px)' }}
 													>
 														<span className="truncate">{tag.name}</span>
-														<FontAwesomeIcon
-															icon={faXmark}
-															className="ml-2 cursor-pointer"
-															onClick={() =>
-																setSelectedTags((prevTags) => prevTags.filter((currentTag) => currentTag !== tag))
-															}
-														/>
+														{!isDisabled && (
+															<FontAwesomeIcon
+																icon={faXmark}
+																className="ml-2 cursor-pointer"
+																onClick={() =>
+																	setSelectedTags((prevTags) => prevTags.filter((currentTag) => currentTag !== tag))
+																}
+															/>
+														)}
 													</div>
 												))}
-												{!isDisabled && !addTagButtonIsDisabled && (
-													<AddTag
-														titleButton={t('modal.add-tag')}
-														items={availableTags}
-														onTagSelected={handleTagSelect}
-													/>
-												)}
+												{!isDisabled &&
+													!addTagButtonIsDisabled &&
+													modalMode !== Constants.publicationModalStatus.moderator && (
+														<AddTag searchText={t('search')} items={availableTags} onTagSelected={handleTagSelect} />
+													)}
 											</div>
 										</div>
 									</div>
@@ -316,15 +391,17 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 													</button>
 												</div>
 											</div>
-											<input
-												type="text"
-												value={imageAltText}
-												className="input input-ghost w-full border-base-content"
-												onChange={(e) => setImageAltText(e.target.value)}
-												disabled={isDisabled}
-											/>
+											<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
+												<input
+													type="text"
+													value={imageAltText}
+													className="input input-ghost w-full"
+													onChange={(e) => setImageAltText(e.target.value)}
+													disabled={isDisabled}
+												/>
+											</div>
 										</div>
-										<div className="flex-1 h-64 overflow-hidden rounded-lg">
+										<div className="flex-1 h-64 overflow-clip rounded-lg">
 											<input
 												type="file"
 												className="file-input file-input-bordered file-input-accent w-full"
@@ -353,28 +430,101 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 								{!isDisabled ? (
 									<EditorComp markdown={content} onContentChange={handleContentChange} />
 								) : (
-									<input
-										type="text"
-										value={content}
-										className="input input-ghost w-full border-base-content"
-										disabled={true}
-									/>
+									<div style={{ position: 'relative' }}>
+										<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
+											<MDXEditor
+												className={`text-sm text-justify ${
+													isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
+												}`}
+												plugins={[linkPlugin(), linkDialogPlugin()]}
+												markdown={content}
+											/>
+										</div>
+										<div
+											style={{
+												position: 'absolute',
+												top: 0,
+												right: 0,
+												bottom: 0,
+												left: 0,
+												cursor: 'normal',
+											}}
+										/>
+									</div>
 								)}
 							</div>
 
 							<div className="divider my-1"></div>
-							<div className="modal-action">
-								<button
-									className={`btn text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
-									onClick={() => onClose()}
-								>
-									{t('modal.cancel-button')}
-								</button>
-								<button className="btn btn-success text-black ml-3" type="submit">
-									{modalMode === Constants.publicationModalStatus.modify
-										? t('modal.resubmit-button')
-										: t('modal.submit-button')}
-								</button>
+							<div
+								className={`${
+									modalMode === Constants.publicationModalStatus.moderator ? 'flex justify-between' : 'modal-action'
+								}`}
+							>
+								{modalMode === Constants.publicationModalStatus.moderator && (
+									<>
+										{publication?.state !== NewsStates.PUBLISHED ? (
+											<div className="grid grid-cols-2 gap-6">
+												<button className={`btn btn-success px-8`} disabled={publication?.state === NewsStates.APPROVED ?? false} onClick={handleApprove} type="button">
+													{ta('modal.approve-button')}
+												</button>
+												<button className={`btn btn-error`} onClick={handleRejectOpen} type="button">
+													{ta('modal.reject-button')}
+												</button>
+											</div>
+										) : (
+											<button className={`btn btn-error px-8`} onClick={handleDeleteOpen} type="button">
+												{ta('modal.delete-button')}
+											</button>
+										)}
+									</>
+								)}
+								{rejectModalOpen && (
+									<Confirmation
+										title={ta('refuse-question')}
+										firstButtonTitle={ta('cancel')}
+										secondButtonTitle={ta('reject')}
+										secondButtonColor={'btn-error'}
+										inputTitle={ta('reason')}
+										inputValue={rejectReason}
+										setInputValue={setRejectReason}
+										onClose={handleRejectClose}
+										secondButtonHoverColor={''}
+										confirmationAction={handleReject}
+										verify={verifyReason}
+									/>
+								)}
+								{deleteModalOpen && (
+									<Confirmation
+										title={ta('delete-question')}
+										firstButtonTitle={ta('cancel')}
+										secondButtonTitle={ta('delete')}
+										secondButtonColor={'btn-error'}
+										inputTitle={ta('reason')}
+										inputValue={deleteReason}
+										setInputValue={setDeleteReason}
+										onClose={handleDeleteClose}
+										secondButtonHoverColor={''}
+										confirmationAction={handleDelete}
+										verify={verifyReason}
+									/>
+								)}
+
+								<div className="">
+									<button
+										className={`btn text-black px-11 ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
+										onClick={() => onClose()}
+										type="button"
+									>
+										{t('modal.cancel-button')}
+									</button>
+									{modalMode !== Constants.publicationModalStatus.moderator && (
+										<button className="btn btn-success text-black ml-3" type="submit">
+											{modalMode === Constants.publicationModalStatus.modify
+												? t('modal.resubmit-button')
+												: t('modal.submit-button')}
+										</button>
+									)}
+								</div>
 							</div>
 						</div>
 					</form>

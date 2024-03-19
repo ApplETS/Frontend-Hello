@@ -7,18 +7,26 @@ import Constants from '@/utils/constants';
 import { useTranslations } from 'next-intl';
 import { HelloEvent } from '@/models/hello-event';
 import { formatDate } from '@/utils/formatDate';
+import { User } from '@/models/user';
+import PublicationDetails from '@/components/modals/PublicationDetails';
+import { Tag } from '@/models/tag';
+import { attemptRevalidation } from '@/lib/attempt-revalidation';
 
 type Props = {
 	events: HelloEvent[];
 	locale: string;
+	user: User;
+	tags: Tag[];
 };
 
-export default function ApprobationsTable({ events, locale }: Props) {
+export default function ApprobationsTable({ events, locale, user, tags }: Props) {
 	const t = useTranslations('Approbations');
+	const tp = useTranslations('Publications');
 	const filterAll = t('filters.all').toLowerCase();
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
 	const [filteredEvents, setFilteredEvents] = useState(events);
 	const [searchTerm, setSearchTerm] = useState('');
+	const [selectedEvent, setSelectedEvent] = useState<HelloEvent | null>(null);
 
 	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
 
@@ -43,8 +51,27 @@ export default function ApprobationsTable({ events, locale }: Props) {
 		setSearchTerm(search);
 	};
 
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const openModal = (event: HelloEvent) => {
+		setSelectedEvent(event);
+		setIsModalOpen(true);
+	};
+
 	return (
 		<div>
+			{isModalOpen && (
+				<PublicationDetails
+					locale={locale}
+					publication={selectedEvent}
+					onClose={() => {
+						setIsModalOpen(false);
+						attemptRevalidation(Constants.tags.approbations);
+					}}
+					modalMode={Constants.publicationModalStatus.moderator}
+					tags={tags}
+				/>
+			)}
 			<div className="mb-4 flex items-center space-x-4">
 				<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
 				<Dropdown title={t('filters.all')} items={filters} onFilterChange={handleFilterChanged} />
@@ -89,7 +116,9 @@ export default function ApprobationsTable({ events, locale }: Props) {
 									</div>
 								</td>
 								<td className="text-base">
-									<button className="btn btn-accent w-full">{t('table.open')}</button>
+									<button className="btn btn-accent w-full" onClick={() => openModal(event)}>
+										{t('table.open')}
+									</button>
 								</td>
 							</tr>
 						))}

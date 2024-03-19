@@ -107,7 +107,6 @@
 			"event-start-date": "Event start date and time",
 			"event-end-date": "Event end date and time",
 			"tags-title": "Tag(s) (maximum of 5)",
-			"add-tag": "Add ...",
 			"content": "Content",
 			"news": "News",
 			"event-date": "Event date",
@@ -129,6 +128,10 @@
 			"delete-button": "Delete",
 			"delete-success-toast-message": "The news has been deleted",
 			"delete-error-toast-message": "An error occurred while deleting the news",
+			"reject-success-toast-message": "The news has been rejected",
+			"reject-error-toast-message": "An error occurred while rejecting the news",
+			"approve-success-toast-message": "The news has been approved",
+			"approve-error-toast-message": "An error occurred while approving the news",
 			"cancel": "Cancel",
 			"activity-area-items": {
 				"scientificClub": "Scientific Club",
@@ -158,7 +161,20 @@
 			"refused": "Refused",
 			"approved": "Approved",
 			"deleted": "Deleted"
-		}
+		},
+		"modal": {
+			"moderator-page-title": "Consult a news",
+			"approve-button": "Approve",
+			"reject-button": "Refuse",
+			"delete-button": "Delete"
+		},
+		"refuse-question": "Why do you want to refuse this news?",
+		"cancel": "Cancel",
+		"reject": "Refuse the news",
+		"reason": "Reason",
+		"delete-question": "Why do you want to delete this news?",
+		"delete": "Delete the news",
+		"give-reason": "Please give a reason for this action"
 	},
 	"Profile": {
 		"notify-me": "Notify me",

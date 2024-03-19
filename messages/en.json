@@ -173,7 +173,8 @@
 		"reject": "Refuse the news",
 		"reason": "Reason",
 		"delete-question": "Why do you want to delete this news?",
-		"delete": "Delete the news"
+		"delete": "Delete the news",
+		"give-reason": "Please give a reason for this action"
 	},
 	"Profile": {
 		"notify-me": "Notify me",

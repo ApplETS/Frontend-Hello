@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { createRef, useRef, useTransition } from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
 interface Props {
@@ -15,6 +15,7 @@ interface Props {
 	onClose: () => void;
 	handleError?: () => void;
 	confirmationAction?: () => Promise<unknown>;
+	verify?: () => boolean;
 }
 
 export default function Confirmation({
@@ -29,6 +30,7 @@ export default function Confirmation({
 	onClose,
 	handleError,
 	confirmationAction,
+	verify
 }: Props) {
 	const [isPending, startTransition] = useTransition();
 	const { isLight } = useTheme();
@@ -38,6 +40,9 @@ export default function Confirmation({
 	};
 
 	const submit = () => {
+		if (verify && verify()) {
+			return;
+		}
 		startTransition(async () => {
 			if (confirmationAction) {
 				const response = await confirmationAction();
@@ -59,13 +64,13 @@ export default function Confirmation({
 					open={true}
 					style={{ top: '50%', left: '50%' }}
 				>
-					<p className='text-xl text-center'>{title}</p>
 					{isPending ? (
 						<div className="flex justify-center items-center w-full h-full">
 							<div className="loading loading-spinner loading-lg"></div>
 						</div>
 					) : (
 						<>
+							<p className='text-xl text-center'>{title}</p>
 							{inputTitle && (
 								<label className='w-full' htmlFor="input">
 									<span className="label-text text-base">{inputTitle}</span>
@@ -74,6 +79,7 @@ export default function Confirmation({
 										type="text"
 										value={inputValue}
 										className="input input-ghost w-full border-base-content mt-2"
+										required
 										onChange={(e) => setInputValue && setInputValue(e.target.value)}
 									/>
 								</label>

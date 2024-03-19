@@ -234,6 +234,16 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		setToast(t(`modal.approve-${success ? 'success' : 'error'}-toast-message`), success ? AlertType.success : AlertType.error);
 	};
 
+	const verifyReason = () => {
+		const correct = rejectReason.trim() !== ""
+
+		if (!correct) {
+			setToast(ta('give-reason'), AlertType.error);
+		}
+
+		return !correct;
+	}
+
 	return (
 		<>
 			<div className="fixed inset-0 bg-black bg-opacity-30 z-40">
@@ -479,6 +489,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 										onClose={handleRejectClose}
 										secondButtonHoverColor={''}
 										confirmationAction={handleReject}
+										verify={verifyReason}
 									/>
 								)}
 								{deleteModalOpen && (
@@ -493,6 +504,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 										onClose={handleDeleteClose}
 										secondButtonHoverColor={''}
 										confirmationAction={handleDelete}
+										verify={verifyReason}
 									/>
 								)}
 

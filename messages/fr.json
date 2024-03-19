@@ -173,7 +173,8 @@
 		"reject": "Refuser l'annonce",
 		"reason": "Raison",
 		"delete-question": "Pourquoi voulez vous supprimer cette annonce?",
-		"delete": "Supprimer l'annonce"
+		"delete": "Supprimer l'annonce",
+		"give-reason": "Veuillez donner une raison pour cette action"
 	},
 	"Profile": {
 		"notify-me": "Me notifier",

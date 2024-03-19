@@ -339,7 +339,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 										</div>
 										<div className="mb-3">
 											<label className="block">{t('modal.tags-title')}</label>
-											<div className={`flex items-center gap-2 py-2 px-2 border border-base-content rounded-md`}>
+											<div className={`flex items-center min-h-[3rem] gap-2 py-2 px-2 border border-base-content rounded-lg`}>
 												{selectedTags.map((tag, index) => (
 													<div
 														key={tag.id}

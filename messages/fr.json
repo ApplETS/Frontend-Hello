@@ -73,6 +73,7 @@
 		"create-new-post": "Créer une publication",
 		"no-publications": "Aucune publication",
 		"no-posts": "Aucune publication trouvée",
+		"required-fields": "Champs requis",
 		"table": {
 			"title": "Titre",
 			"release-date": "Date de publication",

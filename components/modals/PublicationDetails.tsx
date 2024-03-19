@@ -298,6 +298,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 															className="input input-ghost w-full"
 															onChange={(e) => setPublishedDate(e.target.value)}
 															disabled={isDisabled}
+															min={new Date().toISOString().split('T')[0]}
 														/>
 													</div>
 												</div>

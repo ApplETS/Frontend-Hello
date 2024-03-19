@@ -253,24 +253,25 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 										</button>
 									</div>
 								)}
-								<div className="ml-auto">
+								{!isDisabled && <div className="ml-auto">
 									<button type="button" className="btn btn-primary" onClick={() => setShowPreview(true)}>
 										{t('modal.preview')}
 										<FontAwesomeIcon icon={faMobileScreen} className="ml-1" />
 									</button>
-								</div>
+								</div>}
+								
 							</div>
 
 							<div className="flex mb-3">
-								<div className="grid grid-cols-3 gap-4 w-full">
+								<div className="grid grid-cols-3 gap-4">
 									<div className="col-span-2 mt-4">
 										<div>
 											<label className="block mb-3">{t('modal.title')}</label>
-											<div className="border border-base-content rounded-lg">
+											<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
 												<input
 													type="text"
 													value={title}
-													className={`input input-ghost w-full border-base-content rounded-lg`}
+													className={`input input-ghost w-full`}
 													onChange={(e) => setTitle(e.target.value)}
 													disabled={isDisabled}
 												/>
@@ -280,11 +281,11 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 											<div>
 												<div className="mt-3">
 													<label className="block">{t('modal.published-date')}</label>
-													<div className="border border-base-content rounded-lg">
+													<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
 														<input
 															type="date"
 															value={publishedDate}
-															className="input input-ghost w-full border-base-content rounded-lg"
+															className="input input-ghost w-full"
 															onChange={(e) => setPublishedDate(e.target.value)}
 															disabled={isDisabled}
 														/>
@@ -312,11 +313,11 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 											<div className="mb-3">
 												<label className="block">{t('modal.event-start-date')}</label>
-												<div className="border border-base-content rounded-lg">
+												<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
 													<input
 														type="datetime-local"
 														value={eventStartDate}
-														className="input input-ghost w-full border-base-content rounded-lg"
+														className="input input-ghost w-full"
 														onChange={(e) => setEventStartDate(e.target.value)}
 														disabled={isDisabled}
 													/>
@@ -324,11 +325,11 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 											</div>
 											<div className="mb-3">
 												<label className="block">{t('modal.event-end-date')}</label>
-												<div className="border border-base-content rounded-lg">
+												<div className={`${isDisabled || !eventStartDate ? 'border border-base-content rounded-lg' : ''}`}>
 													<input
 														type="datetime-local"
 														value={eventEndDate}
-														className="input input-ghost w-full border-base-content rounded-lg"
+														className="input input-ghost w-full"
 														onChange={(e) => setEventEndDate(e.target.value)}
 														disabled={isDisabled || !eventStartDate}
 														min={eventStartDate}
@@ -379,17 +380,17 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 													</button>
 												</div>
 											</div>
-											<div className="border border-base-content rounded-lg">
+											<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
 												<input
 													type="text"
 													value={imageAltText}
-													className="input input-ghost w-full border-base-content rounded-lg"
+													className="input input-ghost w-full"
 													onChange={(e) => setImageAltText(e.target.value)}
 													disabled={isDisabled}
 												/>
 											</div>
 										</div>
-										<div className="flex-1 h-64 overflow-hidden rounded-lg">
+										<div className="flex-1 h-64 overflow-clip rounded-lg">
 											<input
 												type="file"
 												className="file-input file-input-bordered file-input-accent w-full"
@@ -419,7 +420,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 									<EditorComp markdown={content} onContentChange={handleContentChange} />
 								) : (
 									<div style={{ position: 'relative' }}>
-										<div className="border border-base-content rounded-lg">
+										<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
 											<MDXEditor
 												className={`text-sm text-justify ${
 													isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
@@ -451,8 +452,8 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 								{modalMode === Constants.publicationModalStatus.moderator && (
 									<>
 										{publication?.state !== NewsStates.PUBLISHED ? (
-											<div className="flex flex-row gap-4">
-												<button className={`btn btn-success`} onClick={handleApprove} type="button">
+											<div className="grid grid-cols-2 gap-6">
+												<button className={`btn btn-success px-8`} onClick={handleApprove} type="button">
 													{ta('modal.approve-button')}
 												</button>
 												<button className={`btn btn-error`} onClick={handleRejectOpen} type="button">
@@ -460,21 +461,19 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 												</button>
 											</div>
 										) : (
-											<div className="flex flex-row gap-4">
-												<button className={`btn btn-error`} onClick={handleDeleteOpen} type="button">
-													{ta('modal.delete-button')}
-												</button>
-											</div>
+											<button className={`btn btn-error px-8`} onClick={handleDeleteOpen} type="button">
+												{ta('modal.delete-button')}
+											</button>
 										)}
 									</>
 								)}
 								{rejectModalOpen && (
 									<Confirmation
-										title={'Pourquoi voulez vous refuser cette annonce?'}
-										firstButtonTitle={'Cancel'}
-										secondButtonTitle={"Refuser l'annonce"}
+										title={ta('refuse-question')}
+										firstButtonTitle={ta('cancel')}
+										secondButtonTitle={ta('reject')}
 										secondButtonColor={'btn-error'}
-										inputTitle="Raison"
+										inputTitle={ta('reason')}
 										inputValue={rejectReason}
 										setInputValue={setRejectReason}
 										onClose={handleRejectClose}
@@ -484,11 +483,11 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 								)}
 								{deleteModalOpen && (
 									<Confirmation
-										title={'Pourquoi voulez vous supprimer cette annonce?'}
-										firstButtonTitle={'Cancel'}
-										secondButtonTitle={"Supprimer l'annonce"}
+										title={ta('delete-question')}
+										firstButtonTitle={ta('cancel')}
+										secondButtonTitle={ta('delete')}
 										secondButtonColor={'btn-error'}
-										inputTitle="Raison"
+										inputTitle={ta('reason')}
 										inputValue={deleteReason}
 										setInputValue={setDeleteReason}
 										onClose={handleDeleteClose}
@@ -499,7 +498,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 								<div className="">
 									<button
-										className={`btn text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
+										className={`btn text-black px-11 ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
 										onClick={() => onClose()}
 										type="button"
 									>

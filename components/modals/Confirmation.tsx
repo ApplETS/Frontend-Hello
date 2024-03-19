@@ -53,13 +53,13 @@ export default function Confirmation({
 			<div className="fixed inset-0 bg-black bg-opacity-30 z-50 flex justify-center items-center">
 				<dialog
 					id="confirmation_modal"
-					className={`modal bg-base-200 overflow-y-auto p-4 w-96 rounded-lg transform -translate-x-1/2 -translate-y-1/2 ${
-						inputTitle ? 'h-52' : 'h-40 '
+					className={`modal bg-base-200 overflow-y-auto ${inputTitle ? "px-12 py-4 w-1/2" : "p-4 w-96"} rounded-2xl transform -translate-x-1/2 -translate-y-1/2 ${
+						inputTitle ? 'h-1/2' : 'h-40 '
 					}`}
 					open={true}
 					style={{ top: '50%', left: '50%' }}
 				>
-					<p>{title}</p>
+					<p className='text-xl text-center'>{title}</p>
 					{isPending ? (
 						<div className="flex justify-center items-center w-full h-full">
 							<div className="loading loading-spinner loading-lg"></div>
@@ -67,17 +67,20 @@ export default function Confirmation({
 					) : (
 						<>
 							{inputTitle && (
-								<input
-									type="text"
-									placeholder={inputTitle}
-									value={inputValue}
-									className="input input-ghost w-full border-base-content mt-2"
-									onChange={(e) => setInputValue && setInputValue(e.target.value)}
-								/>
+								<label className='w-full' htmlFor="input">
+									<span className="label-text text-base">{inputTitle}</span>
+									<input
+										name="input"
+										type="text"
+										value={inputValue}
+										className="input input-ghost w-full border-base-content mt-2"
+										onChange={(e) => setInputValue && setInputValue(e.target.value)}
+									/>
+								</label>
 							)}
-							<div className="mt-2">
+							<div className="mt-2 grid grid-cols-2 gap-6">
 								<button
-									className={`btn text-black mr-3 ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
+									className={`btn text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
 									onClick={handleClose}
 									type="button"
 								>

@@ -163,7 +163,13 @@
 			"approve-button": "Approuver",
 			"reject-button": "Refuser",
 			"delete-button": "Supprimer"
-		}
+		},
+		"refuse-question": "Pourquoi voulez vous refuser cette annonce?",
+		"cancel": "Annuler",
+		"reject": "Refuser l'annonce",
+		"reason": "Raison",
+		"delete-question": "Pourquoi voulez vous supprimer cette annonce?",
+		"delete": "Supprimer l'annonce"
 	},
 	"Profile": {
 		"notify-me": "Me notifier",

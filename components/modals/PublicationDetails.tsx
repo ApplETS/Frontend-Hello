@@ -463,7 +463,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 									<>
 										{publication?.state !== NewsStates.PUBLISHED ? (
 											<div className="grid grid-cols-2 gap-6">
-												<button className={`btn btn-success px-8`} onClick={handleApprove} type="button">
+												<button className={`btn btn-success px-8`} disabled={publication?.state === NewsStates.APPROVED ?? false} onClick={handleApprove} type="button">
 													{ta('modal.approve-button')}
 												</button>
 												<button className={`btn btn-error`} onClick={handleRejectOpen} type="button">

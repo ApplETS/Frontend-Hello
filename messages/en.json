@@ -295,5 +295,9 @@
 		"week": "Week",
 		"month": "Month",
 		"day": "Day"
+	},
+	"Help": {
+		"title": "Need help?",
+		"contact-us": "Contact us at "
 	}
 }

@@ -295,5 +295,9 @@
 		"week": "Semaine",
 		"month": "Mois",
 		"day": "Jour"
+	},
+	"Help": {
+		"title": "Besoin d'aide?",
+		"contact-us": "Contactez-nous à "
 	}
 }

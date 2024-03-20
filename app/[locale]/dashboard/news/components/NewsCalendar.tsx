@@ -85,6 +85,12 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 						end: event.eventEndDate,
 					};
 				})}
+				dayCellDidMount={(e) => {
+					if (e.date.toISOString().substring(0, 10) === new Date().toISOString().substring(0, 10)) {
+						e.el.style.backgroundColor = 'gray';
+						e.el.style.color = 'white';
+					}
+				}}
 				eventContent={(arg: EventContentArg) => {
 					return (
 						<div className={`p-2 cursor-pointer`}>

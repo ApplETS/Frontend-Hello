@@ -290,6 +290,7 @@
 		}
 	},
 	"Calendar": {
+		"filters": "Filters",
 		"week": "Week",
 		"month": "Month",
 		"day": "Day"

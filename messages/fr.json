@@ -195,6 +195,10 @@
 		"search": "Rechercher",
 		"create-new-account": "Créer un compte",
 		"no-accounts-found": "Aucun compte trouvé",
+		"activate-success": "Le compte a été activé avec succès",
+		"deactivate-success": "Le compte a été désactivé avec succès",
+		"activate-error": "Une erreur est survenue lors de l'activation du compte",
+		"deactivate-error": "Une erreur est survenue lors de la désactivation du compte",
 		"table": {
 			"organisation": "Nom de l'organisation",
 			"email": "Courriel",
@@ -203,9 +207,9 @@
 		},
 		"filters": {
 			"all": "All",
-			"deactivated": "Désactiver",
+			"deactivated": "Désactivé",
 			"pending": "En attente",
-			"active": "Activer"
+			"active": "Activé"
 		},
 		"menu": {
 			"activate": "Activer",

@@ -5,19 +5,19 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface Props {
-	items: { text: string; icon: IconProp; color: string }[];
-	onSelect?: (publicationIndex: number, dropdownIndex: number) => void;
-	publicationIndex: number;
+	items: { text: string; icon: IconProp; color: string; id: number }[];
+	onSelect?: (itemIndex: number, dropdownItemId: number) => void;
+	itemIndex: number;
 }
 
-export default function DropdownMenu({ items, onSelect, publicationIndex }: Props) {
+export default function DropdownMenu({ items, onSelect, itemIndex }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
-	const handleItemClick = (event: React.MouseEvent<HTMLAnchorElement>, dropdownIndex: number) => {
+	const handleItemClick = (event: React.MouseEvent<HTMLAnchorElement>, dropdownItemId: number) => {
 		event.preventDefault();
-		onSelect && onSelect(publicationIndex, dropdownIndex);
+		onSelect && onSelect(itemIndex, dropdownItemId);
 		setIsDropdownOpen(false);
 	};
 
@@ -43,7 +43,7 @@ export default function DropdownMenu({ items, onSelect, publicationIndex }: Prop
 					<ul className={'p-2 shadow menu dropdown-content bg-base-100 rounded-box absolute z-10 right-0'}>
 						{items.map((item, index) => (
 							<li className={`flex ${item.color} w-40`} key={index}>
-								<a href="#" className="flex space-x-2 w-full" onClick={(event) => handleItemClick(event, index)}>
+								<a href="#" className="flex space-x-2 w-full" onClick={(event) => handleItemClick(event, item.id)}>
 									<FontAwesomeIcon icon={item.icon} className="w-5" />
 									<span>{item.text}</span>
 								</a>

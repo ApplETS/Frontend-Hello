@@ -195,6 +195,10 @@
 		"search": "Search",
 		"create-new-account": "Create account",
 		"no-accounts-found": "No accounts found",
+		"activate-success": "Account was successfully activated",
+		"deactivate-success": "Account was successfully deactivated",
+		"activate-error": "An error occurred while activating the account",
+		"deactivate-error": "An error occurred while deactivating the account",
 		"table": {
 			"organisation": "Organization name",
 			"email": "Email",

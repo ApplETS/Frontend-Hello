@@ -10,6 +10,8 @@ import DropdownMenu from '@/components/DropdownMenu';
 import UserCreationModal from '@/components/modals/UserCreationModal';
 import { AlertType } from '@/components/Alert';
 import { useToast } from '@/utils/provider/ToastProvider';
+import { toggleUserIsActive } from '@/lib/users/actions/toggle';
+import { UserStates } from '@/models/user-states';
 
 type Props = {
 	users: User[];
@@ -32,18 +34,52 @@ export default function UsersTable({ users }: Props) {
 		setIsModalOpen(!isModalOpen);
 	};
 
-	const menuItems = Constants.userMenuItems.map((item) => {
-		return {
-			text: t(`menu.${item.label}`),
-			icon: item.icon,
-			color: item.color,
-		};
-	});
+	const getSubmenuItemsByUser = (user: User) => {
+		const menuItems = Constants.userMenuItems.map((item) => {
+			return {
+				id: item.id,
+				text: t(`menu.${item.label}`),
+				icon: item.icon,
+				color: item.color,
+			};
+		});
+		const itemToRemove = user.isActive ? Constants.userMenuItems[0].id : Constants.userMenuItems[1].id;
+		return menuItems.filter((item) => item.id !== itemToRemove);
+	};
+
+	const getUserState = (user: User) => (user.isActive ? UserStates.ACTIVATED : UserStates.DEACTIVATED);
+
+	const handleUserSelection = (userIndex: number, dropDownItemId: number) => {
+		const selectedUser = filteredUsers[userIndex];
+		switch (dropDownItemId) {
+			case Constants.userMenuItems[0].id: // Activate &
+			case Constants.userMenuItems[1].id: // Deactivate
+				toggleUser(selectedUser);
+				break;
+			case Constants.userMenuItems[2].id: // Delete
+				// TODO: Implement delete user
+				break;
+			default:
+				break;
+		}
+	};
+
+	const toggleUser = async (user: User) => {
+		const success = await toggleUserIsActive(user.id);
+		if (success) {
+			user.isActive = !user.isActive;
+			const message = user.isActive ? t('activate-success') : t('deactivate-success');
+			setToast(message, AlertType.success);
+		} else {
+			const message = user.isActive ? t('activate-error') : t('deactivate-error');
+			setToast(message, AlertType.error);
+		}
+	};
 
 	useEffect(() => {
 		const filtered = users.filter(
 			(user) =>
-				(t(`filters.${Constants.userStatuses[1]?.label}`).toLowerCase() === selectedFilter ||
+				(t(`filters.${Constants.userStatuses[getUserState(user)]?.label}`).toLowerCase() === selectedFilter ||
 					selectedFilter === filterAll) &&
 				(searchTerm === '' ||
 					user.organisation?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -105,13 +141,19 @@ export default function UsersTable({ users }: Props) {
 										<td>{user.activityArea ?? '-'}</td>
 										<td className="text-base">
 											<div
-												className={`py-4 px-4 badge ${Constants.userStatuses[1].color || 'badge-neutral'} text-black`}
+												className={`py-4 px-4 badge ${
+													Constants.userStatuses[getUserState(user)].color || 'badge-neutral'
+												} text-black`}
 											>
-												{t(`filters.${Constants.userStatuses[1].label}`)}
+												{t(`filters.${Constants.userStatuses[getUserState(user)].label}`)}
 											</div>
 										</td>
 										<td>
-											<DropdownMenu items={menuItems} publicationIndex={0} />
+											<DropdownMenu
+												items={getSubmenuItemsByUser(user)}
+												onSelect={handleUserSelection}
+												itemIndex={index}
+											/>
 										</td>
 									</tr>
 								))}

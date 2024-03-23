@@ -6,6 +6,7 @@ export interface User {
 	organisation: string | null;
 	activityArea: string | null;
 	profileDescription: string | null;
+	isActive: boolean;
 	facebookLink: string | null;
 	instagramLink: string | null;
 	tikTokLink: string | null;

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDay, faCalendarWeek, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import DropdownSelect from '@/components/DropdownSelect';
 import { useTranslations } from 'next-intl';
+import { useTheme } from '@/utils/provider/ThemeProvider';
 
 export type TCalendarHeader = {
 	calendarRef: RefObject<FullCalendar>;
@@ -23,6 +24,7 @@ export const CalendarHeader = ({
 	const [date, setDate] = useState<Moment | null>(moment(calendarRef.current?.getApi().getDate()));
 	const [viewType, setViewType] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>('dayGridMonth');
 	const t = useTranslations('Calendar');
+	const { isLight } = useTheme();
 
 	useEffect(() => {
 		const calApi = calendarRef.current?.getApi();
@@ -88,6 +90,7 @@ export const CalendarHeader = ({
 						role="tab"
 						className={`tab ${viewType === 'dayGridMonth' ? 'tab-active' : ''}`}
 						onClick={() => handleViewChange('dayGridMonth')}
+						style={{ color: viewType === 'dayGridMonth' ? (isLight ? 'white' : 'black') : isLight ? 'black' : 'white' }}
 					>
 						{t('month')}
 					</a>
@@ -95,6 +98,7 @@ export const CalendarHeader = ({
 						role="tab"
 						className={`tab ${viewType === 'timeGridWeek' ? 'tab-active' : ''}`}
 						onClick={() => handleViewChange('timeGridWeek')}
+						style={{ color: viewType === 'timeGridWeek' ? (isLight ? 'white' : 'black') : isLight ? 'black' : 'white' }}
 					>
 						{t('week')}
 					</a>
@@ -102,6 +106,7 @@ export const CalendarHeader = ({
 						role="tab"
 						className={`tab ${viewType === 'timeGridDay' ? 'tab-active' : ''}`}
 						onClick={() => handleViewChange('timeGridDay')}
+						style={{ color: viewType === 'timeGridDay' ? (isLight ? 'white' : 'black') : isLight ? 'black' : 'white' }}
 					>
 						{t('day')}
 					</a>
@@ -109,7 +114,7 @@ export const CalendarHeader = ({
 			</div>
 			<div className="flex flex-row mb-1 basis-1/3 justify-end">
 				<DropdownSelect
-					title={'Filters'}
+					title={t('filters')}
 					items={filterItems.map((item) => item.name)}
 					onFilterChange={handleFilterChange}
 					defaultSelected

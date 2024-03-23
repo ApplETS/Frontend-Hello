@@ -10,6 +10,7 @@ import { faCog, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@/models/user';
 import { useTranslations } from 'next-intl';
 import { UserTypes } from '@/models/user-types';
+import HelpButton from '@/components/HelpButton';
 
 interface Props {
 	activePage: string;
@@ -63,6 +64,7 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 					<LanguageButton />
 				</div>
 				<ThemeButton />
+				<HelpButton />
 				<div className="divider divider-horizontal before:bg-base-content after:bg-base-content my-2"></div>
 
 				<div className="dropdown dropdown-end mr-5" ref={dropdownRef}>

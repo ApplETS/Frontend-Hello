@@ -73,6 +73,7 @@
 		"create-new-post": "Create a post",
 		"no-posts": "No posts",
 		"no-publications": "No publications found",
+		"required-fields": "Required fields",
 		"table": {
 			"title": "Title",
 			"release-date": "Release date",
@@ -294,8 +295,13 @@
 		}
 	},
 	"Calendar": {
+		"filters": "Filters",
 		"week": "Week",
 		"month": "Month",
 		"day": "Day"
+	},
+	"Help": {
+		"title": "Need help?",
+		"contact-us": "Contact us at "
 	}
 }

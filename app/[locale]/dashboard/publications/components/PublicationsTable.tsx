@@ -66,15 +66,15 @@ export default function PublicationsTable({ locale, publications, tags }: Props)
 		setSelectedPublication(filteredPublications[index]);
 
 		switch (dropdownItemId) {
-			case 1:
+			case Constants.publicationMenuItems[0].id: // Modify
 				setModalType(Constants.publicationModalStatus.modify);
 				setIsModalOpen(!isModalOpen);
 				break;
-			case 2:
+			case Constants.publicationMenuItems[1].id: // Duplicate
 				setModalType(Constants.publicationModalStatus.duplicate);
 				setIsModalOpen(!isModalOpen);
 				break;
-			case 3:
+			case Constants.publicationMenuItems[2].id: // Delete
 				setIsDeleteModalOpen(true);
 				break;
 		}

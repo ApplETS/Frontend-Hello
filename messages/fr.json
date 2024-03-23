@@ -232,6 +232,15 @@
 			},
 			"success": "Compte créé avec succès",
 			"error": "Erreur lors de la création du compte"
+		},
+		"toggle": {
+			"deactivation-title": "Pourquoi voulez-vous désactiver ce compte?",
+			"activation-title": "Etes-vous sûr de vouloir activer le compte de {organization}?",
+			"close": "Fermer",
+			"deactivate": "Désactiver le compte",
+			"activate": "Activer le compte",
+			"input-title": "Raison",
+			"give-reason": "Veuillez donner une raison pour la désactivation de ce compte"
 		}
 	},
 	"Settings": {

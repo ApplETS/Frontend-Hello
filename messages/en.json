@@ -232,6 +232,15 @@
 			},
 			"success": "Account created",
 			"error": "An error occurred"
+		},
+		"toggle": {
+			"deactivation-title": "Why do you want to deactivate this account?",
+			"activation-title": "Are you sure you want to activate the account of {organization}?",
+			"close": "Close",
+			"deactivate": "Deactivate account",
+			"activate": "Activate account",
+			"input-title": "Reason",
+			"give-reason": "Please give a reason for this action"
 		}
 	},
 	"Settings": {

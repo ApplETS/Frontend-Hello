@@ -12,6 +12,7 @@ import { AlertType } from '@/components/Alert';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { toggleUserIsActive } from '@/lib/users/actions/toggle';
 import { UserStates } from '@/models/user-states';
+import Confirmation from '@/components/modals/Confirmation';
 
 type Props = {
 	users: User[];
@@ -30,9 +31,12 @@ export default function UsersTable({ users }: Props) {
 	const filters = Object.values(Constants.userStatuses).map((status) => t(`filters.${status.label}`));
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const toggleModal = () => {
-		setIsModalOpen(!isModalOpen);
-	};
+	const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+	const [selectedUser, setSelectedUser] = useState<User | undefined>(undefined);
+	const [activationModalOpen, setActivationModalOpen] = useState(false);
+	const [deactivationModalOpen, setDeactivationModalOpen] = useState(false);
+	const [deactivationReaon, setDeactivationReason] = useState('');
 
 	const getSubmenuItemsByUser = (user: User) => {
 		const menuItems = Constants.userMenuItems.map((item) => {
@@ -50,11 +54,13 @@ export default function UsersTable({ users }: Props) {
 	const getUserState = (user: User) => (user.isActive ? UserStates.ACTIVATED : UserStates.DEACTIVATED);
 
 	const handleUserSelection = (userIndex: number, dropDownItemId: number) => {
-		const selectedUser = filteredUsers[userIndex];
+		setSelectedUser(filteredUsers[userIndex]);
 		switch (dropDownItemId) {
 			case Constants.userMenuItems[0].id: // Activate &
+				setActivationModalOpen(true);
+				break;
 			case Constants.userMenuItems[1].id: // Deactivate
-				toggleUser(selectedUser);
+				setDeactivationModalOpen(true);
 				break;
 			case Constants.userMenuItems[2].id: // Delete
 				// TODO: Implement delete user
@@ -64,16 +70,19 @@ export default function UsersTable({ users }: Props) {
 		}
 	};
 
-	const toggleUser = async (user: User) => {
-		const success = await toggleUserIsActive(user.id);
+	const toggleUser = async () => {
+		if (!selectedUser) return;
+
+		const success = await toggleUserIsActive(selectedUser.id, deactivationReaon);
 		if (success) {
-			user.isActive = !user.isActive;
-			const message = user.isActive ? t('activate-success') : t('deactivate-success');
+			selectedUser.isActive = !selectedUser.isActive;
+			const message = selectedUser.isActive ? t('activate-success') : t('deactivate-success');
 			setToast(message, AlertType.success);
 		} else {
-			const message = user.isActive ? t('activate-error') : t('deactivate-error');
+			const message = selectedUser.isActive ? t('activate-error') : t('deactivate-error');
 			setToast(message, AlertType.error);
 		}
+		closeUserSelection();
 	};
 
 	useEffect(() => {
@@ -101,6 +110,23 @@ export default function UsersTable({ users }: Props) {
 		setIsModalOpen(false);
 		if (user) setToast(t('create.success'), AlertType.success);
 		else setToast(t('create.error'), AlertType.error);
+	};
+
+	const closeUserSelection = () => {
+		setSelectedUser(undefined);
+		setDeactivationReason('');
+		setDeactivationModalOpen(false);
+		setActivationModalOpen(false);
+	};
+
+	const verifyReason = () => {
+		const correct = deactivationReaon.trim() !== '';
+
+		if (!correct) {
+			setToast(t('toggle.give-reason'), AlertType.error);
+		}
+
+		return !correct;
 	};
 
 	return (
@@ -161,8 +187,34 @@ export default function UsersTable({ users }: Props) {
 						</table>
 					</div>
 				)}
+				{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
+				{deactivationModalOpen && (
+					<Confirmation
+						title={t('toggle.deactivation-title')}
+						firstButtonTitle={t('toggle.close')}
+						secondButtonTitle={t('toggle.deactivate')}
+						secondButtonColor={'btn-error'}
+						inputTitle={t('toggle.input-title')}
+						inputValue={deactivationReaon}
+						setInputValue={setDeactivationReason}
+						onClose={closeUserSelection}
+						secondButtonHoverColor={''}
+						confirmationAction={toggleUser}
+						verify={verifyReason}
+					/>
+				)}
+				{activationModalOpen && (
+					<Confirmation
+						title={t('toggle.activation-title', { organization: selectedUser?.organisation })}
+						firstButtonTitle={t('toggle.close')}
+						secondButtonTitle={t('toggle.activate')}
+						secondButtonColor={'btn-success'}
+						onClose={closeUserSelection}
+						secondButtonHoverColor={''}
+						confirmationAction={toggleUser}
+					/>
+				)}
 			</div>
-			{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
 		</>
 	);
 }

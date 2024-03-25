@@ -90,9 +90,9 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 		formData.set('title', title);
 		formData.set('imageAltText', imageAltText);
-		formData.set('publicationDate', publishedDate ? new Date(publishedDate).toUTCString() : '');
-		formData.set('eventStartDate', eventStartDate ? new Date(eventStartDate).toUTCString() : '');
-		formData.set('eventEndDate', eventEndDate ? new Date(eventEndDate).toUTCString() : '');
+		formData.set('publicationDate', new Date(publishedDate).toUTCString());
+		formData.set('eventStartDate', new Date(eventStartDate).toUTCString());
+		formData.set('eventEndDate', new Date(eventEndDate).toUTCString());
 		formData.set('content', content);
 
 		if (formData.has('tags')) formData.delete('tags');

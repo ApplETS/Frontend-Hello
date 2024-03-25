@@ -22,6 +22,7 @@ import Confirmation from './Confirmation';
 import { updatePublicationState } from '@/lib/publications/actions/update-publication-state';
 import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import Modal from './Modal';
+import { draftAPublication } from '@/lib/publications/actions/draft-publication';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -89,9 +90,9 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 		formData.set('title', title);
 		formData.set('imageAltText', imageAltText);
-		formData.set('publicationDate', new Date(publishedDate).toUTCString());
-		formData.set('eventStartDate', new Date(eventStartDate).toUTCString());
-		formData.set('eventEndDate', new Date(eventEndDate).toUTCString());
+		formData.set('publicationDate', publishedDate ? new Date(publishedDate).toUTCString() : '');
+		formData.set('eventStartDate', eventStartDate ? new Date(eventStartDate).toUTCString() : '');
+		formData.set('eventEndDate', eventEndDate ? new Date(eventEndDate).toUTCString() : '');
 		formData.set('content', content);
 
 		if (formData.has('tags')) formData.delete('tags');
@@ -236,6 +237,23 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 			t(`modal.approve-${success ? 'success' : 'error'}-toast-message`),
 			success ? AlertType.success : AlertType.error
 		);
+	};
+
+	const handleDraft = async () => {
+		const formData = new FormData();
+		formData.append('isDraft', 'true');
+		const updatedFormData = updateFormData(formData);
+
+		startTransition(async () => {
+			const helloEvent = await draftAPublication(updatedFormData);
+
+			setToast(
+				t(`modal.draft-${helloEvent ? 'success' : 'error'}-toast-message`),
+				helloEvent ? AlertType.success : AlertType.error
+			);
+
+			if (helloEvent) onClose();
+		});
 	};
 
 	const verifyReason = () => {
@@ -496,10 +514,22 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 							</span>
 						)}
 						<div
-							className={`${
-								modalMode === Constants.publicationModalStatus.moderator ? 'flex justify-between' : 'modal-action'
+							className={`mt-2 ${
+								modalMode === Constants.publicationModalStatus.moderator ? 'flex justify-between' : 'flex justify-start'
 							}`}
 						>
+							{modalMode !== Constants.publicationModalStatus.modify &&
+								modalMode !== Constants.publicationModalStatus.moderator && (
+									<button
+										className={`btn btn-info px-8`}
+										disabled={publication?.state === NewsStates.APPROVED ?? false}
+										onClick={handleDraft}
+										type="button"
+									>
+										{ta('modal.draft')}
+									</button>
+								)}
+
 							{modalMode === Constants.publicationModalStatus.moderator && (
 								<>
 									{publication?.state !== NewsStates.PUBLISHED ? (
@@ -554,7 +584,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 								/>
 							)}
 
-							<div className="">
+							<div className="ml-auto">
 								<button
 									className={`btn text-black px-11 ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
 									onClick={() => onClose()}

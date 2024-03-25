@@ -2,7 +2,6 @@
 
 import { revalidateTag } from 'next/cache';
 import constants from '@/utils/constants';
-import { patchPublications } from '../patch-publication';
 import { NewsStates } from '@/models/news-states';
 import { patchModeratorPublication } from '../patch-moderator-publication';
 

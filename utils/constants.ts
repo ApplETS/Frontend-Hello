@@ -25,11 +25,12 @@ export default {
 		moderator: 6,
 	},
 	newsStatuses: {
-		[NewsStates.ON_HOLD]: { color: 'bg-pink', label: 'on-hold' },
+		[NewsStates.ON_HOLD]: { color: 'bg-yellow', label: 'on-hold' },
 		[NewsStates.DELETED]: { color: 'bg-error', label: 'deleted' },
-		[NewsStates.REFUSED]: { color: 'bg-purple', label: 'refused' },
+		[NewsStates.REFUSED]: { color: 'bg-pink', label: 'refused' },
 		[NewsStates.APPROVED]: { color: 'bg-green', label: 'approved' },
-		[NewsStates.PUBLISHED]: { color: 'bg-blue', label: 'published' },
+		[NewsStates.PUBLISHED]: { color: 'bg-purple', label: 'published' },
+		[NewsStates.DRAFT]: { color: 'bg-blue', label: 'draft' },
 		[NewsStates.ALL]: { color: 'bg-orange', label: 'all' },
 	} as NewsStatuses,
 	publicationMenuItemsStatus: {

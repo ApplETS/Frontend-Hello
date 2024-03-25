@@ -133,6 +133,8 @@
 			"reject-error-toast-message": "An error occurred while rejecting the news",
 			"approve-success-toast-message": "The news has been approved",
 			"approve-error-toast-message": "An error occurred while approving the news",
+			"draft-success-toast-message": "The news has been saved as draft",
+			"draft-error-toast-message": "An error occurred while saving the news as draft",
 			"cancel": "Cancel",
 			"activity-area-items": {
 				"scientificClub": "Scientific Club",
@@ -165,6 +167,7 @@
 		},
 		"modal": {
 			"moderator-page-title": "Consult a news",
+			"draft": "Save as draft",
 			"approve-button": "Approve",
 			"reject-button": "Refuse",
 			"deactivate-button": "Deactivate"

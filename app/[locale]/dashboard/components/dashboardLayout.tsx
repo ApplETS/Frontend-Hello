@@ -10,7 +10,6 @@ import { useUser } from '@/utils/provider/UserProvider';
 import Toast from '@/components/Toast';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
-import Modal from '@/components/modals/Modal';
 
 interface Props {
 	children: ReactElement;

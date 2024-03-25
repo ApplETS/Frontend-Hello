@@ -99,26 +99,22 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 		if (!container) return;
 
 		if (cardIndex === 1) {
-			// Scroll all the way up
 			container.scrollTo({
 				top: 0,
 				behavior: 'smooth',
 			});
 			return;
 		}
-		const delay = 100; // Adjust as needed
+		const delay = 100;
 		setTimeout(() => {
 			const containerRect = container.getBoundingClientRect();
 			const cardRect = cardElement.getBoundingClientRect();
 
-			// Calculate the scaled height of the card
 			const scale = cardVariants.notSelected(selectedCard ? selectedCard - cardIndex : 0).scale;
 			const scaledCardHeight = cardRect.height * scale;
 
-			// Calculate the top position of the card after scaling
 			const scaledCardTop = cardRect.top + (cardRect.height - scaledCardHeight) / 2;
 
-			// Calculate the scroll position to center the scaled card vertically in the container
 			const scrollPosition =
 				scaledCardTop - containerRect.top + container.scrollTop - (containerRect.height - scaledCardHeight) / 2;
 

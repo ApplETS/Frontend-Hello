@@ -85,8 +85,6 @@ export default function UsersTable({ users }: Props) {
 		closeUserSelection();
 	};
 
-	console.log(users);
-
 	useEffect(() => {
 		const filtered = users.filter(
 			(user) =>

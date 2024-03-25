@@ -185,7 +185,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 									</div>
 								</div>
 								<div className="flex flex-col pt-2 pl-2">
-									<p className="text-base font-bold">{event.organizer?.organisation ?? 'Organisateur'}</p>
+									<p className="text-base font-bold">{event.organizer?.organization ?? 'Organisateur'}</p>
 									<p className="text-xs text-secondary">{event.organizer?.activityArea}</p>
 								</div>
 								{selectedCard === event.cardId && (

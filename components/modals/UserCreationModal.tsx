@@ -36,12 +36,12 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 				) : (
 					<form action={create}>
 						<div className="flex flex-row space-x-4 mb-4">
-							{/* Organisation input */}
+							{/* organization input */}
 							<div className="flex flex-col flex-1">
-								<label className="mb-2 text-base font-normal" htmlFor="organisation">
-									{t('organisation')}
+								<label className="mb-2 text-base font-normal" htmlFor="organization">
+									{t('organization')}
 								</label>
-								<input className="input input-ghost w-full" name="organisation" required />
+								<input className="input input-ghost w-full" name="organization" required />
 							</div>
 							{/* Activity dropdown */}
 							<div className="flex flex-col flex-1">

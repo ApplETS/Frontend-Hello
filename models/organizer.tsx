@@ -5,7 +5,7 @@ export interface Organizer {
 	name: string | null;
 	email: string | null;
 	type: string | null;
-	organisation: string | null;
+	organization: string | null;
 	activityArea: string | null;
 	imageUrl: string;
 	profileDescription: string | null;

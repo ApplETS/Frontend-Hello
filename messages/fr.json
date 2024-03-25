@@ -235,8 +235,11 @@
 		},
 		"toggle": {
 			"deactivation-title": "Pourquoi voulez-vous désactiver le compte de {organization}?",
+			"deactivation-title-no-organization": "Pourquoi voulez-vous désactiver le compte?",
 			"activation-title": "Êtes-vous sûr de vouloir activer le compte de {organization}?",
+			"activation-title-no-organization": "Êtes-vous sûr de vouloir activer le compte?",
 			"delete-title": "Êtes-vous sûr de vouloir supprimer le compte de {organization}?",
+			"delete-title-no-organization": "Êtes-vous sûr de vouloir supprimer le compte de {organization}?",
 			"close": "Fermer",
 			"deactivate": "Désactiver le compte",
 			"activate": "Activer le compte",

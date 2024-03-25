@@ -195,7 +195,11 @@ export default function UsersTable({ users }: Props) {
 				{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
 				{deactivationModalOpen && (
 					<Confirmation
-						title={t('toggle.deactivation-title', { organization: selectedUser?.organisation })}
+						title={
+							selectedUser?.organization
+								? t('toggle.deactivation-title', { organization: selectedUser?.organization })
+								: t('toggle.deactivation-title-no-organization')
+						}
 						firstButtonTitle={t('toggle.close')}
 						secondButtonTitle={t('toggle.deactivate')}
 						secondButtonColor={'btn-error'}
@@ -210,7 +214,11 @@ export default function UsersTable({ users }: Props) {
 				)}
 				{activationModalOpen && (
 					<Confirmation
-						title={t('toggle.activation-title', { organization: selectedUser?.organization })}
+						title={
+							selectedUser?.organization
+								? t('toggle.activation-title', { organization: selectedUser?.organization })
+								: t('toggle.activation-title-no-organization')
+						}
 						firstButtonTitle={t('toggle.close')}
 						secondButtonTitle={t('toggle.activate')}
 						secondButtonColor={'btn-success'}
@@ -221,7 +229,11 @@ export default function UsersTable({ users }: Props) {
 				)}
 				{deleteModalOpen && (
 					<Confirmation
-						title={t('toggle.delete-title', { organization: selectedUser?.organisation })}
+						title={
+							selectedUser?.organization
+								? t('toggle.delete-title', { organization: selectedUser?.organization })
+								: t('toggle.delete-title-no-organization')
+						}
 						firstButtonTitle={t('toggle.close')}
 						secondButtonTitle={t('toggle.delete')}
 						secondButtonColor={'btn-error'}

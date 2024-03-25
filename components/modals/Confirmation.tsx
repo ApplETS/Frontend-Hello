@@ -58,7 +58,7 @@ export default function Confirmation({
 					id="confirmation_modal"
 					className={`modal bg-base-200 overflow-y-auto ${
 						inputTitle ? 'p-5 w-[40rem]' : 'm-5 p-2 w-[32rem]'
-					} rounded-2xl transform -translate-x-1/2 -translate-y-1/2 ${inputTitle ? 'h-64' : 'h-40 '}`}
+					} rounded-2xl transform -translate-x-1/2 -translate-y-1/2 ${inputTitle ? 'h-72' : 'h-40 '}`}
 					open={true}
 					style={{ top: '50%', left: '50%' }}
 				>

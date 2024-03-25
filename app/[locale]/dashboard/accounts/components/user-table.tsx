@@ -195,7 +195,7 @@ export default function UsersTable({ users }: Props) {
 				{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
 				{deactivationModalOpen && (
 					<Confirmation
-						title={t('toggle.deactivation-title')}
+						title={t('toggle.deactivation-title', { organization: selectedUser?.organisation })}
 						firstButtonTitle={t('toggle.close')}
 						secondButtonTitle={t('toggle.deactivate')}
 						secondButtonColor={'btn-error'}
@@ -213,17 +213,6 @@ export default function UsersTable({ users }: Props) {
 						title={t('toggle.activation-title', { organization: selectedUser?.organisation })}
 						firstButtonTitle={t('toggle.close')}
 						secondButtonTitle={t('toggle.activate')}
-						secondButtonColor={'btn-success'}
-						onClose={closeUserSelection}
-						secondButtonHoverColor={''}
-						confirmationAction={toggleUser}
-					/>
-				)}
-				{deleteModalOpen && (
-					<Confirmation
-						title={t('toggle.delete-title', { organization: selectedUser?.organisation })}
-						firstButtonTitle={t('toggle.close')}
-						secondButtonTitle={t('toggle.delete')}
 						secondButtonColor={'btn-success'}
 						onClose={closeUserSelection}
 						secondButtonHoverColor={''}

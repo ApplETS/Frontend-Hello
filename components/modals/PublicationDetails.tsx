@@ -250,9 +250,9 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 	return (
 		<Modal>
-			<div id="publication_modal" className="overflow-y-auto p-4 w-[80rem]">
-				<form action={createOrUpdate} className="overflow-y-auto w-full">
-					<div className="p-5 bg-base-200 w-full rounded-2xl">
+			<div id="publication_modal" className="overflow-y-auto p-4 w-[80rem] h-[50rem]">
+				<form action={createOrUpdate} className="overflow-y-auto max-h-full w-full">
+					<div className="p-5 bg-base-200 max-h-full w-full rounded-2xl overflow-y-auto">
 						<div className="grid grid-cols-2 gap-2"></div>
 						<div className="flex items-center gap-2">
 							<h1 className="text-2xl block">{getModalTitle()}</h1>{' '}

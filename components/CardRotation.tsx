@@ -90,12 +90,38 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 		} else selectCard(card);
 	};
 
-	const scrollToCard = (card: any) => {
-		cardRefs.current[card - 1].scrollIntoView({
-			behavior: 'smooth',
-			block: 'nearest',
-			inline: 'center',
-		});
+	const scrollToCard = (cardIndex: number) => {
+		const cardElement = cardRefs.current[cardIndex - 1];
+		if (!cardElement) return;
+
+		const container = containerRef.current;
+		if (!container) return;
+
+		if (cardIndex === 1) {
+			container.scrollTo({
+				top: 0,
+				behavior: 'smooth',
+			});
+			return;
+		}
+		const delay = 100;
+		setTimeout(() => {
+			const containerRect = container.getBoundingClientRect();
+			const cardRect = cardElement.getBoundingClientRect();
+
+			const scale = cardVariants.notSelected(selectedCard ? selectedCard - cardIndex : 0).scale;
+			const scaledCardHeight = cardRect.height * scale;
+
+			const scaledCardTop = cardRect.top + (cardRect.height - scaledCardHeight) / 2;
+
+			const scrollPosition =
+				scaledCardTop - containerRect.top + container.scrollTop - (containerRect.height - scaledCardHeight) / 2;
+
+			container.scrollTo({
+				top: scrollPosition,
+				behavior: 'smooth',
+			});
+		}, delay);
 	};
 
 	const handleViewProfileClick = (e: React.MouseEvent, url: string) => {

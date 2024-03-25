@@ -136,9 +136,9 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 										<div className="mb-2">{event.title}</div>
 									</div>
 									{selectedCard === event.cardId ? (
-										<FontAwesomeIcon icon={faDownLeftAndUpRightToCenter} className="text-2xl p-4" />
+										<FontAwesomeIcon icon={faDownLeftAndUpRightToCenter} className="text-lg p-4" />
 									) : (
-										<FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} className="text-2xl p-4" />
+										<FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} className="text-lg p-4" />
 									)}
 								</div>
 							</div>

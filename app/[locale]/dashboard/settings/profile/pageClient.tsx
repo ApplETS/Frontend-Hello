@@ -42,7 +42,7 @@ export default function ProfileClient() {
 								type="text"
 								className="input input-ghost col-span-2"
 								name="organization"
-								defaultValue={user.organisation ?? ''}
+								defaultValue={user.organization ?? ''}
 								required
 							/>
 						</>

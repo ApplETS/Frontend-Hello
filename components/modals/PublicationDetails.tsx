@@ -519,7 +519,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 											</div>
 										) : (
 											<button className={`btn btn-error px-8`} onClick={handleDeleteOpen} type="button">
-												{ta('modal.delete-button')}
+												{ta('modal.deactivate-button')}
 											</button>
 										)}
 									</>
@@ -541,9 +541,9 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 								)}
 								{deleteModalOpen && (
 									<Confirmation
-										title={ta('delete-question')}
+										title={ta('deactivate-question')}
 										firstButtonTitle={ta('cancel')}
-										secondButtonTitle={ta('delete')}
+										secondButtonTitle={ta('deactivate')}
 										secondButtonColor={'btn-error'}
 										inputTitle={ta('reason')}
 										inputValue={deleteReason}

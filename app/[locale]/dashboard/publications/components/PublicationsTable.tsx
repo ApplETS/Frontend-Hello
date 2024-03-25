@@ -8,11 +8,12 @@ import Confirmation from '@/components/modals/Confirmation';
 import Constants from '@/utils/constants';
 import { formatDate } from '@/utils/formatDate';
 import { HelloEvent } from '@/models/hello-event';
+import PublicationsDetails from '@/components/modals/PublicationDetails';
 import { Tag } from '@/models/tag';
+import { attemptRevalidation } from '@/lib/attempt-revalidation';
 import { removePublication } from '@/lib/publications/actions/remove-publication';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
-import SetPassword from '@/components/modals/SetPassword';
 
 type Props = {
 	locale: string;
@@ -153,7 +154,18 @@ export default function PublicationsTable({ locale, publications, tags }: Props)
 							</td>
 						</tr>
 					)}
-					{isModalOpen && <SetPassword onClose={() => setIsDeleteModalOpen(false)} />}
+					{isModalOpen && (
+						<PublicationsDetails
+							locale={locale}
+							publication={selectedPublication}
+							tags={tags}
+							modalMode={modalType}
+							onClose={() => {
+								setIsModalOpen(false);
+								attemptRevalidation(Constants.tags.publications);
+							}}
+						/>
+					)}
 					{isDeleteModalOpen && (
 						<Confirmation
 							title={t('modal.delete-title')}

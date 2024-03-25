@@ -60,6 +60,7 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 				{children}
 				{isLoading && <LoadingSpinner />}
 			</div>
+			<div id="modal-root"></div>
 		</>
 	);
 }

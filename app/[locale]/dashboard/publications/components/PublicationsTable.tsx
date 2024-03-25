@@ -37,6 +37,7 @@ export default function PublicationsTable({ locale, publications, tags }: Props)
 	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
 	const menuItems = Constants.publicationMenuItems.map((item) => {
 		return {
+			id: item.id,
 			text: t(`menu.${item.label}`),
 			icon: item.icon,
 			color: item.color,
@@ -61,19 +62,19 @@ export default function PublicationsTable({ locale, publications, tags }: Props)
 		setSearchTerm(search);
 	};
 
-	const handleDropdownSelection = (index: number, dropdownIndex?: number) => {
+	const handleDropdownSelection = (index: number, dropdownItemId?: number) => {
 		setSelectedPublication(filteredPublications[index]);
 
-		switch (dropdownIndex) {
-			case 0:
+		switch (dropdownItemId) {
+			case Constants.publicationMenuItems[0].id: // Modify
 				setModalType(Constants.publicationModalStatus.modify);
 				setIsModalOpen(!isModalOpen);
 				break;
-			case 1:
+			case Constants.publicationMenuItems[1].id: // Duplicate
 				setModalType(Constants.publicationModalStatus.duplicate);
 				setIsModalOpen(!isModalOpen);
 				break;
-			case 2:
+			case Constants.publicationMenuItems[2].id: // Delete
 				setIsDeleteModalOpen(true);
 				break;
 		}
@@ -140,10 +141,8 @@ export default function PublicationsTable({ locale, publications, tags }: Props)
 								<td>
 									<DropdownMenu
 										items={menuItems}
-										onSelect={(publicationIndex, dropdownIndex) =>
-											handleDropdownSelection(publicationIndex, dropdownIndex)
-										}
-										publicationIndex={index}
+										onSelect={(itemIndex, dropdownItemId) => handleDropdownSelection(itemIndex, dropdownItemId)}
+										itemIndex={index}
 									/>
 								</td>
 							</tr>

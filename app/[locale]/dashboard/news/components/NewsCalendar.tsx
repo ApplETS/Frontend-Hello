@@ -93,7 +93,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				}}
 				eventContent={(arg: EventContentArg) => {
 					return (
-						<div className={`p-2 cursor-pointer`}>
+						<div className={`p-2 cursor-pointer`} title={arg.event.title}>
 							<p className="truncate text-black text-center">{`${arg.event.title}`}</p>
 						</div>
 					);

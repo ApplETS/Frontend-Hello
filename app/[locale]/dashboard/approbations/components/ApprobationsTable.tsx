@@ -38,7 +38,7 @@ export default function ApprobationsTable({ events, locale, user, tags }: Props)
 				(searchTerm === '' ||
 					event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
 					event.organizer?.activityArea?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-					event.organizer?.organisation?.toLowerCase().includes(searchTerm.toLowerCase()))
+					event.organizer?.organization?.toLowerCase().includes(searchTerm.toLowerCase()))
 		);
 		setFilteredEvents(filtered);
 	}, [selectedFilter, searchTerm]);
@@ -100,7 +100,7 @@ export default function ApprobationsTable({ events, locale, user, tags }: Props)
 										className="w-10 h-10 mr-3 rounded-full"
 									></img>
 									<div>
-										<div>{event.organizer?.organisation}</div>
+										<div>{event.organizer?.organization}</div>
 										<div className="text-secondary">{event.organizer?.activityArea}</div>
 									</div>
 								</td>

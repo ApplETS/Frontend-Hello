@@ -70,7 +70,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		title: title,
 		imageSrc: imageSrc,
 		altText: imageAltText,
-		author: user?.organisation ?? '',
+		author: user?.organization ?? '',
 		activityArea: user?.activityArea ?? '',
 		content: content,
 		eventDateTitle: t('modal.event-date'),

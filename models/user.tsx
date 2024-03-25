@@ -3,7 +3,7 @@ export interface User {
 	name: string | null;
 	email: string | null;
 	type: string | null;
-	organisation: string | null;
+	organization: string | null;
 	activityArea: string | null;
 	profileDescription: string | null;
 	isActive: boolean;

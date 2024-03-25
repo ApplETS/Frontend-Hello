@@ -64,6 +64,16 @@
 		"401": "Le code de réinitialisation est invalide ou a expiré",
 		"token-placeholder": "Code reçu par courriel"
 	},
+	"SetPassword": {
+		"title": "Changer le mot de passe temporaire",
+		"new-password": "Nouveau mot de passe",
+		"confirm-password": "Confirmation de mot de passe",
+		"password-success-toast-message": "Le mot de passe a été changé avec succès",
+		"password-error-toast-message": "Une erreur est survenue lors du changement de mot de passe",
+		"password-mismatch-error": "Les mots de passe ne correspondent pas",
+		"cancel": "Annuler",
+		"save": "Enregistrer"
+	},
 	"NewsPage": {
 		"view-profile": "Voir le profil"
 	},

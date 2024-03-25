@@ -64,6 +64,17 @@
 		"401": "Invalid token",
 		"token-placeholder": "Token received by email"
 	},
+
+	"SetPassword": {
+		"title": "Change temporary password",
+		"new-password": "New password",
+		"confirm-password": "Confirm password",
+		"password-success-toast-message": "The password was successfully changed",
+		"password-error-toast-message": "An error occurred while changing the password",
+		"password-mismatch-error": "Passwords do not match",
+		"cancel": "Cancel",
+		"save": "Save"
+	},
 	"NewsPage": {
 		"view-profile": "View profile"
 	},

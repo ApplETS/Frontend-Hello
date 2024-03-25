@@ -10,6 +10,9 @@ import DropdownMenu from '@/components/DropdownMenu';
 import UserCreationModal from '@/components/modals/UserCreationModal';
 import { AlertType } from '@/components/Alert';
 import { useToast } from '@/utils/provider/ToastProvider';
+import { toggleUserIsActive } from '@/lib/users/actions/toggle';
+import { UserStates } from '@/models/user-states';
+import Confirmation from '@/components/modals/Confirmation';
 
 type Props = {
 	users: User[];
@@ -28,22 +31,64 @@ export default function UsersTable({ users }: Props) {
 	const filters = Object.values(Constants.userStatuses).map((status) => t(`filters.${status.label}`));
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const toggleModal = () => {
-		setIsModalOpen(!isModalOpen);
+	const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+	const [selectedUser, setSelectedUser] = useState<User | undefined>(undefined);
+	const [activationModalOpen, setActivationModalOpen] = useState(false);
+	const [deactivationModalOpen, setDeactivationModalOpen] = useState(false);
+	const [deactivationReaon, setDeactivationReason] = useState('');
+
+	const getSubmenuItemsByUser = (user: User) => {
+		const menuItems = Constants.userMenuItems.map((item) => {
+			return {
+				id: item.id,
+				text: t(`menu.${item.label}`),
+				icon: item.icon,
+				color: item.color,
+			};
+		});
+		const itemToRemove = user.isActive ? Constants.userMenuItems[0].id : Constants.userMenuItems[1].id;
+		return menuItems.filter((item) => item.id !== itemToRemove);
 	};
 
-	const menuItems = Constants.userMenuItems.map((item) => {
-		return {
-			text: t(`menu.${item.label}`),
-			icon: item.icon,
-			color: item.color,
-		};
-	});
+	const getUserState = (user: User) => (user.isActive ? UserStates.ACTIVATED : UserStates.DEACTIVATED);
+
+	const handleUserSelection = (userIndex: number, dropDownItemId: number) => {
+		setSelectedUser(filteredUsers[userIndex]);
+		switch (dropDownItemId) {
+			case Constants.userMenuItems[0].id: // Activate &
+				setActivationModalOpen(true);
+				break;
+			case Constants.userMenuItems[1].id: // Deactivate
+				setDeactivationModalOpen(true);
+				break;
+			case Constants.userMenuItems[2].id: // Delete
+				// TODO: Implement delete user
+				break;
+			default:
+				break;
+		}
+	};
+
+	const toggleUser = async () => {
+		if (!selectedUser) return;
+
+		const success = await toggleUserIsActive(selectedUser.id, deactivationReaon);
+		if (success) {
+			selectedUser.isActive = !selectedUser.isActive;
+			const message = selectedUser.isActive ? t('activate-success') : t('deactivate-success');
+			setToast(message, AlertType.success);
+		} else {
+			const message = selectedUser.isActive ? t('activate-error') : t('deactivate-error');
+			setToast(message, AlertType.error);
+		}
+		closeUserSelection();
+	};
 
 	useEffect(() => {
 		const filtered = users.filter(
 			(user) =>
-				(t(`filters.${Constants.userStatuses[1]?.label}`).toLowerCase() === selectedFilter ||
+				(t(`filters.${Constants.userStatuses[getUserState(user)]?.label}`).toLowerCase() === selectedFilter ||
 					selectedFilter === filterAll) &&
 				(searchTerm === '' ||
 					user.organisation?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -65,6 +110,23 @@ export default function UsersTable({ users }: Props) {
 		setIsModalOpen(false);
 		if (user) setToast(t('create.success'), AlertType.success);
 		else setToast(t('create.error'), AlertType.error);
+	};
+
+	const closeUserSelection = () => {
+		setSelectedUser(undefined);
+		setDeactivationReason('');
+		setDeactivationModalOpen(false);
+		setActivationModalOpen(false);
+	};
+
+	const verifyReason = () => {
+		const correct = deactivationReaon.trim() !== '';
+
+		if (!correct) {
+			setToast(t('toggle.give-reason'), AlertType.error);
+		}
+
+		return !correct;
 	};
 
 	return (
@@ -105,13 +167,19 @@ export default function UsersTable({ users }: Props) {
 										<td>{user.activityArea ?? '-'}</td>
 										<td className="text-base">
 											<div
-												className={`py-4 px-4 badge ${Constants.userStatuses[1].color || 'badge-neutral'} text-black`}
+												className={`py-4 px-4 badge ${
+													Constants.userStatuses[getUserState(user)].color || 'badge-neutral'
+												} text-black`}
 											>
-												{t(`filters.${Constants.userStatuses[1].label}`)}
+												{t(`filters.${Constants.userStatuses[getUserState(user)].label}`)}
 											</div>
 										</td>
 										<td>
-											<DropdownMenu items={menuItems} publicationIndex={0} />
+											<DropdownMenu
+												items={getSubmenuItemsByUser(user)}
+												onSelect={handleUserSelection}
+												itemIndex={index}
+											/>
 										</td>
 									</tr>
 								))}
@@ -119,8 +187,34 @@ export default function UsersTable({ users }: Props) {
 						</table>
 					</div>
 				)}
+				{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
+				{deactivationModalOpen && (
+					<Confirmation
+						title={t('toggle.deactivation-title')}
+						firstButtonTitle={t('toggle.close')}
+						secondButtonTitle={t('toggle.deactivate')}
+						secondButtonColor={'btn-error'}
+						inputTitle={t('toggle.input-title')}
+						inputValue={deactivationReaon}
+						setInputValue={setDeactivationReason}
+						onClose={closeUserSelection}
+						secondButtonHoverColor={''}
+						confirmationAction={toggleUser}
+						verify={verifyReason}
+					/>
+				)}
+				{activationModalOpen && (
+					<Confirmation
+						title={t('toggle.activation-title', { organization: selectedUser?.organisation })}
+						firstButtonTitle={t('toggle.close')}
+						secondButtonTitle={t('toggle.activate')}
+						secondButtonColor={'btn-success'}
+						onClose={closeUserSelection}
+						secondButtonHoverColor={''}
+						confirmationAction={toggleUser}
+					/>
+				)}
 			</div>
-			{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
 		</>
 	);
 }

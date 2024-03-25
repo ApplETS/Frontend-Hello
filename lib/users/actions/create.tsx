@@ -1,6 +1,6 @@
 'use server';
 
-import { signUpUser } from '@/lib/sign-up-user';
+import { signUpUser } from '@/lib/users/sign-up-user';
 import { User } from '@/models/user';
 import Constants from '@/utils/constants';
 import { revalidateTag } from 'next/cache';

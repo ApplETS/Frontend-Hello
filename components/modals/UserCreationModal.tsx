@@ -1,4 +1,4 @@
-import { createUser } from '@/app/[locale]/dashboard/accounts/actions/create';
+import { createUser } from '@/lib/users/actions/create';
 import { User } from '@/models/user';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { useTranslations } from 'next-intl';

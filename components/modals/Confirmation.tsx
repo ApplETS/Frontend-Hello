@@ -75,8 +75,8 @@ export default function Confirmation({
 										<div className="flex flex-col">
 											<span className="label-text text-base mt-2">{inputTitle}</span>
 											<textarea
-												name="description"
-												className="textarea textarea-ghost border-current row-span-4 h-full self-start col-span-2 w-full mt-2"
+												name="input"
+												className="textarea textarea-ghost border-current row-span-2 h-full self-start col-span-2 w-full mt-2"
 												required
 												value={inputValue}
 												onChange={(e) => setInputValue && setInputValue(e.target.value)}

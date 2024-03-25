@@ -11,6 +11,7 @@ import frLocale from '@fullcalendar/core/locales/fr';
 import enLocale from '@fullcalendar/core/locales/en-gb';
 import { createRef, useState } from 'react';
 import { CalendarHeader } from './NewsCalendarHeader';
+import { DateTimeFormatOptions } from 'next-intl';
 
 interface Props {
 	events: HelloEvent[];
@@ -59,6 +60,31 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 		};
 	});
 
+	const formatEventDate = (startDate: string, endDate: string) => {
+		console.log(startDate, endDate);
+		const start = new Date(startDate);
+		const end = new Date(endDate);
+
+		// Formatter pour les heures et minutes
+		const timeOptions: DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit', hour12: false };
+		// Formatter pour la date
+		const dateOptions: DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
+
+		// Extraire les dates et heures formatées
+		const startTime = start.toLocaleTimeString('fr-FR', timeOptions);
+		const endTime = end.toLocaleTimeString('fr-FR', timeOptions);
+		const startDateFormatted = start.toLocaleDateString('fr-FR', dateOptions);
+		const endDateFormatted = end.toLocaleDateString('fr-FR', dateOptions);
+
+		if (startDateFormatted === endDateFormatted) {
+			// Même jour
+			return `${startTime} à ${endTime}`;
+		} else {
+			// Jours différents
+			return `${startDateFormatted} à ${startTime} au ${endDateFormatted} à ${endTime}`;
+		}
+	};
+
 	events = updatedEvents;
 
 	return (
@@ -93,8 +119,13 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				}}
 				eventContent={(arg: EventContentArg) => {
 					return (
-						<div className={`p-2 cursor-pointer`} title={arg.event.title}>
-							<p className="truncate text-black text-center">{`${arg.event.title}`}</p>
+						<div
+							className="tooltip tooltip-top w-full z-50 my-tooltip"
+							data-tip={`${arg.event.title}\n${formatEventDate(arg.event.startStr, arg.event.endStr)}`}
+						>
+							<div className={`p-2 cursor-pointer w-full text-center`}>
+								<p className="truncate text-black text-center">{`${arg.event.title}`}</p>
+							</div>
 						</div>
 					);
 				}}

@@ -7,12 +7,12 @@ import { revalidateTag } from 'next/cache';
 
 export async function createUser(formData: FormData): Promise<User | undefined> {
 	const email = formData.get('email') as string;
-	const organisation = formData.get('organisation') as string;
+	const organization = formData.get('organization') as string;
 	const activityArea = formData.get('activity') as string;
 	var user;
 
 	try {
-		user = await signUpUser(email, organisation, activityArea);
+		user = await signUpUser(email, organization, activityArea);
 	} catch (e) {
 		return;
 	}

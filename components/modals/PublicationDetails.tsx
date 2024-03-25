@@ -55,7 +55,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 	const [activityArea, setActivityArea] = useState(user?.activityArea || '');
 
 	const [rejectReason, setRejectReason] = useState('');
-	const [deleteReason, setDeleteReason] = useState('');
+	const [deactivateReason, setDeactivateReason] = useState('');
 
 	const isDisabled =
 		modalMode === Constants.publicationModalStatus.view ||
@@ -71,7 +71,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		title: title,
 		imageSrc: imageSrc,
 		altText: imageAltText,
-		author: user?.organisation ?? '',
+		author: user?.organization ?? '',
 		activityArea: user?.activityArea ?? '',
 		content: content,
 		eventDateTitle: t('modal.event-date'),
@@ -198,16 +198,16 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		setRejectModalOpen(false);
 	};
 
-	const handleDeleteOpen = () => {
+	const handleDeactivationOpen = () => {
 		setDeleteModalOpen(true);
 	};
 
-	const handleDeleteClose = () => {
+	const handleDeactivateClose = () => {
 		setDeleteModalOpen(false);
 	};
 
-	const handleDelete = async () => {
-		const success = await updatePublicationState(publication!.id, NewsStates.DELETED, deleteReason);
+	const handleDeactivation = async () => {
+		const success = await updatePublicationState(publication!.id, NewsStates.DELETED, deactivateReason);
 		if (success) publication!.state = NewsStates.DELETED;
 		setDeleteModalOpen(false);
 		onClose();
@@ -517,8 +517,8 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 											</button>
 										</div>
 									) : (
-										<button className={`btn btn-error px-8`} onClick={handleDeleteOpen} type="button">
-											{ta('modal.delete-button')}
+										<button className={`btn btn-error px-8`} onClick={handleDeactivationOpen} type="button">
+											{ta('modal.deactivate-button')}
 										</button>
 									)}
 								</>
@@ -540,16 +540,16 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 							)}
 							{deleteModalOpen && (
 								<Confirmation
-									title={ta('delete-question')}
+									title={ta('deactivate-question')}
 									firstButtonTitle={ta('cancel')}
-									secondButtonTitle={ta('delete')}
+									secondButtonTitle={ta('deactivate')}
 									secondButtonColor={'btn-error'}
 									inputTitle={ta('reason')}
-									inputValue={deleteReason}
-									setInputValue={setDeleteReason}
-									onClose={handleDeleteClose}
+									inputValue={deactivateReason}
+									setInputValue={setDeactivateReason}
+									onClose={handleDeactivateClose}
 									secondButtonHoverColor={''}
-									confirmationAction={handleDelete}
+									confirmationAction={handleDeactivation}
 									verify={verifyReason}
 								/>
 							)}

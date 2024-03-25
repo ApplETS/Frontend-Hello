@@ -39,7 +39,7 @@ export default function Profile({ params: { locale } }: Props) {
 		name: 'Prénom Nom',
 		email: 'applets@ens.etsmtl.ca',
 		type: null,
-		organisation: null,
+		organization: null,
 		activityArea: 'Club scientifique',
 		imageUrl: 'https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg',
 		profileDescription: 'Je suis une description longue longue longue longue longue longue longue longue longue.',

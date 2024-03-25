@@ -243,7 +243,7 @@
 			"close": "Fermer",
 			"deactivate": "Désactiver le compte",
 			"activate": "Activer le compte",
-			"delete": "Delete",
+			"delete": "Supprimer",
 			"input-title": "Raison",
 			"give-reason": "Veuillez donner une raison pour la désactivation de ce compte"
 		}

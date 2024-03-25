@@ -30,7 +30,7 @@ export default function Confirmation({
 	onClose,
 	handleError,
 	confirmationAction,
-	verify
+	verify,
 }: Props) {
 	const [isPending, startTransition] = useTransition();
 	const { isLight } = useTheme();
@@ -58,9 +58,9 @@ export default function Confirmation({
 			<div className="fixed inset-0 bg-black bg-opacity-30 z-50 flex justify-center items-center">
 				<dialog
 					id="confirmation_modal"
-					className={`modal bg-base-200 overflow-y-auto ${inputTitle ? "px-12 py-4 w-1/2" : "p-4 w-96"} rounded-2xl transform -translate-x-1/2 -translate-y-1/2 ${
-						inputTitle ? 'h-1/2' : 'h-40 '
-					}`}
+					className={`modal bg-base-200 overflow-y-auto ${
+						inputTitle ? 'px-12 py-4 w-[40rem]' : 'p-4 w-96'
+					} rounded-2xl transform -translate-x-1/2 -translate-y-1/2 ${inputTitle ? 'h-[19rem]' : 'h-40 '}`}
 					open={true}
 					style={{ top: '50%', left: '50%' }}
 				>
@@ -70,9 +70,9 @@ export default function Confirmation({
 						</div>
 					) : (
 						<>
-							<p className='text-xl text-center'>{title}</p>
+							<p className="text-xl text-center">{title}</p>
 							{inputTitle && (
-								<label className='w-full' htmlFor="input">
+								<label className="w-full" htmlFor="input">
 									<span className="label-text text-base">{inputTitle}</span>
 									<input
 										name="input"

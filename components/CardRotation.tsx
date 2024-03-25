@@ -43,6 +43,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 	});
 	const containerRef = useRef<any>();
 	const cardRefs = useRef<any>(new Array());
+	let oldCardScrolledTo = 0;
 
 	useEffect(() => {
 		const { scrollHeight, clientHeight } = containerRef.current;
@@ -90,12 +91,42 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 		} else selectCard(card);
 	};
 
-	const scrollToCard = (card: any) => {
-		cardRefs.current[card - 1].scrollIntoView({
-			behavior: 'smooth',
-			block: 'nearest',
-			inline: 'center',
-		});
+	const scrollToCard = (cardIndex: number) => {
+		const cardElement = cardRefs.current[cardIndex - 1];
+		if (!cardElement) return;
+
+		const container = containerRef.current;
+		if (!container) return;
+
+		if (cardIndex === 1) {
+			// Scroll all the way up
+			container.scrollTo({
+				top: 0,
+				behavior: 'smooth',
+			});
+			return;
+		}
+		const delay = 100; // Adjust as needed
+		setTimeout(() => {
+			const containerRect = container.getBoundingClientRect();
+			const cardRect = cardElement.getBoundingClientRect();
+
+			// Calculate the scaled height of the card
+			const scale = cardVariants.notSelected(selectedCard ? selectedCard - cardIndex : 0).scale;
+			const scaledCardHeight = cardRect.height * scale;
+
+			// Calculate the top position of the card after scaling
+			const scaledCardTop = cardRect.top + (cardRect.height - scaledCardHeight) / 2;
+
+			// Calculate the scroll position to center the scaled card vertically in the container
+			const scrollPosition =
+				scaledCardTop - containerRect.top + container.scrollTop - (containerRect.height - scaledCardHeight) / 2;
+
+			container.scrollTo({
+				top: scrollPosition,
+				behavior: 'smooth',
+			});
+		}, delay);
 	};
 
 	const handleViewProfileClick = (e: React.MouseEvent, url: string) => {

@@ -9,6 +9,8 @@ import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import EventDateAndImage from './EventDateAndImage';
 import Constants from '@/utils/constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDownLeftAndUpRightToCenter, faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
 	events: HelloEvent[];
@@ -155,10 +157,15 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 					>
 						<div className="flex flex-col justify-around bg-base-200 rounded-3xl h-full">
 							<div className="card justify-center w-full rounded-lg bg-base-200">
-								<div className="grid grid-rows-[auto_auto_auto_1fr_auto] rounded-3xl h-full">
+								<div className="flex flex-row justify-between">
 									<div className="text-xl font-bold px-4 pt-4 overflow-hidden line-clamp-3">
 										<div className="mb-2">{event.title}</div>
 									</div>
+									{selectedCard === event.cardId ? (
+										<FontAwesomeIcon icon={faDownLeftAndUpRightToCenter} className="text-lg p-4" />
+									) : (
+										<FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} className="text-lg p-4" />
+									)}
 								</div>
 							</div>
 							<EventDateAndImage

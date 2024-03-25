@@ -201,7 +201,7 @@
 		"activate-error": "Une erreur est survenue lors de l'activation du compte",
 		"deactivate-error": "Une erreur est survenue lors de la désactivation du compte",
 		"table": {
-			"organisation": "Nom de l'organisation",
+			"organization": "Nom de l'organisation",
 			"email": "Courriel",
 			"status": "Statut",
 			"activityarea": "Secteur d'activité"
@@ -219,7 +219,7 @@
 		},
 		"create": {
 			"title": "Créer un compte",
-			"organisation": "Nom de l'organisation",
+			"organization": "Nom de l'organisation",
 			"activityarea": "Secteur d'activité",
 			"email": "Courriel",
 			"send": "Envoyer",

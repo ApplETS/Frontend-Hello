@@ -10,7 +10,6 @@ export async function draftPublication(formData: FormData) {
 	}
 
 	const responseData: ApiResponse<HelloEvent> = await response.json();
-	console.log('responseData', responseData.data);
 
 	return responseData.data;
 }

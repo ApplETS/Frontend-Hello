@@ -210,7 +210,7 @@
 			"activityarea": "Secteur d'activité"
 		},
 		"filters": {
-			"all": "All",
+			"all": "Tous",
 			"deactivated": "Désactivé",
 			"pending": "En attente",
 			"active": "Activé"

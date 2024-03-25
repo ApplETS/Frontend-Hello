@@ -37,6 +37,8 @@ export default function UsersTable({ users }: Props) {
 	const [activationModalOpen, setActivationModalOpen] = useState(false);
 	const [deactivationModalOpen, setDeactivationModalOpen] = useState(false);
 	const [deactivationReaon, setDeactivationReason] = useState('');
+	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+	const [deleteReason, setDeleteReason] = useState('');
 
 	const getSubmenuItemsByUser = (user: User) => {
 		const menuItems = Constants.userMenuItems.map((item) => {
@@ -64,6 +66,7 @@ export default function UsersTable({ users }: Props) {
 				break;
 			case Constants.userMenuItems[2].id: // Delete
 				// TODO: Implement delete user
+				setDeleteModalOpen(true);
 				break;
 			default:
 				break;
@@ -117,6 +120,8 @@ export default function UsersTable({ users }: Props) {
 		setDeactivationReason('');
 		setDeactivationModalOpen(false);
 		setActivationModalOpen(false);
+		setDeleteModalOpen(false);
+		setDeleteReason('');
 	};
 
 	const verifyReason = () => {
@@ -190,7 +195,11 @@ export default function UsersTable({ users }: Props) {
 				{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
 				{deactivationModalOpen && (
 					<Confirmation
-						title={t('toggle.deactivation-title')}
+						title={
+							selectedUser?.organization
+								? t('toggle.deactivation-title', { organization: selectedUser?.organization })
+								: t('toggle.deactivation-title-no-organization')
+						}
 						firstButtonTitle={t('toggle.close')}
 						secondButtonTitle={t('toggle.deactivate')}
 						secondButtonColor={'btn-error'}
@@ -205,13 +214,36 @@ export default function UsersTable({ users }: Props) {
 				)}
 				{activationModalOpen && (
 					<Confirmation
-						title={t('toggle.activation-title', { organization: selectedUser?.organization })}
+						title={
+							selectedUser?.organization
+								? t('toggle.activation-title', { organization: selectedUser?.organization })
+								: t('toggle.activation-title-no-organization')
+						}
 						firstButtonTitle={t('toggle.close')}
 						secondButtonTitle={t('toggle.activate')}
 						secondButtonColor={'btn-success'}
 						onClose={closeUserSelection}
 						secondButtonHoverColor={''}
 						confirmationAction={toggleUser}
+					/>
+				)}
+				{deleteModalOpen && (
+					<Confirmation
+						title={
+							selectedUser?.organization
+								? t('toggle.delete-title', { organization: selectedUser?.organization })
+								: t('toggle.delete-title-no-organization')
+						}
+						firstButtonTitle={t('toggle.close')}
+						secondButtonTitle={t('toggle.delete')}
+						secondButtonColor={'btn-error'}
+						inputTitle={t('toggle.input-title')}
+						inputValue={deleteReason}
+						setInputValue={setDeleteReason}
+						onClose={closeUserSelection}
+						secondButtonHoverColor={''}
+						confirmationAction={toggleUser}
+						verify={verifyReason}
 					/>
 				)}
 			</div>

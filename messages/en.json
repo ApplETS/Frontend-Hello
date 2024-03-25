@@ -234,11 +234,16 @@
 			"error": "An error occurred"
 		},
 		"toggle": {
-			"deactivation-title": "Why do you want to deactivate this account?",
+			"deactivation-title": "Why do you want to deactivate the account of {organization}?",
+			"deactivation-title-no-organization": "Why do you want to deactivate the account?",
 			"activation-title": "Are you sure you want to activate the account of {organization}?",
+			"activation-title-no-organization": "Are you sure you want to activate the account?",
+			"delete-title": "Are your sure you want to delete the account of {organization}?",
+			"delete-title-no-organization": "Are your sure you want to delete the account?",
 			"close": "Close",
 			"deactivate": "Deactivate account",
 			"activate": "Activate account",
+			"delete": "Delete",
 			"input-title": "Reason",
 			"give-reason": "Please give a reason for this action"
 		}

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faClose, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
 import Constants from '@/utils/constants';
+import Modal from './Modal';
 
 interface Props {
 	locale: string;
@@ -30,7 +31,7 @@ export default function Preview({ locale, infos, onClosePreview }: Props) {
 	const { isLight } = useTheme();
 
 	return (
-		<dialog id="publication_modal" className="modal bg-black bg-opacity-50 w-full h-full" open={true}>
+		<Modal>
 			<div className="flex justify-between">
 				<div className="left-div">
 					<div className="mockup-phone border-black w-80 p-0 m-0">
@@ -171,6 +172,6 @@ export default function Preview({ locale, infos, onClosePreview }: Props) {
 					</button>
 				</div>
 			</div>
-		</dialog>
+		</Modal>
 	);
 }

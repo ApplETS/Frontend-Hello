@@ -133,6 +133,8 @@
 			"reject-error-toast-message": "Une erreur est survenue lors du refus de la publication",
 			"approve-success-toast-message": "Publication approuvée",
 			"approve-error-toast-message": "Une erreur est survenue lors de l'approbation de la publication",
+			"draft-success-toast-message": "Publication enregistrée comme brouillon",
+			"draft-error-toast-message": "Une erreur est survenue lors de l'enregistrement de la publication comme brouillon",
 			"cancel": "Annuler",
 			"activity-area-items": {
 				"scientificClub": "Club scientifique",
@@ -165,6 +167,7 @@
 		},
 		"modal": {
 			"moderator-page-title": "Consulter une publication",
+			"draft": "Enregistrer comme brouillon",
 			"approve-button": "Approuver",
 			"reject-button": "Refuser",
 			"deactivate-button": "Désactiver"
@@ -207,7 +210,7 @@
 			"activityarea": "Secteur d'activité"
 		},
 		"filters": {
-			"all": "All",
+			"all": "Tous",
 			"deactivated": "Désactivé",
 			"pending": "En attente",
 			"active": "Activé"

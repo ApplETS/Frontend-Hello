@@ -43,7 +43,6 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 	});
 	const containerRef = useRef<any>();
 	const cardRefs = useRef<any>(new Array());
-	let oldCardScrolledTo = 0;
 
 	useEffect(() => {
 		const { scrollHeight, clientHeight } = containerRef.current;

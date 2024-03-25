@@ -10,6 +10,7 @@ import { useUser } from '@/utils/provider/UserProvider';
 import Toast from '@/components/Toast';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
+import Modal from '@/components/modals/Modal';
 
 interface Props {
 	children: ReactElement;
@@ -60,6 +61,7 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 				{children}
 				{isLoading && <LoadingSpinner />}
 			</div>
+			<div id="modal-root"></div>
 		</>
 	);
 }

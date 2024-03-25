@@ -187,34 +187,34 @@ export default function UsersTable({ users }: Props) {
 						</table>
 					</div>
 				)}
-				{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
-				{deactivationModalOpen && (
-					<Confirmation
-						title={t('toggle.deactivation-title')}
-						firstButtonTitle={t('toggle.close')}
-						secondButtonTitle={t('toggle.deactivate')}
-						secondButtonColor={'btn-error'}
-						inputTitle={t('toggle.input-title')}
-						inputValue={deactivationReaon}
-						setInputValue={setDeactivationReason}
-						onClose={closeUserSelection}
-						secondButtonHoverColor={''}
-						confirmationAction={toggleUser}
-						verify={verifyReason}
-					/>
-				)}
-				{activationModalOpen && (
-					<Confirmation
-						title={t('toggle.activation-title', { organization: selectedUser?.organisation })}
-						firstButtonTitle={t('toggle.close')}
-						secondButtonTitle={t('toggle.activate')}
-						secondButtonColor={'btn-success'}
-						onClose={closeUserSelection}
-						secondButtonHoverColor={''}
-						confirmationAction={toggleUser}
-					/>
-				)}
 			</div>
+			{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
+			{deactivationModalOpen && (
+				<Confirmation
+					title={t('toggle.deactivation-title')}
+					firstButtonTitle={t('toggle.close')}
+					secondButtonTitle={t('toggle.deactivate')}
+					secondButtonColor={'btn-error'}
+					inputTitle={t('toggle.input-title')}
+					inputValue={deactivationReaon}
+					setInputValue={setDeactivationReason}
+					onClose={closeUserSelection}
+					secondButtonHoverColor={''}
+					confirmationAction={toggleUser}
+					verify={verifyReason}
+				/>
+			)}
+			{activationModalOpen && (
+				<Confirmation
+					title={t('toggle.activation-title', { organization: selectedUser?.organisation })}
+					firstButtonTitle={t('toggle.close')}
+					secondButtonTitle={t('toggle.activate')}
+					secondButtonColor={'btn-success'}
+					onClose={closeUserSelection}
+					secondButtonHoverColor={''}
+					confirmationAction={toggleUser}
+				/>
+			)}
 		</>
 	);
 }

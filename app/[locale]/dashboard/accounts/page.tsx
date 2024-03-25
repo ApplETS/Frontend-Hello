@@ -4,12 +4,7 @@ import React from 'react';
 import UsersTable from './components/user-table';
 import { getUsers } from '@/lib/get-users';
 
-type Props = {
-	params: { locale: string };
-	searchParams: Record<string, string> | null | undefined;
-};
-
-export default async function Approbations({ params: { locale }, searchParams }: Props) {
+export default async function Approbations() {
 	const users = await getUsers();
 	return <UsersTable users={users} />;
 }

@@ -167,14 +167,14 @@
 			"moderator-page-title": "Consult a news",
 			"approve-button": "Approve",
 			"reject-button": "Refuse",
-			"delete-button": "Delete"
+			"deactivate-button": "Deactivate"
 		},
 		"refuse-question": "Why do you want to refuse this news?",
 		"cancel": "Cancel",
 		"reject": "Refuse the news",
 		"reason": "Reason",
-		"delete-question": "Why do you want to delete this news?",
-		"delete": "Delete the news",
+		"deactivate-question": "Why do you want to deactivate this news?",
+		"deactivate": "Deactivate the news",
 		"give-reason": "Please give a reason for this action"
 	},
 	"Profile": {

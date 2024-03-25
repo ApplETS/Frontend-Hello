@@ -127,3 +127,11 @@
 .fc .fc-daygrid-day {
 	overflow: visible;
 }
+
+.tooltip::before {
+	@apply z-10;
+}
+
+.my-tooltip:before {
+	white-space: pre;
+}

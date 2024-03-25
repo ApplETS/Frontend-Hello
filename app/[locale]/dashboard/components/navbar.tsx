@@ -72,7 +72,7 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 						{isModerator ? (
 							<div className="text-base mr-1">{t('moderator')}</div>
 						) : (
-							<div className="text-base mr-1">{user.organisation}</div>
+							<div className="text-base mr-1">{user.organization}</div>
 						)}
 						<div className="avatar">
 							<div className="w-10 rounded-full">
@@ -97,7 +97,7 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 										{isModerator ? (
 											<p className="text-base font-bold ml-0">{t('moderator')}</p>
 										) : (
-											<p className="text-base font-bold ml-0">{user.organisation}</p>
+											<p className="text-base font-bold ml-0">{user.organization}</p>
 										)}
 										<p className="text-xs ml-0 text-secondary">{user.activityArea}</p>
 									</div>

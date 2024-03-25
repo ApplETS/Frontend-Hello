@@ -56,7 +56,7 @@ export const signUp = async (formData: FormData) => {
 	const userObject = {
 		id: data?.user?.id,
 		email: email,
-		organisation: formData.get('name') as string,
+		organization: formData.get('name') as string,
 		activityArea: formData.get('activity') as string,
 	};
 
@@ -171,7 +171,7 @@ export const updateProfile = async (formData: FormData) => {
 	const userObject = await getAuthenticatedUser();
 
 	userObject.email = formData.get('email') as string;
-	userObject.organisation = formData.get('organization') as string;
+	userObject.organization = formData.get('organization') as string;
 	userObject.activityArea = formData.get('activity') as string;
 	userObject.profileDescription = formData.get('description') as string;
 	userObject.webSiteLink = formData.get('website') as string;

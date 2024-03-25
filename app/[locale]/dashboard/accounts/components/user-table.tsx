@@ -94,7 +94,7 @@ export default function UsersTable({ users }: Props) {
 				(t(`filters.${Constants.userStatuses[getUserState(user)]?.label}`).toLowerCase() === selectedFilter ||
 					selectedFilter === filterAll) &&
 				(searchTerm === '' ||
-					user.organisation?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+					user.organization?.toLowerCase().includes(searchTerm.toLowerCase()) ||
 					user.activityArea?.toLowerCase().includes(searchTerm.toLowerCase()) ||
 					user.email?.toLowerCase().includes(searchTerm.toLowerCase()))
 		);
@@ -157,7 +157,7 @@ export default function UsersTable({ users }: Props) {
 						<table className="table w-full rounded-lg">
 							<thead className="bg-base-300 rounded-t-lg h-17">
 								<tr className="text-base-content text-base font-bold">
-									<th>{t('table.organisation')}</th>
+									<th>{t('table.organization')}</th>
 									<th>{t('table.email')}</th>
 									<th>{t('table.activityarea')}</th>
 									<th>{t('table.status')}</th>
@@ -167,7 +167,7 @@ export default function UsersTable({ users }: Props) {
 							<tbody>
 								{filteredUsers.map((user, index) => (
 									<tr key={index} className="border-b-2 border-base-300">
-										<td>{user.organisation ?? '-'}</td>
+										<td>{user.organization ?? '-'}</td>
 										<td>{user.email}</td>
 										<td>{user.activityArea ?? '-'}</td>
 										<td className="text-base">
@@ -210,7 +210,7 @@ export default function UsersTable({ users }: Props) {
 				)}
 				{activationModalOpen && (
 					<Confirmation
-						title={t('toggle.activation-title', { organization: selectedUser?.organisation })}
+						title={t('toggle.activation-title', { organization: selectedUser?.organization })}
 						firstButtonTitle={t('toggle.close')}
 						secondButtonTitle={t('toggle.activate')}
 						secondButtonColor={'btn-success'}

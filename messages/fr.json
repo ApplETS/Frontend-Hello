@@ -167,14 +167,14 @@
 			"moderator-page-title": "Consulter une publication",
 			"approve-button": "Approuver",
 			"reject-button": "Refuser",
-			"delete-button": "Supprimer"
+			"deactivate-button": "Désactiver"
 		},
 		"refuse-question": "Pourquoi voulez vous refuser cette annonce?",
 		"cancel": "Annuler",
 		"reject": "Refuser l'annonce",
 		"reason": "Raison",
-		"delete-question": "Pourquoi voulez vous supprimer cette annonce?",
-		"delete": "Supprimer l'annonce",
+		"deactivate-question": "Pourquoi voulez vous désactiver cette annonce?",
+		"deactivate": "Désactiver l'annonce",
 		"give-reason": "Veuillez donner une raison pour cette action"
 	},
 	"Profile": {
@@ -201,7 +201,7 @@
 		"activate-error": "Une erreur est survenue lors de l'activation du compte",
 		"deactivate-error": "Une erreur est survenue lors de la désactivation du compte",
 		"table": {
-			"organisation": "Nom de l'organisation",
+			"organization": "Nom de l'organisation",
 			"email": "Courriel",
 			"status": "Statut",
 			"activityarea": "Secteur d'activité"
@@ -219,7 +219,7 @@
 		},
 		"create": {
 			"title": "Créer un compte",
-			"organisation": "Nom de l'organisation",
+			"organization": "Nom de l'organisation",
 			"activityarea": "Secteur d'activité",
 			"email": "Courriel",
 			"send": "Envoyer",

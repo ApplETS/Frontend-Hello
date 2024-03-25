@@ -234,11 +234,13 @@
 			"error": "Erreur lors de la création du compte"
 		},
 		"toggle": {
-			"deactivation-title": "Pourquoi voulez-vous désactiver ce compte?",
-			"activation-title": "Etes-vous sûr de vouloir activer le compte de {organization}?",
+			"deactivation-title": "Pourquoi voulez-vous désactiver le compte de {organization}?",
+			"activation-title": "Êtes-vous sûr de vouloir activer le compte de {organization}?",
+			"delete-title": "Êtes-vous sûr de vouloir supprimer le compte de {organization}?",
 			"close": "Fermer",
 			"deactivate": "Désactiver le compte",
 			"activate": "Activer le compte",
+			"delete": "Delete",
 			"input-title": "Raison",
 			"give-reason": "Veuillez donner une raison pour la désactivation de ce compte"
 		}

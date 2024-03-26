@@ -1,4 +1,4 @@
-import { faPenToSquare, faClone, faTrashCan, faPencil, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
+import { faClone, faTrashCan, faPencil, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import { NewsStates } from '@/models/news-states';
 import { UserStates } from '@/models/user-states';
 

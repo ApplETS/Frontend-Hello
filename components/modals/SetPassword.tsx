@@ -22,10 +22,6 @@ export default function SetPassword({ onClose }: Props) {
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
 
-	const handleClose = () => {
-		onClose();
-	};
-
 	const togglePasswordVisibility = () => {
 		setPasswordShown(!passwordShown);
 	};
@@ -103,7 +99,7 @@ export default function SetPassword({ onClose }: Props) {
 						<div className="grid grid-cols-2 gap-6 px-24 mt-7">
 							<button
 								className={`btn text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
-								onClick={handleClose}
+								onClick={() => onClose()}
 								type="button"
 							>
 								{t('cancel')}

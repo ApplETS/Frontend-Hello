@@ -1,4 +1,5 @@
 'use client';
+
 import { CardRotation } from '@/components/CardRotation';
 import NewsCalendar from './NewsCalendar';
 import { HelloEvent } from '@/models/hello-event';

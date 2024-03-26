@@ -26,8 +26,8 @@ export default function DropdownSelect({ title, items, onFilterChange, defaultSe
 		}
 	};
 
-	// Notify parent component about the selection change
 	useEffect(() => {
+		// Notify parent component about the selection change
 		if (onFilterChange) {
 			onFilterChange(selectedItems);
 		}

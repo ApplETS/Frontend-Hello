@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,12 +31,6 @@ export default function ActivityAreaDropdown({
 		setIsDropdownOpen(false);
 	};
 
-	// Toggle dropdown open/close
-	const toggleDropdown = () => {
-		setIsDropdownOpen(!isDropdownOpen);
-	};
-
-	// Close dropdown when clicking outside
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -60,7 +55,7 @@ export default function ActivityAreaDropdown({
 				role="button"
 				id={inputName ?? 'dropdown'}
 				className="flex justify-between items-center w-full btn bg-base-200 border-current hover:bg-base-300"
-				onClick={toggleDropdown}
+				onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 			>
 				<span>{defaultItemTheme ? defaultItemTheme.title : selectedValue.title}</span>
 				<FontAwesomeIcon icon={isDropdownOpen ? faAngleUp : faAngleDown} className="w-5" />

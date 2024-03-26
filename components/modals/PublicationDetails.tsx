@@ -41,8 +41,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 	const { setToast } = useToast();
 	const { user } = useUser();
 
-	// PUBLICATION DETAILS
-	const [isPending, startTransition] = useTransition();
+	const [, startTransition] = useTransition();
 	const [title, setTitle] = useState(publication?.title || '');
 	const [imageSrc, setImageSrc] = useState(publication?.imageUrl || '');
 	const [imageBinary, setImageBinary] = useState<Blob>();
@@ -53,7 +52,6 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 	const [publishedDate, setPublishedDate] = useState(publication?.publicationDate.slice(0, 10) || '');
 	const [selectedTags, setSelectedTags] = useState(publication?.tags || []);
 	const [availableTags, setAvailableTags] = useState(tags);
-	const [activityArea, setActivityArea] = useState(user?.activityArea || '');
 
 	const [rejectReason, setRejectReason] = useState('');
 	const [deactivateReason, setDeactivateReason] = useState('');
@@ -64,6 +62,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		modalMode === Constants.publicationModalStatus.moderator;
 	const addTagButtonIsDisabled = selectedTags.length >= 5;
 	const [showPreview, setShowPreview] = useState(false);
+
 	const [rejectModalOpen, setRejectModalOpen] = useState(false);
 	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
@@ -195,28 +194,12 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 			case Constants.publicationModalStatus.modify:
 				return t('modal.modify-page-title');
 			case Constants.publicationModalStatus.duplicate:
-				return t('modal.create-page-title');
+				return t('modal.create-page-title') + ' ' + t('modal.duplicate-page-title');
 			case Constants.publicationModalStatus.moderator:
 				return ta('modal.moderator-page-title');
 			default:
 				return '';
 		}
-	};
-
-	const handleRejectOpen = () => {
-		setRejectModalOpen(true);
-	};
-
-	const handleRejectClose = () => {
-		setRejectModalOpen(false);
-	};
-
-	const handleDeactivationOpen = () => {
-		setDeleteModalOpen(true);
-	};
-
-	const handleDeactivateClose = () => {
-		setDeleteModalOpen(false);
 	};
 
 	const handleDeactivation = async () => {
@@ -358,7 +341,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 															{ title: t('modal.activity-area-items.aeets') },
 														]}
 														inputName="activity"
-														onItemChange={setActivityArea}
+														onItemChange={() => {}}
 														customStyle="w-full"
 													/>
 												</div>
@@ -554,12 +537,12 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 											>
 												{ta('modal.approve-button')}
 											</button>
-											<button className={`btn btn-error`} onClick={handleRejectOpen} type="button">
+											<button className={`btn btn-error`} onClick={() => setRejectModalOpen(true)} type="button">
 												{ta('modal.reject-button')}
 											</button>
 										</div>
 									) : (
-										<button className={`btn btn-error px-8`} onClick={handleDeactivationOpen} type="button">
+										<button className={`btn btn-error px-8`} onClick={() => setDeleteModalOpen(true)} type="button">
 											{ta('modal.deactivate-button')}
 										</button>
 									)}
@@ -574,7 +557,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 									inputTitle={ta('reason')}
 									inputValue={rejectReason}
 									setInputValue={setRejectReason}
-									onClose={handleRejectClose}
+									onClose={() => setRejectModalOpen(false)}
 									secondButtonHoverColor={''}
 									confirmationAction={handleReject}
 									verify={verifyReason}
@@ -589,7 +572,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 									inputTitle={ta('reason')}
 									inputValue={deactivateReason}
 									setInputValue={setDeactivateReason}
-									onClose={handleDeactivateClose}
+									onClose={() => setDeleteModalOpen(false)}
 									secondButtonHoverColor={''}
 									confirmationAction={handleDeactivation}
 									verify={verifyReason}

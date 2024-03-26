@@ -21,11 +21,9 @@ export default function Captcha() {
 			setIsEnabled(isMatch && isNotEmpty);
 		};
 
-		// Add event listeners
 		passwordInput.addEventListener('input', validateInputs);
 		confirmPasswordInput.addEventListener('input', validateInputs);
 
-		// Remove event listeners on cleanup
 		return () => {
 			passwordInput.removeEventListener('input', validateInputs);
 			confirmPasswordInput.removeEventListener('input', validateInputs);
@@ -33,7 +31,6 @@ export default function Captcha() {
 	}, []);
 
 	async function handleCaptchaSubmission(token: string | null) {
-		// Server function to verify captcha
 		await verifyCaptcha(token)
 			.then(() => setIsverified(true))
 			.catch(() => setIsverified(false));

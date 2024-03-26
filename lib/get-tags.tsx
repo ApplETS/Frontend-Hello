@@ -11,7 +11,6 @@ export async function getTags(): Promise<Tag[]> {
 
 	const responseData: ApiResponse<Tag[]> = await response.json();
 
-	// Check for errors in response
 	if (responseData.error) {
 		throw new Error('Error in response data');
 	}

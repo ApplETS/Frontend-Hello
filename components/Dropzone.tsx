@@ -23,8 +23,8 @@ export default function Dropzone({ title, onFileDrop }: { title: string; onFileD
 		(e: { preventDefault: () => void; dataTransfer: { files: any } }) => {
 			e.preventDefault();
 			if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-				const file = e.dataTransfer.files[0]; // Assuming only one file is dropped
-				onFileDrop(file); // Call the callback with the file
+				const file = e.dataTransfer.files[0];
+				onFileDrop(file);
 			}
 			setDragging(false);
 		},
@@ -32,7 +32,6 @@ export default function Dropzone({ title, onFileDrop }: { title: string; onFileD
 	);
 
 	const handleInputClick = () => {
-		// Trigger file input click when dropzone is clicked
 		const fileInput = document.getElementById('fileInput');
 		if (fileInput) {
 			fileInput.click();

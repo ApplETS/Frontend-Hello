@@ -241,7 +241,7 @@ export default function Profile({ params: { locale } }: Props) {
 
 	const notify = () => {
 		// TODO : Add notification
-		// const success = await updatePublicationState(publication!.id, NewsStates.REFUSED, rejectReason);
+		// const success = await sendNotifivation(email);
 		// if (success) publication!.state = NewsStates.REFUSED;
 		const success = 'success';
 

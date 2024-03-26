@@ -57,7 +57,7 @@ export default function NotFound() {
           .subtitle {
             font-size: 3em;
             font-weight: bold;
-            margin: 0 0 20px; // Adds margin below the subtitle
+            margin: 0 0 20px;
           }
 
           p {
@@ -73,7 +73,8 @@ export default function NotFound() {
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
-            margin-top: 30px; // Increases space above the button
+            margin-top: 30px;
+            color: black;
           }
 
           .button:hover {
@@ -103,7 +104,7 @@ export default function NotFound() {
 						<p>Nous sommes désolés, la page demandée n'a pas pu être trouvée.</p>
 						<br></br>
 						<a href="/fr/dashboard/news" className="button">
-							Page d'accueil
+							Retour à l'accueil
 						</a>
 					</div>
 				</div>

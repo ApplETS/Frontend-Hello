@@ -338,5 +338,10 @@
 	"Help": {
 		"title": "Need help?",
 		"contact-us": "Contact us at "
+	},
+	"UnsubscribeEmail": {
+		"title": "You have successfully unsubscribed from emails!",
+		"message": "Feel free to subscribe back in the profile page of the author.",
+		"back": "Back to the homepage"
 	}
 }

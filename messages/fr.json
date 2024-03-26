@@ -109,6 +109,7 @@
 		},
 		"modal": {
 			"create-page-title": "Créer une publication",
+			"duplicate-page-title": "(Copie)",
 			"modify-page-title": "Modifier une publication",
 			"view-page-title": "Consulter une publication",
 			"title": "Titre",

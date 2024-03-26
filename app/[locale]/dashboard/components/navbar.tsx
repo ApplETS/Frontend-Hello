@@ -29,7 +29,6 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 	const t = useTranslations('Navbar');
 	const isModerator = user.type == UserTypes.MODERATOR;
 
-	// Close dropdown when clicking outside
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {

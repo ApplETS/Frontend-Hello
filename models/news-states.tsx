@@ -4,5 +4,6 @@ export enum NewsStates {
 	REFUSED = 'Denied', // 4
 	APPROVED = 'Approved', // 8
 	PUBLISHED = 'Published', // 16
+	DRAFT = 'Draft', // 32
 	ALL = 'All', // 31
 }

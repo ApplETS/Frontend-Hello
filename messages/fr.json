@@ -64,6 +64,16 @@
 		"401": "Le code de réinitialisation est invalide ou a expiré",
 		"token-placeholder": "Code reçu par courriel"
 	},
+	"SetPassword": {
+		"title": "Changer le mot de passe temporaire",
+		"new-password": "Nouveau mot de passe",
+		"confirm-password": "Confirmation de mot de passe",
+		"password-success-toast-message": "Le mot de passe a été changé avec succès",
+		"password-error-toast-message": "Une erreur est survenue lors du changement de mot de passe",
+		"password-mismatch-error": "Les mots de passe ne correspondent pas",
+		"cancel": "Annuler",
+		"save": "Enregistrer"
+	},
 	"NewsPage": {
 		"view-profile": "Voir le profil"
 	},
@@ -110,6 +120,7 @@
 			"tags-title": "Étiquette(s) (Maximum de 5)",
 			"content": "Contenu",
 			"news": "Annonce",
+			"image": "Image",
 			"event-date": "Date de l'événement",
 			"choose-file": "Choisir un fichier",
 			"cancel-button": "Fermer",
@@ -119,7 +130,7 @@
 			"published-date-tool-tip-text": "Il s'agit de la date que l'annonce sera publiée",
 			"start-date-tool-tip-text": "Il s'agit de la date de début de l'événement",
 			"end-date-tool-tip-text": "Il s'agit de la date de fin de l'événement",
-			"error-toast-message": "Veuillez remplir tous les champs",
+			"error-toast-message": "Veuillez remplir ces champs",
 			"date-error-toast-message": "La date de fin de l'événement doit être postérieure à la date de début",
 			"image-format-error-toast-message": "Le format de l'image n'est pas supporté",
 			"success-toast-message": "Publication envoyée pour approbation",
@@ -133,6 +144,8 @@
 			"reject-error-toast-message": "Une erreur est survenue lors du refus de la publication",
 			"approve-success-toast-message": "Publication approuvée",
 			"approve-error-toast-message": "Une erreur est survenue lors de l'approbation de la publication",
+			"draft-success-toast-message": "Publication enregistrée comme brouillon",
+			"draft-error-toast-message": "Une erreur est survenue lors de l'enregistrement de la publication comme brouillon",
 			"cancel": "Annuler",
 			"activity-area-items": {
 				"scientificClub": "Club scientifique",
@@ -165,6 +178,7 @@
 		},
 		"modal": {
 			"moderator-page-title": "Consulter une publication",
+			"draft": "Enregistrer comme brouillon",
 			"approve-button": "Approuver",
 			"reject-button": "Refuser",
 			"deactivate-button": "Désactiver"
@@ -207,7 +221,7 @@
 			"activityarea": "Secteur d'activité"
 		},
 		"filters": {
-			"all": "All",
+			"all": "Tous",
 			"deactivated": "Désactivé",
 			"pending": "En attente",
 			"active": "Activé"

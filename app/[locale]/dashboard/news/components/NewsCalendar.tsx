@@ -61,7 +61,6 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 	});
 
 	const formatEventDate = (startDate: string, endDate: string) => {
-		console.log(startDate, endDate);
 		const start = new Date(startDate);
 		const end = new Date(endDate);
 

@@ -22,6 +22,7 @@ import Confirmation from './Confirmation';
 import { updatePublicationState } from '@/lib/publications/actions/update-publication-state';
 import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import Modal from './Modal';
+import { draftAPublication } from '@/lib/publications/actions/draft-publication';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -100,9 +101,21 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		return formData;
 	};
 
+	const [missingFields, setMissingFields] = useState<string[]>([]);
 	const createOrUpdate = (formData: FormData) => {
-		if (!title || !imageSrc || !imageAltText || !content || !eventStartDate || !eventEndDate || !publishedDate) {
-			setToast(t('modal.error-toast-message'), AlertType.error);
+		const newMissingFields = [];
+		if (!title) newMissingFields.push(t('modal.title'));
+		if (!imageSrc) newMissingFields.push(t('modal.image'));
+		if (!imageAltText) newMissingFields.push(t('modal.alt-text'));
+		if (!content) newMissingFields.push(t('modal.content'));
+		if (!eventStartDate) newMissingFields.push(t('modal.event-start-date'));
+		if (!eventEndDate) newMissingFields.push(t('modal.event-end-date'));
+		if (!publishedDate) newMissingFields.push(t('modal.published-date'));
+
+		setMissingFields(newMissingFields);
+
+		if (newMissingFields.length > 0) {
+			setToast(`${t('modal.error-toast-message')}: ${newMissingFields.join(', ')}`, AlertType.error);
 			return;
 		}
 
@@ -238,6 +251,23 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		);
 	};
 
+	const handleDraft = async () => {
+		const formData = new FormData();
+		formData.append('isDraft', 'true');
+		const updatedFormData = updateFormData(formData);
+
+		startTransition(async () => {
+			const helloEvent = await draftAPublication(updatedFormData);
+
+			setToast(
+				t(`modal.draft-${helloEvent ? 'success' : 'error'}-toast-message`),
+				helloEvent ? AlertType.success : AlertType.error
+			);
+
+			if (helloEvent) onClose();
+		});
+	};
+
 	const verifyReason = () => {
 		const correct = rejectReason.trim() !== '';
 
@@ -281,9 +311,8 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 									<div>
 										<label className="block mb-3">
 											{t('modal.title')}{' '}
-											{modalMode !== Constants.publicationModalStatus.moderator && (
-												<span style={{ color: 'red' }}>*</span>
-											)}
+											{modalMode !== Constants.publicationModalStatus.moderator &&
+												missingFields.includes(t('modal.title')) && <span style={{ color: 'red' }}>*</span>}
 										</label>
 										<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
 											<input
@@ -300,9 +329,10 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 											<div className="mt-3">
 												<label className="block">
 													{t('modal.published-date')}{' '}
-													{modalMode !== Constants.publicationModalStatus.moderator && (
-														<span style={{ color: 'red' }}>*</span>
-													)}
+													{modalMode !== Constants.publicationModalStatus.moderator &&
+														missingFields.includes(t('modal.published-date')) && (
+															<span style={{ color: 'red' }}>*</span>
+														)}
 												</label>
 												<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
 													<input
@@ -338,9 +368,10 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 										<div className="mb-3">
 											<label className="block">
 												{t('modal.event-start-date')}{' '}
-												{modalMode !== Constants.publicationModalStatus.moderator && (
-													<span style={{ color: 'red' }}>*</span>
-												)}
+												{modalMode !== Constants.publicationModalStatus.moderator &&
+													missingFields.includes(t('modal.event-start-date')) && (
+														<span style={{ color: 'red' }}>*</span>
+													)}
 											</label>
 											<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
 												<input
@@ -355,9 +386,8 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 										<div className="mb-3">
 											<label className="block">
 												{t('modal.event-end-date')}{' '}
-												{modalMode !== Constants.publicationModalStatus.moderator && (
-													<span style={{ color: 'red' }}>*</span>
-												)}
+												{modalMode !== Constants.publicationModalStatus.moderator &&
+													missingFields.includes(t('modal.event-end-date')) && <span style={{ color: 'red' }}>*</span>}
 											</label>
 											<div
 												className={`${isDisabled || !eventStartDate ? 'border border-base-content rounded-lg' : ''}`}
@@ -410,9 +440,8 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 										<div className="flex items-center mt-1">
 											<label className="block">
 												{t('modal.alt-text')}
-												{modalMode !== Constants.publicationModalStatus.moderator && (
-													<span style={{ color: 'red' }}> *</span>
-												)}
+												{modalMode !== Constants.publicationModalStatus.moderator &&
+													missingFields.includes(t('modal.alt-text')) && <span style={{ color: 'red' }}>*</span>}
 											</label>
 											<div className="tooltip tooltip-bottom ml-2" data-tip={t('modal.alt-text-tooltip')}>
 												<button
@@ -460,7 +489,8 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 						<div className="w-full z-40">
 							<label className="block">
 								{t('modal.content')}
-								{modalMode !== Constants.publicationModalStatus.moderator && <span style={{ color: 'red' }}> *</span>}
+								{modalMode !== Constants.publicationModalStatus.moderator &&
+									missingFields.includes(t('modal.content')) && <span style={{ color: 'red' }}>*</span>}
 							</label>
 							{!isDisabled ? (
 								<EditorComp markdown={content} onContentChange={handleContentChange} />
@@ -490,16 +520,28 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 						</div>
 
 						<div className="divider my-1"></div>
-						{modalMode !== Constants.publicationModalStatus.moderator && (
+						{modalMode !== Constants.publicationModalStatus.moderator && missingFields.length > 0 && (
 							<span className="mr-2" style={{ color: 'red' }}>
 								* {t('required-fields')}
 							</span>
 						)}
 						<div
-							className={`${
-								modalMode === Constants.publicationModalStatus.moderator ? 'flex justify-between' : 'modal-action'
+							className={`mt-2 ${
+								modalMode === Constants.publicationModalStatus.moderator ? 'flex justify-between' : 'flex justify-start'
 							}`}
 						>
+							{modalMode !== Constants.publicationModalStatus.modify &&
+								modalMode !== Constants.publicationModalStatus.moderator && (
+									<button
+										className={`btn btn-info px-8`}
+										disabled={publication?.state === NewsStates.APPROVED ?? false}
+										onClick={handleDraft}
+										type="button"
+									>
+										{ta('modal.draft')}
+									</button>
+								)}
+
 							{modalMode === Constants.publicationModalStatus.moderator && (
 								<>
 									{publication?.state !== NewsStates.PUBLISHED ? (
@@ -554,7 +596,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 								/>
 							)}
 
-							<div className="">
+							<div className="ml-auto">
 								<button
 									className={`btn text-black px-11 ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
 									onClick={() => onClose()}

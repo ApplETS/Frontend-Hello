@@ -64,6 +64,17 @@
 		"401": "Invalid token",
 		"token-placeholder": "Token received by email"
 	},
+
+	"SetPassword": {
+		"title": "Change temporary password",
+		"new-password": "New password",
+		"confirm-password": "Confirm password",
+		"password-success-toast-message": "The password was successfully changed",
+		"password-error-toast-message": "An error occurred while changing the password",
+		"password-mismatch-error": "Passwords do not match",
+		"cancel": "Cancel",
+		"save": "Save"
+	},
 	"NewsPage": {
 		"view-profile": "View profile"
 	},
@@ -110,6 +121,7 @@
 			"tags-title": "Tag(s) (maximum of 5)",
 			"content": "Content",
 			"news": "News",
+			"image": "Image",
 			"event-date": "Event date",
 			"choose-file": "Choose a file",
 			"cancel-button": "Close",
@@ -119,7 +131,7 @@
 			"published-date-tool-tip-text": "The date that the event will be published",
 			"start-date-tool-tip-text": "This is the start date of the event",
 			"end-date-tool-tip-text": "This is the end date of the event",
-			"error-toast-message": "Please fill all the fields",
+			"error-toast-message": "Please fill those field(s)",
 			"date-error-toast-message": "The event start date must be before the event end date",
 			"image-format-error-toast-message": "The image format is not supported",
 			"success-toast-message": "The news has been sent for approbation",
@@ -133,6 +145,8 @@
 			"reject-error-toast-message": "An error occurred while rejecting the news",
 			"approve-success-toast-message": "The news has been approved",
 			"approve-error-toast-message": "An error occurred while approving the news",
+			"draft-success-toast-message": "The news has been saved as draft",
+			"draft-error-toast-message": "An error occurred while saving the news as draft",
 			"cancel": "Cancel",
 			"activity-area-items": {
 				"scientificClub": "Scientific Club",
@@ -165,6 +179,7 @@
 		},
 		"modal": {
 			"moderator-page-title": "Consult a news",
+			"draft": "Save as draft",
 			"approve-button": "Approve",
 			"reject-button": "Refuse",
 			"deactivate-button": "Deactivate"

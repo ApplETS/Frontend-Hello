@@ -23,6 +23,9 @@ import xIcon from '@/public/Socials/X.svg';
 import { HelloEvent } from '@/models/hello-event';
 import { Organizer } from '@/models/organizer';
 import { NewsStates } from '@/models/news-states';
+import style from '@/markdown-styles.module.css';
+
+import Markdown from 'react-markdown';
 
 type Props = {
 	params: { locale: string; userId: string };
@@ -368,23 +371,7 @@ export default function Profile({ params: { locale } }: Props) {
 									/>
 									<div className="text-sm text-justify font-light p-2 whitespace-normal overflow-y-auto h-44">
 										<div style={{ position: 'relative' }}>
-											<MDXEditor
-												className={`text-sm text-justify ${
-													isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
-												}`}
-												plugins={[linkPlugin(), linkDialogPlugin()]}
-												markdown={event.content}
-											/>
-											<div
-												style={{
-													position: 'absolute',
-													top: 0,
-													right: 0,
-													bottom: 0,
-													left: 0,
-													cursor: 'normal',
-												}}
-											/>
+											<Markdown className={`${style.reactMarkDown} p-2`}>{event.content}</Markdown>
 										</div>
 									</div>
 								</div>

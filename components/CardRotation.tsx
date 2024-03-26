@@ -11,6 +11,8 @@ import EventDateAndImage from './EventDateAndImage';
 import Constants from '@/utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownLeftAndUpRightToCenter, faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons';
+import Markdown from 'react-markdown';
+import style from '@/markdown-styles.module.css';
 
 interface Props {
 	events: HelloEvent[];
@@ -82,6 +84,9 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 	};
 
 	const handleCardMouseUp = (e: any, card: any) => {
+		if ((e.target as HTMLElement).closest('a')) {
+			return;
+		}
 		if ((e.target as HTMLElement).closest('button')) {
 			return;
 		}
@@ -205,13 +210,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 											event.tags.length > 0 ? 'mb-2' : 'mb-4'
 										}`}
 									>
-										<MDXEditor
-											className={` text-sm text-justify ${
-												isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
-											}`}
-											plugins={[linkPlugin(), linkDialogPlugin()]}
-											markdown={event.content}
-										/>
+										<Markdown className={`${style.reactMarkDown} p-2`}>{event.content}</Markdown>
 									</div>
 									{event.tags.length > 0 && (
 										<div className="flex flex-wrap gap-2 self-start w-full px-6 mb-6">

@@ -1,4 +1,5 @@
 'use client';
+
 import ActivityAreaDropdown from '@/components/ActivityAreaDropdown';
 import SettingsFooter from '../components/SettingsFooter';
 import ProfilePicture from './components/ProfilePicture';

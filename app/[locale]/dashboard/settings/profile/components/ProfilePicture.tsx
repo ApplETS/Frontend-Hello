@@ -18,14 +18,14 @@ export default function ProfilePicture({ dropzoneText, buttonText }: { dropzoneT
 	};
 
 	const handleDropzoneClick = () => {
-		// Trigger file input click when dropzone is clicked
 		const fileInput = document.getElementById('fileInput');
 		if (fileInput) {
 			fileInput.click();
 		}
 	};
 
-	const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	// TODO : Make the image work
+	const handleImageInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files && e.target.files[0];
 		if (file) {
 			handleFileDrop(file);

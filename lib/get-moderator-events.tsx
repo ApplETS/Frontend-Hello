@@ -21,7 +21,6 @@ export async function getModeratorEvents(
 
 	const responseData: ApiPaginatedResponse = await response.json();
 
-	// Check for errors in response
 	if (responseData.error) {
 		throw new Error('Error in response data');
 	}

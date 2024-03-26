@@ -55,21 +55,28 @@ export default function UsersTable({ users }: Props) {
 
 	const getUserState = (user: User) => (user.isActive ? UserStates.ACTIVATED : UserStates.DEACTIVATED);
 
+	const UserActionMapping: { [key: string]: UserStates } = {
+		'1': UserStates.ACTIVATED,
+		'2': UserStates.DEACTIVATED,
+		'3': UserStates.DELETED,
+	};
 	const handleUserSelection = (userIndex: number, dropDownItemId: number) => {
 		setSelectedUser(filteredUsers[userIndex]);
-		switch (dropDownItemId) {
-			case Constants.userMenuItems[0].id: // Activate &
+		const action = UserActionMapping[dropDownItemId];
+
+		switch (action) {
+			case UserStates.ACTIVATED:
 				setActivationModalOpen(true);
 				break;
-			case Constants.userMenuItems[1].id: // Deactivate
+			case UserStates.DEACTIVATED:
 				setDeactivationModalOpen(true);
 				break;
-			case Constants.userMenuItems[2].id: // Delete
-				// TODO: Implement delete user
+			case UserStates.DELETED:
 				setDeleteModalOpen(true);
+				// TODO: Implement delete user
 				break;
 			default:
-				break;
+				return;
 		}
 	};
 

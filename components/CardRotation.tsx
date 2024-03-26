@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react';
 import { HelloEvent } from '@/models/hello-event';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import EventDateAndImage from './EventDateAndImage';
 import Constants from '@/utils/constants';

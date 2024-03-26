@@ -12,7 +12,6 @@ export async function getEvents(pageNumber: number = 1): Promise<HelloEvent[]> {
 
 	const responseData: ApiPaginatedResponse = await response.json();
 
-	// Check for errors in response
 	if (responseData.error) {
 		throw new Error('Error in response data');
 	}

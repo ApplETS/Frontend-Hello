@@ -1,5 +1,5 @@
 import { AlertType } from '@/components/Alert';
-import { ToastDelay, useToast } from '@/utils/provider/ToastProvider';
+import { ToastDelay } from '@/utils/provider/ToastProvider';
 import { TransitionStartFunction } from 'react';
 
 export interface Response {

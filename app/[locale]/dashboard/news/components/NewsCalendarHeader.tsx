@@ -3,7 +3,7 @@ import { ReactElement, RefObject, useEffect, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import moment, { Moment } from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarDay, faCalendarWeek, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDay, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import DropdownSelect from '@/components/DropdownSelect';
 import { useTranslations } from 'next-intl';
 import { useTheme } from '@/utils/provider/ThemeProvider';

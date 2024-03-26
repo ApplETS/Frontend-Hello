@@ -7,6 +7,7 @@ import { faCalendar, faClose, faEllipsisVertical } from '@fortawesome/free-solid
 import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
 import Constants from '@/utils/constants';
 import Modal from './Modal';
+import EventDateAndImage from '../EventDateAndImage';
 
 interface Props {
 	locale: string;

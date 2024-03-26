@@ -7,7 +7,6 @@ import Constants from '@/utils/constants';
 import { useTranslations } from 'next-intl';
 import { HelloEvent } from '@/models/hello-event';
 import { formatDate } from '@/utils/formatDate';
-import { User } from '@/models/user';
 import PublicationDetails from '@/components/modals/PublicationDetails';
 import { Tag } from '@/models/tag';
 import { attemptRevalidation } from '@/lib/attempt-revalidation';
@@ -15,13 +14,11 @@ import { attemptRevalidation } from '@/lib/attempt-revalidation';
 type Props = {
 	events: HelloEvent[];
 	locale: string;
-	user: User;
 	tags: Tag[];
 };
 
-export default function ApprobationsTable({ events, locale, user, tags }: Props) {
+export default function ApprobationsTable({ events, locale, tags }: Props) {
 	const t = useTranslations('Approbations');
-	const tp = useTranslations('Publications');
 	const filterAll = t('filters.all').toLowerCase();
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
 	const [filteredEvents, setFilteredEvents] = useState(events);

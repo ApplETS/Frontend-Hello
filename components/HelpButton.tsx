@@ -33,7 +33,6 @@ export default function HelpButton() {
 
 	return (
 		<div className="relative">
-			{/* Add a ref to the button */}
 			<div ref={buttonRef} className="btn btn-circle btn-ghost" onClick={toggleDropdown}>
 				<FontAwesomeIcon className="w-6 h-6" icon={faQuestionCircle} />
 			</div>

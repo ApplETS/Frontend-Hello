@@ -13,7 +13,7 @@ interface Props {
 export default function UserCreationModal({ onClose, onCreate }: Props) {
 	const t = useTranslations('Accounts.create');
 	const [isPending, startTransition] = useTransition();
-	//default at "Club Scientifique"
+	// TODO : Change with backend value ?
 	const [selectedActivity, setSelectedActivity] = useState(t('activity.scientificClub'));
 	const { isLight } = useTheme();
 
@@ -36,14 +36,12 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 				) : (
 					<form action={create}>
 						<div className="flex flex-row space-x-4 mb-4">
-							{/* organization input */}
 							<div className="flex flex-col flex-1">
 								<label className="mb-2 text-base font-normal" htmlFor="organization">
 									{t('organization')}
 								</label>
 								<input className="input input-ghost w-full" name="organization" required />
 							</div>
-							{/* Activity dropdown */}
 							<div className="flex flex-col flex-1">
 								<label className="mb-2 text-base font-normal" htmlFor="activity">
 									{t('activityarea')}
@@ -61,7 +59,6 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 								/>
 							</div>
 						</div>
-						{/* Email input */}
 						<div className="flex flex-col mb-4">
 							<label className="text-md mb-2" htmlFor="email">
 								{t('email')}

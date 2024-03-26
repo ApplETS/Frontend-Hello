@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
@@ -14,6 +15,7 @@ import { attemptRevalidation } from '@/lib/attempt-revalidation';
 import { removePublication } from '@/lib/publications/actions/remove-publication';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
+import { PublicationStates } from '@/models/publication-states';
 
 type Props = {
 	locale: string;
@@ -62,19 +64,25 @@ export default function PublicationsTable({ locale, publications, tags }: Props)
 		setSearchTerm(search);
 	};
 
-	const handleDropdownSelection = (index: number, dropdownItemId?: number) => {
+	const publicationActionMapping: { [key: string]: PublicationStates } = {
+		'1': PublicationStates.MODIFY,
+		'2': PublicationStates.DUPLICATE,
+		'3': PublicationStates.DELETED,
+	};
+	const handleDropdownSelection = (index: number, dropdownItemId: number) => {
 		setSelectedPublication(filteredPublications[index]);
+		const action = publicationActionMapping[dropdownItemId];
 
-		switch (dropdownItemId) {
-			case Constants.publicationMenuItems[0].id: // Modify
+		switch (action) {
+			case PublicationStates.MODIFY:
 				setModalType(Constants.publicationModalStatus.modify);
 				setIsModalOpen(!isModalOpen);
 				break;
-			case Constants.publicationMenuItems[1].id: // Duplicate
+			case PublicationStates.DUPLICATE:
 				setModalType(Constants.publicationModalStatus.duplicate);
 				setIsModalOpen(!isModalOpen);
 				break;
-			case Constants.publicationMenuItems[2].id: // Delete
+			case PublicationStates.DELETED:
 				setIsDeleteModalOpen(true);
 				break;
 		}

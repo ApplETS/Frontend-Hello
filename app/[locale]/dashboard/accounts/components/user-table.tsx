@@ -60,7 +60,6 @@ export default function UsersTable({ users }: Props) {
 		'2': UserStates.DEACTIVATED,
 		'3': UserStates.DELETED,
 	};
-
 	const handleUserSelection = (userIndex: number, dropDownItemId: number) => {
 		setSelectedUser(filteredUsers[userIndex]);
 		const action = UserActionMapping[dropDownItemId];

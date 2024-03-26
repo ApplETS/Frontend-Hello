@@ -229,7 +229,6 @@ export default function Profile({ params: { locale } }: Props) {
 	// TODO : Change the "t('notify-me')"" with the user preference
 	const [notifyButtonTitle, setNotifyButtonTitle] = useState(t('notify-me'));
 
-	// SEARCH
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filteredPublications, setFilteredPublications] = useState(user.events);
 	const handleSearchChanged = (search: string) => {

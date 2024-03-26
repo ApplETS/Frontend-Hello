@@ -37,48 +37,22 @@ export default function UsersTable({ users }: Props) {
 	const [activationModalOpen, setActivationModalOpen] = useState(false);
 	const [deactivationModalOpen, setDeactivationModalOpen] = useState(false);
 	const [deactivationReaon, setDeactivationReason] = useState('');
-	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-	const [deleteReason, setDeleteReason] = useState('');
 
-	const getSubmenuItemsByUser = (user: User) => {
-		const menuItems = Constants.userMenuItems.map((item) => {
-			return {
-				id: item.id,
-				text: t(`menu.${item.label}`),
-				icon: item.icon,
-				color: item.color,
-			};
-		});
-		const itemToRemove = user.isActive ? Constants.userMenuItems[0].id : Constants.userMenuItems[1].id;
-		return menuItems.filter((item) => item.id !== itemToRemove);
+	const getButtonText = (user: User) => {
+		return user.isActive ? t('menu.deactivate') : t('menu.activate');
+	};
+
+	const handleUserSelection = (userIndex: number, state: boolean) => {
+		setSelectedUser(filteredUsers[userIndex]);
+
+		if (state) {
+			setDeactivationModalOpen(true);
+		} else {
+			setActivationModalOpen(true);
+		}
 	};
 
 	const getUserState = (user: User) => (user.isActive ? UserStates.ACTIVATED : UserStates.DEACTIVATED);
-
-	const UserActionMapping: { [key: string]: UserStates } = {
-		'1': UserStates.ACTIVATED,
-		'2': UserStates.DEACTIVATED,
-		'3': UserStates.DELETED,
-	};
-	const handleUserSelection = (userIndex: number, dropDownItemId: number) => {
-		setSelectedUser(filteredUsers[userIndex]);
-		const action = UserActionMapping[dropDownItemId];
-
-		switch (action) {
-			case UserStates.ACTIVATED:
-				setActivationModalOpen(true);
-				break;
-			case UserStates.DEACTIVATED:
-				setDeactivationModalOpen(true);
-				break;
-			case UserStates.DELETED:
-				setDeleteModalOpen(true);
-				// TODO: Implement delete user
-				break;
-			default:
-				return;
-		}
-	};
 
 	const toggleUser = async () => {
 		if (!selectedUser) return;
@@ -127,8 +101,6 @@ export default function UsersTable({ users }: Props) {
 		setDeactivationReason('');
 		setDeactivationModalOpen(false);
 		setActivationModalOpen(false);
-		setDeleteModalOpen(false);
-		setDeleteReason('');
 	};
 
 	const verifyReason = () => {
@@ -168,7 +140,7 @@ export default function UsersTable({ users }: Props) {
 									<th>{t('table.email')}</th>
 									<th>{t('table.activityarea')}</th>
 									<th>{t('table.status')}</th>
-									<th className="w-[5%] rounded-tr-lg"></th>
+									<th className="w-[5%] rounded-tr-lg">{t('table.actions')}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -187,11 +159,12 @@ export default function UsersTable({ users }: Props) {
 											</div>
 										</td>
 										<td>
-											<DropdownMenu
-												items={getSubmenuItemsByUser(user)}
-												onSelect={handleUserSelection}
-												itemIndex={index}
-											/>
+											<button
+												className={`btn w-28 ${user.isActive ? ' btn-error' : 'btn-success'}`}
+												onClick={() => handleUserSelection(index, user.isActive)}
+											>
+												{getButtonText(user)}
+											</button>
 										</td>
 									</tr>
 								))}
@@ -232,25 +205,6 @@ export default function UsersTable({ users }: Props) {
 						onClose={closeUserSelection}
 						secondButtonHoverColor={''}
 						confirmationAction={toggleUser}
-					/>
-				)}
-				{deleteModalOpen && (
-					<Confirmation
-						title={
-							selectedUser?.organization
-								? t('toggle.delete-title', { organization: selectedUser?.organization })
-								: t('toggle.delete-title-no-organization')
-						}
-						firstButtonTitle={t('toggle.close')}
-						secondButtonTitle={t('toggle.delete')}
-						secondButtonColor={'btn-error'}
-						inputTitle={t('toggle.input-title')}
-						inputValue={deleteReason}
-						setInputValue={setDeleteReason}
-						onClose={closeUserSelection}
-						secondButtonHoverColor={''}
-						confirmationAction={toggleUser}
-						verify={verifyReason}
 					/>
 				)}
 			</div>

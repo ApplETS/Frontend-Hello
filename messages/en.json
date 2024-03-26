@@ -225,7 +225,8 @@
 			"organization": "Organization name",
 			"email": "Email",
 			"status": "Status",
-			"activityarea": "Activity area"
+			"activityarea": "Activity area",
+			"actions": "Action"
 		},
 		"filters": {
 			"all": "All",
@@ -235,8 +236,7 @@
 		},
 		"menu": {
 			"activate": "Activate",
-			"deactivate": "Deactivate",
-			"delete": "Delete"
+			"deactivate": "Deactivate"
 		},
 		"create": {
 			"title": "Create account",

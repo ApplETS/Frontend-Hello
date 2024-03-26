@@ -24,7 +24,7 @@ import style from '@/markdown-styles.module.css';
 
 import Markdown from 'react-markdown';
 import AskEmail from '@/components/modals/AskEmail';
-import { useToast } from '@/utils/provider/ToastProvider';
+import { ToastDelay, useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
 
 type Props = {
@@ -245,7 +245,11 @@ export default function Profile({ params: { locale } }: Props) {
 		// if (success) publication!.state = NewsStates.REFUSED;
 		const success = 'success';
 
-		setToast(t(`email-${success ? 'success' : 'error'}-toast-message`), success ? AlertType.success : AlertType.error);
+		setToast(
+			t(`email-${success ? 'success' : 'error'}-toast-message`),
+			success ? AlertType.success : AlertType.error,
+			ToastDelay.long
+		);
 		setAskEmailModal(false);
 	};
 

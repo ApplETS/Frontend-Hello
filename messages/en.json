@@ -62,7 +62,8 @@
 		"remember": "Already have an account?",
 		"remember-link": "Login here",
 		"401": "Invalid token",
-		"token-placeholder": "Token received by email"
+		"token-placeholder": "Token received by email",
+		"201": "Please verify your email"
 	},
 
 	"SetPassword": {

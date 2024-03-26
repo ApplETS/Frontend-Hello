@@ -62,7 +62,8 @@
 		"remember": "Vous avez un compte?",
 		"remember-link": "Connectez-vous",
 		"401": "Le code de réinitialisation est invalide ou a expiré",
-		"token-placeholder": "Code reçu par courriel"
+		"token-placeholder": "Code reçu par courriel",
+		"201": "Veuillez vérifier votre courriel"
 	},
 	"SetPassword": {
 		"title": "Changer le mot de passe temporaire",

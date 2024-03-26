@@ -86,7 +86,7 @@ export const forgotPassword = async (formData: FormData) => {
 		return redirect(`/${locale}/forgotpassword?code=${error.status}&type=error`);
 	}
 
-	return redirect(`/${locale}/updatepassword?message=Veuillez consulter votre email&email=${email}&type=warning`);
+	return redirect(`/${locale}/updatepassword?code=201&email=${email}&type=warning`);
 };
 
 export const updatePassword = async (formData: FormData) => {

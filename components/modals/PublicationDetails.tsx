@@ -23,6 +23,7 @@ import { updatePublicationState } from '@/lib/publications/actions/update-public
 import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import Modal from './Modal';
 import { draftAPublication } from '@/lib/publications/actions/draft-publication';
+import ImageCropper from '../ImageCropper';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -65,6 +66,8 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 	const [rejectModalOpen, setRejectModalOpen] = useState(false);
 	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+
+	const [imageModalOpen, setImageModalOpen] = useState(false);
 
 	const PublicationInfosForPreview = {
 		news: t('modal.news'),
@@ -181,6 +184,17 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		};
 
 		reader.readAsArrayBuffer(file);
+		setImageModalOpen(true);
+	};
+
+	const handleImageModalClose = () => {
+		setImageSrc(publication?.imageUrl || '');
+		setImageModalOpen(false);
+	};
+
+	const handleImageModalConfirm = (imageSrc: string) => {
+		setImageSrc(imageSrc);
+		setImageModalOpen(false);
 	};
 
 	const handleContentChange = (newContent: string) => {
@@ -458,11 +472,22 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 											}}
 										/>
 										{imageSrc ? (
-											<img src={imageSrc} alt={imageAltText} className="w-full h-full object-cover rounded-lg mt-2" />
+											<img src={imageSrc} alt={imageAltText} className="w-full aspect-[2/1] rounded-lg mt-5" />
 										) : (
 											<div
 												className={`w-full h-full rounded-lg mt-2 ${isLight ? 'bg-base-300 ' : 'bg-base-100'}`}
 											></div>
+										)}
+										{imageModalOpen && (
+											<Modal>
+												<div className={`bg-base-200 overflow-y-auto p-7 w-1/2 rounded-2xl h-1/2`}>
+													<ImageCropper
+														imageSrc={imageSrc}
+														handleImageModalClose={handleImageModalClose}
+														handleImageModalConfirm={handleImageModalConfirm}
+													/>
+												</div>
+											</Modal>
 										)}
 									</div>
 								</div>

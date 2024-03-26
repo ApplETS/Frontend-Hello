@@ -1,7 +1,7 @@
 'use client';
+
 import React from 'react';
 
-// Props interface to type-check our component's props
 interface Props {
 	title: string;
 	message: string;

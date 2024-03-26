@@ -6,7 +6,6 @@ export default function EmailInput() {
 	const [email, setEmail] = useState('');
 
 	useEffect(() => {
-		// Load the stored email when the component mounts
 		const storedEmail = localStorage.getItem('loginEmail');
 		if (storedEmail) setEmail(storedEmail);
 	}, []);

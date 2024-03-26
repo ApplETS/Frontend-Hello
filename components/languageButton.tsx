@@ -19,7 +19,6 @@ export default function LanguageButton() {
 
 	return (
 		<label className="swap swap-flip text-base text-base-content">
-			{/* This hidden checkbox controls the state */}
 			<input type="checkbox" checked={locale === 'fr'} disabled={isPending} onChange={onSelectChange} />
 
 			<div className="swap-on">EN</div>

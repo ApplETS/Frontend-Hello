@@ -1,4 +1,5 @@
 'use client';
+
 import { useSettings } from '@/utils/provider/SettingsProvider';
 import React, { useState, useEffect } from 'react';
 
@@ -27,11 +28,9 @@ export default function ConfirmButton({ buttonText, style, inputsConfig }: Props
 			const matchValues = match.map((name) => (document.getElementsByName(name)[0] as HTMLInputElement)?.value);
 			const filledValues = filled.map((name) => (document.getElementsByName(name)[0] as HTMLInputElement)?.value);
 
-			// Check if all match inputs have the same value and are not empty
 			const allMatchValid = matchValues.every((value, _, arr) => value && value === arr[0]);
 			const allMatch = match.length > 0 ? allMatchValid : true;
 
-			// Check if all filled inputs are not empty
 			const allFilled = filledValues.every((value) => value !== '');
 
 			setHasChanges(true);
@@ -39,14 +38,12 @@ export default function ConfirmButton({ buttonText, style, inputsConfig }: Props
 			setIsEnabled(allMatch && allFilled);
 		};
 
-		// Add event listeners
 		inputs.forEach((input) => input.addEventListener('input', validateInputs));
 
-		// Remove event listeners on cleanup
 		return () => {
 			inputs.forEach((input) => input.removeEventListener('input', validateInputs));
 		};
-	}, [inputsConfig]); // Depend on inputsConfig to re-run the effect if it changes
+	}, [inputsConfig]);
 
 	return (
 		<button

@@ -224,7 +224,8 @@
 			"organization": "Nom de l'organisation",
 			"email": "Courriel",
 			"status": "Statut",
-			"activityarea": "Secteur d'activité"
+			"activityarea": "Secteur d'activité",
+			"actions": "Action"
 		},
 		"filters": {
 			"all": "Tous",
@@ -234,8 +235,7 @@
 		},
 		"menu": {
 			"activate": "Activer",
-			"deactivate": "Désactiver",
-			"delete": "Supprimer"
+			"deactivate": "Désactiver"
 		},
 		"create": {
 			"title": "Créer un compte",

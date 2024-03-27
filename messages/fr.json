@@ -337,5 +337,10 @@
 	"Help": {
 		"title": "Besoin d'aide?",
 		"contact-us": "Contactez-nous à "
+	},
+	"UnsubscribeEmail": {
+		"title": "Vous vous êtes désabonné avec succès des courriels!",
+		"message": "N'hésitez pas à vous réabonner dans la page de profil de l'auteur.",
+		"back": "Retour à l'accueil"
 	}
 }

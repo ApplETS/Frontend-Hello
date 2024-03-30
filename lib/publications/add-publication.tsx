@@ -3,7 +3,6 @@ import { ApiResponse } from '@/models/api-response';
 import { HelloEvent } from '@/models/hello-event';
 
 export async function addPublication(formData: FormData) {
-	console.log(formData);
 	const response = await fetchWithSession('organizer/events', Method.POSTFORM, formData);
 
 	if (!response.ok) {

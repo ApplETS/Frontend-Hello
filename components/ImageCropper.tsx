@@ -1,6 +1,7 @@
 'use client';
 import { getCroppedImg } from '@/utils/canvasUtils';
 import { useTheme } from '@/utils/provider/ThemeProvider';
+import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import Cropper, { Area } from 'react-easy-crop';
 
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function ImageCropper({ imageSrc, handleImageModalClose, handleImageModalConfirm }: Props) {
+	const t = useTranslations('Publications.modal.image-cropper');
 	const [croppedImageSrc, setCroppedImageSrc] = useState(null);
 	const [crop, setCrop] = useState({ x: 0, y: 0 });
 	const [rotation, setRotation] = useState(0);
@@ -76,7 +78,7 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 						/>
 						{showZoomHint && (
 							<div className={`flex justify-center items-center absolute inset-0 bg-black/25 w-full h-full`}>
-								<p className="text-lg font-semibold">Use ⌘ + scroll (or ctrl + scroll) to zoom the image</p>
+								<p className="text-lg font-semibold">{t('zoom-hint')}</p>
 							</div>
 						)}
 					</div>
@@ -86,10 +88,10 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 							onClick={() => handleImageModalClose()}
 							type="button"
 						>
-							Cancel
+							{t('cancel')}
 						</button>
 						<button className={`btn btn-success text-black`} onClick={() => confirmCroppedImage()}>
-							Save
+							{t('crop')}
 						</button>
 					</div>
 				</div>

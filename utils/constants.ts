@@ -78,12 +78,6 @@ export default {
 			icon: faLock,
 			color: '',
 		},
-		{
-			id: 3,
-			label: 'delete',
-			icon: faTrashCan,
-			color: 'text-error',
-		},
 	],
 	colors: ['bg-blue', 'bg-green', 'bg-pink', 'bg-orange', 'bg-purple'],
 	tags: {

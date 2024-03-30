@@ -201,9 +201,7 @@
 	},
 	"Profile": {
 		"notify-me": "Notify me",
-		"dont-notify-me": "Don't notify me",
 		"tooltip-notify-me": "Click on 'Notify me' to receive an email when {author} publishes a news.",
-		"tooltip-dont-notify-me": "Click on 'Don't notify me' to no longer receive an email when {author} publishes a news.",
 		"interests": "Interests",
 		"search": "Search",
 		"to": " to ",
@@ -211,7 +209,13 @@
 		"until": " until ",
 		"informations": "Informations",
 		"website": "Website",
-		"email": "Email"
+		"email": "Email",
+		"enter-email": "Enter the email you want to be notified at",
+		"email-success-toast-message": "You will be notified by email when the author publishes a news. You can unsubscribe in the email you will receive.",
+		"email-error-toast-message": "An error occurred while saving your email",
+		"save": "Save",
+		"cancel": "Cancel",
+		"field-required": "A {field} is required"
 	},
 	"Accounts": {
 		"title": "Accounts",
@@ -226,7 +230,8 @@
 			"organization": "Organization name",
 			"email": "Email",
 			"status": "Status",
-			"activityarea": "Activity area"
+			"activityarea": "Activity area",
+			"actions": "Action"
 		},
 		"filters": {
 			"all": "All",
@@ -236,8 +241,7 @@
 		},
 		"menu": {
 			"activate": "Activate",
-			"deactivate": "Deactivate",
-			"delete": "Delete"
+			"deactivate": "Deactivate"
 		},
 		"create": {
 			"title": "Create account",
@@ -339,5 +343,10 @@
 	"Help": {
 		"title": "Need help?",
 		"contact-us": "Contact us at "
+	},
+	"UnsubscribeEmail": {
+		"title": "You have successfully unsubscribed from emails!",
+		"message": "Feel free to subscribe back in the profile page of the author.",
+		"back": "Back to the homepage"
 	}
 }

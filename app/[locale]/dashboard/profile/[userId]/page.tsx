@@ -3,11 +3,9 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useTheme } from '@/utils/provider/ThemeProvider';
 import { faArrowLeft, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslations } from 'next-intl';
-import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import Constants from '@/utils/constants';
 import Image from 'next/image';
 import Search from '@/components/Search';
@@ -20,21 +18,24 @@ import linkedinIcon from '@/public/Socials/Linkedin.svg';
 import tiktokIcon from '@/public/Socials/Tiktok.svg';
 import redditIcon from '@/public/Socials/Reddit.svg';
 import xIcon from '@/public/Socials/X.svg';
-import { HelloEvent } from '@/models/hello-event';
 import { Organizer } from '@/models/organizer';
 import { NewsStates } from '@/models/news-states';
 import style from '@/markdown-styles.module.css';
 
 import Markdown from 'react-markdown';
+import AskEmail from '@/components/modals/AskEmail';
+import { ToastDelay, useToast } from '@/utils/provider/ToastProvider';
+import { AlertType } from '@/components/Alert';
 
 type Props = {
 	params: { locale: string; userId: string };
 };
 
 export default function Profile({ params: { locale } }: Props) {
-	const { isLight } = useTheme();
 	const t = useTranslations('Profile');
 	const router = useRouter();
+	const [askEmailModal, setAskEmailModal] = useState(false);
+	const { setToast } = useToast();
 
 	// TODO : Change with the real user, the user id is in userId
 	const user: Organizer = {
@@ -226,9 +227,6 @@ export default function Profile({ params: { locale } }: Props) {
 		updatedAt: new Date().toISOString(),
 	};
 
-	// TODO : Change the "t('notify-me')"" with the user preference
-	const [notifyButtonTitle, setNotifyButtonTitle] = useState(t('notify-me'));
-
 	const [searchTerm, setSearchTerm] = useState('');
 	const [filteredPublications, setFilteredPublications] = useState(user.events);
 	const handleSearchChanged = (search: string) => {
@@ -241,14 +239,18 @@ export default function Profile({ params: { locale } }: Props) {
 		setFilteredPublications(filtered);
 	}, [searchTerm]);
 
-	// TODO : Add notification
 	const notify = () => {
-		if (notifyButtonTitle === t('notify-me')) {
-			setNotifyButtonTitle(t('dont-notify-me'));
-		} else {
-			setNotifyButtonTitle(t('notify-me'));
-		}
-		alert('Not implemented yet');
+		// TODO : Add notification
+		// const success = await sendNotifivation(email);
+		// if (success) publication!.state = NewsStates.REFUSED;
+		const success = 'success';
+
+		setToast(
+			t(`email-${success ? 'success' : 'error'}-toast-message`),
+			success ? AlertType.success : AlertType.error,
+			ToastDelay.long
+		);
+		setAskEmailModal(false);
 	};
 
 	return (
@@ -271,17 +273,10 @@ export default function Profile({ params: { locale } }: Props) {
 						<h4 className="mb-2 text-sm text-secondary">{user.activityArea}</h4>
 						<p className="text-sm mb-4 text-center">{user.profileDescription}</p>
 						<div className="flex items-center mb-2">
-							<button className="btn btn-accent w-64" onClick={notify}>
-								{notifyButtonTitle}
+							<button className="btn btn-accent w-64" onClick={() => setAskEmailModal(true)}>
+								{t('notify-me')}
 							</button>
-							<div
-								className="tooltip tooltip-bottom ml-2"
-								data-tip={
-									notifyButtonTitle === t('notify-me')
-										? t('tooltip-notify-me', { author: user.name })
-										: t('tooltip-dont-notify-me', { author: user.name })
-								}
-							>
+							<div className="tooltip tooltip-bottom ml-2" data-tip={t('tooltip-notify-me', { author: user.name })}>
 								<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center">
 									?
 								</button>
@@ -390,6 +385,8 @@ export default function Profile({ params: { locale } }: Props) {
 						))}
 					</div>
 				</div>
+
+				{askEmailModal && <AskEmail onClose={() => setAskEmailModal(false)} onSend={notify} />}
 			</div>
 		</div>
 	);

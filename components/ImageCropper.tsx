@@ -7,13 +7,12 @@ import Cropper, { Area } from 'react-easy-crop';
 
 interface Props {
 	imageSrc: string;
-	handleImageModalClose: () => void;
-	handleImageModalConfirm: (croppedImage: string) => void;
+	handleImageModalClose?: () => void;
+	handleImageModalConfirm?: (croppedImage: string) => void;
 }
 
 export default function ImageCropper({ imageSrc, handleImageModalClose, handleImageModalConfirm }: Props) {
 	const t = useTranslations('Publications.modal.image-cropper');
-	const [croppedImageSrc, setCroppedImageSrc] = useState(null);
 	const [crop, setCrop] = useState({ x: 0, y: 0 });
 	const [rotation, setRotation] = useState(0);
 	const [zoom, setZoom] = useState(1);
@@ -36,7 +35,9 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 			setIsLoading(true);
 			const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels, rotation);
 			setIsLoading(false);
-			handleImageModalConfirm(croppedImage);
+			if (handleImageModalConfirm) {
+				handleImageModalConfirm(croppedImage);
+			}
 		} catch (e) {
 			console.error(e);
 		}
@@ -85,7 +86,11 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 					<div className="grid grid-cols-2 gap-6 px-24 mt-3">
 						<button
 							className={`btn px-6 text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
-							onClick={() => handleImageModalClose()}
+							onClick={() => {
+								if (handleImageModalClose) {
+									handleImageModalClose();
+								}
+							}}
 							type="button"
 						>
 							{t('cancel')}

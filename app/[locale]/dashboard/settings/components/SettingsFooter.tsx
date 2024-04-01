@@ -18,6 +18,7 @@ interface SettingsFooterProps {
 		yes: string;
 		no: string;
 	};
+	onSend?: () => void;
 }
 
 export default function SettingsFooter({
@@ -26,6 +27,7 @@ export default function SettingsFooter({
 	inputsConfig,
 	cancelButtonText,
 	dialogText,
+	onSend,
 }: SettingsFooterProps) {
 	const { hasChanges } = useSettings();
 
@@ -37,6 +39,7 @@ export default function SettingsFooter({
 				buttonText={buttonText}
 				style={'btn btn-primary rounded-md text-base w-1/5 mt-auto'}
 				inputsConfig={inputsConfig}
+				onClick={onSend}
 			/>
 		</footer>
 	);

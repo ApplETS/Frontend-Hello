@@ -178,13 +178,13 @@ export const updateProfile = async (formData: FormData) => {
 	userObject.profileDescription = formData.get('description') as string;
 	userObject.webSiteLink = formData.get('website') as string;
 
-	const avatarFile = formData.get('fileInput') as File;
+	const avatarFile = formData.get('avatarFile') as File;
 	avatarForm.set('avatarFile', avatarFile);
 
 	let response: Response;
 
 	try {
-		await updateUserProfile(userObject);
+		//await updateUserProfile(userObject);
 		if (avatarFile) {
 			await updateAvatar(avatarForm);
 		}

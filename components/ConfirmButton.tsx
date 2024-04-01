@@ -10,9 +10,10 @@ interface Props {
 		match?: string[]; // Names of inputs that need to match (optional)
 		filled?: string[]; // Names of inputs that just need to be filled (optional)
 	};
+	onClick?: () => void;
 }
 
-export default function ConfirmButton({ buttonText, style, inputsConfig }: Props) {
+export default function ConfirmButton({ buttonText, style, inputsConfig, onClick }: Props) {
 	const [isEnabled, setIsEnabled] = useState(true);
 	const { setHasChanges } = useSettings();
 
@@ -49,7 +50,8 @@ export default function ConfirmButton({ buttonText, style, inputsConfig }: Props
 		<button
 			className={`${style} ${!isEnabled ? 'btn-disabled' : ''}`}
 			disabled={!isEnabled}
-			onClick={() => setHasChanges(false)}
+			type={onClick ? 'button' : 'submit'}
+			onClick={() => (onClick ? onClick() : setHasChanges(false))}
 		>
 			{buttonText}
 		</button>

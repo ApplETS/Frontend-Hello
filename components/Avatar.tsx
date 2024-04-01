@@ -33,7 +33,7 @@ export default function Avatar({ size, textSize, color }: Props) {
 	}, [user?.avatarUrl, currentAvatarUrl]);
 
 	return (
-		<div className={`${size ? size : 'w-10'} rounded-full`}>
+		<div className={`${size ? size : 'w-10'} rounded-full mask mask-circle`}>
 			{user?.avatarUrl && !usePlaceholder ? (
 				<img
 					alt="Avatar"

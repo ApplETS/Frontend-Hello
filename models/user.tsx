@@ -7,6 +7,7 @@ export interface User {
 	activityArea: string | null;
 	profileDescription: string | null;
 	isActive: boolean;
+	hasLoggedIn: boolean;
 	facebookLink: string | null;
 	instagramLink: string | null;
 	tikTokLink: string | null;

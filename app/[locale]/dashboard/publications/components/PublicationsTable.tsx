@@ -21,9 +21,10 @@ type Props = {
 	locale: string;
 	publications: HelloEvent[];
 	tags: Tag[];
+	id?: string;
 };
 
-export default function PublicationsTable({ locale, publications, tags }: Props) {
+export default function PublicationsTable({ locale, publications, tags, id }: Props) {
 	const t = useTranslations('Publications');
 	const { setToast } = useToast();
 
@@ -45,6 +46,17 @@ export default function PublicationsTable({ locale, publications, tags }: Props)
 			color: item.color,
 		};
 	});
+
+	useEffect(() => {
+		if (id) {
+			const event = publications.find((event) => event.id == id);
+			if (event) {
+				setSelectedPublication(event);
+				setIsModalOpen(true);
+				setModalType(Constants.publicationModalStatus.modify);
+			}
+		}
+	}, [id]);
 
 	useEffect(() => {
 		const filteredPublications = publications.filter(

@@ -497,7 +497,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 										)}
 										{imageModalOpen && (
 											<Modal>
-												<div className={`bg-base-200 overflow-y-auto p-7 w-1/2 rounded-2xl h-1/2`}>
+												<div className={`bg-base-200 overflow-y-auto px-7 pt-7 pb-3 w-[50rem] rounded-2xl h-[26rem]`}>
 													<ImageCropper
 														imageSrc={imageSrc}
 														handleImageModalClose={handleImageModalClose}

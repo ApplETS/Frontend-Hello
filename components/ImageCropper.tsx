@@ -62,7 +62,7 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 				</div>
 			) : (
 				<div className="flex flex-col justify-center items-center w-full h-full">
-					<div className="relative w-3/4 h-3/4">
+					<div className="relative w-full h-full">
 						<Cropper
 							image={imageSrc}
 							crop={crop}
@@ -82,9 +82,9 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 							</div>
 						)}
 					</div>
-					<div className="grid grid-cols-2 gap-6 px-24 mt-7">
+					<div className="grid grid-cols-2 gap-6 px-24 mt-3">
 						<button
-							className={`btn text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
+							className={`btn px-6 text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
 							onClick={() => handleImageModalClose()}
 							type="button"
 						>

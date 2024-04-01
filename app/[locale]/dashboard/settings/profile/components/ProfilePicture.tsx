@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Dropzone from '@/components/Dropzone';
+import Avatar from '@/components/Avatar';
 
 export default function ProfilePicture({ dropzoneText, buttonText }: { dropzoneText: string; buttonText: string }) {
 	const [image, setImage] = useState<string | null>(null);
@@ -34,13 +35,11 @@ export default function ProfilePicture({ dropzoneText, buttonText }: { dropzoneT
 
 	return (
 		<>
-			<div className="avatar placeholder w-36 h-36" onClick={handleDropzoneClick}>
+			<div className="avatar placeholder w-36 h-36">
 				{image ? (
 					<img src={image} className="rounded-full" alt="Dropped" />
 				) : (
-					<div className="bg-neutral text-neutral-content rounded-full w-36">
-						<span className="text-3xl">D</span>
-					</div>
+					<Avatar size="w-36" textSize="text-5xl" color="bg-base-300" />
 				)}
 			</div>
 			<div className="flex flex-col gap-2 col-span-2">

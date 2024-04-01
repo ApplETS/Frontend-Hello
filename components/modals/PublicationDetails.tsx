@@ -194,23 +194,19 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 	const handleImageModalConfirm = async (imageSrc: string) => {
 		try {
-			// Fetch the image data
 			const response = await fetch(imageSrc);
 
 			if (!response.ok) {
 				throw new Error('Failed to fetch image data');
 			}
 
-			// Convert the response data to a blob
 			const blob = await response.blob();
 
-			// Set the blob in the state or perform any other action
 			setImageSrc(imageSrc);
 			setImageBinary(blob);
 			setImageModalOpen(false);
 		} catch (error) {
 			console.error('Error fetching image data:', error);
-			// Handle the error accordingly
 		}
 	};
 

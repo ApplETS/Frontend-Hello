@@ -1,17 +1,14 @@
 import React, { useState, useTransition } from 'react';
-import { useTheme } from '@/utils/provider/ThemeProvider';
 import Modal from './Modal';
 import { useTranslations } from 'next-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '../Alert';
-import { updatePassword } from '@/app/actions/settings/update-password';
 import { updateFirstPassword } from '@/app/actions/update-first-password';
 
 export default function SetPassword() {
 	const t = useTranslations('SetPassword');
-	const { isLight } = useTheme();
 	const { setToast } = useToast();
 
 	const [isPending, startTransition] = useTransition();
@@ -93,7 +90,7 @@ export default function SetPassword() {
 							</div>
 						</div>
 
-						<div className="flex justify-center px-24 mt-7">
+						<div className="flex justify-end mt-7">
 							<button className={`btn btn-success text-black`} type="submit">
 								{t('save')}
 							</button>

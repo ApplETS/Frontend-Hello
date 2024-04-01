@@ -155,7 +155,12 @@
 				"sve": "Service à la vie étudiante",
 				"aeets": "AEETS"
 			},
-			"alt-text-tooltip": "Un texte alternatif est une courte description écrite d'une image sur une page web, utilisée par les lecteurs d'écran pour les personnes malvoyantes ou lorsque l'image ne peut pas être affichée."
+			"alt-text-tooltip": "Un texte alternatif est une courte description écrite d'une image sur une page web, utilisée par les lecteurs d'écran pour les personnes malvoyantes ou lorsque l'image ne peut pas être affichée.",
+			"image-cropper": {
+				"crop": "Recadrer",
+				"cancel": "Annuler",
+				"zoom-hint": "Utilisez ⌘ + scroll (ou ctrl + scroll) pour zoomer l'image"
+			}
 		}
 	},
 	"Approbations": {

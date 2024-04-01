@@ -13,6 +13,5 @@ export default async function Publications({ params: { locale }, searchParams: {
 	const tags = await getTags();
 	// TODO : Enlever que ce sera fait sur le backend
 	tags.sort((a, b) => a.name.localeCompare(b.name));
-	console.log(publications);
 	return <PublicationsTable locale={locale} publications={publications} tags={tags} id={id} />;
 }

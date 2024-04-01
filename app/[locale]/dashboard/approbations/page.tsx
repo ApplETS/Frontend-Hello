@@ -7,10 +7,11 @@ import { getModeratorEvents } from '@/lib/get-moderator-events';
 
 type Props = {
 	params: { locale: string };
+	searchParams: { id: string };
 };
 
-export default async function Approbations({ params: { locale } }: Props) {
+export default async function Approbations({ params: { locale }, searchParams: { id } }: Props) {
 	const publications = await getModeratorEvents();
 	const tags = await getTags();
-	return <ApprobationsTable locale={locale} events={publications} tags={tags} />;
+	return <ApprobationsTable locale={locale} events={publications} tags={tags} id={id} />;
 }

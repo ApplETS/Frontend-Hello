@@ -15,15 +15,26 @@ type Props = {
 	events: HelloEvent[];
 	locale: string;
 	tags: Tag[];
+	id?: string;
 };
 
-export default function ApprobationsTable({ events, locale, tags }: Props) {
+export default function ApprobationsTable({ events, locale, tags, id }: Props) {
 	const t = useTranslations('Approbations');
 	const filterAll = t('filters.all').toLowerCase();
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
 	const [filteredEvents, setFilteredEvents] = useState(events);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [selectedEvent, setSelectedEvent] = useState<HelloEvent | null>(null);
+
+	useEffect(() => {
+		if (id) {
+			const event = events.find((event) => event.id == id);
+			if (event) {
+				setSelectedEvent(event);
+				setIsModalOpen(true);
+			}
+		}
+	}, [id]);
 
 	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
 

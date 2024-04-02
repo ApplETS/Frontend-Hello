@@ -1,6 +1,5 @@
 'use client';
 
-import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import { User } from '@/models/user';
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
 

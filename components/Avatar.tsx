@@ -12,36 +12,12 @@ interface Props {
 export default function Avatar({ size, textSize, color }: Props) {
 	const { isLight } = useTheme();
 	const { user } = useUser();
-
-	const [usePlaceholder, setUsePlaceholder] = useState(false);
-	const [currentAvatarUrl, setCurrentAvatarUrl] = useState(user?.avatarUrl ?? '');
 	const isModerator = user?.type == UserTypes.MODERATOR ?? false;
-
-	useEffect(() => {
-		setUsePlaceholder(localStorage.getItem('usePlaceholder') === 'true');
-	}, []);
-
-	useEffect(() => {
-		localStorage.setItem('usePlaceholder', usePlaceholder.toString());
-	}, [usePlaceholder]);
-
-	useEffect(() => {
-		if (user?.avatarUrl !== currentAvatarUrl) {
-			setCurrentAvatarUrl(user?.avatarUrl ?? '');
-			setUsePlaceholder(false);
-		}
-	}, [user?.avatarUrl, currentAvatarUrl]);
 
 	return (
 		<div className={`${size ? size : 'w-10'} rounded-full mask mask-circle`}>
-			{user?.avatarUrl && !usePlaceholder ? (
-				<img
-					alt="Avatar"
-					src={user.avatarUrl}
-					onError={() => {
-						setUsePlaceholder(true);
-					}}
-				/>
+			{user?.avatarUrl ? (
+				<img alt="Avatar" src={user.avatarUrl + '?ver=' + new Date().getTime()} />
 			) : (
 				<div className="avatar placeholder">
 					<div

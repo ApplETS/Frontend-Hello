@@ -69,13 +69,14 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 							crop={crop}
 							rotation={rotation}
 							zoom={zoom}
-							aspect={2 / 1}
+							aspect={1}
 							onCropChange={setCrop}
 							onRotationChange={setRotation}
+							cropSize={{ width: 150, height: 150 }}
 							onCropComplete={onCropComplete}
 							onWheelRequest={onWheelRequest}
 							onZoomChange={setZoom}
-							showGrid={false}
+							showGrid={true}
 						/>
 						{showZoomHint && (
 							<div className={`flex justify-center items-center absolute inset-0 bg-black/25 w-full h-full`}>

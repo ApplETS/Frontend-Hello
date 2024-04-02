@@ -11,9 +11,9 @@ import { handleSubmitForm } from '@/app/actions/settings/submitForm';
 import { updateProfile } from '@/app/actions/settings/update-profile';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import { useToast } from '@/utils/provider/ToastProvider';
-import { SetStateAction, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Area } from 'react-easy-crop';
-import { getCroppedImg } from '@/utils/canvasUtils';
+import { getCroppedImgOnly } from '@/utils/canvasUtils';
 
 export default function ProfileClient() {
 	const t = useTranslations('Settings.profile-section');
@@ -36,7 +36,7 @@ export default function ProfileClient() {
 
 	const getImageCropped = async () => {
 		try {
-			const croppedImage = await getCroppedImg(image, croppedAreaPixels, rotation);
+			const croppedImage = await getCroppedImgOnly(image, croppedAreaPixels);
 			const response = await fetch(croppedImage);
 
 			if (!response.ok) {
@@ -66,6 +66,7 @@ export default function ProfileClient() {
 				const blob = await getImageCropped();
 				if (blob) sendFormData.set('avatarFile', blob, filename);
 				handleSubmitForm(sendFormData, updateProfile, startTransition, setToast, t_default);
+				setImage('');
 			}
 		}
 	}
@@ -78,7 +79,6 @@ export default function ProfileClient() {
 					<ProfilePicture
 						dropzoneText={t('drop-picture')}
 						buttonText={t('delete-picture')}
-						croppedAreaPixels={croppedAreaPixels}
 						setCroppedAreaPixels={setCroppedAreaPixels}
 						image={image}
 						setImage={setImage}

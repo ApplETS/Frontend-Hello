@@ -84,5 +84,6 @@ export default {
 		publications: 'publications',
 		approbations: 'approbations',
 		users: 'users',
+		me: 'me',
 	},
 };

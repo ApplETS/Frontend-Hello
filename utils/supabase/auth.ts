@@ -7,6 +7,8 @@ import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import { AlertType } from '@/components/Alert';
 import { Response } from '@/app/actions/settings/submitForm';
 import { updateAvatar } from '@/lib/update-avatar';
+import { revalidateTag } from 'next/cache';
+import constants from '../constants';
 
 export const signIn = async (formData: FormData) => {
 	'use server';
@@ -199,6 +201,7 @@ export const updateProfile = async (formData: FormData) => {
 		};
 	}
 
+	revalidateTag(constants.tags.me);
 	return response;
 };
 

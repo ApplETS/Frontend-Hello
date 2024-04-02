@@ -34,11 +34,9 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 	const { isLoading } = useLoading();
 	const { setUser } = useUser();
 
-	useEffect(() => {
-		if (user) {
-			setUser(user);
-		}
-	}, []);
+	if (user) {
+		setUser(user);
+	}
 
 	return (
 		<>

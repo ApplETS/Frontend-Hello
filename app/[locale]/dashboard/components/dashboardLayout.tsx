@@ -6,10 +6,10 @@ import { usePathname } from 'next/navigation';
 import { User } from '@/models/user';
 import NewsNavbar from '../news/components/NewsNavbar';
 import { useToast } from '@/utils/provider/ToastProvider';
-import { useUser } from '@/utils/provider/UserProvider';
 import Toast from '@/components/Toast';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
+import { useUser } from '@/utils/provider/UserProvider';
 
 interface Props {
 	children: ReactElement;
@@ -34,9 +34,11 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 	const { isLoading } = useLoading();
 	const { setUser } = useUser();
 
-	if (user) {
-		setUser(user);
-	}
+	useEffect(() => {
+		if (user) {
+			setUser(user);
+		}
+	}, [user]);
 
 	return (
 		<>

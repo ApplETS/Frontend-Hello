@@ -1,12 +1,12 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, use } from 'react';
 import DashboardLayout from './components/dashboardLayout';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { signOut } from '@/utils/supabase/auth';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import { UserTypes } from '@/models/user-types';
 import ToastProvider from '@/utils/provider/ToastProvider';
-import UserProvider from '@/utils/provider/UserProvider';
 import LoadingProvider from '@/utils/provider/LoadingProvider';
+import UserProvider from '@/utils/provider/UserProvider';
 
 type Props = {
 	children: ReactElement;
@@ -23,6 +23,7 @@ export default async function Layout({ children, params: { locale } }: Props) {
 	} catch (error) {
 		user = null;
 	}
+
 	const isOrganizer = user?.type == UserTypes.ORGANIZER;
 	const isModerator = user?.type == UserTypes.MODERATOR;
 
@@ -50,14 +51,16 @@ export default async function Layout({ children, params: { locale } }: Props) {
 	};
 
 	return (
-		<ToastProvider>
-			<UserProvider>
-				<LoadingProvider>
-					<DashboardLayout pages={pages} signOut={signOut} user={user} locale={locale}>
-						{children}
-					</DashboardLayout>
-				</LoadingProvider>
-			</UserProvider>
-		</ToastProvider>
+		<>
+			<ToastProvider>
+				<UserProvider>
+					<LoadingProvider>
+						<DashboardLayout pages={pages} signOut={signOut} user={user} locale={locale}>
+							{children}
+						</DashboardLayout>
+					</LoadingProvider>
+				</UserProvider>
+			</ToastProvider>
+		</>
 	);
 }

@@ -7,8 +7,8 @@ import Cropper, { Area } from 'react-easy-crop';
 
 interface Props {
 	imageSrc: string;
-	handleImageModalClose?: () => void;
-	handleImageModalConfirm?: (croppedImage: string) => void;
+	handleImageModalClose: () => void;
+	handleImageModalConfirm: (croppedImage: string) => void;
 }
 
 export default function ImageCropper({ imageSrc, handleImageModalClose, handleImageModalConfirm }: Props) {
@@ -35,9 +35,7 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 			setIsLoading(true);
 			const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels, rotation);
 			setIsLoading(false);
-			if (handleImageModalConfirm) {
-				handleImageModalConfirm(croppedImage);
-			}
+			handleImageModalConfirm(croppedImage);
 		} catch (e) {
 			console.error(e);
 		}
@@ -69,14 +67,13 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 							crop={crop}
 							rotation={rotation}
 							zoom={zoom}
-							aspect={1}
+							aspect={2 / 1}
 							onCropChange={setCrop}
 							onRotationChange={setRotation}
-							cropSize={{ width: 150, height: 150 }}
 							onCropComplete={onCropComplete}
 							onWheelRequest={onWheelRequest}
 							onZoomChange={setZoom}
-							showGrid={true}
+							showGrid={false}
 						/>
 						{showZoomHint && (
 							<div className={`flex justify-center items-center absolute inset-0 bg-black/25 w-full h-full`}>
@@ -87,11 +84,7 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 					<div className="grid grid-cols-2 gap-6 px-24 mt-3">
 						<button
 							className={`btn px-6 text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
-							onClick={() => {
-								if (handleImageModalClose) {
-									handleImageModalClose();
-								}
-							}}
+							onClick={() => handleImageModalClose()}
 							type="button"
 						>
 							{t('cancel')}

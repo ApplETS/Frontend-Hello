@@ -30,10 +30,6 @@ export default function ProfileClient() {
 	const [rotation, setRotation] = useState(0);
 	const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
-	useEffect(() => {
-		// Fixes activity dropdown
-	}, [user]);
-
 	const getImageCropped = async () => {
 		try {
 			const croppedImage = await getCroppedImgOnly(image, croppedAreaPixels);

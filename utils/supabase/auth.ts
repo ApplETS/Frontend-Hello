@@ -174,7 +174,6 @@ export const updateProfile = async (formData: FormData) => {
 	const userObject = await getAuthenticatedUser();
 	const avatarForm = new FormData();
 
-	userObject.email = formData.get('email') as string;
 	userObject.organization = formData.get('organization') as string;
 	userObject.activityArea = formData.get('activity') as string;
 	userObject.profileDescription = formData.get('description') as string;
@@ -186,7 +185,7 @@ export const updateProfile = async (formData: FormData) => {
 	let response: Response;
 
 	try {
-		//await updateUserProfile(userObject);
+		await updateUserProfile(userObject);
 		if (avatarFile) {
 			await updateAvatar(avatarForm);
 		}

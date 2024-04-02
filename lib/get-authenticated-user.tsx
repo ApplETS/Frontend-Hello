@@ -11,7 +11,7 @@ export async function getAuthenticatedUser(): Promise<User> {
 	}
 
 	const responseData: ApiResponse<User> = await response.json();
-	console.log(responseData.data);
+
 	if (responseData.error) {
 		throw new Error('Error in response data');
 	}

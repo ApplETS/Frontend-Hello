@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownLeftAndUpRightToCenter, faUpRightAndDownLeftFromCenter } from '@fortawesome/free-solid-svg-icons';
 import Markdown from 'react-markdown';
 import style from '@/markdown-styles.module.css';
+import Avatar from './Avatar';
 
 interface Props {
 	events: HelloEvent[];
@@ -180,13 +181,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 							/>
 							<div className="flex flex-row gap-2 px-6 py-2 items-center">
 								<div className="avatar">
-									<div className="w-14 rounded-full">
-										{/* TODO : Change with real image when it will be done in backend */}
-										<img
-											alt="Tailwind CSS Navbar component"
-											src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-										/>
-									</div>
+									<Avatar userProfile={event.organizer} size="w-14" textSize="text-2xl" />
 								</div>
 								<div className="flex flex-col pt-2 pl-2">
 									<p className="text-base font-bold">{event.organizer?.organization ?? 'Organisateur'}</p>

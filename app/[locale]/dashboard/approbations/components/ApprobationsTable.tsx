@@ -10,6 +10,7 @@ import { formatDate } from '@/utils/formatDate';
 import PublicationDetails from '@/components/modals/PublicationDetails';
 import { Tag } from '@/models/tag';
 import { attemptRevalidation } from '@/lib/attempt-revalidation';
+import Avatar from '@/components/Avatar';
 
 type Props = {
 	events: HelloEvent[];
@@ -101,12 +102,9 @@ export default function ApprobationsTable({ events, locale, tags, id }: Props) {
 						{filteredEvents.map((event, index) => (
 							<tr key={index} className="border-b-2 border-base-300">
 								<td className="text-base flex items-center space-x-2">
-									{/* TODO : Replace the img src with the real image*/}
-									<img
-										src="https://placehold.co/500x500"
-										alt="Placeholder"
-										className="w-10 h-10 mr-3 rounded-full"
-									></img>
+									<div className="avatar mr-3">
+										<Avatar userProfile={event.organizer} size="w-10 h-10" textSize="text-xl" color="bg-base-300" />
+									</div>
 									<div>
 										<div>{event.organizer?.organization}</div>
 										<div className="text-secondary">{event.organizer?.activityArea}</div>

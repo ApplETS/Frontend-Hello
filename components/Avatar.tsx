@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { useUser } from '@/utils/provider/UserProvider';
 import { UserTypes } from '@/models/user-types';
+import { User } from '@/models/user';
 
 interface Props {
 	size?: string;
 	color?: string;
 	textSize?: string;
+	userProfile?: User | null;
 }
 
-export default function Avatar({ size, textSize, color }: Props) {
+export default function Avatar({ size, textSize, color, userProfile }: Props) {
 	const { isLight } = useTheme();
-	const { user } = useUser();
+	const user = userProfile ? userProfile : useUser().user;
 	const isModerator = user?.type == UserTypes.MODERATOR ?? false;
 
 	return (

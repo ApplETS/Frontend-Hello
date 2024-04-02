@@ -16,10 +16,20 @@ export default function Avatar({ size, textSize, color, userProfile }: Props) {
 	const user = userProfile ? userProfile : useUser().user;
 	const isModerator = user?.type == UserTypes.MODERATOR ?? false;
 
+	const [usePlaceholder, setUsePlaceholder] = useState(false);
+
+	useEffect(() => {
+		setUsePlaceholder(false);
+	}, [user]);
+
 	return (
 		<div className={`${size ? size : 'w-10'} rounded-full mask mask-circle`}>
-			{user?.avatarUrl ? (
-				<img alt="Avatar" src={user.avatarUrl + '?ver=' + new Date().getTime()} />
+			{user?.avatarUrl && !usePlaceholder ? (
+				<img
+					alt="Avatar"
+					src={user.avatarUrl + '?ver=' + new Date().getTime()}
+					onError={() => setUsePlaceholder(true)}
+				/>
 			) : (
 				<div className="avatar placeholder">
 					<div

@@ -9,6 +9,7 @@ import { useToast } from '@/utils/provider/ToastProvider';
 import Toast from '@/components/Toast';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
+import SetPassword from '@/components/modals/SetPassword';
 import { useUser } from '@/utils/provider/UserProvider';
 
 interface Props {
@@ -56,7 +57,7 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 				{pages[activePage]?.title && activePage !== 'news' && pages[activePage]?.isVisible && (
 					<div className="text-2xl mb-7">{pages[activePage].title}</div>
 				)}
-
+				{user !== null && !user.hasLoggedIn && <SetPassword />}
 				{children}
 				{isLoading && <LoadingSpinner />}
 			</div>

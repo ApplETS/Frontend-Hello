@@ -1,19 +1,14 @@
 import React, { useState, useTransition } from 'react';
-import { useTheme } from '@/utils/provider/ThemeProvider';
 import Modal from './Modal';
 import { useTranslations } from 'next-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '../Alert';
+import { updateFirstPassword } from '@/app/actions/update-first-password';
 
-interface Props {
-	onClose: () => void;
-}
-
-export default function SetPassword({ onClose }: Props) {
+export default function SetPassword() {
 	const t = useTranslations('SetPassword');
-	const { isLight } = useTheme();
 	const { setToast } = useToast();
 
 	const [isPending, startTransition] = useTransition();
@@ -32,24 +27,21 @@ export default function SetPassword({ onClose }: Props) {
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		const formData = new FormData(event.currentTarget);
 		if (newPassword !== confirmPassword) {
 			setToast(t('password-mismatch-error'), AlertType.error);
 			return;
 		}
 		startTransition(async () => {
-			// TODO: handle submit
-			const success = 'success';
+			const res = await updateFirstPassword(formData);
 
-			setToast(
-				t(`password-${success ? 'success' : 'error'}-toast-message`),
-				success ? AlertType.success : AlertType.error
-			);
+			setToast(t(`password-${res.status === '200' ? 'success' : 'error'}-toast-message`), res.type);
 		});
 	};
 
 	return (
 		<Modal>
-			<div id="confirmation_modal" className={`bg-base-200 overflow-y-auto p-7 max-w-[40rem] rounded-2xl max-h-full`}>
+			<div id="confirmation_modal" className={`bg-base-200 overflow-y-auto p-7 w-[32rem] rounded-2xl max-h-full`}>
 				{isPending ? (
 					<div className="flex justify-center items-center w-full h-full">
 						<div className="loading loading-spinner loading-lg"></div>
@@ -64,6 +56,7 @@ export default function SetPassword({ onClose }: Props) {
 									<div className="relative flex items-center justify-center">
 										<input
 											id="newPassword"
+											name="password"
 											type={passwordShown ? 'text' : 'password'}
 											className="'text-xs input input-ghost px-4 py-2 flex-1"
 											required
@@ -82,6 +75,7 @@ export default function SetPassword({ onClose }: Props) {
 									<div className="relative flex items-center justify-center">
 										<input
 											id="confirmPassword"
+											name="confirmPassword"
 											type={confirmPasswordShown ? 'text' : 'password'}
 											className="'text-xs input input-ghost px-4 py-2 flex-1"
 											required
@@ -96,14 +90,7 @@ export default function SetPassword({ onClose }: Props) {
 							</div>
 						</div>
 
-						<div className="grid grid-cols-2 gap-6 px-24 mt-7">
-							<button
-								className={`btn text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
-								onClick={() => onClose()}
-								type="button"
-							>
-								{t('cancel')}
-							</button>
+						<div className="flex justify-end mt-7">
 							<button className={`btn btn-success text-black`} type="submit">
 								{t('save')}
 							</button>

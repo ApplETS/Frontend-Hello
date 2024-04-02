@@ -79,6 +79,37 @@ export async function getCroppedImg(imageSrc, pixelCrop, rotation = 0, flip = { 
 	});
 }
 
+export async function getCroppedImgOnly(imageSrc, pixelCrop) {
+	const image = await createImage(imageSrc);
+	const croppedCanvas = document.createElement('canvas');
+	const croppedCtx = croppedCanvas.getContext('2d');
+
+	if (!croppedCtx) {
+		return null;
+	}
+
+	croppedCanvas.width = pixelCrop.width;
+	croppedCanvas.height = pixelCrop.height;
+
+	croppedCtx.drawImage(
+		image,
+		pixelCrop.x,
+		pixelCrop.y,
+		pixelCrop.width,
+		pixelCrop.height,
+		0,
+		0,
+		pixelCrop.width,
+		pixelCrop.height
+	);
+
+	return new Promise((resolve, reject) => {
+		croppedCanvas.toBlob((file) => {
+			resolve(URL.createObjectURL(file));
+		}, 'image/png');
+	});
+}
+
 export async function getRotatedImage(imageSrc, rotation = 0) {
 	const image = await createImage(imageSrc);
 	const canvas = document.createElement('canvas');

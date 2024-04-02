@@ -13,7 +13,6 @@ interface Props {
 
 export default function ImageCropper({ imageSrc, handleImageModalClose, handleImageModalConfirm }: Props) {
 	const t = useTranslations('Publications.modal.image-cropper');
-	const [croppedImageSrc, setCroppedImageSrc] = useState(null);
 	const [crop, setCrop] = useState({ x: 0, y: 0 });
 	const [rotation, setRotation] = useState(0);
 	const [zoom, setZoom] = useState(1);

@@ -6,11 +6,11 @@ import { usePathname } from 'next/navigation';
 import { User } from '@/models/user';
 import NewsNavbar from '../news/components/NewsNavbar';
 import { useToast } from '@/utils/provider/ToastProvider';
-import { useUser } from '@/utils/provider/UserProvider';
 import Toast from '@/components/Toast';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
 import SetPassword from '@/components/modals/SetPassword';
+import { useUser } from '@/utils/provider/UserProvider';
 
 interface Props {
 	children: ReactElement;
@@ -39,7 +39,7 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 		if (user) {
 			setUser(user);
 		}
-	}, []);
+	}, [user]);
 
 	return (
 		<>

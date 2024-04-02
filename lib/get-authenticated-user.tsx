@@ -1,9 +1,10 @@
 import { fetchWithSession, Method } from '@/lib/fetch-with-refresh';
 import { ApiResponse } from '@/models/api-response';
 import { User } from '@/models/user';
+import constants from '@/utils/constants';
 
 export async function getAuthenticatedUser(): Promise<User> {
-	const response = await fetchWithSession(`me`, Method.GET);
+	const response = await fetchWithSession(`me`, Method.GET, null, constants.tags.me);
 
 	if (!response.ok) {
 		throw new Error('Failed the authenticated user information');

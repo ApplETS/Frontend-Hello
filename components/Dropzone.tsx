@@ -56,7 +56,14 @@ export default function Dropzone({ title, onFileDrop }: { title: string; onFileD
 				onDrop={handleDrop}
 				onClick={handleInputClick} // Add onClick handler to trigger file input
 			>
-				<input type="file" id="fileInput" className="hidden" accept="image/*" onChange={handleInputChange} />
+				<input
+					type="file"
+					id="fileInput"
+					name="fileInput"
+					className="hidden"
+					accept="image/*"
+					onChange={handleInputChange}
+				/>
 				{title}
 			</div>
 		</div>

@@ -5,6 +5,7 @@ export interface User {
 	type: string | null;
 	organization: string | null;
 	activityArea: string | null;
+	avatarUrl: string | null;
 	profileDescription: string | null;
 	isActive: boolean;
 	hasLoggedIn: boolean;

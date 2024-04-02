@@ -11,6 +11,7 @@ import { User } from '@/models/user';
 import { useTranslations } from 'next-intl';
 import { UserTypes } from '@/models/user-types';
 import HelpButton from '@/components/HelpButton';
+import Avatar from '@/components/Avatar';
 
 interface Props {
 	activePage: string;
@@ -73,25 +74,13 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 						) : (
 							<div className="text-base mr-1">{user.organization}</div>
 						)}
-						<div className="avatar">
-							<div className="w-10 rounded-full">
-								{/* TODO : Replace with the real user image */}
-								<img
-									alt="Tailwind CSS Navbar component"
-									src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-								/>
-							</div>
-						</div>
+						<Avatar />
 					</div>
 					{isDropdownOpen && (
 						<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-box w-max">
 							<li className="pointer-events-none">
 								<div className="flex flex-row pl-2">
-									<div className="avatar placeholder">
-										<div className="bg-neutral text-neutral-content rounded-full w-10">
-											<span className="text-sm">D</span>
-										</div>
-									</div>
+									<Avatar />
 									<div className="flex flex-col gap-1">
 										{isModerator ? (
 											<p className="text-base font-bold ml-0">{t('moderator')}</p>
@@ -104,7 +93,7 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 							</li>
 							<li>
 								<div className="flex flex-row gap-2">
-									<Link href={'/fr/dashboard/settings/profile'}>
+									<Link href={`/${locale}/dashboard/settings/profile`}>
 										<FontAwesomeIcon icon={faCog} className="pr-2" />
 										{t('settings')}
 									</Link>

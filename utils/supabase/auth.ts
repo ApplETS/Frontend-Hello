@@ -6,6 +6,9 @@ import { updateUserProfile } from '@/lib/update-profile';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import { AlertType } from '@/components/Alert';
 import { Response } from '@/app/actions/settings/submitForm';
+import { updateAvatar } from '@/lib/update-avatar';
+import { revalidateTag } from 'next/cache';
+import constants from '../constants';
 
 export const signIn = async (formData: FormData) => {
 	'use server';
@@ -169,17 +172,23 @@ export const updateProfile = async (formData: FormData) => {
 	'use server';
 
 	const userObject = await getAuthenticatedUser();
+	const avatarForm = new FormData();
 
-	userObject.email = formData.get('email') as string;
 	userObject.organization = formData.get('organization') as string;
 	userObject.activityArea = formData.get('activity') as string;
 	userObject.profileDescription = formData.get('description') as string;
 	userObject.webSiteLink = formData.get('website') as string;
 
+	const avatarFile = formData.get('avatarFile') as File;
+	avatarForm.set('avatarFile', avatarFile);
+
 	let response: Response;
 
 	try {
 		await updateUserProfile(userObject);
+		if (avatarFile) {
+			await updateAvatar(avatarForm);
+		}
 		response = {
 			status: '200',
 			type: AlertType.success,
@@ -191,6 +200,7 @@ export const updateProfile = async (formData: FormData) => {
 		};
 	}
 
+	revalidateTag(constants.tags.me);
 	return response;
 };
 

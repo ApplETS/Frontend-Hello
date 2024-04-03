@@ -52,14 +52,14 @@ const EventCard = ({ event, locale }: EventProps) => (
 
 const EventCardSkeleton = () => (
 	<div className="card justify-center w-full rounded-lg bg-base-200">
-		<div className="px-4 pt-4 mb-2">
+		<div className="px-4 mb-2">
 			<Skeleton height={40} />
 		</div>
-		<div className="pl-4 pr-40">
+		<div className="pl-4 mt-10 pr-40">
 			<Skeleton />
 		</div>
 		<div className="mb-1">
-			<Skeleton height={180} />
+			<Skeleton height={215} />
 		</div>
 		<div className="grid grid-rows-1 gap-1 px-4 pt-3 pb-3">
 			<Skeleton />
@@ -67,6 +67,8 @@ const EventCardSkeleton = () => (
 			<Skeleton />
 			<Skeleton />
 			<Skeleton />
+			<Skeleton />
+			<div className="h-12"></div>
 		</div>
 	</div>
 );
@@ -189,7 +191,7 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 						<EventCard event={event} locale={locale} />
 					</div>
 				))}
-				{isLoading && Array.from({ length: 3 }).map((_, index) => <EventCardSkeleton key={index} />)}
+				{!isLoading && Array.from({ length: 3 }).map((_, index) => <EventCardSkeleton key={index} />)}
 			</div>
 
 			{showScrollTopButton && (

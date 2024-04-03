@@ -141,7 +141,7 @@
 }
 
 .tooltip::before {
-	@apply z-50;
+	@apply z-10;
 }
 
 .my-tooltip:before {

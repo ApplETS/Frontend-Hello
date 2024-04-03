@@ -64,7 +64,7 @@ const Table = <T,>({
 							let icon = header.column.columnDef.id != 'open' ? faCaretDown : null;
 
 							if (direction != null) {
-								icon = direction ? faCaretUp : faCaretDown;
+								icon = direction ? faCaretDown : faCaretUp;
 							}
 
 							return (

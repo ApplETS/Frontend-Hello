@@ -5,7 +5,9 @@ export async function getModeratorEventsPaginated(
 	pageNumber: number = 1,
 	pageSize: number = 100,
 	title?: string,
-	state?: string
+	state?: string,
+	orderBy?: string,
+	orderByDesc?: boolean
 ): Promise<ApiPaginatedResponse> {
 	let url = `moderator/events?PageNumber=${pageNumber}&PageSize=${pageSize}`;
 
@@ -15,6 +17,14 @@ export async function getModeratorEventsPaginated(
 
 	if (state) {
 		url += `&state=${state}`;
+	}
+
+	if (orderBy) {
+		url += `&OrderBy=${orderBy}`;
+	}
+
+	if (orderByDesc) {
+		url += `&Descending=${orderByDesc}`;
 	}
 
 	const response = await fetchWithSession(url, Method.GET);

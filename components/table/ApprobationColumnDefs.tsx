@@ -15,7 +15,8 @@ export const createApprobationColumnDefs = (
 ): ColumnDef<HelloEvent, any>[] => {
 	return [
 		columnHelper.accessor((row) => row.organizer, {
-			id: 'author',
+			id: 'Publication.Organizer.Organization',
+			meta: 'alpha',
 			header: () => t('table.author'),
 			cell: (info) => (
 				<div className="text-base flex items-center space-x-2">
@@ -30,14 +31,20 @@ export const createApprobationColumnDefs = (
 			),
 		}),
 		columnHelper.accessor('title', {
+			id: 'Publication.Title',
+			meta: 'alpha',
 			header: () => t('table.title'),
 			cell: (info) => info.getValue(),
 		}),
 		columnHelper.accessor('publicationDate', {
+			id: 'Publication.PublicationDate',
+			meta: 'num',
 			header: () => t('table.release-date'),
 			cell: (info) => formatDate(new Date(info.getValue()), locale),
 		}),
 		columnHelper.accessor('state', {
+			id: 'Publication.State',
+			meta: 'alpha',
 			header: () => t('table.status'),
 			cell: (info) => (
 				<div

@@ -41,6 +41,8 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 	const [paginatedEvents, setPaginatedEvents] = useState<ApiPaginatedResponse>();
 	const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize, setPageSize] = useState(10);
+	const [orderBy, setOrderBy] = useState('');
+	const [orderByDesc, setOrderByDesc] = useState(false);
 	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 	const { user } = useUser();
 	const [isLoading, startTransition] = useTransition();
@@ -80,7 +82,14 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 	useEffect(() => {
 		startTransition(async () => {
 			if (user) {
-				const eventsPaginated = await getNextEventsOrganizer(currentPage, pageSize, searchTerm, selectedFilter);
+				const eventsPaginated = await getNextEventsOrganizer(
+					currentPage,
+					pageSize,
+					searchTerm,
+					selectedFilter,
+					orderBy,
+					orderByDesc
+				);
 				if (eventsPaginated) {
 					setPaginatedEvents(eventsPaginated);
 				} else {
@@ -88,7 +97,7 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 				}
 			}
 		});
-	}, [currentPage, pageSize, user, debouncedSearchTerm, selectedFilter]);
+	}, [currentPage, pageSize, user, debouncedSearchTerm, selectedFilter, orderBy, orderByDesc]);
 
 	const handleFilterChanged = (filterIndex: number) => {
 		const selectedStatusKey = statusKeys[filterIndex];
@@ -98,6 +107,16 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 
 	const handleSearchChanged = (search: string) => {
 		setSearchTerm(search);
+	};
+
+	const handleOrderChange = (id?: string) => {
+		if (id == orderBy) {
+			setOrderByDesc(!orderByDesc);
+		} else {
+			setOrderByDesc(false);
+		}
+		setOrderBy(id ?? '');
+		setCurrentPage(1);
 	};
 
 	const publicationActionMapping: { [key: string]: PublicationStates } = {
@@ -174,6 +193,9 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 					totalItems={paginatedEvents?.totalRecords}
 					onPageChange={handlePageChange}
 					onPageSizeChange={handlePageSizeChange}
+					onOrderChange={handleOrderChange}
+					orderBy={orderBy}
+					orderByDesc={orderByDesc}
 				/>
 			) : (
 				<div className="text-center py-4">{t('no-posts')}</div>

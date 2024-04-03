@@ -31,7 +31,9 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 	const [selectedEvent, setSelectedEvent] = useState<HelloEvent | null>(null);
 	const [paginatedEvents, setPaginatedEvents] = useState<ApiPaginatedResponse>();
 	const [currentPage, setCurrentPage] = useState(1);
-	const [pageSize, setPageSize] = useState(1);
+	const [pageSize, setPageSize] = useState(10);
+	const [orderBy, setOrderBy] = useState('');
+	const [orderByDesc, setOrderByDesc] = useState(false);
 	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 	const [isLoading, startTransition] = useTransition();
 
@@ -60,12 +62,19 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 
 	useEffect(() => {
 		startTransition(async () => {
-			const eventsPaginated = await getNextEventsModerator(currentPage, pageSize, debouncedSearchTerm, selectedFilter);
+			const eventsPaginated = await getNextEventsModerator(
+				currentPage,
+				pageSize,
+				debouncedSearchTerm,
+				selectedFilter,
+				orderBy,
+				orderByDesc
+			);
 			if (eventsPaginated) {
 				setPaginatedEvents(eventsPaginated);
 			}
 		});
-	}, [currentPage, pageSize, selectedFilter, debouncedSearchTerm]);
+	}, [currentPage, pageSize, selectedFilter, debouncedSearchTerm, orderBy, orderByDesc]);
 
 	const handleFilterChanged = (filterIndex: number) => {
 		const selectedStatusKey = statusKeys[filterIndex];
@@ -83,6 +92,16 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 
 	const handlePageSizeChange = (size: number) => {
 		setPageSize(size);
+		setCurrentPage(1);
+	};
+
+	const handleOrderChange = (id?: string) => {
+		if (id == orderBy) {
+			setOrderByDesc(!orderByDesc);
+		} else {
+			setOrderByDesc(false);
+		}
+		setOrderBy(id ?? '');
 		setCurrentPage(1);
 	};
 
@@ -118,6 +137,9 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 					totalItems={paginatedEvents.totalRecords}
 					onPageChange={handlePageChange}
 					onPageSizeChange={handlePageSizeChange}
+					onOrderChange={handleOrderChange}
+					orderBy={orderBy}
+					orderByDesc={orderByDesc}
 				/>
 			) : (
 				<div className="text-center py-4">{t('no-publications')}</div>

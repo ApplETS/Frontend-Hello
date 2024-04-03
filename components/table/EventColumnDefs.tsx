@@ -16,10 +16,14 @@ export const createEventColumnDefs = (
 ): ColumnDef<HelloEvent, any>[] => {
 	return [
 		columnHelper.accessor('title', {
+			id: 'Publication.Title',
+			meta: 'alpha',
 			header: () => t('table.title'),
 			cell: (info) => info.getValue(),
 		}),
 		columnHelper.accessor('publicationDate', {
+			id: 'Publication.PublicationDate',
+			meta: 'num',
 			header: () => t('table.release-date'),
 			cell: (info) => formatDate(new Date(info.getValue()), locale),
 		}),
@@ -27,7 +31,8 @@ export const createEventColumnDefs = (
 			(row) =>
 				`${formatDate(new Date(row.eventStartDate), locale)} - ${formatDate(new Date(row.eventEndDate), locale)}`,
 			{
-				id: 'event-date',
+				id: 'EventStartDate',
+				meta: 'num',
 				header: () => t('table.event-date'),
 			}
 		),
@@ -37,6 +42,8 @@ export const createEventColumnDefs = (
 			header: () => t('table.number-of-views'),
 		}),
 		columnHelper.accessor('state', {
+			id: 'Publication.State',
+			meta: 'alpha',
 			header: () => t('table.status'),
 			cell: (info) => (
 				<div

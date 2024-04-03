@@ -215,7 +215,8 @@
 		"email-error-toast-message": "Une erreur est survenue lors de l'enregistrement de votre courriel",
 		"save": "Enregistrer",
 		"cancel": "Annuler",
-		"field-required": "Un {field} est obligatoire"
+		"field-required": "Un {field} est obligatoire",
+		"error-loading-news": "Une erreur est survenue lors du chargement des publications"
 	},
 	"Accounts": {
 		"title": "Comptes",

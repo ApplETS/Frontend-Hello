@@ -119,6 +119,7 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 
 	useEffect(() => {
 		const handler = setTimeout(() => {
+			setFilteredPublications([]);
 			setDebouncedSearchTerm(searchTerm);
 		}, 1000);
 

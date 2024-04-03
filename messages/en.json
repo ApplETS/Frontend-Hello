@@ -216,7 +216,8 @@
 		"email-error-toast-message": "An error occurred while saving your email",
 		"save": "Save",
 		"cancel": "Cancel",
-		"field-required": "A {field} is required"
+		"field-required": "A {field} is required",
+		"error-loading-news": "An error occured while loading the news"
 	},
 	"Accounts": {
 		"title": "Accounts",

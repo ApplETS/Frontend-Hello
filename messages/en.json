@@ -348,5 +348,11 @@
 		"title": "You have successfully unsubscribed from emails!",
 		"message": "Feel free to subscribe back in the profile page of the author.",
 		"back": "Back to the homepage"
+	},
+	"Pagination": {
+		"page": "Page",
+		"of": "of",
+		"goToPage": "Go to page",
+		"show": "Show {count}"
 	}
 }

@@ -347,5 +347,11 @@
 		"title": "Vous vous êtes désabonné avec succès des courriels!",
 		"message": "N'hésitez pas à vous réabonner dans la page de profil de l'auteur.",
 		"back": "Retour à l'accueil"
+	},
+	"Pagination": {
+		"page": "Page",
+		"of": "de",
+		"goToPage": "Aller à la page",
+		"show": "Afficher {count}"
 	}
 }

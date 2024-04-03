@@ -5,8 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
+export interface MenuItem {
+	text: string;
+	icon: IconProp;
+	color: string;
+	id: number;
+}
+
 interface Props {
-	items: { text: string; icon: IconProp; color: string; id: number }[];
+	items: MenuItem[];
 	onSelect?: (itemIndex: number, dropdownItemId: number) => void;
 	itemIndex: number;
 }

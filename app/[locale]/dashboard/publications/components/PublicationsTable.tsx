@@ -16,6 +16,8 @@ import { removePublication } from '@/lib/publications/actions/remove-publication
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
 import { PublicationStates } from '@/models/publication-states';
+import Table from '@/components/table/Table';
+import { createEventColumnDefs } from '@/components/table/EventColumnDefs';
 
 type Props = {
 	locale: string;
@@ -130,75 +132,42 @@ export default function PublicationsTable({ locale, publications, tags, id }: Pr
 					</button>
 				</div>
 			</div>
-			<table className="table w-full rounded-lg">
-				<thead className="bg-base-300 rounded-t-lg h-17">
-					<tr className="text-base-content text-base font-bold">
-						<th className="rounded-tl-lg">{t('table.title')}</th>
-						<th>{t('table.release-date')}</th>
-						<th>{t('table.event-date')}</th>
-						<th>{t('table.number-of-views')}</th>
-						<th>{t('table.status')}</th>
-						<th className="w-[5%] rounded-tr-lg"></th>
-					</tr>
-				</thead>
-				<tbody>
-					{filteredPublications.length > 0 ? (
-						filteredPublications.map((publication, index) => (
-							<tr key={index} className="border-b-2 border-base-300 cursor-pointer">
-								<td className="text-base">{publication.title}</td>
-								<td>{formatDate(new Date(publication.publicationDate), locale)}</td>
-								<td>{formatDate(new Date(publication.eventStartDate), locale)}</td>
-								<td>{0}</td> {/* TODO Replace with number of views when implemented */}
-								<td className="text-base">
-									<div
-										className={`py-4 px-4 badge ${
-											Constants.newsStatuses[publication.state].color || 'badge-neutral'
-										} text-black`}
-									>
-										{t(`filters.${Constants.newsStatuses[publication.state].label}`)}
-									</div>
-								</td>
-								<td>
-									<DropdownMenu
-										items={menuItems}
-										onSelect={(itemIndex, dropdownItemId) => handleDropdownSelection(itemIndex, dropdownItemId)}
-										itemIndex={index}
-									/>
-								</td>
-							</tr>
-						))
-					) : (
-						<tr>
-							<td colSpan={6} className="text-center py-4">
-								{t('no-posts')}
-							</td>
-						</tr>
-					)}
-					{isModalOpen && (
-						<PublicationsDetails
-							locale={locale}
-							publication={selectedPublication}
-							tags={tags}
-							modalMode={modalType}
-							onClose={() => {
-								setIsModalOpen(false);
-								attemptRevalidation(Constants.tags.publications);
-							}}
-						/>
-					)}
-					{isDeleteModalOpen && (
-						<Confirmation
-							title={t('modal.delete-title')}
-							firstButtonTitle={t('modal.cancel')}
-							secondButtonTitle={t('modal.delete-button')}
-							secondButtonColor="bg-error"
-							secondButtonHoverColor="hover:bg-red"
-							onClose={() => setIsDeleteModalOpen(false)}
-							confirmationAction={deletePost}
-						/>
-					)}
-				</tbody>
-			</table>
+			{filteredPublications.length > 0 ? (
+				<Table<HelloEvent>
+					data={filteredPublications}
+					columns={createEventColumnDefs(menuItems, handleDropdownSelection, 'Publications', locale)}
+					translation="Publications"
+				/>
+			) : (
+				<tr>
+					<td colSpan={6} className="text-center py-4">
+						{t('no-posts')}
+					</td>
+				</tr>
+			)}
+			{isModalOpen && (
+				<PublicationsDetails
+					locale={locale}
+					publication={selectedPublication}
+					tags={tags}
+					modalMode={modalType}
+					onClose={() => {
+						setIsModalOpen(false);
+						attemptRevalidation(Constants.tags.publications);
+					}}
+				/>
+			)}
+			{isDeleteModalOpen && (
+				<Confirmation
+					title={t('modal.delete-title')}
+					firstButtonTitle={t('modal.cancel')}
+					secondButtonTitle={t('modal.delete-button')}
+					secondButtonColor="bg-error"
+					secondButtonHoverColor="hover:bg-red"
+					onClose={() => setIsDeleteModalOpen(false)}
+					confirmationAction={deletePost}
+				/>
+			)}
 		</div>
 	);
 }

@@ -62,7 +62,12 @@ const Table = <T,>({
 							return (
 								<th key={header.id}>
 									{header.isPlaceholder ? null : (
-										<div onClick={header.column.getToggleSortingHandler()} className="cursor-pointer flex gap-4">
+										<div
+											onClick={() => {
+												console.log(header.column.columnDef.id);
+											}}
+											className="cursor-pointer flex gap-4"
+										>
 											{flexRender(header.column.columnDef.header, header.getContext())}
 											{direction && <span>{sort_indicator}</span>}
 										</div>

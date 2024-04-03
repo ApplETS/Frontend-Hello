@@ -4,10 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
-import DropdownMenu from '@/components/DropdownMenu';
 import Confirmation from '@/components/modals/Confirmation';
 import Constants from '@/utils/constants';
-import { formatDate } from '@/utils/formatDate';
 import { HelloEvent } from '@/models/hello-event';
 import PublicationsDetails from '@/components/modals/PublicationDetails';
 import { Tag } from '@/models/tag';
@@ -18,26 +16,31 @@ import { AlertType } from '@/components/Alert';
 import { PublicationStates } from '@/models/publication-states';
 import Table from '@/components/table/Table';
 import { createEventColumnDefs } from '@/components/table/EventColumnDefs';
+import { ApiPaginatedResponse } from '@/models/api-paginated-response';
+import { getNextEvents } from '@/app/actions/get-next-events';
+import { useUser } from '@/utils/provider/UserProvider';
 
 type Props = {
 	locale: string;
-	publications: HelloEvent[];
 	tags: Tag[];
 	id?: string;
 };
 
-export default function PublicationsTable({ locale, publications, tags, id }: Props) {
+export default function PublicationsTable({ locale, tags, id }: Props) {
 	const t = useTranslations('Publications');
 	const { setToast } = useToast();
 
 	const filterAll = t('filters.all').toLowerCase();
 	const [selectedFilter, setSelectedFilter] = useState(filterAll);
-	const [filteredPublications, setFilteredPublications] = useState(publications);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const [modalType, setModalType] = useState(Constants.publicationModalStatus.create);
 	const [selectedPublication, setSelectedPublication] = useState<HelloEvent | null>(null);
+	const [paginatedEvents, setPaginatedEvents] = useState<ApiPaginatedResponse>();
+	const [currentPage, setCurrentPage] = useState(1);
+	const [pageSize, setPageSize] = useState(10);
+	const { user } = useUser();
 
 	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
 	const menuItems = Constants.publicationMenuItems.map((item) => {
@@ -51,7 +54,7 @@ export default function PublicationsTable({ locale, publications, tags, id }: Pr
 
 	useEffect(() => {
 		if (id) {
-			const event = publications.find((event) => event.id == id);
+			const event = paginatedEvents?.data.find((event) => event.id == id);
 			if (event) {
 				setSelectedPublication(event);
 				setIsModalOpen(true);
@@ -61,14 +64,19 @@ export default function PublicationsTable({ locale, publications, tags, id }: Pr
 	}, [id]);
 
 	useEffect(() => {
-		const filteredPublications = publications.filter(
-			(publication) =>
-				(t(`filters.${Constants.newsStatuses[publication.state]?.label}`).toLowerCase() === selectedFilter ||
-					selectedFilter === filterAll) &&
-				(searchTerm === '' || publication.title.toLowerCase().includes(searchTerm.toLowerCase()))
-		);
-		setFilteredPublications(filteredPublications);
-	}, [selectedFilter, searchTerm, publications]);
+		const fetchEvents = async () => {
+			if (user) {
+				const eventsPaginated = await getNextEvents(currentPage, pageSize, user?.id);
+				if (eventsPaginated) {
+					setPaginatedEvents(eventsPaginated);
+				} else {
+					setToast(t('error-fetching-events'), AlertType.error);
+				}
+			}
+		};
+
+		fetchEvents();
+	}, [currentPage, pageSize, user]);
 
 	const handleFilterChanged = (filterIndex: number) => {
 		setSelectedFilter(filters[filterIndex].toLowerCase());
@@ -84,21 +92,23 @@ export default function PublicationsTable({ locale, publications, tags, id }: Pr
 		'3': PublicationStates.DELETED,
 	};
 	const handleDropdownSelection = (index: number, dropdownItemId: number) => {
-		setSelectedPublication(filteredPublications[index]);
-		const action = publicationActionMapping[dropdownItemId];
+		if (paginatedEvents?.data) {
+			setSelectedPublication(paginatedEvents?.data[index]);
+			const action = publicationActionMapping[dropdownItemId];
 
-		switch (action) {
-			case PublicationStates.MODIFY:
-				setModalType(Constants.publicationModalStatus.modify);
-				setIsModalOpen(!isModalOpen);
-				break;
-			case PublicationStates.DUPLICATE:
-				setModalType(Constants.publicationModalStatus.duplicate);
-				setIsModalOpen(!isModalOpen);
-				break;
-			case PublicationStates.DELETED:
-				setIsDeleteModalOpen(true);
-				break;
+			switch (action) {
+				case PublicationStates.MODIFY:
+					setModalType(Constants.publicationModalStatus.modify);
+					setIsModalOpen(!isModalOpen);
+					break;
+				case PublicationStates.DUPLICATE:
+					setModalType(Constants.publicationModalStatus.duplicate);
+					setIsModalOpen(!isModalOpen);
+					break;
+				case PublicationStates.DELETED:
+					setIsDeleteModalOpen(true);
+					break;
+			}
 		}
 	};
 
@@ -117,6 +127,15 @@ export default function PublicationsTable({ locale, publications, tags, id }: Pr
 		);
 	};
 
+	const handlePageChange = (page: number) => {
+		setCurrentPage(page);
+	};
+
+	const handlePageSizeChange = (size: number) => {
+		setPageSize(size);
+		setCurrentPage(1); // Reset to the first page when the page size changes
+	};
+
 	return (
 		<div className="flex flex-col flex-grow">
 			<div className="mb-4 flex justify-between items-center space-x-4">
@@ -132,11 +151,16 @@ export default function PublicationsTable({ locale, publications, tags, id }: Pr
 					</button>
 				</div>
 			</div>
-			{filteredPublications.length > 0 ? (
+			{paginatedEvents && paginatedEvents.data.length > 0 ? (
 				<Table<HelloEvent>
-					data={filteredPublications}
-					columns={createEventColumnDefs(menuItems, handleDropdownSelection, 'Publications', locale)}
-					translation="Publications"
+					data={paginatedEvents?.data}
+					columns={createEventColumnDefs(menuItems, handleDropdownSelection, t, locale)}
+					currentPage={currentPage}
+					pageSize={pageSize}
+					totalItems={paginatedEvents?.totalRecords}
+					lastPage={0}
+					onPageChange={handlePageChange}
+					onPageSizeChange={handlePageSizeChange}
 				/>
 			) : (
 				<div className="text-center py-4">{t('no-posts')}</div>

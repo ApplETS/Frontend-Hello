@@ -1,3 +1,5 @@
+'use client';
+
 import {
 	flexRender,
 	getCoreRowModel,
@@ -13,10 +15,24 @@ import Pagination from './Pagination';
 type TableProps<T> = {
 	data: T[];
 	columns: ColumnDef<T, any>[];
-	translation: string;
+	currentPage: number;
+	pageSize: number;
+	totalItems: number;
+	lastPage: number;
+	onPageChange: (page: number) => void;
+	onPageSizeChange: (size: number) => void;
 };
 
-const Table = <T,>({ data, columns, translation }: TableProps<T>) => {
+const Table = <T,>({
+	data,
+	columns,
+	currentPage,
+	pageSize,
+	totalItems,
+	lastPage,
+	onPageChange,
+	onPageSizeChange,
+}: TableProps<T>) => {
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const table = useReactTable({
 		columns,
@@ -68,7 +84,15 @@ const Table = <T,>({ data, columns, translation }: TableProps<T>) => {
 					))}
 				</tbody>
 			</table>
-			<Pagination table={table} />
+			<Pagination
+				currentPage={currentPage}
+				pageSize={pageSize}
+				totalItems={totalItems}
+				onPageChange={onPageChange}
+				onPageSizeChange={onPageSizeChange}
+				table={table}
+				lastPage={lastPage}
+			/>
 		</div>
 	);
 };

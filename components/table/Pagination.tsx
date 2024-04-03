@@ -1,30 +1,42 @@
+'use client';
+
 import { Table } from '@tanstack/react-table';
 import React from 'react';
 import { useTranslations } from 'next-intl';
 
 type Props = {
 	table: Table<any>;
+	currentPage: number;
+	pageSize: number;
+	totalItems: number;
+	lastPage: number;
+	onPageChange: (page: number) => void;
+	onPageSizeChange: (size: number) => void;
 };
 
-const Pagination = ({ table }: Props) => {
+const Pagination = ({ table, currentPage, pageSize, totalItems, onPageChange, lastPage, onPageSizeChange }: Props) => {
 	const t = useTranslations('Pagination');
 	const state = table.getState().pagination;
-	const goLastPage = () => table.setPageIndex(table.getPageCount() - 1);
+	const totalPages = Math.ceil(totalItems / pageSize);
 
 	return (
 		<div className="my-2">
 			<div className="flex items-center gap-2">
 				<div className="btn-group btn-sm">
-					<button className="btn btn-sm" onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
+					<button className="btn btn-sm" onClick={() => onPageChange(1)} disabled={!table.getCanPreviousPage()}>
 						{'<<'}
 					</button>
-					<button className="btn btn-sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+					<button className="btn btn-sm" onClick={() => onPageChange(currentPage - 1)} disabled={currentPage <= 1}>
 						{'<'}
 					</button>
-					<button className="btn btn-sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+					<button
+						className="btn btn-sm"
+						onClick={() => onPageChange(currentPage + 1)}
+						disabled={currentPage >= totalPages}
+					>
 						{'>'}
 					</button>
-					<button className="btn btn-sm" onClick={goLastPage} disabled={!table.getCanNextPage()}>
+					<button className="btn btn-sm" onClick={() => onPageChange(lastPage)} disabled={currentPage >= totalPages}>
 						{'>>'}
 					</button>
 				</div>
@@ -48,9 +60,7 @@ const Pagination = ({ table }: Props) => {
 				</span>
 				<select
 					value={state.pageSize}
-					onChange={(e) => {
-						table.setPageSize(Number(e.target.value));
-					}}
+					onChange={(e) => onPageSizeChange(Number(e.target.value))}
 					className="select select-sm select-bordered"
 				>
 					{[10, 20, 30, 40, 50].map((pageSize) => (

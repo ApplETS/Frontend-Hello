@@ -1,8 +1,9 @@
+'use client';
+
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 import { formatDate } from '@/utils/formatDate';
 import DropdownMenu, { MenuItem } from '@/components/DropdownMenu';
 import Constants from '@/utils/constants';
-import { useTranslations } from 'next-intl';
 import { HelloEvent } from '@/models/hello-event';
 
 const columnHelper = createColumnHelper<HelloEvent>();
@@ -10,11 +11,9 @@ const columnHelper = createColumnHelper<HelloEvent>();
 export const createEventColumnDefs = (
 	menuItems: MenuItem[],
 	handleDropdownSelection: (itemIndex: number, dropdownItemId: number, event: HelloEvent) => void,
-	translationNamespace: string,
+	t: (key: string) => string,
 	locale: string
 ): ColumnDef<HelloEvent, any>[] => {
-	const t = useTranslations(translationNamespace);
-
 	return [
 		columnHelper.accessor('title', {
 			header: () => t('table.title'),

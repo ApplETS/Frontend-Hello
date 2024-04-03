@@ -52,7 +52,7 @@ export default async function Login({
 								textStyle="text-base"
 							/>
 							<div className="flex justify-center">
-								<button className="btn btn-primary rounded-md text-base mb-2 w-64">{t('login')}</button>
+								<button className="font-normal btn btn-primary rounded-md text-base mb-2 w-64">{t('login')}</button>
 							</div>
 						</form>
 					</div>

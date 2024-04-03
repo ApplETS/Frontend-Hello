@@ -18,9 +18,9 @@ export default function ConfirmButton({ buttonText, style, inputsConfig, onClick
 	const { setHasChanges } = useSettings();
 
 	useEffect(() => {
-		const { match = [], filled = [] } = inputsConfig; // Default to empty arrays if not provided
+		const { match = [], filled = [] } = inputsConfig;
 
-		const allInputNames = Array.from(new Set([...match, ...filled])); // Combine and deduplicate names
+		const allInputNames = Array.from(new Set([...match, ...filled]));
 		const inputs = allInputNames
 			.map((name) => document.getElementsByName(name)[0])
 			.filter(Boolean) as HTMLInputElement[];
@@ -48,7 +48,7 @@ export default function ConfirmButton({ buttonText, style, inputsConfig, onClick
 
 	return (
 		<button
-			className={`${style} ${!isEnabled ? 'btn-disabled' : ''}`}
+			className={`font-normal ${style} ${!isEnabled ? 'btn-disabled' : ''}`}
 			disabled={!isEnabled}
 			type={onClick ? 'button' : 'submit'}
 			onClick={() => (onClick ? onClick() : setHasChanges(false))}

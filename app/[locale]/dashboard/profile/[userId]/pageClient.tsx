@@ -61,7 +61,7 @@ export default function ProfileClient({ organizer, locale }: Props) {
 						<h4 className="mb-2 text-sm text-secondary">{organizer.activityArea}</h4>
 						<p className="text-sm mb-4 text-center">{organizer.profileDescription}</p>
 						<div className="flex items-center mb-2">
-							<button className="btn btn-accent w-64" onClick={() => setAskEmailModal(true)}>
+							<button className="btn font-normal btn-accent w-64" onClick={() => setAskEmailModal(true)}>
 								{t('notify-me')}
 							</button>
 							<div

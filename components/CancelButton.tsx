@@ -19,7 +19,7 @@ export default function CancelButton({ buttonText, dialogText }: Props) {
 		<>
 			<button
 				type="button"
-				className="btn rounded-md text-base-content w-1/5 mt-auto ml-2"
+				className="font-normal btn rounded-md text-base-content w-1/5 mt-auto ml-2"
 				onClick={() => setShowConfirmDialog(true)}
 			>
 				{buttonText}

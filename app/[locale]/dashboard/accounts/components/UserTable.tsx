@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Dropdown from '@/components/Dropdown';
 import Search from '@/components/Search';
 import Constants from '@/utils/constants';
 import { useTranslations } from 'next-intl';
 import { User } from '@/models/user';
-import DropdownMenu from '@/components/DropdownMenu';
 import UserCreationModal from '@/components/modals/UserCreationModal';
 import { AlertType } from '@/components/Alert';
 import { useToast } from '@/utils/provider/ToastProvider';
@@ -136,31 +135,32 @@ export default function UsersTable({ users }: Props) {
 						<table className="table w-full rounded-lg">
 							<thead className="bg-base-300 rounded-t-lg h-17">
 								<tr className="text-base-content text-base font-bold">
+									<th>{t('table.activated')}</th>
 									<th>{t('table.organization')}</th>
 									<th>{t('table.email')}</th>
 									<th>{t('table.activityarea')}</th>
-									<th>{t('table.status')}</th>
 									<th className="w-[5%] rounded-tr-lg">{t('table.actions')}</th>
 								</tr>
 							</thead>
 							<tbody>
 								{filteredUsers.map((user, index) => (
 									<tr key={index} className="border-b-2 border-base-300">
-										<td>{user.organization ?? '-'}</td>
-										<td>{user.email}</td>
-										<td>{user.activityArea ?? '-'}</td>
 										<td className="text-base">
 											<div
 												className={`py-4 px-4 badge ${
 													Constants.userStatuses[getUserState(user)].color || 'badge-neutral'
 												} text-black`}
 											>
-												{t(`filters.${Constants.userStatuses[getUserState(user)].label}`)}
+												{user.isActive && t('table.yes')}
+												{!user.isActive && t('table.no')}
 											</div>
 										</td>
+										<td>{user.organization ?? '-'}</td>
+										<td>{user.email}</td>
+										<td>{user.activityArea ?? '-'}</td>
 										<td>
 											<button
-												className={`btn w-28 ${user.isActive ? ' btn-error' : 'btn-success'}`}
+												className={`font-normal btn w-28 ${user.isActive ? ' btn-error' : 'btn-success'}`}
 												onClick={() => handleUserSelection(index, user.isActive)}
 											>
 												{getButtonText(user)}

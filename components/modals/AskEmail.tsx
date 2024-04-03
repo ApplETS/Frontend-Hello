@@ -58,15 +58,16 @@ export default function AskEmail({ onSend, onClose }: Props) {
 							</div>
 						</div>
 
-						<div className="grid grid-cols-2 gap-6 px-24 mt-7">
+						<div className="divider my-1"></div>
+						<div className="flex justify-end gap-4">
 							<button
-								className={`btn text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
+								className={`btn font-normal text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
 								onClick={() => onClose()}
 								type="button"
 							>
 								{t('cancel')}
 							</button>
-							<button className={`btn btn-success text-black`} type="submit">
+							<button className={`btn font-normal btn-success text-black`} type="submit">
 								{t('save')}
 							</button>
 						</div>

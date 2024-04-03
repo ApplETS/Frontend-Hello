@@ -197,7 +197,8 @@
 		"reason": "Raison",
 		"deactivate-question": "Pourquoi voulez vous désactiver cette annonce?",
 		"deactivate": "Désactiver l'annonce",
-		"give-reason": "Veuillez donner une raison pour cette action"
+		"give-reason": "Veuillez donner une raison pour cette action",
+		"error-fetching-events": "Une erreur est survenue lors du chargement des publications"
 	},
 	"Profile": {
 		"notify-me": "Me notifier",

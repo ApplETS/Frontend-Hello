@@ -198,7 +198,8 @@
 		"reason": "Reason",
 		"deactivate-question": "Why do you want to deactivate this news?",
 		"deactivate": "Deactivate the news",
-		"give-reason": "Please give a reason for this action"
+		"give-reason": "Please give a reason for this action",
+		"error-fetching-events": "An error occured while loading the publications"
 	},
 	"Profile": {
 		"notify-me": "Notify me",

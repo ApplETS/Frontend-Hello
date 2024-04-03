@@ -14,6 +14,8 @@ import { createApprobationColumnDefs } from '@/components/table/ApprobationColum
 import { ApiPaginatedResponse } from '@/models/api-paginated-response';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
 import { getNextEventsModerator } from '@/app/actions/get-next-events-moderator';
+import { useToast } from '@/utils/provider/ToastProvider';
+import { AlertType } from '@/components/Alert';
 
 type Props = {
 	locale: string;
@@ -36,6 +38,8 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 	const [orderByDesc, setOrderByDesc] = useState(false);
 	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 	const [isLoading, startTransition] = useTransition();
+
+	const { setToast } = useToast();
 
 	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
 
@@ -72,6 +76,8 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 			);
 			if (eventsPaginated) {
 				setPaginatedEvents(eventsPaginated);
+			} else {
+				setToast(t('error-fetching-events'), AlertType.error);
 			}
 		});
 	}, [currentPage, pageSize, selectedFilter, debouncedSearchTerm, orderBy, orderByDesc]);

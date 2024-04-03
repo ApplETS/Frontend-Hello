@@ -118,17 +118,23 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 					}
 				}}
 				eventContent={(arg: EventContentArg) => {
-					return (
-						<div
-							className="tooltip tooltip-top w-full z-50 my-tooltip"
-							data-tip={`${arg.event.title}\n${formatEventDate(arg.event.startStr, arg.event.endStr)}`}
-						>
-							<div className={`p-2 cursor-pointer w-full text-center`}>
-								<p className="truncate text-black text-center">{`${arg.event.title}`}</p>
-							</div>
-						</div>
-					);
-				}}
+          const eventStartDate = new Date(arg.event.startStr);
+          const firstDayOfMonth = new Date(eventStartDate.getFullYear(), eventStartDate.getMonth(), 1);
+          const weekNumber = Math.ceil((eventStartDate.getDate() + firstDayOfMonth.getDay()) / 7);
+        
+          const tooltipPosition = weekNumber === 1 ? 'tooltip-bottom' : 'tooltip-top';
+        
+          return (
+            <div
+              className={`tooltip ${tooltipPosition} w-full z-50 my-tooltip`}
+              data-tip={`${arg.event.title}\n${formatEventDate(arg.event.startStr, arg.event.endStr)}`}
+            >
+              <div className={`p-2 cursor-pointer w-full text-center`}>
+                <p className="truncate text-black text-center">{`${arg.event.title}`}</p>
+              </div>
+            </div>
+          );
+        }}                  
 				eventTimeFormat={{
 					hour: '2-digit',
 					minute: '2-digit',

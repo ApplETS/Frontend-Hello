@@ -1,12 +1,11 @@
 import { fetchWithSession, Method } from '@/lib/fetch-with-refresh';
 import { ApiPaginatedResponse } from '@/models/api-paginated-response';
-import { HelloEvent } from '@/models/hello-event';
 
-export async function getEvents(
+export async function getEventsPaginated(
 	pageNumber: number = 1,
 	pageSize: number = 100,
 	organizerId?: string
-): Promise<HelloEvent[]> {
+): Promise<ApiPaginatedResponse> {
 	let url = `events?PageNumber=${pageNumber}&PageSize=${pageSize}`;
 
 	if (organizerId) {
@@ -25,5 +24,5 @@ export async function getEvents(
 		throw new Error('Error in response data');
 	}
 
-	return responseData.data;
+	return responseData;
 }

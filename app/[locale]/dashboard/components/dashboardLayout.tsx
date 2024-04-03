@@ -59,7 +59,7 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 					<Toast message={message} alertType={alertType} onCloseToast={() => showToast(false)} />
 				</div>
 			)}
-			<div className="flex flex-col flex-grow overflow-auto page-content animate-in p-7 bg-base-100">
+			<div className="flex flex-col flex-grow overflow-auto page-content animate-in pt-7 px-7 bg-base-100">
 				{pages[activePage]?.title && activePage !== 'news' && pages[activePage]?.isVisible && (
 					<div className="text-2xl mb-7">{pages[activePage].title}</div>
 				)}

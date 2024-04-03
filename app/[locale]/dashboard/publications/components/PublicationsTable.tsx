@@ -118,7 +118,7 @@ export default function PublicationsTable({ locale, publications, tags, id }: Pr
 	};
 
 	return (
-		<div className="flex flex-col h-screen">
+		<div className="flex flex-col flex-grow">
 			<div className="mb-4 flex justify-between items-center space-x-4">
 				<div className="flex items-center space-x-4 flex-1">
 					<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
@@ -139,11 +139,7 @@ export default function PublicationsTable({ locale, publications, tags, id }: Pr
 					translation="Publications"
 				/>
 			) : (
-				<tr>
-					<td colSpan={6} className="text-center py-4">
-						{t('no-posts')}
-					</td>
-				</tr>
+				<div className="text-center py-4">{t('no-posts')}</div>
 			)}
 			{isModalOpen && (
 				<PublicationsDetails

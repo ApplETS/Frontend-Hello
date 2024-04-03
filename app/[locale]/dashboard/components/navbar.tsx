@@ -12,6 +12,7 @@ import { useTranslations } from 'next-intl';
 import { UserTypes } from '@/models/user-types';
 import HelpButton from '@/components/HelpButton';
 import Avatar from '@/components/Avatar';
+import { useTheme } from '@/utils/provider/ThemeProvider';
 
 interface Props {
 	activePage: string;
@@ -29,6 +30,7 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const t = useTranslations('Navbar');
 	const isModerator = user.type == UserTypes.MODERATOR;
+	const { isLight } = useTheme();
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -42,7 +44,7 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 	}, []);
 
 	return (
-		<div className="navbar w-full bg-base-300">
+		<div className={`navbar w-full ${isLight ? 'border-b border-base-300 bg-base-100' : 'bg-base-300'}`}>
 			<div className="flex-1 ml-5 gap-3">
 				{Object.entries(pages).map(
 					([pageKey, pageValue]) =>

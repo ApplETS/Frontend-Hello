@@ -288,6 +288,16 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		return !correct;
 	};
 
+	const verifyReasonDeactivate = () => {
+		const correct = deactivateReason.trim() !== '';
+
+		if (!correct) {
+			setToast(ta('give-reason'), AlertType.error);
+		}
+
+		return !correct;
+	};
+
 	return (
 		<Modal>
 			<div id="publication_modal" className="overflow-y-auto p-4 w-[80rem] h-[50rem]">
@@ -621,7 +631,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 									onClose={() => setDeleteModalOpen(false)}
 									secondButtonHoverColor={''}
 									confirmationAction={handleDeactivation}
-									verify={verifyReason}
+									verify={verifyReasonDeactivate}
 								/>
 							)}
 

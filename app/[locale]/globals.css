@@ -141,9 +141,28 @@
 }
 
 .tooltip::before {
-	@apply z-10;
+	@apply z-50;
 }
 
 .my-tooltip:before {
 	white-space: pre;
+}
+
+/* CSS */
+.marquee {
+	display: inline-block;
+	transition: transform 10s linear;
+}
+
+.marquee:hover {
+	animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-500px);
+	}
 }

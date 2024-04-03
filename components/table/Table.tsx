@@ -74,7 +74,7 @@ const Table = <T,>({
 				</thead>
 				<tbody>
 					{rows.map((row) => (
-						<tr key={row.id} className="border-b-2 border-base-300 cursor-pointer">
+						<tr key={row.id} className="border-b-2 border-base-300">
 							{row.getVisibleCells().map((cell) => {
 								return <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>;
 							})}

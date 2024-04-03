@@ -12,12 +12,7 @@ import {
 import React from 'react';
 import Pagination from './Pagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faArrowDownAZ,
-	faArrowDownShortWide,
-	faArrowUpAZ,
-	faArrowUpShortWide,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 
 type TableProps<T> = {
 	data: T[];
@@ -66,12 +61,10 @@ const Table = <T,>({
 					<tr className="text-base-content text-base font-bold">
 						{headers.map((header) => {
 							const direction = header.column.columnDef.id === orderBy ? orderByDesc : null;
-							let icon;
+							let icon = header.column.columnDef.id != 'open' ? faCaretDown : null;
 
-							if (header.column.columnDef.meta == 'alpha') {
-								icon = direction ? faArrowUpAZ : faArrowDownAZ;
-							} else {
-								icon = direction ? faArrowUpShortWide : faArrowDownShortWide;
+							if (direction != null) {
+								icon = direction ? faCaretUp : faCaretDown;
 							}
 
 							return (
@@ -81,10 +74,12 @@ const Table = <T,>({
 											onClick={() => {
 												onOrderChange(header.column.columnDef.id);
 											}}
-											className="cursor-pointer flex gap-4 items-center"
+											className={`cursor-pointer flex gap-4 items-center ${
+												direction != null ? 'text-base-content' : 'text-base-content/50'
+											}`}
 										>
 											{flexRender(header.column.columnDef.header, header.getContext())}
-											{direction != null && <FontAwesomeIcon icon={icon} />}
+											{icon && <FontAwesomeIcon icon={icon} />}
 										</div>
 									)}
 								</th>

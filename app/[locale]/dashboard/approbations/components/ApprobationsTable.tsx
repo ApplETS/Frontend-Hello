@@ -1,66 +1,115 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import Dropdown from '@/components/Dropdown';
-import Search from '@/components/Search';
-import Constants from '@/utils/constants';
+import React, { useEffect, useState, useTransition } from 'react';
 import { useTranslations } from 'next-intl';
+import Search from '@/components/Search';
+import Dropdown from '@/components/Dropdown';
+import Constants from '@/utils/constants';
 import { HelloEvent } from '@/models/hello-event';
-import { formatDate } from '@/utils/formatDate';
 import PublicationDetails from '@/components/modals/PublicationDetails';
 import { Tag } from '@/models/tag';
 import { attemptRevalidation } from '@/lib/attempt-revalidation';
-import Avatar from '@/components/Avatar';
+import Table from '@/components/table/Table';
+import { createApprobationColumnDefs } from '@/components/table/ApprobationColumnDefs';
+import { ApiPaginatedResponse } from '@/models/api-paginated-response';
+import LoadingSpinner from '@/components/modals/LoadingSpinner';
+import { getNextEventsModerator } from '@/app/actions/get-next-events-moderator';
+import { useToast } from '@/utils/provider/ToastProvider';
+import { AlertType } from '@/components/Alert';
 
 type Props = {
-	events: HelloEvent[];
 	locale: string;
 	tags: Tag[];
 	id?: string;
 };
 
-export default function ApprobationsTable({ events, locale, tags, id }: Props) {
+export default function ApprobationsTable({ locale, tags, id }: Props) {
 	const t = useTranslations('Approbations');
-	const filterAll = t('filters.all').toLowerCase();
-	const [selectedFilter, setSelectedFilter] = useState(filterAll);
-	const [filteredEvents, setFilteredEvents] = useState(events);
+
+	const statusKeys = Object.keys(Constants.newsStatuses);
+	const [selectedFilter, setSelectedFilter] = useState(statusKeys[0]);
 	const [searchTerm, setSearchTerm] = useState('');
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedEvent, setSelectedEvent] = useState<HelloEvent | null>(null);
+	const [paginatedEvents, setPaginatedEvents] = useState<ApiPaginatedResponse>();
+	const [currentPage, setCurrentPage] = useState(1);
+	const [pageSize, setPageSize] = useState(10);
+	const [orderBy, setOrderBy] = useState('');
+	const [orderByDesc, setOrderByDesc] = useState(false);
+	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+	const [isLoading, startTransition] = useTransition();
+
+	const { setToast } = useToast();
+
+	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
+
+	useEffect(() => {
+		const handler = setTimeout(() => {
+			setCurrentPage(1);
+			setDebouncedSearchTerm(searchTerm);
+		}, 1000);
+
+		return () => {
+			clearTimeout(handler);
+		};
+	}, [searchTerm]);
 
 	useEffect(() => {
 		if (id) {
-			const event = events.find((event) => event.id == id);
+			const event = paginatedEvents?.data.find((event) => event.id === id);
 			if (event) {
 				setSelectedEvent(event);
 				setIsModalOpen(true);
 			}
 		}
-	}, [id]);
-
-	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
+	}, [id, paginatedEvents?.data]);
 
 	useEffect(() => {
-		const filtered = events.filter(
-			(event) =>
-				(t(`filters.${Constants.newsStatuses[event.state]?.label}`).toLowerCase() === selectedFilter ||
-					selectedFilter === filterAll) &&
-				(searchTerm === '' ||
-					event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-					event.organizer?.activityArea?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-					event.organizer?.organization?.toLowerCase().includes(searchTerm.toLowerCase()))
-		);
-		setFilteredEvents(filtered);
-	}, [selectedFilter, searchTerm]);
+		startTransition(async () => {
+			const eventsPaginated = await getNextEventsModerator(
+				currentPage,
+				pageSize,
+				debouncedSearchTerm,
+				selectedFilter,
+				orderBy,
+				orderByDesc
+			);
+			if (eventsPaginated) {
+				setPaginatedEvents(eventsPaginated);
+			} else {
+				setToast(t('error-fetching-events'), AlertType.error);
+			}
+		});
+	}, [currentPage, pageSize, selectedFilter, debouncedSearchTerm, orderBy, orderByDesc]);
 
 	const handleFilterChanged = (filterIndex: number) => {
-		setSelectedFilter(filters[filterIndex].toLowerCase());
+		const selectedStatusKey = statusKeys[filterIndex];
+		setCurrentPage(1);
+		setSelectedFilter(selectedStatusKey);
 	};
 
 	const handleSearchChanged = (search: string) => {
 		setSearchTerm(search);
 	};
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const handlePageChange = (page: number) => {
+		setCurrentPage(page);
+	};
+
+	const handlePageSizeChange = (size: number) => {
+		setPageSize(size);
+		setCurrentPage(1);
+	};
+
+	const handleOrderChange = (id?: string) => {
+		if (id == orderBy) {
+			setOrderByDesc(!orderByDesc);
+		} else {
+			setOrderByDesc(false);
+		}
+		setOrderBy(id ?? '');
+		setCurrentPage(1);
+	};
 
 	const openModal = (event: HelloEvent) => {
 		setSelectedEvent(event);
@@ -85,52 +134,23 @@ export default function ApprobationsTable({ events, locale, tags, id }: Props) {
 				<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
 				<Dropdown title={t('filters.all')} items={filters} onFilterChange={handleFilterChanged} />
 			</div>
-			{filteredEvents.length === 0 ? (
-				<div className="text-center py-4">{t('no-publications')}</div>
+			{paginatedEvents && paginatedEvents.data.length > 0 ? (
+				<Table<HelloEvent>
+					data={paginatedEvents.data}
+					columns={createApprobationColumnDefs(t, locale, openModal)}
+					currentPage={currentPage}
+					pageSize={pageSize}
+					totalItems={paginatedEvents.totalRecords}
+					onPageChange={handlePageChange}
+					onPageSizeChange={handlePageSizeChange}
+					onOrderChange={handleOrderChange}
+					orderBy={orderBy}
+					orderByDesc={orderByDesc}
+				/>
 			) : (
-				<table className="table w-full rounded-lg">
-					<thead className="bg-base-300 rounded-t-lg h-17">
-						<tr className="text-base-content text-base font-bold">
-							<th className="rounded-tl-lg">{t('table.author')}</th>
-							<th>{t('table.title')}</th>
-							<th>{t('table.release-date')}</th>
-							<th>{t('table.status')}</th>
-							<th className="w-[10%] rounded-tr-lg"></th>
-						</tr>
-					</thead>
-					<tbody>
-						{filteredEvents.map((event, index) => (
-							<tr key={index} className="border-b-2 border-base-300">
-								<td className="text-base flex items-center space-x-2">
-									<div className="avatar mr-3">
-										<Avatar userProfile={event.organizer} size="w-10 h-10" textSize="text-xl" color="bg-base-300" />
-									</div>
-									<div>
-										<div>{event.organizer?.organization}</div>
-										<div className="text-secondary">{event.organizer?.activityArea}</div>
-									</div>
-								</td>
-								<td>{event.title}</td>
-								<td>{formatDate(new Date(event.publicationDate), locale)}</td>
-								<td className="text-base">
-									<div
-										className={`py-4 px-4 badge ${
-											Constants.newsStatuses[event.state].color || 'badge-neutral'
-										} text-black`}
-									>
-										{t(`filters.${Constants.newsStatuses[event.state].label}`)}
-									</div>
-								</td>
-								<td className="text-base">
-									<button className="btn btn-accent w-full font-normal" onClick={() => openModal(event)}>
-										{t('table.open')}
-									</button>
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
+				<div className="text-center py-4">{t('no-publications')}</div>
 			)}
+			{isLoading && <LoadingSpinner localModal={true} />}
 		</div>
 	);
 }

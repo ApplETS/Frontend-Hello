@@ -13,6 +13,7 @@ import enLocale from '@fullcalendar/core/locales/en-gb';
 import { createRef, useState } from 'react';
 import { CalendarHeader } from './NewsCalendarHeader';
 import { DateTimeFormatOptions } from 'next-intl';
+import EventContainer from './EventContainer';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
 interface Props {
@@ -115,13 +116,8 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				})}
 				eventContent={(arg: EventContentArg) => {
 					return (
-						<div
-							className="tooltip tooltip-top w-full z-50 my-tooltip"
-							data-tip={`${arg.event.title}\n${formatEventDate(arg.event.startStr, arg.event.endStr)}`}
-						>
-							<div className={`p-2 cursor-pointer w-full text-center`}>
-								<p className="truncate text-black text-center">{`${arg.event.title}`}</p>
-							</div>
+						<div className="p-2 cursor-pointer w-full text-center">
+							<EventContainer title={arg.event.title} />
 						</div>
 					);
 				}}

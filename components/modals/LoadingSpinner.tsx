@@ -1,8 +1,12 @@
 import Modal from './Modal';
 
-export default function LoadingSpinner() {
+interface Props {
+	localModal?: boolean;
+}
+
+export default function LoadingSpinner({ localModal }: Props) {
 	return (
-		<Modal>
+		<Modal localModal={localModal}>
 			<div className="loading loading-spinner loading-lg"></div>
 		</Modal>
 	);

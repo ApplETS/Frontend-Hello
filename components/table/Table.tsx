@@ -18,7 +18,6 @@ type TableProps<T> = {
 	currentPage: number;
 	pageSize: number;
 	totalItems: number;
-	lastPage: number;
 	onPageChange: (page: number) => void;
 	onPageSizeChange: (size: number) => void;
 };
@@ -29,7 +28,6 @@ const Table = <T,>({
 	currentPage,
 	pageSize,
 	totalItems,
-	lastPage,
 	onPageChange,
 	onPageSizeChange,
 }: TableProps<T>) => {
@@ -91,7 +89,6 @@ const Table = <T,>({
 				onPageChange={onPageChange}
 				onPageSizeChange={onPageSizeChange}
 				table={table}
-				lastPage={lastPage}
 			/>
 		</div>
 	);

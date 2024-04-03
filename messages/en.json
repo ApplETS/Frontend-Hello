@@ -162,7 +162,8 @@
 				"cancel": "Cancel",
 				"zoom-hint": "Use ⌘ + scroll (or ctrl + scroll) to zoom the image"
 			}
-		}
+		},
+		"error-fetching-events": "An error occured while loading the publications"
 	},
 	"Approbations": {
 		"title": "Approbations",

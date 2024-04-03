@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
@@ -17,8 +17,9 @@ import { PublicationStates } from '@/models/publication-states';
 import Table from '@/components/table/Table';
 import { createEventColumnDefs } from '@/components/table/EventColumnDefs';
 import { ApiPaginatedResponse } from '@/models/api-paginated-response';
-import { getNextEvents } from '@/app/actions/get-next-events';
 import { useUser } from '@/utils/provider/UserProvider';
+import { getNextEventsOrganizer } from '@/app/actions/get-next-events-organizer';
+import LoadingSpinner from '@/components/modals/LoadingSpinner';
 
 type Props = {
 	locale: string;
@@ -30,8 +31,8 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 	const t = useTranslations('Publications');
 	const { setToast } = useToast();
 
-	const filterAll = t('filters.all').toLowerCase();
-	const [selectedFilter, setSelectedFilter] = useState(filterAll);
+	const statusKeys = Object.keys(Constants.newsStatuses);
+	const [selectedFilter, setSelectedFilter] = useState(statusKeys[0]);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -40,7 +41,9 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 	const [paginatedEvents, setPaginatedEvents] = useState<ApiPaginatedResponse>();
 	const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize, setPageSize] = useState(10);
+	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 	const { user } = useUser();
+	const [isLoading, startTransition] = useTransition();
 
 	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
 	const menuItems = Constants.publicationMenuItems.map((item) => {
@@ -64,22 +67,33 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 	}, [id]);
 
 	useEffect(() => {
-		const fetchEvents = async () => {
+		const handler = setTimeout(() => {
+			setCurrentPage(1);
+			setDebouncedSearchTerm(searchTerm);
+		}, 1000);
+
+		return () => {
+			clearTimeout(handler);
+		};
+	}, [searchTerm]);
+
+	useEffect(() => {
+		startTransition(async () => {
 			if (user) {
-				const eventsPaginated = await getNextEvents(currentPage, pageSize, user?.id);
+				const eventsPaginated = await getNextEventsOrganizer(currentPage, pageSize, user?.id, selectedFilter);
 				if (eventsPaginated) {
 					setPaginatedEvents(eventsPaginated);
 				} else {
 					setToast(t('error-fetching-events'), AlertType.error);
 				}
 			}
-		};
-
-		fetchEvents();
-	}, [currentPage, pageSize, user]);
+		});
+	}, [currentPage, pageSize, user, debouncedSearchTerm, selectedFilter]);
 
 	const handleFilterChanged = (filterIndex: number) => {
-		setSelectedFilter(filters[filterIndex].toLowerCase());
+		const selectedStatusKey = statusKeys[filterIndex];
+		setCurrentPage(1);
+		setSelectedFilter(selectedStatusKey);
 	};
 
 	const handleSearchChanged = (search: string) => {
@@ -133,7 +147,7 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 
 	const handlePageSizeChange = (size: number) => {
 		setPageSize(size);
-		setCurrentPage(1); // Reset to the first page when the page size changes
+		setCurrentPage(1);
 	};
 
 	return (
@@ -158,7 +172,6 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 					currentPage={currentPage}
 					pageSize={pageSize}
 					totalItems={paginatedEvents?.totalRecords}
-					lastPage={0}
 					onPageChange={handlePageChange}
 					onPageSizeChange={handlePageSizeChange}
 				/>
@@ -188,6 +201,7 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 					confirmationAction={deletePost}
 				/>
 			)}
+			{isLoading && <LoadingSpinner localModal={true} />}
 		</div>
 	);
 }

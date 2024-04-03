@@ -161,7 +161,8 @@
 				"cancel": "Annuler",
 				"zoom-hint": "Utilisez ⌘ + scroll (ou ctrl + scroll) pour zoomer l'image"
 			}
-		}
+		},
+		"error-fetching-events": "Une erreur est survenue lors du chargement des publications"
 	},
 	"Approbations": {
 		"title": "Approbations",

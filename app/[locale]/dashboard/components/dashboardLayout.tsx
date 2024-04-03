@@ -11,6 +11,8 @@ import { useLoading } from '@/utils/provider/LoadingProvider';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
 import SetPassword from '@/components/modals/SetPassword';
 import { useUser } from '@/utils/provider/UserProvider';
+import { SkeletonTheme } from 'react-loading-skeleton';
+import { useTheme } from '@/utils/provider/ThemeProvider';
 
 interface Props {
 	children: ReactElement;
@@ -34,6 +36,7 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 	const { show, message, alertType, showToast } = useToast();
 	const { isLoading } = useLoading();
 	const { setUser } = useUser();
+	const { isLight } = useTheme();
 
 	useEffect(() => {
 		if (user) {
@@ -42,7 +45,10 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 	}, [user]);
 
 	return (
-		<>
+		<SkeletonTheme
+			baseColor={`${isLight ? '#D1D1D1' : '#15191e'}`}
+			highlightColor={`${isLight ? '#ffffff' : '#1d232a'}`}
+		>
 			{user !== null ? (
 				<Navbar activePage={activePage} pages={pages} signOut={signOut} user={user} locale={locale} />
 			) : (
@@ -62,6 +68,6 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 				{isLoading && <LoadingSpinner />}
 			</div>
 			<div id="modal-root"></div>
-		</>
+		</SkeletonTheme>
 	);
 }

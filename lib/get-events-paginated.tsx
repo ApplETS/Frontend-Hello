@@ -4,12 +4,17 @@ import { ApiPaginatedResponse } from '@/models/api-paginated-response';
 export async function getEventsPaginated(
 	pageNumber: number = 1,
 	pageSize: number = 100,
-	organizerId?: string
+	organizerId?: string,
+	title?: string
 ): Promise<ApiPaginatedResponse> {
 	let url = `events?PageNumber=${pageNumber}&PageSize=${pageSize}`;
 
 	if (organizerId) {
 		url += `&organizerId=${organizerId}`;
+	}
+
+	if (title) {
+		url += `&title=${title}`;
 	}
 
 	const response = await fetchWithSession(url, Method.GET);

@@ -1,164 +1,33 @@
 'use client';
 
-import React, { useEffect, useRef, useTransition } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { faArrowLeft, faArrowUp, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faEnvelope, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTranslations } from 'next-intl';
 import Constants from '@/utils/constants';
 import Image from 'next/image';
 import Search from '@/components/Search';
-import EventDateAndImage from '@/components/EventDateAndImage';
 
 import { Organizer } from '@/models/organizer';
-import style from '@/markdown-styles.module.css';
-
-import Markdown from 'react-markdown';
 import AskEmail from '@/components/modals/AskEmail';
 import { ToastDelay, useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
 import Avatar from '@/components/Avatar';
-import Skeleton from 'react-loading-skeleton';
-import { HelloEvent } from '@/models/hello-event';
-import { getNextEvents } from '@/app/actions/get-next-events';
+import NewsList from './components/NewsList';
 
 type Props = {
 	organizer: Organizer;
 	locale: string;
 };
 
-interface EventProps {
-	event: HelloEvent;
-	locale: string;
-}
-
-const EventCard = ({ event, locale }: EventProps) => (
-	<div className="card justify-center w-full rounded-lg bg-base-200">
-		<div className="grid grid-rows-[auto_auto_auto_1fr_auto] rounded-3xl h-full">
-			<div className="text-xl font-bold px-4 pt-4 h-24 overflow-hidden line-clamp-3">
-				<div className="mb-2">{event.title}</div>
-			</div>
-			<EventDateAndImage
-				eventStartDate={event.eventStartDate}
-				eventEndDate={event.eventEndDate}
-				imageUrl={event.imageUrl}
-				locale={locale}
-			/>
-			<div className="text-sm text-justify font-light p-2 whitespace-normal overflow-y-auto h-44">
-				<div style={{ position: 'relative' }}>
-					<Markdown className={`${style.reactMarkDown} p-2`}>{event.content}</Markdown>
-				</div>
-			</div>
-		</div>
-		<div className="flex flex-wrap gap-2 p-6">
-			<div className="flex flex-wrap gap-2 overflow-x-auto">
-				{event.tags.map((tag, index) => (
-					<div
-						key={tag.id}
-						className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
-					>
-						{tag.name}
-					</div>
-				))}
-			</div>
-		</div>
-	</div>
-);
-
-const EventCardSkeleton = () => (
-	<div className="card justify-center w-full rounded-lg bg-base-200">
-		<div className="px-4 pt-4 h-24 mb-2">
-			<Skeleton height={40} />
-		</div>
-		<div className="pl-4 pr-40">
-			<Skeleton />
-		</div>
-		<div className="mb-1">
-			<Skeleton height={180} />
-		</div>
-		<div className="grid grid-rows-1 gap-1 px-4 pt-3 pb-3">
-			<Skeleton />
-			<Skeleton />
-			<Skeleton />
-			<Skeleton />
-			<Skeleton />
-		</div>
-	</div>
-);
-
 export default function ProfileClient({ organizer, locale }: Props) {
-	const nbOfEventsPerPage = 9;
-
 	const t = useTranslations('Profile');
 	const router = useRouter();
 	const [askEmailModal, setAskEmailModal] = useState(false);
 	const { setToast } = useToast();
 	const [searchTerm, setSearchTerm] = useState('');
-	const [filteredPublications, setFilteredPublications] = useState<HelloEvent[]>([]);
-	const [showScrollTopButton, setShowScrollTopButton] = useState(false);
-	const [allNewsLoaded, setAllNewsLoaded] = useState(false);
-	const [page, setPage] = useState(1);
-	const [isLoading, startTransition] = useTransition();
-	const observer = useRef<IntersectionObserver | null>(null);
-	const lastEventRef = useRef<HTMLDivElement | null>(null);
-	const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-	const handleSearchChanged = (search: string) => {
-		setSearchTerm(search);
-	};
-
-	useEffect(() => {
-		const handleScroll = () => {
-			if (scrollContainerRef.current) {
-				if (scrollContainerRef.current.scrollTop > 300) {
-					setShowScrollTopButton(true);
-				} else {
-					setShowScrollTopButton(false);
-				}
-			}
-		};
-
-		const scrollContainer = scrollContainerRef.current;
-		if (scrollContainer) {
-			scrollContainer.addEventListener('scroll', handleScroll);
-		}
-
-		return () => {
-			if (scrollContainer) {
-				scrollContainer.removeEventListener('scroll', handleScroll);
-			}
-		};
-	}, []);
-
-	useEffect(() => {
-		if (!allNewsLoaded) {
-			startTransition(async () => {
-				const response = await getNextEvents(page, nbOfEventsPerPage, organizer.id);
-
-				if (response) {
-					const newEvents = [...filteredPublications, ...response.data];
-					setAllNewsLoaded(newEvents.length >= response.totalRecords);
-					setFilteredPublications(newEvents);
-				} else {
-					setToast(t('error-loading-news'), AlertType.error);
-				}
-			});
-		}
-	}, [page]);
-
-	useEffect(() => {
-		if (observer.current) observer.current.disconnect();
-		observer.current = new IntersectionObserver((entries) => {
-			if (entries[0].isIntersecting && !isLoading) {
-				setPage((prevPage) => prevPage + 1);
-			}
-		});
-		if (lastEventRef.current) observer.current.observe(lastEventRef.current);
-		return () => {
-			if (observer.current) observer.current.disconnect();
-		};
-	}, [lastEventRef.current, isLoading]);
 
 	const notify = () => {
 		// TODO : Add notification
@@ -172,16 +41,6 @@ export default function ProfileClient({ organizer, locale }: Props) {
 			ToastDelay.long
 		);
 		setAskEmailModal(false);
-	};
-
-	const scrollToTop = () => {
-		const scrollContainer = scrollContainerRef.current;
-		if (scrollContainer) {
-			scrollContainer.scrollTo({
-				top: 0,
-				behavior: 'smooth',
-			});
-		}
 	};
 
 	return (
@@ -284,32 +143,14 @@ export default function ProfileClient({ organizer, locale }: Props) {
 					</div>
 				</div>
 
-				<div className="flex-grow overflow-auto no-scrollbar pt-1 pl-1" ref={scrollContainerRef}>
-					<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
-					<div className="grid grid-cols-3 gap-4 mt-4">
-						{filteredPublications.map((event, index) => (
-							<div
-								className="card justify-center w-full rounded-lg bg-base-200"
-								key={index}
-								ref={index === filteredPublications.length - 1 ? lastEventRef : null}
-							>
-								<EventCard event={event} locale={locale} />
-							</div>
-						))}
-						{isLoading && Array.from({ length: 3 }).map((_, index) => <EventCardSkeleton key={index} />)}
+				<div className="w-full flex flex-col h-full">
+					<div className="pb-2 pt-1">
+						<Search search={t('search')} onSearchTermChange={(search) => setSearchTerm(search)} />
 					</div>
+					<NewsList organizerId={organizer.id} locale={locale} searchTerm={searchTerm} />
 				</div>
 
 				{askEmailModal && <AskEmail onClose={() => setAskEmailModal(false)} onSend={notify} />}
-				{showScrollTopButton && (
-					<button
-						onClick={scrollToTop}
-						className="fixed bottom-8 right-8 btn btn-circle btn-primary shadow-xl"
-						aria-label="Scroll to top"
-					>
-						<FontAwesomeIcon icon={faArrowUp} size="xl" />
-					</button>
-				)}
 			</div>
 		</div>
 	);

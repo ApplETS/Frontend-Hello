@@ -3,7 +3,6 @@
 import React from 'react';
 import ApprobationsTable from './components/ApprobationsTable';
 import { getTags } from '@/lib/get-tags';
-import { getModeratorEvents } from '@/lib/get-moderator-events';
 
 type Props = {
 	params: { locale: string };
@@ -11,7 +10,6 @@ type Props = {
 };
 
 export default async function Approbations({ params: { locale }, searchParams: { id } }: Props) {
-	const publications = await getModeratorEvents();
 	const tags = await getTags();
-	return <ApprobationsTable locale={locale} events={publications} tags={tags} id={id} />;
+	return <ApprobationsTable locale={locale} tags={tags} id={id} />;
 }

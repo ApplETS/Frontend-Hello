@@ -80,7 +80,7 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 	useEffect(() => {
 		startTransition(async () => {
 			if (user) {
-				const eventsPaginated = await getNextEventsOrganizer(currentPage, pageSize, user?.id, selectedFilter);
+				const eventsPaginated = await getNextEventsOrganizer(currentPage, pageSize, searchTerm, selectedFilter);
 				if (eventsPaginated) {
 					setPaginatedEvents(eventsPaginated);
 				} else {

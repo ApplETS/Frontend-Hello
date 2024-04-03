@@ -50,7 +50,11 @@ export const createApprobationColumnDefs = (
 		columnHelper.display({
 			id: 'open',
 			header: () => '',
-			cell: (info) => <button className="btn btn-accent w-full">{t('table.open')}</button>,
+			cell: (info) => (
+				<button className="btn btn-accent w-full" onClick={() => openModal(info.row.original)}>
+					{t('table.open')}
+				</button>
+			),
 		}),
 	];
 };

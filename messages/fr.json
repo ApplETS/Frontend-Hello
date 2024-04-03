@@ -95,12 +95,12 @@
 		},
 		"filters": {
 			"all": "Tous",
-			"published": "Publié",
+			"published": "Publiée",
 			"draft": "Brouillon",
 			"on-hold": "En attente",
-			"refused": "Refusé",
-			"approved": "Approuvé",
-			"deleted": "Supprimé"
+			"refused": "Refusée",
+			"approved": "Approuvée",
+			"deleted": "Supprimée"
 		},
 		"menu": {
 			"duplicate": "Dupliquer",
@@ -176,12 +176,12 @@
 		},
 		"filters": {
 			"all": "Tous",
-			"published": "Publié",
+			"published": "Publiée",
 			"draft": "Brouillon",
 			"on-hold": "En attente",
-			"refused": "Refusé",
-			"approved": "Approuvé",
-			"deleted": "Supprimé"
+			"refused": "Refusée",
+			"approved": "Approuvée",
+			"deleted": "Supprimée"
 		},
 		"modal": {
 			"moderator-page-title": "Consulter une publication",
@@ -228,7 +228,9 @@
 		"table": {
 			"organization": "Nom de l'organisation",
 			"email": "Courriel",
-			"status": "Statut",
+			"activated": "Actif",
+			"yes": "Oui",
+			"no": "Non",
 			"activityarea": "Secteur d'activité",
 			"actions": "Action"
 		},

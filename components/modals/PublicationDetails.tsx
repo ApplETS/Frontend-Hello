@@ -554,7 +554,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 							{modalMode !== Constants.publicationModalStatus.modify &&
 								modalMode !== Constants.publicationModalStatus.moderator && (
 									<button
-										className={`btn btn-info px-8`}
+										className="btn btn-info px-8 font-normal"
 										disabled={publication?.state === NewsStates.APPROVED ?? false}
 										onClick={handleDraft}
 										type="button"
@@ -568,19 +568,27 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 									{publication?.state !== NewsStates.PUBLISHED ? (
 										<div className="grid grid-cols-2 gap-6">
 											<button
-												className={`btn btn-success px-8`}
+												className="font-normal btn btn-success px-8"
 												disabled={publication?.state === NewsStates.APPROVED ?? false}
 												onClick={handleApprove}
 												type="button"
 											>
 												{ta('modal.approve-button')}
 											</button>
-											<button className={`btn btn-error`} onClick={() => setRejectModalOpen(true)} type="button">
+											<button
+												className="font-normal btn btn-error"
+												onClick={() => setRejectModalOpen(true)}
+												type="button"
+											>
 												{ta('modal.reject-button')}
 											</button>
 										</div>
 									) : (
-										<button className={`btn btn-error px-8`} onClick={() => setDeleteModalOpen(true)} type="button">
+										<button
+											className="font-normal btn btn-error px-8"
+											onClick={() => setDeleteModalOpen(true)}
+											type="button"
+										>
 											{ta('modal.deactivate-button')}
 										</button>
 									)}
@@ -619,14 +627,16 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 							<div className="ml-auto">
 								<button
-									className={`btn text-black px-11 ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
+									className={`btn font-normal text-black px-11 ${
+										isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'
+									}`}
 									onClick={() => onClose()}
 									type="button"
 								>
 									{t('modal.cancel-button')}
 								</button>
 								{modalMode !== Constants.publicationModalStatus.moderator && (
-									<button className="btn btn-success text-black ml-3" type="submit">
+									<button className="btn font-normal btn-success text-black ml-3" type="submit">
 										{modalMode === Constants.publicationModalStatus.modify
 											? t('modal.resubmit-button')
 											: t('modal.submit-button')}

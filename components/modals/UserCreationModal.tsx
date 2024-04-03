@@ -65,19 +65,19 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 							</label>
 							<input className="input input-ghost w-full" type="email" name="email" required />
 						</div>
-						<div className="divider before:bg-base-content after:bg-base-content"></div>
+						<div className="divider my-1"></div>
 						<div className="flex flex-row space-x-4">
 							<div className="w-3/5"></div>
 							<button
 								type="button"
-								className={`btn text-lg font-normal text-black w-1/5 ${
+								className={`btn font-normal text-black w-1/5 ${
 									isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary bg-[#DCDCDC]'
 								}`}
 								onClick={onClose}
 							>
 								{t('close')}
 							</button>
-							<button className={`btn text-lg text-black btn-primary font-normal w-1/5 `}>{t('send')}</button>
+							<button className={`btn text-black btn-primary font-normal w-1/5 `}>{t('send')}</button>
 						</div>
 					</form>
 				)}

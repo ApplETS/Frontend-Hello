@@ -79,16 +79,17 @@ export default function Confirmation({
 							)}
 						</div>
 
-						<div className={`grid grid-cols-2 gap-6 mt-2 px-24 ${inputTitle ? 'mt-5' : ''}`}>
+						<div className="divider my-1"></div>
+						<div className="flex justify-end gap-4">
 							<button
-								className={`btn text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
+								className={`btn font-normal text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
 								onClick={handleClose}
 								type="button"
 							>
 								{firstButtonTitle}
 							</button>
 							<button
-								className={`btn ${secondButtonColor} ${secondButtonHoverColor} text-black`}
+								className={`btn font-normal ${secondButtonColor} ${secondButtonHoverColor} text-black`}
 								type="button"
 								onClick={submit}
 							>

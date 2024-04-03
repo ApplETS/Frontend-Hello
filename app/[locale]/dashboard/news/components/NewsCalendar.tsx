@@ -115,8 +115,8 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				})}
 				dayCellDidMount={(e) => {
 					if (e.date.toISOString().substring(0, 10) === new Date().toISOString().substring(0, 10)) {
-						e.el.style.backgroundColor = isLight ? 'base-200' : 'gray';
-						e.el.style.color = isLight ? 'white' : 'black';
+						e.el.style.backgroundColor = 'black';
+						e.el.style.color = 'black';
 					}
 				}}
 				eventContent={(arg: EventContentArg) => {

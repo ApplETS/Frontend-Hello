@@ -57,7 +57,7 @@ export default function ProfileClient({ organizer, locale }: Props) {
 						<div className="avatar mb-2">
 							<Avatar userProfile={organizer} size="w-40" color="bg-base-300" textSize="text-7xl" />
 						</div>
-						<p className="text-xl font-bold">{organizer.name}</p>
+						<p className="text-xl font-bold">{organizer.organization}</p>
 						<h4 className="mb-2 text-sm text-secondary">{organizer.activityArea}</h4>
 						<p className="text-sm mb-4 text-center">{organizer.profileDescription}</p>
 						<div className="flex items-center mb-2">

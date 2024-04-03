@@ -52,7 +52,7 @@ const EventCard = ({ event, locale }: EventProps) => (
 
 const EventCardSkeleton = () => (
 	<div className="card justify-center w-full rounded-lg bg-base-200">
-		<div className="px-4 pt-4 h-24 mb-2">
+		<div className="px-4 pt-4 mb-2">
 			<Skeleton height={40} />
 		</div>
 		<div className="pl-4 pr-40">

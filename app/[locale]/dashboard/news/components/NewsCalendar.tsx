@@ -13,6 +13,7 @@ import enLocale from '@fullcalendar/core/locales/en-gb';
 import { createRef, useState } from 'react';
 import { CalendarHeader } from './NewsCalendarHeader';
 import { DateTimeFormatOptions } from 'next-intl';
+import { useTheme } from '@/utils/provider/ThemeProvider';
 
 interface Props {
 	events: HelloEvent[];
@@ -23,6 +24,7 @@ interface Props {
 export default function NewsCalendar({ events, locale, handleEventSelect }: Props) {
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>(events);
 	const [view] = useState('dayGridMonth');
+	const { isLight } = useTheme();
 
 	const calendarRef = createRef<FullCalendar>();
 
@@ -111,12 +113,6 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 						end: event.eventEndDate,
 					};
 				})}
-				dayCellDidMount={(e) => {
-					if (e.date.toISOString().substring(0, 10) === new Date().toISOString().substring(0, 10)) {
-						e.el.style.backgroundColor = 'gray';
-						e.el.style.color = 'white';
-					}
-				}}
 				eventContent={(arg: EventContentArg) => {
 					return (
 						<div

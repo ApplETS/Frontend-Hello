@@ -33,7 +33,7 @@ export default function Avatar({ size, textSize, color, userProfile }: Props) {
 			) : (
 				<div className="avatar placeholder">
 					<div
-						className={`${isLight ? 'bg-base-content' : color ? color : 'bg-base-100'} text-primary rounded-full ${
+						className={`${isLight ? 'bg-base-content' : color ? color : 'bg-base-100'} text-white rounded-full ${
 							size ? size : 'w-10'
 						}`}
 					>

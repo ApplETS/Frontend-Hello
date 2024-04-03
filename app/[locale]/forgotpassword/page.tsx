@@ -37,7 +37,7 @@ export default function ForgotPassword({
 							</label>
 							<input className="input input-ghost mb-6" name="email" required />
 							<div className="flex justify-center">
-								<button className="btn btn-primary rounded-md text-base mb-8 w-64">{t('send')}</button>
+								<button className="font-normal btn btn-primary rounded-md text-base mb-8 w-64">{t('send')}</button>
 							</div>
 						</form>
 					</div>

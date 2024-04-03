@@ -229,7 +229,9 @@
 		"table": {
 			"organization": "Organization name",
 			"email": "Email",
-			"status": "Status",
+			"activated": "Activated",
+			"yes": "Yes",
+			"no": "No",
 			"activityarea": "Activity area",
 			"actions": "Action"
 		},

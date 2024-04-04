@@ -13,7 +13,7 @@ interface Props {
 
 export default function EventContainer({ title, showMoreEvents, onClickEvent }: Props) {
 	const parentRef = useRef<HTMLDivElement>(null);
-	const [isModalOpen, setIsModalOpen] = useState(true);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	return (
 		<>

@@ -37,7 +37,6 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>([]);
 	const [viewType, setViewType] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>('dayGridMonth');
 	const [view] = useState('dayGridMonth');
-	const { isLight } = useTheme();
 
 	const calendarRef = createRef<FullCalendar>();
 
@@ -48,6 +47,38 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 		{ id: 2, name: 'Service à la vie étudiante', color: '#EA7CB7' },
 		{ id: 3, name: 'AEETS', color: '#E7A455' },
 	];
+
+	const chopEventsByDay = (events: HelloEvent[]): HelloEvent[] => {
+		const choppedEvents: HelloEvent[] = [];
+
+		events.forEach((event) => {
+			const startDate = new Date(event.eventStartDate);
+			const endDate = new Date(event.eventEndDate);
+
+			let currentDate = new Date(startDate);
+			while (currentDate <= endDate) {
+				const start = new Date(currentDate);
+				start.setHours(startDate.getHours(), startDate.getMinutes(), startDate.getSeconds());
+
+				const end = new Date(currentDate);
+				end.setHours(23, 59, 59, 999);
+
+				if (currentDate.toDateString() === endDate.toDateString()) {
+					end.setHours(endDate.getHours(), endDate.getMinutes(), endDate.getSeconds());
+				}
+
+				choppedEvents.push({
+					...event,
+					eventStartDate: start.toISOString(),
+					eventEndDate: end.toISOString(),
+				});
+
+				currentDate.setDate(currentDate.getDate() + 1);
+			}
+		});
+
+		return choppedEvents;
+	};
 
 	const groupEventsByDate = (events: HelloEvent[]): Record<string, HelloEvent[]> => {
 		return events.reduce((acc, event) => {
@@ -170,7 +201,8 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				shownEvents = generateEventsForWeekView(events);
 				break;
 			case 'dayGridMonth':
-				shownEvents = Object.entries(groupEventsByDate(events))
+				const choppedEvents = chopEventsByDay(events);
+				shownEvents = Object.entries(groupEventsByDate(choppedEvents))
 					.map(([date, events]) => {
 						const firstEvent = events[0];
 						const additionalEvents = events.slice(1);
@@ -203,7 +235,6 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				shownEvents = helloEventsToCalendarEvents(events);
 				break;
 		}
-		console.log(shownEvents);
 		return shownEvents;
 	}
 

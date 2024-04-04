@@ -181,7 +181,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 							/>
 							<div className="flex flex-row gap-2 px-6 py-2 items-center">
 								<div className="avatar">
-									<Avatar userProfile={event.organizer} size="w-14" textSize="text-2xl" />
+									<Avatar userProfile={event.organizer} size="w-14 h-14" textSize="text-2xl" />
 								</div>
 								<div className="flex flex-col pt-2 pl-2">
 									<p className="text-base font-bold">{event.organizer?.organization ?? 'Organisateur'}</p>

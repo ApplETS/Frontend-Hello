@@ -19,7 +19,7 @@ export default function EventContainer({ title, showMoreEvents, onClickEvent }: 
 		<>
 			<div
 				ref={parentRef}
-				className="parent-container overflow-hidden text-black"
+				className="parent-container overflow-hidden text-black cursor-pointer"
 				onClick={() => {
 					if (showMoreEvents) {
 						setIsModalOpen(true);
@@ -31,11 +31,18 @@ export default function EventContainer({ title, showMoreEvents, onClickEvent }: 
 			{showMoreEvents && isModalOpen && (
 				<div className="fixed z-30 flex justify-center items-center">
 					<div className="flex justify-between shadow-sm gap-2">
-						<div className="left-div bg-base-100 border border-base-content p-2 rounded-lg">
+						<div className="left-div bg-base-200 border p-2 rounded-lg">
+							<div className="flex justify-between items-center p-1">
+								<p className="m-0 text-base text-base-content">Dimanche, 14 avril</p>
+								<button className="cursor-pointer" onClick={() => setIsModalOpen(false)}>
+									<FontAwesomeIcon className="text-base-content" icon={faClose} size="lg" />
+								</button>
+							</div>
+							<div className="divider my-0"></div>
 							<ul className="flex flex-col gap-2">
 								{showMoreEvents.map((event, index) => (
 									<li
-										className="bg-[--fc-event-bg-color] rounded-sm text-black p-1 w-48"
+										className="cursor-pointer bg-[--fc-event-bg-color] rounded-sm text-black p-1 w-72"
 										key={index}
 										onClick={() => {
 											if (event.cardId && onClickEvent) {
@@ -47,14 +54,6 @@ export default function EventContainer({ title, showMoreEvents, onClickEvent }: 
 									</li>
 								))}
 							</ul>
-						</div>
-						<div className="right-div">
-							<button
-								className="cursor-pointer rounded-full bg-primary p-2 w-10 h-10"
-								onClick={() => setIsModalOpen(false)}
-							>
-								<FontAwesomeIcon className="text-black" icon={faClose} size="lg" />
-							</button>
 						</div>
 					</div>
 				</div>

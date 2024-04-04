@@ -40,7 +40,13 @@ export async function getEvents(
 	const mockDate2 = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-14`;
 
 	// Create mock events
-	let mockEvents: HelloEvent[] = ['1', '2', '3', '4', '5'].map((value, index) => {
+	let mockEvents: HelloEvent[] = [
+		'Salut je sui un événement',
+		'Un autre événement beaucoup plus fun',
+		"Viens t'amuser avec nous",
+		'Un événement pour les enfants',
+		'Un événement pour les adultes',
+	].map((value, index) => {
 		return {
 			id: value,
 			title: 'Event ' + value,

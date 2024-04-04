@@ -37,6 +37,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>([]);
 	const [viewType, setViewType] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>('dayGridMonth');
 	const [view] = useState('dayGridMonth');
+	const { isLight } = useTheme();
 
 	const calendarRef = createRef<FullCalendar>();
 
@@ -219,7 +220,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 								title: '+' + additionalEvents.length,
 								start: date,
 								end: date,
-								color: 'grey',
+								color: isLight ? '#D0D0D0' : '#B0B0B0',
 								extendedProps: {
 									isShowMore: true,
 									events: helloEventsToCalendarEvents(additionalEvents),
@@ -274,7 +275,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				eventContent={(arg: EventContentArg) => {
 					if (arg.event.extendedProps.isShowMore) {
 						return (
-							<div className="p-1 cursor-pointer w-full text-center">
+							<div className="p-1 w-full text-center">
 								<EventContainer
 									title={arg.event.title}
 									showMoreEvents={arg.event.extendedProps.events}

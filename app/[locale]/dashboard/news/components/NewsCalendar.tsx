@@ -10,7 +10,7 @@ import { EventContentArg } from '@fullcalendar/core';
 import { HelloEvent } from '@/models/hello-event';
 import frLocale from '@fullcalendar/core/locales/fr';
 import enLocale from '@fullcalendar/core/locales/en-gb';
-import { createRef, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { CalendarHeader } from './NewsCalendarHeader';
 import { DateTimeFormatOptions } from 'next-intl';
 import EventContainer from './EventContainer';
@@ -23,7 +23,8 @@ interface Props {
 }
 
 export default function NewsCalendar({ events, locale, handleEventSelect }: Props) {
-	const [shownEvents, setShownEvents] = useState<HelloEvent[]>(events);
+	const [shownEvents, setShownEvents] = useState<HelloEvent[]>([]);
+	const [viewType, setViewType] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>('dayGridMonth');
 	const [view] = useState('dayGridMonth');
 	const { isLight } = useTheme();
 
@@ -36,6 +37,23 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 		{ id: 2, name: 'Service à la vie étudiante', color: '#EA7CB7' },
 		{ id: 3, name: 'AEETS', color: '#E7A455' },
 	];
+
+	useEffect(() => {
+		const updatedEvents = events.map((event) => {
+			const startDate = new Date(event.eventStartDate);
+			const endDate = new Date(event.eventEndDate);
+
+			startDate.setMinutes(startDate.getMinutes() + 30);
+			endDate.setMinutes(endDate.getMinutes() + 30);
+
+			return {
+				...event,
+				eventStartDate: startDate.toISOString(),
+				eventEndDate: endDate.toISOString(),
+			};
+		});
+		setShownEvents(updatedEvents);
+	}, []);
 
 	const handleFilterChange = (selectedIndices: number[]) => {
 		if (selectedIndices.length !== 0) {
@@ -50,45 +68,67 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 		}
 	};
 
-	const updatedEvents = events.map((event) => {
-		const startDate = new Date(event.eventStartDate);
-		const endDate = new Date(event.eventEndDate);
+	const generateEventsForWeekView = (events: HelloEvent[]) => {
+		const generatedEvents: any[] = [];
 
-		startDate.setMinutes(startDate.getMinutes() + 30);
-		endDate.setMinutes(endDate.getMinutes() + 30);
+		events.forEach((event) => {
+			const startDate = new Date(event.eventStartDate);
+			const endDate = new Date(event.eventEndDate);
 
-		return {
-			...event,
-			eventStartDate: startDate.toISOString(),
-			eventEndDate: endDate.toISOString(),
-		};
-	});
+			const startDay = startDate.getDate();
+			const endDay = endDate.getDate();
+			const startMonth = startDate.getMonth();
+			const endMonth = endDate.getMonth();
 
-	const formatEventDate = (startDate: string, endDate: string) => {
-		const start = new Date(startDate);
-		const end = new Date(endDate);
+			if (startDay !== endDay || startMonth !== endMonth) {
+				let currentDate = new Date(startDate);
+				while (currentDate <= endDate) {
+					const startOfDay = new Date(currentDate);
+					startOfDay.setHours(0, 0, 0, 0);
+					const endOfDay = new Date(currentDate);
+					endOfDay.setHours(23, 59, 59, 999);
 
-		// Formatter pour les heures et minutes
-		const timeOptions: DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit', hour12: false };
-		// Formatter pour la date
-		const dateOptions: DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
+					if (currentDate.getDate() === startDate.getDate() && currentDate.getMonth() === startDate.getMonth()) {
+						startOfDay.setTime(startDate.getTime());
+						endOfDay.setHours(23, 59, 59, 999);
+					} else if (currentDate.getDate() === endDate.getDate() && currentDate.getMonth() === endDate.getMonth()) {
+						startOfDay.setHours(0, 0, 0, 0);
+						endOfDay.setTime(endDate.getTime());
+					}
 
-		// Extraire les dates et heures formatées
-		const startTime = start.toLocaleTimeString('fr-FR', timeOptions);
-		const endTime = end.toLocaleTimeString('fr-FR', timeOptions);
-		const startDateFormatted = start.toLocaleDateString('fr-FR', dateOptions);
-		const endDateFormatted = end.toLocaleDateString('fr-FR', dateOptions);
+					const isAllDay =
+						startOfDay.getHours() === 0 &&
+						startOfDay.getMinutes() === 0 &&
+						endOfDay.getHours() === 23 &&
+						endOfDay.getMinutes() === 59;
 
-		if (startDateFormatted === endDateFormatted) {
-			// Même jour
-			return `${startTime} à ${endTime}`;
-		} else {
-			// Jours différents
-			return `${startDateFormatted} à ${startTime} au ${endDateFormatted} à ${endTime}`;
-		}
+					generatedEvents.push({
+						title: event.title,
+						start: startOfDay,
+						end: endOfDay,
+						allDay: isAllDay,
+						color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
+					});
+
+					currentDate.setDate(currentDate.getDate() + 1);
+				}
+			} else {
+				const isAllDay =
+					startDate.getHours() === 0 &&
+					startDate.getMinutes() === 0 &&
+					endDate.getHours() === 23 &&
+					endDate.getMinutes() === 59;
+				generatedEvents.push({
+					title: event.title,
+					start: startDate,
+					end: endDate,
+					allDay: isAllDay,
+					color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
+				});
+			}
+		});
+		return generatedEvents;
 	};
-
-	events = updatedEvents;
 
 	return (
 		<div className="flex flex-col flex-grow h-full">
@@ -97,6 +137,8 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				locale={locale}
 				handleFilterChange={handleFilterChange}
 				filterItems={filterItems}
+				viewType={viewType}
+				setViewType={setViewType}
 			/>
 			<FullCalendar
 				viewClassNames={'rounded-lg border border-gray-300'}
@@ -106,14 +148,18 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				initialView={view}
 				locales={[frLocale, enLocale]}
 				locale={locale}
-				events={shownEvents.map((event) => {
-					return {
-						title: event.title,
-						start: event.eventStartDate,
-						color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
-						end: event.eventEndDate,
-					};
-				})}
+				events={
+					viewType === 'timeGridWeek'
+						? generateEventsForWeekView(shownEvents)
+						: shownEvents.map((event) => {
+								return {
+									title: event.title,
+									start: event.eventStartDate,
+									color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
+									end: event.eventEndDate,
+								};
+						  })
+				}
 				eventContent={(arg: EventContentArg) => {
 					return (
 						<div className="p-2 cursor-pointer w-full text-center">

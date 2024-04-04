@@ -1,25 +1,26 @@
 import { fetchWithSession, Method } from '@/lib/fetch-with-refresh';
-import { ApiResponse } from '@/models/api-response';
+import { ApiPaginatedResponse } from '@/models/api-paginated-response';
 import { User } from '@/models/user';
 import Constants from '@/utils/constants';
 
-export async function getUsers(): Promise<User[]> {
-	const response = await fetchWithSession(
-		`moderator/organizer?PageNumber=${1}&PageSize=${1000}`,
-		Method.GET,
-		null,
-		Constants.tags.users
-	);
+export async function getUsers(page?: number, pageSize?: number, search?: string): Promise<ApiPaginatedResponse<User>> {
+	let url = `moderator/organizer?PageNumber=${page ? page : 1}&PageSize=${pageSize ? pageSize : 1000}`;
+
+	if (search) {
+		url += `&search=${search}`;
+	}
+
+	const response = await fetchWithSession(url, Method.GET, null, Constants.tags.users);
 
 	if (!response.ok) {
 		throw new Error('Failed to fetch users');
 	}
 
-	const responseData: ApiResponse<User[]> = await response.json();
+	const responseData: ApiPaginatedResponse<User> = await response.json();
 
 	if (responseData.error) {
 		throw new Error('Error in response data');
 	}
 
-	return responseData.data;
+	return responseData;
 }

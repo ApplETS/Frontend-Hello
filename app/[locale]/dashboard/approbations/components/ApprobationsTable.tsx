@@ -31,7 +31,7 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedEvent, setSelectedEvent] = useState<HelloEvent | null>(null);
-	const [paginatedEvents, setPaginatedEvents] = useState<ApiPaginatedResponse>();
+	const [paginatedEvents, setPaginatedEvents] = useState<ApiPaginatedResponse<HelloEvent>>();
 	const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize, setPageSize] = useState(10);
 	const [orderBy, setOrderBy] = useState('');

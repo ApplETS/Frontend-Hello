@@ -2,9 +2,11 @@
 
 import React from 'react';
 import UsersTable from './components/UserTable';
-import { getUsers } from '@/lib/get-users';
 
-export default async function Approbations() {
-	const users = await getUsers();
-	return <UsersTable users={users} />;
+interface Props {
+	params: { locale: string };
+}
+
+export default async function Approbations({ params: { locale } }: Props) {
+	return <UsersTable locale={locale} />;
 }

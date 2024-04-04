@@ -38,7 +38,7 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const [modalType, setModalType] = useState(Constants.publicationModalStatus.create);
 	const [selectedPublication, setSelectedPublication] = useState<HelloEvent | null>(null);
-	const [paginatedEvents, setPaginatedEvents] = useState<ApiPaginatedResponse>();
+	const [paginatedEvents, setPaginatedEvents] = useState<ApiPaginatedResponse<HelloEvent>>();
 	const [currentPage, setCurrentPage] = useState(1);
 	const [pageSize, setPageSize] = useState(10);
 	const [orderBy, setOrderBy] = useState('');

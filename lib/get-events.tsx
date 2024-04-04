@@ -19,7 +19,7 @@ export async function getEvents(
 		throw new Error('Failed to fetch events');
 	}
 
-	const responseData: ApiPaginatedResponse = await response.json();
+	const responseData: ApiPaginatedResponse<HelloEvent> = await response.json();
 
 	if (responseData.error) {
 		throw new Error('Error in response data');

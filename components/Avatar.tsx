@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { useUser } from '@/utils/provider/UserProvider';
@@ -16,6 +18,7 @@ export default function Avatar({ size, textSize, color, userProfile }: Props) {
 	const user = userProfile ? userProfile : useUser().user;
 	const isModerator = user?.type == UserTypes.MODERATOR ?? false;
 
+	const [isLoading, setLoading] = useState(true);
 	const [usePlaceholder, setUsePlaceholder] = useState(false);
 
 	useEffect(() => {
@@ -23,13 +26,23 @@ export default function Avatar({ size, textSize, color, userProfile }: Props) {
 	}, [user]);
 
 	return (
-		<div className={`${size ? size : 'w-10'} rounded-full mask mask-circle`}>
+		<div className={`${size ? size : 'w-10 h-10'} rounded-full mask mask-circle`}>
 			{user?.avatarUrl && !usePlaceholder ? (
-				<img
-					alt="Avatar"
-					src={user.avatarUrl + '?ver=' + new Date().getTime()}
-					onError={() => setUsePlaceholder(true)}
-				/>
+				<>
+					<div
+						className={`skeleton ${size ? size : 'w-10 h-10'} ${!isLoading ? 'hidden' : 'block'} rounded-full shrink-0`}
+					></div>
+					<img
+						alt="Avatar"
+						className={`${isLoading ? 'hidden' : 'block'}`}
+						src={user.avatarUrl + '?ver=' + new Date().getTime()}
+						onError={() => {
+							setUsePlaceholder(true);
+							setLoading(false);
+						}}
+						onLoad={() => setLoading(false)}
+					/>
+				</>
 			) : (
 				<div className="avatar placeholder">
 					<div

@@ -4,7 +4,12 @@ import { User } from '@/models/user';
 import Constants from '@/utils/constants';
 
 export async function getUsers(): Promise<User[]> {
-	const response = await fetchWithSession(`moderator/organizer`, Method.GET, null, Constants.tags.users);
+	const response = await fetchWithSession(
+		`moderator/organizer?PageNumber=${1}&PageSize=${1000}`,
+		Method.GET,
+		null,
+		Constants.tags.users
+	);
 
 	if (!response.ok) {
 		throw new Error('Failed to fetch users');

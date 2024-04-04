@@ -218,7 +218,8 @@
 		"save": "Save",
 		"cancel": "Cancel",
 		"field-required": "A {field} is required",
-		"error-loading-news": "An error occured while loading the news"
+		"error-loading-news": "An error occured while loading the news",
+		"no-results-message": "No results found"
 	},
 	"Accounts": {
 		"title": "Accounts",

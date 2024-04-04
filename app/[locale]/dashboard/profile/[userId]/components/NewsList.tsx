@@ -169,9 +169,15 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 						<EventCard event={event} locale={locale} />
 					</div>
 				))}
-				{isLoading && Array.from({ length: 3 }).map((_, index) => <Skeleton />)}
+				{isLoading && Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} />)}
 			</div>
-
+	
+			{!isLoading && filteredPublications.length === 0 && (
+				<div className="text-center my-10">
+					{t('no-results-message')}
+				</div>
+			)}
+	
 			{showScrollTopButton && (
 				<button
 					onClick={scrollToTop}
@@ -182,5 +188,5 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 				</button>
 			)}
 		</div>
-	);
+	);	
 }

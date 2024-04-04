@@ -77,7 +77,8 @@
 		"save": "Save"
 	},
 	"NewsPage": {
-		"view-profile": "View profile"
+		"view-profile": "View profile",
+		"no-events-message": "No events found"
 	},
 	"Publications": {
 		"title": "Publications",
@@ -242,7 +243,6 @@
 		"filters": {
 			"all": "All",
 			"deactivated": "Deactivated",
-			"pending": "Pending",
 			"active": "Activated"
 		},
 		"menu": {

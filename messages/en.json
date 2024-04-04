@@ -243,7 +243,6 @@
 		"filters": {
 			"all": "All",
 			"deactivated": "Deactivated",
-			"pending": "Pending",
 			"active": "Activated"
 		},
 		"menu": {

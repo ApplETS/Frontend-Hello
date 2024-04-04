@@ -242,7 +242,6 @@
 		"filters": {
 			"all": "Tous",
 			"deactivated": "Désactivé",
-			"pending": "En attente",
 			"active": "Activé"
 		},
 		"menu": {

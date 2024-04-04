@@ -11,9 +11,18 @@ interface Props {
 	color?: string;
 	textSize?: string;
 	userProfile?: User | null;
+	usePlaceholderExtra?: boolean;
+	setUsePlaceholderExtra?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Avatar({ size, textSize, color, userProfile }: Props) {
+export default function Avatar({
+	size,
+	textSize,
+	color,
+	userProfile,
+	usePlaceholderExtra,
+	setUsePlaceholderExtra,
+}: Props) {
 	const { isLight } = useTheme();
 	const user = userProfile ? userProfile : useUser().user;
 	const isModerator = user?.type == UserTypes.MODERATOR ?? false;
@@ -24,10 +33,9 @@ export default function Avatar({ size, textSize, color, userProfile }: Props) {
 	useEffect(() => {
 		setUsePlaceholder(false);
 	}, [user]);
-
 	return (
 		<div className={`${size ? size : 'w-10 h-10'} rounded-full mask mask-circle`}>
-			{user?.avatarUrl && !usePlaceholder ? (
+			{user?.avatarUrl && (usePlaceholderExtra ? !usePlaceholderExtra : !usePlaceholder) ? (
 				<>
 					<div
 						className={`skeleton ${size ? size : 'w-10 h-10'} ${!isLoading ? 'hidden' : 'block'} rounded-full shrink-0`}
@@ -37,7 +45,11 @@ export default function Avatar({ size, textSize, color, userProfile }: Props) {
 						className={`${isLoading ? 'hidden' : 'block'}`}
 						src={user.avatarUrl + '?ver=' + new Date().getTime()}
 						onError={() => {
-							setUsePlaceholder(true);
+							if (setUsePlaceholderExtra) {
+								setUsePlaceholderExtra(true);
+							} else if (setUsePlaceholder) {
+								setUsePlaceholder(true);
+							}
 							setLoading(false);
 						}}
 						onLoad={() => setLoading(false)}

@@ -1,8 +1,9 @@
 'use client';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Dropzone from '@/components/Dropzone';
 import Avatar from '@/components/Avatar';
 import Cropper, { Area } from 'react-easy-crop';
+import { User } from '@/models/user';
 
 interface Props {
 	dropzoneText: string;
@@ -12,6 +13,7 @@ interface Props {
 	setImage: Dispatch<SetStateAction<string | null>>;
 	rotation: number;
 	setRotation: Dispatch<SetStateAction<number>>;
+	user: User | undefined;
 }
 
 export default function ProfilePicture({
@@ -22,9 +24,15 @@ export default function ProfilePicture({
 	setImage,
 	rotation,
 	setRotation,
+	user,
 }: Props) {
 	const [crop, setCrop] = useState({ x: 0, y: 0 });
 	const [zoom, setZoom] = useState(1);
+	const [usePlaceholder, setUsePlaceholder] = useState(false);
+
+	useEffect(() => {
+		setUsePlaceholder(false);
+	}, [user]);
 
 	const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
 		setCroppedAreaPixels(croppedAreaPixels);
@@ -40,6 +48,7 @@ export default function ProfilePicture({
 
 	const handleDeletePicture = () => {
 		setImage(null);
+		setUsePlaceholder(true);
 	};
 
 	return (
@@ -65,12 +74,18 @@ export default function ProfilePicture({
 				</div>
 			) : (
 				<div className="avatar">
-					<Avatar size="w-36 h-36" textSize="text-5xl" color="bg-base-300" />
+					<Avatar
+						size="w-36 h-36"
+						textSize="text-5xl"
+						color="bg-base-300"
+						usePlaceholderExtra={usePlaceholder}
+						setUsePlaceholderExtra={setUsePlaceholder}
+					/>
 				</div>
 			)}
 			<div className="flex flex-col gap-2 col-span-2">
 				<Dropzone title={dropzoneText} onFileDrop={handleFileDrop} />
-				{image && (
+				{(image || !usePlaceholder) && (
 					<button
 						type="button"
 						className="btn btn-error bg-inherit text-error hover:text-white rounded-md"

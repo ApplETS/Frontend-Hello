@@ -80,6 +80,7 @@ export default function ProfileClient() {
 						setImage={setImage}
 						rotation={rotation}
 						setRotation={setRotation}
+						user={user}
 					/>
 					<div className="col-span-3" />
 					{isOrganizer && (

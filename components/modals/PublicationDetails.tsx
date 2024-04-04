@@ -10,7 +10,6 @@ import dynamic from 'next/dynamic';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { AlertType } from '../Alert';
 import Preview from './Preview';
-import { HelloEvent } from '@/models/hello-event';
 import { createPublication } from '@/lib/publications/actions/create-publication';
 import { Tag } from '@/models/tag';
 import { updatePublication } from '@/lib/publications/actions/update-publication';
@@ -24,13 +23,14 @@ import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
 import Modal from './Modal';
 import { draftAPublication } from '@/lib/publications/actions/draft-publication';
 import ImageCropper from '../ImageCropper';
+import { DraftEvent } from '@/models/draft-event';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
 interface PublicationDetailsProps {
 	locale: string;
 	modalMode: Number;
-	publication: HelloEvent | null;
+	publication: DraftEvent | null;
 	tags: Tag[];
 	onClose: () => void;
 }
@@ -48,9 +48,9 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 	const [imageBinary, setImageBinary] = useState<Blob>();
 	const [imageAltText, setImageAltText] = useState(publication?.imageAltText || '');
 	const [content, setContent] = useState(publication?.content || '');
-	const [eventStartDate, setEventStartDate] = useState(publication?.eventStartDate.slice(0, 16) || '');
-	const [eventEndDate, setEventEndDate] = useState(publication?.eventEndDate.slice(0, 16) || '');
-	const [publishedDate, setPublishedDate] = useState(publication?.publicationDate.slice(0, 10) || '');
+	const [eventStartDate, setEventStartDate] = useState(publication?.eventStartDate?.slice(0, 16) || '');
+	const [eventEndDate, setEventEndDate] = useState(publication?.eventEndDate?.slice(0, 16) || '');
+	const [publishedDate, setPublishedDate] = useState(publication?.publicationDate?.slice(0, 10) || '');
 	const [selectedTags, setSelectedTags] = useState(publication?.tags || []);
 	const [availableTags, setAvailableTags] = useState(tags);
 
@@ -263,7 +263,6 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 	const handleDraft = async () => {
 		const formData = new FormData();
-		formData.append('isDraft', 'true');
 		const updatedFormData = updateFormData(formData);
 
 		startTransition(async () => {

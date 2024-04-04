@@ -20,7 +20,7 @@ export async function fetchWithSession(
 ) {
 	// Get the current session, refreshes it if it's expired
 	const session = await getSession();
-
+	console.log(session);
 	const fetchOptions: RequestInit = {
 		method:
 			method !== Method.POSTFORM && method !== Method.PATCHFORM

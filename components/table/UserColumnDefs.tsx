@@ -1,10 +1,12 @@
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 import { User } from '@/models/user';
-import { useTranslations } from 'next-intl';
 
 const columnHelper = createColumnHelper<User>();
 
-export const createUserColumnDefs = (t: (key: string) => string, locale: string): ColumnDef<User, any>[] => {
+export const createUserColumnDefs = (
+	t: (key: string) => string,
+	handleUserSelection: (user: User) => void
+): ColumnDef<User, any>[] => {
 	return [
 		columnHelper.accessor('isActive', {
 			id: 'User.IsActive',
@@ -34,7 +36,10 @@ export const createUserColumnDefs = (t: (key: string) => string, locale: string)
 			id: 'actions',
 			header: () => t('table.actions'),
 			cell: (info) => (
-				<button className={`btn ${info.row.original.isActive ? 'btn-error' : 'btn-success'}`}>
+				<button
+					className={`btn ${info.row.original.isActive ? 'btn-error' : 'btn-success'}`}
+					onClick={() => handleUserSelection(info.row.original)}
+				>
 					{info.row.original.isActive ? t('menu.deactivate') : t('menu.activate')}
 				</button>
 			),

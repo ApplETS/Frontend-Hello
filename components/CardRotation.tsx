@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react';
 import { HelloEvent } from '@/models/hello-event';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useTheme } from '@/utils/provider/ThemeProvider';
 import EventDateAndImage from './EventDateAndImage';
 import Constants from '@/utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -38,7 +37,6 @@ const cardVariants = {
 
 export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: Props) => {
 	const t = useTranslations('NewsPage');
-	const { isLight } = useTheme();
 	const router = useRouter();
 	const [{ startY, startScrollTop, isDragging }, setDragStart] = useState({
 		startY: undefined as any,
@@ -150,79 +148,85 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 				}}
 				ref={containerRef}
 			>
-				{events.map((event, i) => (
-					<motion.div
-						className="card relative block items-center h-fit w-4/5 my-7 mx-auto rounded-md cursor-pointer"
-						key={event.cardId}
-						ref={(el) => cardRefs.current.push(el)}
-						onMouseUp={(e) => handleCardMouseUp(e, event.cardId)}
-						variants={cardVariants}
-						animate={selectedCard === event.cardId ? 'selected' : 'notSelected'}
-						custom={selectedCard ? selectedCard - (event.cardId ?? 0) : 0}
-					>
-						<div className="flex flex-col justify-around bg-base-200 rounded-3xl h-full">
-							<div className="card justify-center w-full rounded-lg bg-base-200">
-								<div className="flex flex-row justify-between">
-									<div className="text-xl font-bold px-4 pt-4 overflow-hidden line-clamp-3">
-										<div className="mb-2">{event.title}</div>
+				{events.length > 0 ? (
+					events.map((event, i) => (
+						<motion.div
+							className="card relative block items-center h-fit w-4/5 my-7 mx-auto rounded-md cursor-pointer"
+							key={event.cardId}
+							ref={(el) => cardRefs.current.push(el)}
+							onMouseUp={(e) => handleCardMouseUp(e, event.cardId)}
+							variants={cardVariants}
+							animate={selectedCard === event.cardId ? 'selected' : 'notSelected'}
+							custom={selectedCard ? selectedCard - (event.cardId ?? 0) : 0}
+						>
+							<div className="flex flex-col justify-around bg-base-200 rounded-3xl h-full">
+								<div className="card justify-center w-full rounded-lg bg-base-200">
+									<div className="flex flex-row justify-between">
+										<div className="text-xl font-bold px-4 pt-4 overflow-hidden line-clamp-3">
+											<div className="mb-2">{event.title}</div>
+										</div>
+										{selectedCard === event.cardId ? (
+											<FontAwesomeIcon icon={faDownLeftAndUpRightToCenter} className="text-lg p-4" />
+										) : (
+											<FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} className="text-lg p-4" />
+										)}
 									</div>
-									{selectedCard === event.cardId ? (
-										<FontAwesomeIcon icon={faDownLeftAndUpRightToCenter} className="text-lg p-4" />
-									) : (
-										<FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} className="text-lg p-4" />
+								</div>
+								<EventDateAndImage
+									eventStartDate={event.eventStartDate}
+									eventEndDate={event.eventEndDate}
+									imageUrl={event.imageUrl}
+									locale={locale}
+								/>
+								<div className="flex flex-row gap-2 px-6 py-2 items-center">
+									<div className="avatar">
+										<Avatar userProfile={event.organizer} size="w-14" textSize="text-2xl" />
+									</div>
+									<div className="flex flex-col pt-2 pl-2">
+										<p className="text-base font-bold">{event.organizer?.organization ?? 'Organisateur'}</p>
+										<p className="text-xs text-secondary">{event.organizer?.activityArea}</p>
+									</div>
+									{selectedCard === event.cardId && (
+										<button
+											className="font-normal ml-auto btn btn-primary"
+											onClick={(e) => handleViewProfileClick(e, `/fr/dashboard/profile/${event.organizer?.id}`)}
+										>
+											{t('view-profile')}
+										</button>
 									)}
 								</div>
-							</div>
-							<EventDateAndImage
-								eventStartDate={event.eventStartDate}
-								eventEndDate={event.eventEndDate}
-								imageUrl={event.imageUrl}
-								locale={locale}
-							/>
-							<div className="flex flex-row gap-2 px-6 py-2 items-center">
-								<div className="avatar">
-									<Avatar userProfile={event.organizer} size="w-14" textSize="text-2xl" />
-								</div>
-								<div className="flex flex-col pt-2 pl-2">
-									<p className="text-base font-bold">{event.organizer?.organization ?? 'Organisateur'}</p>
-									<p className="text-xs text-secondary">{event.organizer?.activityArea}</p>
-								</div>
+
 								{selectedCard === event.cardId && (
-									<button
-										className="font-normal ml-auto btn btn-primary"
-										onClick={(e) => handleViewProfileClick(e, `/fr/dashboard/profile/${event.organizer?.id}`)}
-									>
-										{t('view-profile')}
-									</button>
+									<>
+										<div
+											className={`text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto h-44 ${
+												event.tags.length > 0 ? 'mb-2' : 'mb-4'
+											}`}
+										>
+											<Markdown className={`${style.reactMarkDown} p-2`}>{event.content}</Markdown>
+										</div>
+										{event.tags.length > 0 && (
+											<div className="flex flex-wrap gap-2 self-start w-full px-6 mb-6">
+												{event.tags.map((tag, index) => (
+													<div
+														key={tag.id}
+														className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
+													>
+														{tag.name}
+													</div>
+												))}
+											</div>
+										)}
+									</>
 								)}
 							</div>
-
-							{selectedCard === event.cardId && (
-								<>
-									<div
-										className={`text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto h-44 ${
-											event.tags.length > 0 ? 'mb-2' : 'mb-4'
-										}`}
-									>
-										<Markdown className={`${style.reactMarkDown} p-2`}>{event.content}</Markdown>
-									</div>
-									{event.tags.length > 0 && (
-										<div className="flex flex-wrap gap-2 self-start w-full px-6 mb-6">
-											{event.tags.map((tag, index) => (
-												<div
-													key={tag.id}
-													className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
-												>
-													{tag.name}
-												</div>
-											))}
-										</div>
-									)}
-								</>
-							)}
-						</div>
-					</motion.div>
-				))}
+						</motion.div>
+					))
+				) : (
+					<div className="flex items-center justify-center h-full">
+						<div className="text-center">{t('no-events-message')} </div>
+					</div>
+				)}
 			</div>
 		</div>
 	);

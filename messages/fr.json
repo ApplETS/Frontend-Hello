@@ -76,7 +76,8 @@
 		"save": "Enregistrer"
 	},
 	"NewsPage": {
-		"view-profile": "Voir le profil"
+		"view-profile": "Voir le profil",
+		"no-events-message": "Aucune publication trouvée"
 	},
 	"Publications": {
 		"title": "Publications",

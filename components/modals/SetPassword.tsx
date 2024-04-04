@@ -90,7 +90,8 @@ export default function SetPassword() {
 							</div>
 						</div>
 
-						<div className="flex justify-end mt-7">
+						<div className="divider my-1"></div>
+						<div className="flex justify-end">
 							<button className={`btn btn-success text-black`} type="submit">
 								{t('save')}
 							</button>

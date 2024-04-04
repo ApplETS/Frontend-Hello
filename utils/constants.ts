@@ -41,7 +41,6 @@ export default {
 	},
 	userStatuses: {
 		[UserStates.ALL]: { color: 'bg-orange', label: 'all' },
-		[UserStates.PENDING]: { color: 'bg-pink', label: 'pending' },
 		[UserStates.ACTIVATED]: { color: 'bg-green', label: 'active' },
 		[UserStates.DEACTIVATED]: { color: 'bg-error', label: 'deactivated' },
 	} as Statuses,

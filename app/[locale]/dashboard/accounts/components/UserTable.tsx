@@ -27,7 +27,9 @@ export default function UsersTable({ users }: Props) {
 	const [searchTerm, setSearchTerm] = useState('');
 	const { setToast } = useToast();
 
-	const filters = Object.values(Constants.userStatuses).map((status) => t(`filters.${status.label}`));
+	const filters = Object.values(Constants.userStatuses)
+		.map((status) => t(`filters.${status.label}`))
+		.sort((a, b) => b.localeCompare(a));
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const toggleModal = () => setIsModalOpen(!isModalOpen);

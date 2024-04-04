@@ -61,7 +61,7 @@ const Table = <T,>({
 					<tr className="text-base-content text-base font-bold">
 						{headers.map((header) => {
 							const direction = header.column.columnDef.id === orderBy ? orderByDesc : null;
-							let icon = header.column.columnDef.id != 'open' ? faCaretDown : null;
+							let icon = header.column.columnDef.meta ? faCaretDown : null;
 
 							if (direction != null) {
 								icon = direction ? faCaretDown : faCaretUp;
@@ -72,9 +72,11 @@ const Table = <T,>({
 									{header.isPlaceholder ? null : (
 										<div
 											onClick={() => {
-												onOrderChange(header.column.columnDef.id);
+												if (header.column.columnDef.meta) {
+													onOrderChange(header.column.columnDef.id);
+												}
 											}}
-											className={`cursor-pointer flex gap-4 items-center ${
+											className={`${header.column.columnDef.meta && 'cursor-pointer'} flex gap-4 items-center ${
 												direction != null ? 'text-base-content' : 'text-base-content/50'
 											}`}
 										>

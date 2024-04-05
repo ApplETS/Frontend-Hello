@@ -12,6 +12,7 @@ import { useToast } from '@/utils/provider/ToastProvider';
 import { toggleUserIsActive } from '@/lib/users/actions/toggle';
 import { UserStates } from '@/models/user-states';
 import Confirmation from '@/components/modals/Confirmation';
+import Avatar from '@/components/Avatar';
 
 type Props = {
 	users: User[];
@@ -159,7 +160,18 @@ export default function UsersTable({ users }: Props) {
 												{!user.isActive && t('table.no')}
 											</div>
 										</td>
-										<td>{user.organization ?? '-'}</td>
+										<td>
+											<div className="text-base flex items-center space-x-2">
+												{user.avatarUrl ?? (
+													<div className="avatar mr-3">
+														<Avatar userProfile={user} size="w-10 h-10" textSize="text-xl" color="bg-base-300" />
+													</div>
+												)}
+												<div>
+													<div>{user.organization ?? '-'}</div>
+												</div>
+											</div>
+										</td>
 										<td>{user.email}</td>
 										<td>{user.activityArea ?? '-'}</td>
 										<td>

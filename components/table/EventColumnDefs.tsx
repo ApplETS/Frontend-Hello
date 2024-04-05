@@ -29,7 +29,9 @@ export const createEventColumnDefs = (
 		}),
 		columnHelper.accessor(
 			(row) =>
-				`${formatDate(new Date(row.eventStartDate), locale)} - ${formatDate(new Date(row.eventEndDate), locale)}`,
+				`${formatDate(new Date(row.eventStartDate), locale)} ${
+					new Date(row.eventEndDate).getFullYear() != 1969 ? '- ' + formatDate(new Date(row.eventEndDate), locale) : ''
+				}`,
 			{
 				id: 'EventStartDate',
 				meta: 'num',

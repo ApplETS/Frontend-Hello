@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, MutableRefObject } from 'react';
 import {
 	MDXEditor,
 	UndoRedo,
@@ -9,10 +9,10 @@ import {
 	BoldItalicUnderlineToggles,
 	CreateLink,
 	Separator,
-	linkDialogPlugin,
 	MDXEditorMethods,
 } from '@mdxeditor/editor';
 import { useTheme } from '@/utils/provider/ThemeProvider';
+import { useTranslations } from 'next-intl';
 
 interface EditorProps {
 	markdown: string;
@@ -34,17 +34,32 @@ const Editor: FC<EditorProps> = ({ markdown, editorRef, onContentChange }) => {
 							<Separator />
 							<BoldItalicUnderlineToggles />
 							<Separator />
-							<CreateLink />
+							<CustomCreateLink editorRef={editorRef} />
 						</>
 					),
 				}),
 				linkPlugin(),
-				linkDialogPlugin(),
 			]}
 			ref={editorRef}
 			markdown={markdown}
-			onChange={(newMarkdown) => onContentChange?.(newMarkdown)}
+			onChange={(newMarkdown) => {
+				onContentChange?.(newMarkdown);
+				editorRef?.current?.setMarkdown(newMarkdown);
+			}}
 		/>
+	);
+};
+
+const CustomCreateLink = ({ editorRef }: { editorRef: MutableRefObject<MDXEditorMethods | null> | undefined }) => {
+	const t = useTranslations('MDXEditor');
+	const handleCreateLink = () => {
+		editorRef?.current?.insertMarkdown(`\\\[${t('link-text')}]\\\(${t('link-url')})`);
+	};
+
+	return (
+		<div onClick={handleCreateLink}>
+			<CreateLink />
+		</div>
 	);
 };
 

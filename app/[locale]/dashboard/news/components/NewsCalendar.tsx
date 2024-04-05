@@ -57,7 +57,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 
 	const calendarRef = createRef<FullCalendar>();
 
-	const colors = ['#06B6D4', '#64C788', '#EA7CB7', '#E7A455'];
+	const colors = ['#E7A455', '#EA7CB7', '#06B6D4', '#64C788', '#EA7CB7', '#848BDB'];
 
 	const sliceEventsByDay = (events: HelloEvent[]): HelloEvent[] => {
 		const slicedEvents: HelloEvent[] = [];

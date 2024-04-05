@@ -43,6 +43,12 @@ export default function ProfileClient({ organizer, locale }: Props) {
 		setAskEmailModal(false);
 	};
 
+	const getGridColsClass = (numItems: number) => {
+		const maxItemsPerLine = 4;
+		const numCols = Math.min(numItems, maxItemsPerLine);
+		return `grid-cols-${numCols}`;
+	};
+
 	return (
 		<div className="w-full h-full overflow-auto">
 			<div className="flex flex-row gap-8 h-full overflow-auto">
@@ -114,8 +120,8 @@ export default function ProfileClient({ organizer, locale }: Props) {
 							</div>
 						</div>
 
-						<div className="flex mt-2">
-							<div className="grid grid-cols-5 gap-3 w-full">
+						<div className="flex mt-2 justify-center">
+							<div className={`grid gap-3 w-full ${getGridColsClass(organizer.socials.length)}`}>
 								{organizer.socials &&
 									organizer.socials.map((social, index) => (
 										<a href={social.link} target="_blank" rel="noopener noreferrer" key={index} className="avatar">

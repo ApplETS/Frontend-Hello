@@ -84,6 +84,10 @@
 	animation: animateOut 0.3s ease 0.15s both;
 }
 
+.dropdown-z {
+	z-index: 51;
+}
+
 .btn-primary.text-black {
 	color: black !important;
 }

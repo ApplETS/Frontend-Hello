@@ -79,7 +79,7 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 						<Avatar />
 					</div>
 					{isDropdownOpen && (
-						<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-box w-max">
+						<ul tabIndex={0} className="dropdown-content dropdown-z menu p-2 shadow bg-base-300 rounded-box w-max">
 							<li className="pointer-events-none">
 								<div className="flex flex-row pl-2">
 									<Avatar />

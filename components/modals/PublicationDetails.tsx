@@ -24,7 +24,7 @@ import Modal from './Modal';
 import { draftAPublication } from '@/lib/publications/actions/draft-publication';
 import ImageCropper from '../ImageCropper';
 import { DraftEvent } from '@/models/draft-event';
-import { getActivityAreaName } from '@/models/activity-area';
+import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -34,9 +34,17 @@ interface PublicationDetailsProps {
 	publication: DraftEvent | null;
 	tags: Tag[];
 	onClose: () => void;
+	activityAreas: ActivityArea[];
 }
 
-export default function PublicationDetails({ locale, publication, modalMode, tags, onClose }: PublicationDetailsProps) {
+export default function PublicationDetails({
+	locale,
+	publication,
+	modalMode,
+	tags,
+	onClose,
+	activityAreas,
+}: PublicationDetailsProps) {
 	const t = useTranslations('Publications');
 	const ta = useTranslations('Approbations');
 	const { isLight } = useTheme();
@@ -57,6 +65,13 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 	const [rejectReason, setRejectReason] = useState('');
 	const [deactivateReason, setDeactivateReason] = useState('');
+
+	const items = activityAreas.map((activityArea) => {
+		return {
+			title: getActivityAreaName(activityArea, locale),
+			value: activityArea.id,
+		};
+	});
 
 	const isDisabled =
 		modalMode === Constants.publicationModalStatus.view ||
@@ -374,12 +389,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 												<label className="block mt-3">{t('modal.activity-area')}</label>
 												<div style={{ pointerEvents: 'none', opacity: 0.5 }}>
 													<ActivityAreaDropdown
-														items={[
-															{ title: t('modal.activity-area-items.scientificClub') },
-															{ title: t('modal.activity-area-items.ets') },
-															{ title: t('modal.activity-area-items.sve') },
-															{ title: t('modal.activity-area-items.aeets') },
-														]}
+														items={items}
 														inputName="activity"
 														onItemChange={() => {}}
 														customStyle="w-full"

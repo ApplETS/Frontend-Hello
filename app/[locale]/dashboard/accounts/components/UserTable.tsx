@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Dropdown from '@/components/Dropdown';
 import Search from '@/components/Search';
 import Constants from '@/utils/constants';
@@ -13,12 +13,15 @@ import { toggleUserIsActive } from '@/lib/users/actions/toggle';
 import { UserStates } from '@/models/user-states';
 import Confirmation from '@/components/modals/Confirmation';
 import Avatar from '@/components/Avatar';
+import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 
 type Props = {
 	users: User[];
+	locale: string;
+	activityAreas: ActivityArea[];
 };
 
-export default function UsersTable({ users }: Props) {
+export default function UsersTable({ users, locale, activityAreas }: Props) {
 	const t = useTranslations('Accounts');
 
 	const filterAll = t('filters.all').toLowerCase();
@@ -72,19 +75,6 @@ export default function UsersTable({ users }: Props) {
 		}
 		closeUserSelection();
 	};
-
-	useEffect(() => {
-		const filtered = users.filter(
-			(user) =>
-				(t(`filters.${Constants.userStatuses[getUserState(user)]?.label}`).toLowerCase() === selectedFilter ||
-					selectedFilter === filterAll) &&
-				(searchTerm === '' ||
-					user.organization?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-					user.activityArea?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-					user.email?.toLowerCase().includes(searchTerm.toLowerCase()))
-		);
-		setFilteredUsers(filtered);
-	}, [selectedFilter, searchTerm, users]);
 
 	const handleFilterChanged = (filterIndex: number) => {
 		setSelectedFilter(filters[filterIndex].toLowerCase());
@@ -173,7 +163,7 @@ export default function UsersTable({ users }: Props) {
 											</div>
 										</td>
 										<td>{user.email}</td>
-										<td>{user.activityArea ?? '-'}</td>
+										<td>{user.activityArea ? getActivityAreaName(user.activityArea, locale) : '-'}</td>
 										<td>
 											<button
 												className={`font-normal btn w-28 ${user.isActive ? ' btn-error' : 'btn-success'}`}
@@ -188,7 +178,14 @@ export default function UsersTable({ users }: Props) {
 						</table>
 					</div>
 				)}
-				{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
+				{isModalOpen && (
+					<UserCreationModal
+						onClose={toggleModal}
+						onCreate={handleUserCreation}
+						activityAreas={activityAreas}
+						locale={locale}
+					/>
+				)}
 				{deactivationModalOpen && (
 					<Confirmation
 						title={

@@ -5,9 +5,13 @@ import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props {
-	items: { title: string; onClick?: () => void }[];
+	items: { title: string; onClick?: () => void; value?: string }[];
 	inputName?: string;
-	defaultItem?: { title: string; onClick?: () => void };
+	defaultItem?: {
+		title: string;
+		onClick?: () => void;
+		value?: string;
+	};
 	defaultItemTheme?: { title: string; onClick?: () => void };
 	customStyle?: string;
 	onItemChange?: (item: string) => void;
@@ -69,7 +73,7 @@ export default function ActivityAreaDropdown({
 					))}
 				</ul>
 			)}
-			<input type="hidden" name={inputName} value={selectedValue.title} />
+			<input type="hidden" name={inputName} value={selectedValue.value ? selectedValue.value : selectedValue.title} />
 		</div>
 	);
 }

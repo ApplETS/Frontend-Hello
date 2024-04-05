@@ -3,8 +3,15 @@
 import React from 'react';
 import UsersTable from './components/UserTable';
 import { getUsers } from '@/lib/get-users';
+import { getActivityAreas } from '@/lib/get-activity-areas';
 
-export default async function Approbations() {
+interface Props {
+	params: { locale: string };
+}
+
+export default async function Approbations({ params: { locale } }: Props) {
 	const users = await getUsers();
-	return <UsersTable users={users} />;
+	const activityAreas = await getActivityAreas();
+
+	return <UsersTable users={users} locale={locale} activityAreas={activityAreas} />;
 }

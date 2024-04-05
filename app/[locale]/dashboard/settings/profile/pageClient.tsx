@@ -39,6 +39,7 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 	const items = activityAreas.map((activityArea) => {
 		return {
 			title: getActivityAreaName(activityArea, locale),
+			value: activityArea.id,
 		};
 	});
 

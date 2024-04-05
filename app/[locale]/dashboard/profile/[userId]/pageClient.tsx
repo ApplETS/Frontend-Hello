@@ -16,6 +16,7 @@ import { ToastDelay, useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
 import Avatar from '@/components/Avatar';
 import NewsList from './components/NewsList';
+import { getActivityAreaName } from '@/models/activity-area';
 
 type Props = {
 	organizer: Organizer;
@@ -58,7 +59,9 @@ export default function ProfileClient({ organizer, locale }: Props) {
 							<Avatar userProfile={organizer} size="w-40 h-40" color="bg-base-300" textSize="text-7xl" />
 						</div>
 						<p className="text-xl font-bold">{organizer.organization}</p>
-						<h4 className="mb-2 text-sm text-secondary">{organizer.activityArea}</h4>
+						<h4 className="mb-2 text-sm text-secondary">
+							{organizer.activityArea ? getActivityAreaName(organizer.activityArea, locale) : ''}
+						</h4>
 						<p className="text-sm mb-4 text-center">{organizer.profileDescription}</p>
 						<div className="flex items-center mb-2">
 							<button className="btn font-normal btn-accent w-64" onClick={() => setAskEmailModal(true)}>

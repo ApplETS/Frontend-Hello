@@ -16,14 +16,16 @@ import LoadingSpinner from '@/components/modals/LoadingSpinner';
 import { getNextEventsModerator } from '@/app/actions/get-next-events-moderator';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
+import { ActivityArea } from '@/models/activity-area';
 
 type Props = {
 	locale: string;
 	tags: Tag[];
 	id?: string;
+	activityAreas: ActivityArea[];
 };
 
-export default function ApprobationsTable({ locale, tags, id }: Props) {
+export default function ApprobationsTable({ locale, tags, id, activityAreas }: Props) {
 	const t = useTranslations('Approbations');
 
 	const statusKeys = Object.keys(Constants.newsStatuses);
@@ -128,6 +130,7 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 					}}
 					modalMode={Constants.publicationModalStatus.moderator}
 					tags={tags}
+					activityAreas={activityAreas}
 				/>
 			)}
 			<div className="mb-4 flex items-center space-x-4">

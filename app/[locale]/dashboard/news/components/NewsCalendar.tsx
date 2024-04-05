@@ -14,11 +14,13 @@ import { createRef, useEffect, useState } from 'react';
 import { CalendarHeader } from './NewsCalendarHeader';
 import EventContainer from './EventContainer';
 import { useTheme } from '@/utils/provider/ThemeProvider';
+import { ActivityArea } from '@/models/activity-area';
 
 interface Props {
 	events: HelloEvent[];
 	locale: string;
 	handleEventSelect: (cardId: number | null) => void;
+	activityAreas: ActivityArea[];
 }
 
 export interface CalendarEvent {
@@ -34,7 +36,7 @@ export interface CalendarEvent {
 	};
 }
 
-export default function NewsCalendar({ events, locale, handleEventSelect }: Props) {
+export default function NewsCalendar({ events, locale, handleEventSelect, activityAreas }: Props) {
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>([]);
 	const [viewType, setViewType] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>('dayGridMonth');
 	const [openMoreModal, setOpenMoreModal] = useState<string | null>(null);
@@ -43,13 +45,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 
 	const calendarRef = createRef<FullCalendar>();
 
-	// TODO : Will need to get from backend
-	const filterItems = [
-		{ id: 0, name: 'Club scientifique', color: '#06B6D4' },
-		{ id: 1, name: 'ETS', color: '#64C788' },
-		{ id: 2, name: 'Service à la vie étudiante', color: '#EA7CB7' },
-		{ id: 3, name: 'AEETS', color: '#E7A455' },
-	];
+	const colors = ['#06B6D4', '#64C788', '#EA7CB7', '#E7A455'];
 
 	const sliceEventsByDay = (events: HelloEvent[]): HelloEvent[] => {
 		const slicedEvents: HelloEvent[] = [];
@@ -122,17 +118,12 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 	}, []);
 
 	const handleFilterChange = (selectedIndices: number[]) => {
-		if (selectedIndices.length !== 0) {
-			setShownEvents(
-				events.filter((event) => {
-					const selectedItems = selectedIndices.map((index) => filterItems[index].name);
-					return selectedItems.includes(event.organizer?.activityArea ?? '');
-				})
-			);
-		} else {
-			setShownEvents(events);
-		}
+		// TODO
 	};
+
+	function getColorForActivityArea(colors: string[], event: HelloEvent) {
+		return colors[activityAreas.findIndex((activityArea) => activityArea.id == event.organizer?.activityArea?.id)];
+	}
 
 	const generateEventsForWeekView = (events: HelloEvent[]) => {
 		const generatedEvents: any[] = [];
@@ -173,7 +164,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 						start: startOfDay,
 						end: endOfDay,
 						allDay: isAllDay,
-						color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
+						color: getColorForActivityArea(colors, event),
 					});
 
 					currentDate.setDate(currentDate.getDate() + 1);
@@ -189,7 +180,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 					start: startDate,
 					end: endDate,
 					allDay: isAllDay,
-					color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
+					color: getColorForActivityArea(colors, event),
 				});
 			}
 		});
@@ -214,7 +205,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 								title: firstEvent.title,
 								start: firstEvent.eventStartDate,
 								end: firstEvent.eventEndDate,
-								color: filterItems.find((item) => item.name === firstEvent.organizer?.activityArea)?.color,
+								color: getColorForActivityArea(colors, firstEvent),
 							},
 						];
 						if (additionalEvents.length > 0) {
@@ -249,7 +240,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 		return {
 			title: helloEvent.title,
 			start: helloEvent.eventStartDate,
-			color: filterItems.find((item) => item.name === helloEvent.organizer?.activityArea)?.color,
+			color: getColorForActivityArea(colors, helloEvent),
 			end: helloEvent.eventEndDate,
 			cardId: helloEvent.cardId,
 			date: new Date(helloEvent.eventStartDate),
@@ -262,7 +253,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				calendarRef={calendarRef}
 				locale={locale}
 				handleFilterChange={handleFilterChange}
-				filterItems={filterItems}
+				activityAreas={activityAreas}
 				viewType={viewType}
 				setViewType={setViewType}
 			/>

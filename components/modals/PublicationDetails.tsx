@@ -9,7 +9,7 @@ import { faMobileScreen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { AlertType } from '../Alert';
-import Preview from './Preview';
+import Preview, { PreviewInfos } from './Preview';
 import { createPublication } from '@/lib/publications/actions/create-publication';
 import { Tag } from '@/models/tag';
 import { updatePublication } from '@/lib/publications/actions/update-publication';
@@ -24,6 +24,7 @@ import Modal from './Modal';
 import { draftAPublication } from '@/lib/publications/actions/draft-publication';
 import ImageCropper from '../ImageCropper';
 import { DraftEvent } from '@/models/draft-event';
+import { getActivityAreaName } from '@/models/activity-area';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -69,13 +70,13 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 	const [imageModalOpen, setImageModalOpen] = useState(false);
 
-	const PublicationInfosForPreview = {
+	const PublicationInfosForPreview: PreviewInfos = {
 		news: t('modal.news'),
 		title: title,
 		imageSrc: imageSrc,
 		altText: imageAltText,
 		author: user?.organization ?? '',
-		activityArea: user?.activityArea ?? '',
+		activityArea: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
 		content: content,
 		eventDateTitle: t('modal.event-date'),
 		eventStartDate: eventStartDate,

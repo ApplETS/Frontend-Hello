@@ -227,7 +227,7 @@
 		"search": "Search",
 		"create-new-account": "Create account",
 		"no-accounts-found": "No accounts found",
-		"activate-success": "Account was successfully activated",
+		"field-required": "A {field} is required",
 		"deactivate-success": "Account was successfully deactivated",
 		"activate-error": "An error occurred while activating the account",
 		"deactivate-error": "An error occurred while deactivating the account",
@@ -263,7 +263,9 @@
 				"aeets": "AEETS"
 			},
 			"success": "Account created",
-			"error": "An error occurred"
+			"error": "An error occurred",
+			"organization-length-error": "The organization name must be between 1 and 50 characters",
+			"activate-success": "Account was successfully activated"
 		},
 		"toggle": {
 			"deactivation-title": "Why do you want to deactivate the account of {organization}?",

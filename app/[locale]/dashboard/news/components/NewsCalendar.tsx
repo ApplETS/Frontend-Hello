@@ -83,24 +83,28 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 		return slicedEvents;
 	};
 
+	const addDaysToDate = (dateString: string, days: number) => {
+		const date = new Date(dateString);
+		date.setDate(date.getDate() + days);
+		return date.toISOString().split('T')[0];
+	};
+
 	const groupEventsByDate = (events: HelloEvent[]): Record<string, HelloEvent[]> => {
 		return events.reduce((acc, event) => {
-			const startDate = new Date(event.eventStartDate.split('T')[0]);
-			const endDate = new Date(event.eventEndDate.split('T')[0]);
-			console.log(event.eventStartDate.split('T')[0]);
-			console.log(startDate);
-			let currentDate = startDate;
+			let currentDate = event.eventStartDate.split('T')[0];
+			console.log(currentDate);
+			const endDate = event.eventEndDate.split('T')[0];
 
 			while (currentDate <= endDate) {
-				const dateString = currentDate.toISOString().split('T')[0];
-
-				if (!acc[dateString]) {
-					acc[dateString] = [];
+				if (!acc[currentDate]) {
+					acc[currentDate] = [];
 				}
-				acc[dateString].push(event);
+				acc[currentDate].push(event);
 
-				currentDate.setDate(currentDate.getDate() + 1);
+				currentDate = addDaysToDate(currentDate, 1);
 			}
+
+			console.log(acc);
 			return acc;
 		}, {} as Record<string, HelloEvent[]>);
 	};

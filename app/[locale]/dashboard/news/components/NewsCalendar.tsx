@@ -85,12 +85,14 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 
 	const groupEventsByDate = (events: HelloEvent[]): Record<string, HelloEvent[]> => {
 		return events.reduce((acc, event) => {
-			const startDate = new Date(event.eventStartDate);
-			const endDate = new Date(event.eventEndDate);
-			let currentDate = new Date(startDate);
+			const startDate = new Date(event.eventStartDate.split('T')[0]);
+			const endDate = new Date(event.eventEndDate.split('T')[0]);
+			console.log(event.eventStartDate.split('T')[0]);
+			console.log(startDate);
+			let currentDate = startDate;
 
 			while (currentDate <= endDate) {
-				const dateString = currentDate.toISOString();
+				const dateString = currentDate.toISOString().split('T')[0];
 
 				if (!acc[dateString]) {
 					acc[dateString] = [];
@@ -99,7 +101,6 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 
 				currentDate.setDate(currentDate.getDate() + 1);
 			}
-
 			return acc;
 		}, {} as Record<string, HelloEvent[]>);
 	};
@@ -207,32 +208,31 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				const slicedEvents = sliceEventsByDay(events);
 				shownEvents = Object.entries(groupEventsByDate(slicedEvents))
 					.map(([date, events]) => {
-						const firstEvent = events[0];
-						const additionalEvents = events.slice(1);
-						const formattedEvents: CalendarEvent[] = [
-							{
-								title: firstEvent.title,
-								start: firstEvent.eventStartDate,
-								end: firstEvent.eventEndDate,
-								color: filterItems.find((item) => item.name === firstEvent.organizer?.activityArea)?.color,
-							},
-						];
+						const firstEvents = events.slice(0, 2);
+						const additionalEvents = events.slice(2);
+						const formattedEvents: CalendarEvent[] = firstEvents.map((event) => ({
+							title: event.title,
+							start: event.eventStartDate,
+							end: event.eventEndDate,
+							color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
+						}));
 						if (additionalEvents.length > 0) {
-							formattedEvents.push({
+							formattedEvents[1] = {
 								title: '+' + additionalEvents.length,
-								start: date,
-								end: date,
+								start: additionalEvents[0].eventStartDate,
+								end: additionalEvents[0].eventEndDate,
 								color: isLight ? '#D0D0D0' : '#B0B0B0',
 								extendedProps: {
 									isShowMore: true,
 									events: helloEventsToCalendarEvents(additionalEvents),
 								},
-							});
+							};
 						}
 						return formattedEvents;
 					})
 					.flat();
 				break;
+
 			default:
 			case 'timeGridDay':
 				shownEvents = helloEventsToCalendarEvents(events);

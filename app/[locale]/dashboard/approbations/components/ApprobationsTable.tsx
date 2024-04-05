@@ -16,6 +16,7 @@ import LoadingSpinner from '@/components/modals/LoadingSpinner';
 import { getNextEventsModerator } from '@/app/actions/get-next-events-moderator';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
+import { NewsStates } from '@/models/news-states';
 
 type Props = {
 	locale: string;
@@ -27,7 +28,7 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 	const t = useTranslations('Approbations');
 
 	const statusKeys = Object.keys(Constants.newsStatuses);
-	const [selectedFilter, setSelectedFilter] = useState(statusKeys[0]);
+	const [selectedFilter, setSelectedFilter] = useState(statusKeys[1]); // ON_HOLD by default
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedEvent, setSelectedEvent] = useState<HelloEvent | null>(null);
@@ -41,7 +42,18 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 
 	const { setToast } = useToast();
 
-	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
+	const filterOrder = [
+		NewsStates.ALL,
+		NewsStates.ON_HOLD,
+		NewsStates.PUBLISHED,
+		NewsStates.APPROVED,
+		NewsStates.REFUSED,
+		NewsStates.DELETED,
+	];
+	const filters = filterOrder.map((status) => {
+		const statusInfo = Constants.newsStatuses[status];
+		return t(`filters.${statusInfo.label}`);
+	});
 
 	useEffect(() => {
 		const handler = setTimeout(() => {
@@ -137,7 +149,7 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 			)}
 			<div className="mb-4 flex items-center space-x-4">
 				<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
-				<Dropdown title={t('filters.all')} items={filters} onFilterChange={handleFilterChanged} />
+				<Dropdown title={t('filters.on-hold')} items={filters} onFilterChange={handleFilterChanged} />
 			</div>
 			{paginatedEvents && paginatedEvents.data.length > 0 ? (
 				<Table<HelloEvent>

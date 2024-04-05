@@ -74,7 +74,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 	};
 
 	const selectCard = (card: any) => {
-		setSelectedCard(selectedCard ? null : card);
+		setSelectedCard(card === selectedCard ? null : card);
 
 		if (card && !selectedCard) {
 			scrollToCard(card);

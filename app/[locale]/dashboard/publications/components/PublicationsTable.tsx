@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useCallback, useEffect, useState, useTransition } from 'react';
 import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
@@ -79,7 +79,7 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 		};
 	}, [searchTerm]);
 
-	useEffect(() => {
+	const callbackSetPaginatedEvents = useCallback(() => {
 		startTransition(async () => {
 			if (user) {
 				const eventsPaginated = await getNextEventsOrganizer(
@@ -97,6 +97,10 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 				}
 			}
 		});
+	}, [currentPage, pageSize, debouncedSearchTerm, selectedFilter, orderBy, orderByDesc]);
+
+	useEffect(() => {
+		callbackSetPaginatedEvents();
 	}, [currentPage, pageSize, user, debouncedSearchTerm, selectedFilter, orderBy, orderByDesc]);
 
 	const handleFilterChanged = (filterIndex: number) => {
@@ -209,6 +213,7 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 					onClose={() => {
 						setIsModalOpen(false);
 						attemptRevalidation(Constants.tags.publications);
+						callbackSetPaginatedEvents();
 					}}
 				/>
 			)}

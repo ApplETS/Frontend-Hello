@@ -2,7 +2,7 @@ import { fetchWithSession, Method } from '@/lib/fetch-with-refresh';
 import { ApiPaginatedResponse } from '@/models/api-paginated-response';
 import { HelloEvent } from '@/models/hello-event';
 
-/*export async function getEvents(
+export async function getEvents(
 	pageNumber: number = 1,
 	pageSize: number = 1000,
 	organizerId?: string
@@ -26,68 +26,4 @@ import { HelloEvent } from '@/models/hello-event';
 	}
 
 	return responseData.data;
-}*/
-
-export async function getEvents(
-	pageNumber: number = 1,
-	pageSize: number = 1000,
-	organizerId?: string
-): Promise<HelloEvent[]> {
-	// Create a mock date for the current month
-	const currentYear = new Date().getFullYear();
-	const currentMonth = new Date().getMonth() + 1; // Months are 0-indexed
-	const currentMonth2 = new Date().getMonth() + 2; // Months are 0-indexed
-	const mockDate = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-14`;
-	const mockDate2 = `${currentYear}-${currentMonth2.toString().padStart(2, '0')}-15`;
-
-	// Create mock events
-	let mockEvents: HelloEvent[] = [
-		'Salut je sui un événement',
-		'Un autre événement beaucoup plus fun fun fun fun',
-		"Viens t'amuser avec nous",
-		'Un événement pour les enfants',
-		'Un événement pour les adultes',
-	].map((value, index) => {
-		return {
-			id: value,
-			title: 'Event ' + value,
-			content: 'Description for Event ' + value,
-			imageUrl: 'https://example.com/image1.jpg',
-			imageAltText: 'Event 1 Image',
-			state: 'published',
-			publicationDate: mockDate,
-			eventStartDate: mockDate,
-			eventEndDate: mockDate2,
-			createdAt: mockDate,
-			updatedAt: mockDate,
-			moderator: null,
-			organizer: null,
-			tags: [],
-			cardId: index,
-		};
-	});
-	/*
-	let test = ['1', '2', '3', '4', '5'].map((value, index) => {
-		return {
-			id: value,
-			title: 'Event ' + value,
-			content: 'Description for Event ' + value,
-			imageUrl: 'https://example.com/image1.jpg',
-			imageAltText: 'Event 1 Image',
-			state: 'published',
-			publicationDate: mockDate,
-			eventStartDate: mockDate,
-			eventEndDate: mockDate,
-			createdAt: mockDate,
-			updatedAt: mockDate,
-			moderator: null,
-			organizer: null,
-			tags: [],
-			cardId: index,
-		};
-	});
-
-	mockEvents.push(...test);
-*/
-	return mockEvents;
 }

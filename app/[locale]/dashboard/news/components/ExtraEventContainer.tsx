@@ -17,7 +17,8 @@ export default function ExtraEventContainer({ index, onClickEvent, event }: Prop
 	return (
 		<div
 			ref={parentRef}
-			className={`cursor-pointer bg-[${event.color}] rounded-sm text-black p-1 w-72 overflow-hidden`}
+			className={`cursor-pointer rounded-sm text-black p-1 w-72 overflow-hidden`}
+			style={{ backgroundColor: event.color }}
 			key={index}
 			onClick={() => {
 				if (event.cardId && onClickEvent) {

@@ -94,17 +94,6 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 	}, []);
 
 	useEffect(() => {
-		const handler = setTimeout(() => {
-			setFilteredPublications([]);
-			setDebouncedSearchTerm(searchTerm);
-		}, 1000);
-
-		return () => {
-			clearTimeout(handler);
-		};
-	}, [searchTerm]);
-
-	useEffect(() => {
 		startTransition(async () => {
 			const response = await getNextEvents(1, nbOfEventsPerPage, organizerId, debouncedSearchTerm);
 
@@ -117,6 +106,17 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 			}
 		});
 	}, [debouncedSearchTerm]);
+
+	useEffect(() => {
+		const handler = setTimeout(() => {
+			setFilteredPublications([]);
+			setDebouncedSearchTerm(searchTerm);
+		}, 1000);
+
+		return () => {
+			clearTimeout(handler);
+		};
+	}, [searchTerm]);
 
 	useEffect(() => {
 		if (!allNewsLoaded) {
@@ -171,13 +171,11 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 				))}
 				{isLoading && Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} />)}
 			</div>
-	
+
 			{!isLoading && filteredPublications.length === 0 && (
-				<div className="text-center my-10">
-					{t('no-results-message')}
-				</div>
+				<div className="text-center my-10">{t('no-results-message')}</div>
 			)}
-	
+
 			{showScrollTopButton && (
 				<button
 					onClick={scrollToTop}
@@ -188,5 +186,5 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 				</button>
 			)}
 		</div>
-	);	
+	);
 }

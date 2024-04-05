@@ -11,22 +11,24 @@ import EventDateAndImage from '../EventDateAndImage';
 import Markdown from 'react-markdown';
 import style from '@/markdown-styles.module.css';
 
+export interface PreviewInfos {
+	news: string;
+	title: string;
+	imageSrc: string;
+	altText: string;
+	author: string | null;
+	activityArea: string | null;
+	content: string;
+	eventDateTitle: string;
+	eventStartDate: string;
+	eventEndDate: string;
+	publishedDate: string;
+	selectedTags: string[];
+}
+
 interface Props {
 	locale: string;
-	infos: {
-		news: string;
-		title: string;
-		imageSrc: string;
-		altText: string;
-		author: string | null;
-		activityArea: string | null;
-		content: string;
-		eventDateTitle: string;
-		eventStartDate: string;
-		eventEndDate: string;
-		publishedDate: string;
-		selectedTags: string[];
-	};
+	infos: PreviewInfos;
 	onClosePreview: () => void;
 }
 

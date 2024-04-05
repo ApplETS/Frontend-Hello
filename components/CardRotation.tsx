@@ -12,6 +12,7 @@ import { faDownLeftAndUpRightToCenter, faUpRightAndDownLeftFromCenter } from '@f
 import Markdown from 'react-markdown';
 import style from '@/markdown-styles.module.css';
 import Avatar from './Avatar';
+import { getActivityAreaName } from '@/models/activity-area';
 
 interface Props {
 	events: HelloEvent[];
@@ -184,7 +185,9 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 									</div>
 									<div className="flex flex-col pt-2 pl-2">
 										<p className="text-base font-bold">{event.organizer?.organization ?? 'Organisateur'}</p>
-										<p className="text-xs text-secondary">{event.organizer?.activityArea}</p>
+										<p className="text-xs text-secondary">
+											{event.organizer?.activityArea ? getActivityAreaName(event.organizer.activityArea, locale) : ''}
+										</p>
 									</div>
 									{selectedCard === event.cardId && (
 										<button

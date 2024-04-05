@@ -6,7 +6,7 @@ export async function signUpUser(email: string, organization: string, activityAr
 	const response = await fetchWithSession(`moderator/organizer`, Method.POST, {
 		email: email,
 		organization: organization,
-		activityArea: activityArea,
+		activityAreaId: activityArea,
 	});
 
 	if (!response.ok) {

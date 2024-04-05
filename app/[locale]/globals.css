@@ -7,15 +7,24 @@
 	width: 6px;
 }
 
-/* Handle */
+/* Styles for the horizontal scrollbar track */
+::-webkit-scrollbar {
+	height: 5px;
+}
+
+/* Styles for the horizontal scrollbar thumb (handle) */
 ::-webkit-scrollbar-thumb {
 	background: #888;
 	border-radius: 5px;
 }
 
-/* Handle on hover */
+/* Styles for the horizontal scrollbar thumb on hover */
 ::-webkit-scrollbar-thumb:hover {
 	background: #555;
+}
+
+::-webkit-scrollbar-corner {
+	display: none;
 }
 
 @layer utilities {

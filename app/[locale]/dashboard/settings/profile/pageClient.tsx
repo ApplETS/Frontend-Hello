@@ -11,24 +11,37 @@ import { handleSubmitForm } from '@/app/actions/settings/submitForm';
 import { updateProfile } from '@/app/actions/settings/update-profile';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import { useToast } from '@/utils/provider/ToastProvider';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Area } from 'react-easy-crop';
 import { getCroppedImgOnly } from '@/utils/canvasUtils';
+import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 
-export default function ProfileClient() {
+interface Props {
+	locale: string;
+	activityAreas: ActivityArea[];
+}
+
+export default function ProfileClient({ locale, activityAreas }: Props) {
 	const t = useTranslations('Settings.profile-section');
 	const t_default = useTranslationsWithDefault('Settings.profile-section');
 	const t_dialog = useTranslations('Settings.dialog');
 	const { user } = useUser();
+
 	const { startTransition } = useLoading();
 	const { setToast } = useToast();
 	const [formData, setFormData] = useState<FormData>();
 	const formRef = useRef<HTMLFormElement>(null);
 	const isOrganizer = user?.type == UserTypes.ORGANIZER;
-
 	const [image, setImage] = useState<string | null>(null);
 	const [rotation, setRotation] = useState(0);
 	const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+
+	const items = activityAreas.map((activityArea) => {
+		return {
+			title: getActivityAreaName(activityArea, locale),
+			value: activityArea.id,
+		};
+	});
 
 	const getImageCropped = async () => {
 		try {
@@ -115,9 +128,9 @@ export default function ProfileClient() {
 
 					<label className="">{t('activity')}</label>
 					<ActivityAreaDropdown
-						items={[{ title: t('scientific-club') }, { title: t('ets') }, { title: t('sve') }, { title: t('aeets') }]}
+						items={items}
 						inputName="activity"
-						defaultItem={{ title: user?.activityArea ?? '' }}
+						defaultItem={{ title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '' }}
 						customStyle="col-span-2"
 					/>
 					{isOrganizer && (

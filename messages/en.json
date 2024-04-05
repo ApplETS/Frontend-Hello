@@ -232,7 +232,7 @@
 		"activate-error": "An error occurred while activating the account",
 		"deactivate-error": "An error occurred while deactivating the account",
 		"table": {
-			"organization": "Organization name",
+			"organization": "Organization",
 			"email": "Email",
 			"activated": "Activated",
 			"yes": "Yes",

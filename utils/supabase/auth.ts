@@ -31,50 +31,6 @@ export const signIn = async (formData: FormData) => {
 	return redirect(`/${locale}/dashboard/news`);
 };
 
-export const signUp = async (formData: FormData) => {
-	'use server';
-
-	const origin = headers().get('origin');
-	const email = formData.get('email') as string;
-	const password = formData.get('password') as string;
-	const locale = formData.get('locale') as string;
-	const cookieStore = cookies();
-	const supabase = createClient(cookieStore);
-
-	const { data, error } = await supabase.auth.signUp({
-		email,
-		password,
-		options: {
-			emailRedirectTo: `${origin}/${locale}/login?code=200&type=success`,
-			data: {
-				role: 'organizer',
-			},
-		},
-	});
-
-	if (error) {
-		return redirect(`/${locale}/signup?code=${error.status}&type=error`);
-	}
-
-	const userObject = {
-		id: data?.user?.id,
-		email: email,
-		organization: formData.get('name') as string,
-		activityArea: formData.get('activity') as string,
-	};
-
-	const response = await fetch(`${api}/user/organizer`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + data?.session?.access_token,
-		},
-		body: JSON.stringify(userObject),
-	});
-
-	return redirect(`/${locale}/dashboard/news`);
-};
-
 export const forgotPassword = async (formData: FormData) => {
 	'use server';
 
@@ -175,9 +131,9 @@ export const updateProfile = async (formData: FormData) => {
 	const avatarForm = new FormData();
 
 	userObject.organization = formData.get('organization') as string;
-	userObject.activityArea = formData.get('activity') as string;
 	userObject.profileDescription = formData.get('description') as string;
 	userObject.webSiteLink = formData.get('website') as string;
+	userObject.activityAreaId = formData.get('activity') as string;
 
 	const avatarFile = formData.get('avatarFile') as File;
 	avatarForm.set('avatarFile', avatarFile);
@@ -216,6 +172,9 @@ export const updateSocials = async (formData: FormData) => {
 	userObject.tikTokLink = formData.get('tiktok') as string;
 	userObject.redditLink = formData.get('reddit') as string;
 	userObject.xLink = formData.get('x') as string;
+	if (userObject.activityArea) {
+		userObject.activityAreaId = userObject.activityArea?.id;
+	}
 
 	let response: Response;
 

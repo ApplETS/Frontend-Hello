@@ -5,6 +5,7 @@ import { formatDate } from '@/utils/formatDate';
 import { HelloEvent } from '@/models/hello-event';
 import Constants from '@/utils/constants';
 import Avatar from '@/components/Avatar';
+import { getActivityAreaName } from '@/models/activity-area';
 
 const columnHelper = createColumnHelper<HelloEvent>();
 
@@ -25,7 +26,9 @@ export const createApprobationColumnDefs = (
 					</div>
 					<div>
 						<div>{info.getValue()?.organization}</div>
-						<div className="text-secondary">{info.getValue()?.activityArea}</div>
+						<div className="text-secondary">
+							{info.getValue()?.activityArea ? getActivityAreaName(info.getValue()?.activityArea, locale) : ''}
+						</div>
 					</div>
 				</div>
 			),

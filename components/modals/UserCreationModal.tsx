@@ -4,13 +4,16 @@ import { useTheme } from '@/utils/provider/ThemeProvider';
 import { useTranslations } from 'next-intl';
 import { useState, useTransition } from 'react';
 import ActivityAreaDropdown from '../ActivityAreaDropdown';
+import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 
 interface Props {
 	onClose: () => void;
 	onCreate: (user: User | undefined) => void;
+	activityAreas: ActivityArea[];
+	locale: string;
 }
 
-export default function UserCreationModal({ onClose, onCreate }: Props) {
+export default function UserCreationModal({ onClose, onCreate, activityAreas, locale }: Props) {
 	const { isLight } = useTheme();
 	const t = useTranslations('Accounts.create');
 	const [isPending, startTransition] = useTransition();
@@ -18,6 +21,13 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 	const [email, setEmail] = useState('');
 	const [organization, setOrganization] = useState('');
 	const [errors, setErrors] = useState({ email: '', organization: '' });
+
+	const items = activityAreas.map((activityArea) => {
+		return {
+			title: getActivityAreaName(activityArea, locale),
+			value: activityArea.id,
+		};
+	});
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -98,12 +108,7 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 									{t('activityarea')}
 								</label>
 								<ActivityAreaDropdown
-									items={[
-										{ title: t('activity.scientificClub') },
-										{ title: t('activity.ets') },
-										{ title: t('activity.sve') },
-										{ title: t('activity.aeets') },
-									]}
+									items={items}
 									inputName="activity"
 									onItemChange={(item: string) => setSelectedActivity(item)}
 									customStyle="col-span-2"

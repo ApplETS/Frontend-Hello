@@ -14,7 +14,7 @@ export async function getEventsPaginated(
 		url += `&organizerId=${organizerId}`;
 	}
 
-	if (title) {
+	if (title && title.trim() != '') {
 		url += `&title=${title}`;
 	}
 

@@ -49,7 +49,11 @@ export default function PublicationDetails({
 	const ta = useTranslations('Approbations');
 	const { isLight } = useTheme();
 	const { setToast } = useToast();
-	const { user } = useUser();
+	let { user } = useUser();
+
+	if (publication?.organizer) {
+		user = publication.organizer;
+	}
 
 	const [, startTransition] = useTransition();
 	const [title, setTitle] = useState(publication?.title || '');

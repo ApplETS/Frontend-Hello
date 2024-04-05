@@ -9,8 +9,7 @@ import { faMobileScreen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { AlertType } from '../Alert';
-import Preview from './Preview';
-import { HelloEvent } from '@/models/hello-event';
+import Preview, { PreviewInfos } from './Preview';
 import { createPublication } from '@/lib/publications/actions/create-publication';
 import { Tag } from '@/models/tag';
 import { updatePublication } from '@/lib/publications/actions/update-publication';
@@ -20,27 +19,43 @@ import { useUser } from '@/utils/provider/UserProvider';
 import { NewsStates } from '@/models/news-states';
 import Confirmation from './Confirmation';
 import { updatePublicationState } from '@/lib/publications/actions/update-publication-state';
-import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
+import { MDXEditorMethods } from '@mdxeditor/editor';
 import Modal from './Modal';
 import { draftAPublication } from '@/lib/publications/actions/draft-publication';
 import ImageCropper from '../ImageCropper';
+import { DraftEvent } from '@/models/draft-event';
+import Markdown from 'react-markdown';
+import style from '@/markdown-styles.module.css';
+import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
 interface PublicationDetailsProps {
 	locale: string;
 	modalMode: Number;
-	publication: HelloEvent | null;
+	publication: DraftEvent | null;
 	tags: Tag[];
 	onClose: () => void;
+	activityAreas: ActivityArea[];
 }
 
-export default function PublicationDetails({ locale, publication, modalMode, tags, onClose }: PublicationDetailsProps) {
+export default function PublicationDetails({
+	locale,
+	publication,
+	modalMode,
+	tags,
+	onClose,
+	activityAreas,
+}: PublicationDetailsProps) {
 	const t = useTranslations('Publications');
 	const ta = useTranslations('Approbations');
 	const { isLight } = useTheme();
 	const { setToast } = useToast();
-	const { user } = useUser();
+	let { user } = useUser();
+
+	if (publication?.organizer) {
+		user = publication.organizer;
+	}
 
 	const [, startTransition] = useTransition();
 	const [title, setTitle] = useState(publication?.title || '');
@@ -48,14 +63,22 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 	const [imageBinary, setImageBinary] = useState<Blob>();
 	const [imageAltText, setImageAltText] = useState(publication?.imageAltText || '');
 	const [content, setContent] = useState(publication?.content || '');
-	const [eventStartDate, setEventStartDate] = useState(publication?.eventStartDate.slice(0, 16) || '');
-	const [eventEndDate, setEventEndDate] = useState(publication?.eventEndDate.slice(0, 16) || '');
-	const [publishedDate, setPublishedDate] = useState(publication?.publicationDate.slice(0, 10) || '');
+	const [eventStartDate, setEventStartDate] = useState(publication?.eventStartDate?.slice(0, 16) || '');
+	const [eventEndDate, setEventEndDate] = useState(publication?.eventEndDate?.slice(0, 16) || '');
+	const [publishedDate, setPublishedDate] = useState(publication?.publicationDate?.slice(0, 10) || '');
 	const [selectedTags, setSelectedTags] = useState(publication?.tags || []);
 	const [availableTags, setAvailableTags] = useState(tags);
+	const editorRef = React.useRef<MDXEditorMethods | null>(null);
 
 	const [rejectReason, setRejectReason] = useState('');
 	const [deactivateReason, setDeactivateReason] = useState('');
+
+	const items = activityAreas.map((activityArea) => {
+		return {
+			title: getActivityAreaName(activityArea, locale),
+			value: activityArea.id,
+		};
+	});
 
 	const isDisabled =
 		modalMode === Constants.publicationModalStatus.view ||
@@ -69,13 +92,13 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 	const [imageModalOpen, setImageModalOpen] = useState(false);
 
-	const PublicationInfosForPreview = {
+	const PublicationInfosForPreview: PreviewInfos = {
 		news: t('modal.news'),
 		title: title,
 		imageSrc: imageSrc,
 		altText: imageAltText,
 		author: user?.organization ?? '',
-		activityArea: user?.activityArea ?? '',
+		activityArea: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
 		content: content,
 		eventDateTitle: t('modal.event-date'),
 		eventStartDate: eventStartDate,
@@ -84,7 +107,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		selectedTags: selectedTags?.map((tag) => tag.name) ?? [],
 	};
 
-	const updateFormData = (formData: FormData) => {
+	const updateFormData = (formData: FormData, isDraft?: boolean) => {
 		// Generate a unique filename for the image using date timestamp
 		const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
 		const filename = `image_${timestamp}.jpg`;
@@ -95,7 +118,10 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		formData.set('publicationDate', new Date(publishedDate).toUTCString());
 		formData.set('eventStartDate', new Date(eventStartDate).toUTCString());
 		formData.set('eventEndDate', new Date(eventEndDate).toUTCString());
-		formData.set('content', content);
+		formData.set('content', content.replace(/\\\[+/g, '[').replace(/\\\(+/g, '('));
+		if (!isDraft || isDraft == undefined) {
+			formData.set('reportCount', '0');
+		}
 
 		if (formData.has('tags')) formData.delete('tags');
 		selectedTags.forEach((tag) => formData.append('tags', tag.id));
@@ -263,8 +289,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 	const handleDraft = async () => {
 		const formData = new FormData();
-		formData.append('isDraft', 'true');
-		const updatedFormData = updateFormData(formData);
+		const updatedFormData = updateFormData(formData, true);
 
 		startTransition(async () => {
 			const helloEvent = await draftAPublication(updatedFormData);
@@ -371,15 +396,13 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 												<label className="block mt-3">{t('modal.activity-area')}</label>
 												<div style={{ pointerEvents: 'none', opacity: 0.5 }}>
 													<ActivityAreaDropdown
-														items={[
-															{ title: t('modal.activity-area-items.scientificClub') },
-															{ title: t('modal.activity-area-items.ets') },
-															{ title: t('modal.activity-area-items.sve') },
-															{ title: t('modal.activity-area-items.aeets') },
-														]}
+														items={items}
 														inputName="activity"
 														onItemChange={() => {}}
 														customStyle="w-full"
+														defaultItem={{
+															title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
+														}}
 													/>
 												</div>
 											</div>
@@ -524,28 +547,18 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 									missingFields.includes(t('modal.content')) && <span style={{ color: 'red' }}>*</span>}
 							</label>
 							{!isDisabled ? (
-								<EditorComp markdown={content} onContentChange={handleContentChange} />
+								<EditorComp
+									markdown={content.replace(/\[/g, '\\[').replace(/\(/g, '\\(')}
+									onContentChange={handleContentChange}
+									editorRef={editorRef}
+								/>
 							) : (
 								<div style={{ position: 'relative' }}>
-									<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
-										<MDXEditor
-											className={`text-sm text-justify ${
-												isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
-											}`}
-											plugins={[linkPlugin(), linkDialogPlugin()]}
-											markdown={content}
-										/>
-									</div>
 									<div
-										style={{
-											position: 'absolute',
-											top: 0,
-											right: 0,
-											bottom: 0,
-											left: 0,
-											cursor: 'normal',
-										}}
-									/>
+										className={`${isDisabled ? 'border border-base-content rounded-lg markdown-custom-styling' : ''}`}
+									>
+										<Markdown className={`${style.reactMarkDown} p-2`}>{content}</Markdown>
+									</div>
 								</div>
 							)}
 						</div>

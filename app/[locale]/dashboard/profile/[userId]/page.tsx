@@ -17,6 +17,7 @@ type Props = {
 export default async function Profile({ params: { userId, locale } }: Props) {
 	const organizer = await getOrganizer(userId);
 
+	organizer.socials = [];
 	if (organizer.facebookLink) {
 		organizer.socials.push({
 			icon: facebookIcon,

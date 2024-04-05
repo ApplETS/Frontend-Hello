@@ -29,18 +29,15 @@ export const createEventColumnDefs = (
 		}),
 		columnHelper.accessor(
 			(row) =>
-				`${formatDate(new Date(row.eventStartDate), locale)} - ${formatDate(new Date(row.eventEndDate), locale)}`,
+				`${formatDate(new Date(row.eventStartDate), locale)} ${
+					new Date(row.eventEndDate).getFullYear() != 1969 ? '- ' + formatDate(new Date(row.eventEndDate), locale) : ''
+				}`,
 			{
 				id: 'EventStartDate',
 				meta: 'num',
 				header: () => t('table.event-date'),
 			}
 		),
-		columnHelper.accessor((row) => 0, {
-			// TODO: Replace with actual number of views when implemented
-			id: 'number-of-views',
-			header: () => t('table.number-of-views'),
-		}),
 		columnHelper.accessor('state', {
 			id: 'Publication.State',
 			meta: 'alpha',

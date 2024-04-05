@@ -3,7 +3,13 @@ import { ApiResponse } from '@/models/api-response';
 import { HelloEvent } from '@/models/hello-event';
 
 export async function draftPublication(formData: FormData) {
-	const response = await fetchWithSession('organizer/events', Method.POSTFORM, formData);
+	for (const [key, value] of Array.from(formData.entries())) {
+		if (!value || value === 'Invalid Date') {
+			formData.delete(key);
+		}
+	}
+
+	const response = await fetchWithSession('organizer/events/draft', Method.POSTFORM, formData);
 
 	if (!response.ok) {
 		throw new Error('Failed to draft the publication');

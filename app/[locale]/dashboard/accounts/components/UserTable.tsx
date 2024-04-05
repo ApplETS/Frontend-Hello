@@ -4,6 +4,12 @@ import React, { useEffect, useState, useTransition } from 'react';
 import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
+import Search from '@/components/Search';
+import Constants from '@/utils/constants';
+>>>>>>> main
+import { useTranslations } from 'next-intl';
+import Search from '@/components/Search';
+import Dropdown from '@/components/Dropdown';
 import { User } from '@/models/user';
 import UserCreationModal from '@/components/modals/UserCreationModal';
 import { AlertType } from '@/components/Alert';
@@ -15,6 +21,7 @@ import LoadingSpinner from '@/components/modals/LoadingSpinner';
 import constants from '@/utils/constants';
 import { getNextUsers } from '@/app/actions/get-next-users';
 import Confirmation from '@/components/modals/Confirmation';
+<<<<<<< HEAD
 import { toggleUserIsActive } from '@/lib/users/actions/toggle';
 
 type Props = {
@@ -65,32 +72,11 @@ export default function UsersTable({ locale }: Props) {
 	}, [currentPage, pageSize, debouncedSearchTerm, selectedFilter]);
 
 	const handleFilterChanged = (filterIndex: number) => {
-		const selectedStatusKey = statusKeys[filterIndex];
-		setCurrentPage(1);
-		setSelectedFilter(selectedStatusKey);
+		setSelectedFilter(filters[filterIndex].toLowerCase());
 	};
 
 	const handleSearchChanged = (search: string) => {
 		setSearchTerm(search);
-	};
-
-	const handlePageChange = (page: number) => {
-		setCurrentPage(page);
-	};
-
-	const handlePageSizeChange = (size: number) => {
-		setPageSize(size);
-		setCurrentPage(1);
-	};
-
-	const handleUserSelection = (user: User) => {
-		setSelectedUser(user);
-
-		if (user.isActive) {
-			setDeactivationModalOpen(true);
-		} else {
-			setActivationModalOpen(true);
-		}
 	};
 
 	const handleUserCreation = (user: User | undefined) => {
@@ -100,7 +86,7 @@ export default function UsersTable({ locale }: Props) {
 	};
 
 	const closeUserSelection = () => {
-		setSelectedUser(null);
+		setSelectedUser(undefined);
 		setDeactivationReason('');
 		setDeactivationModalOpen(false);
 		setActivationModalOpen(false);
@@ -116,21 +102,7 @@ export default function UsersTable({ locale }: Props) {
 		return !correct;
 	};
 
-	const toggleUser = async () => {
-		if (!selectedUser) return;
-
-		const success = await toggleUserIsActive(selectedUser.id, deactivationReaon);
-		if (success) {
-			selectedUser.isActive = !selectedUser.isActive;
-			const message = selectedUser.isActive ? t('activate-success') : t('deactivate-success');
-			setToast(message, AlertType.success);
-		} else {
-			const message = selectedUser.isActive ? t('activate-error') : t('deactivate-error');
-			setToast(message, AlertType.error);
-		}
-		closeUserSelection();
-	};
-
+>>>>>>> main
 	return (
 		<div className="flex flex-col flex-grow">
 			<div className="mb-4 flex justify-between items-center space-x-4">

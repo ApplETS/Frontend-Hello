@@ -7,15 +7,24 @@
 	width: 6px;
 }
 
-/* Handle */
+/* Styles for the horizontal scrollbar track */
+::-webkit-scrollbar {
+	height: 5px;
+}
+
+/* Styles for the horizontal scrollbar thumb (handle) */
 ::-webkit-scrollbar-thumb {
 	background: #888;
 	border-radius: 5px;
 }
 
-/* Handle on hover */
+/* Styles for the horizontal scrollbar thumb on hover */
 ::-webkit-scrollbar-thumb:hover {
 	background: #555;
+}
+
+::-webkit-scrollbar-corner {
+	display: none;
 }
 
 @layer utilities {
@@ -80,8 +89,16 @@
 	}
 }
 
+.markdown-custom-styling a {
+	target: _blank;
+}
+
 .animate-out {
 	animation: animateOut 0.3s ease 0.15s both;
+}
+
+.dropdown-z {
+	z-index: 51;
 }
 
 .btn-primary.text-black {
@@ -169,4 +186,12 @@
 	100% {
 		transform: translateX(-500px);
 	}
+}
+
+.fc-event .fc-event-main {
+	z-index: unset;
+}
+
+.fc .fc-daygrid-event {
+	z-index: unset;
 }

@@ -90,9 +90,9 @@
 			"title": "Titre",
 			"release-date": "Date de publication",
 			"event-date": "Date de l'événement",
-			"number-of-views": "Nombre de vues",
 			"status": "Statut",
-			"open": "Ouvrir"
+			"open": "Ouvrir",
+			"none": "Aucun"
 		},
 		"filters": {
 			"all": "Tous",
@@ -231,7 +231,7 @@
 		"activate-error": "Une erreur est survenue lors de l'activation du compte",
 		"deactivate-error": "Une erreur est survenue lors de la désactivation du compte",
 		"table": {
-			"organization": "Nom de l'organisation",
+			"organization": "Organisation",
 			"email": "Courriel",
 			"activated": "Actif",
 			"yes": "Oui",
@@ -262,7 +262,9 @@
 				"aeets": "AEETS"
 			},
 			"success": "Compte créé avec succès",
-			"error": "Erreur lors de la création du compte"
+			"error": "Erreur lors de la création du compte",
+			"field-required": "Un {field} est obligatoire",
+			"organization-length-error": "Le nom de l'organisation doit être entre 1 et 50 caractères"
 		},
 		"toggle": {
 			"deactivation-title": "Pourquoi voulez-vous désactiver le compte de {organization}?",
@@ -360,5 +362,10 @@
 		"of": "de",
 		"goToPage": "Aller à la page",
 		"show": "Afficher {count}"
+	},
+	"none": "Aucune",
+	"MDXEditor": {
+		"link-text": "Texte du lien",
+		"link-url": "Lien"
 	}
 }

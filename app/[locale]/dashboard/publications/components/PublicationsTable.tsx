@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useCallback, useEffect, useState, useTransition } from 'react';
 import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
@@ -20,14 +20,16 @@ import { ApiPaginatedResponse } from '@/models/api-paginated-response';
 import { useUser } from '@/utils/provider/UserProvider';
 import { getNextEventsOrganizer } from '@/app/actions/get-next-events-organizer';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
+import { ActivityArea } from '@/models/activity-area';
 
 type Props = {
 	locale: string;
 	tags: Tag[];
 	id?: string;
+	activityAreas: ActivityArea[];
 };
 
-export default function PublicationsTable({ locale, tags, id }: Props) {
+export default function PublicationsTable({ locale, tags, id, activityAreas }: Props) {
 	const t = useTranslations('Publications');
 	const { setToast } = useToast();
 
@@ -79,24 +81,26 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 		};
 	}, [searchTerm]);
 
-	useEffect(() => {
+	const callbackSetPaginatedEvents = useCallback(() => {
 		startTransition(async () => {
-			if (user) {
-				const eventsPaginated = await getNextEventsOrganizer(
-					currentPage,
-					pageSize,
-					searchTerm,
-					selectedFilter,
-					orderBy,
-					orderByDesc
-				);
-				if (eventsPaginated) {
-					setPaginatedEvents(eventsPaginated);
-				} else {
-					setToast(t('error-fetching-events'), AlertType.error);
-				}
+			const eventsPaginated = await getNextEventsOrganizer(
+				currentPage,
+				pageSize,
+				searchTerm,
+				selectedFilter,
+				orderBy,
+				orderByDesc
+			);
+			if (eventsPaginated) {
+				setPaginatedEvents(eventsPaginated);
+			} else {
+				setToast(t('error-fetching-events'), AlertType.error);
 			}
 		});
+	}, [currentPage, pageSize, debouncedSearchTerm, selectedFilter, orderBy, orderByDesc]);
+
+	useEffect(() => {
+		callbackSetPaginatedEvents();
 	}, [currentPage, pageSize, user, debouncedSearchTerm, selectedFilter, orderBy, orderByDesc]);
 
 	const handleFilterChanged = (filterIndex: number) => {
@@ -186,7 +190,12 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 			</div>
 			{paginatedEvents && paginatedEvents.data.length > 0 ? (
 				<Table<HelloEvent>
-					data={paginatedEvents?.data}
+					data={paginatedEvents?.data.map((event) => {
+						if (!event.title) {
+							return { ...event, title: t('table.none') };
+						}
+						return event;
+					})}
 					columns={createEventColumnDefs(menuItems, handleDropdownSelection, t, locale)}
 					currentPage={currentPage}
 					pageSize={pageSize}
@@ -209,7 +218,9 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 					onClose={() => {
 						setIsModalOpen(false);
 						attemptRevalidation(Constants.tags.publications);
+						callbackSetPaginatedEvents();
 					}}
+					activityAreas={activityAreas}
 				/>
 			)}
 			{isDeleteModalOpen && (

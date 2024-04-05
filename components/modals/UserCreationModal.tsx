@@ -4,18 +4,73 @@ import { useTheme } from '@/utils/provider/ThemeProvider';
 import { useTranslations } from 'next-intl';
 import { useState, useTransition } from 'react';
 import ActivityAreaDropdown from '../ActivityAreaDropdown';
+import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 
 interface Props {
 	onClose: () => void;
 	onCreate: (user: User | undefined) => void;
+	activityAreas: ActivityArea[];
+	locale: string;
 }
 
-export default function UserCreationModal({ onClose, onCreate }: Props) {
+export default function UserCreationModal({ onClose, onCreate, activityAreas, locale }: Props) {
+	const { isLight } = useTheme();
 	const t = useTranslations('Accounts.create');
 	const [isPending, startTransition] = useTransition();
-	// TODO : Change with backend value ?
 	const [selectedActivity, setSelectedActivity] = useState(t('activity.scientificClub'));
-	const { isLight } = useTheme();
+	const [email, setEmail] = useState('');
+	const [organization, setOrganization] = useState('');
+	const [errors, setErrors] = useState({ email: '', organization: '' });
+
+	const items = activityAreas.map((activityArea) => {
+		return {
+			title: getActivityAreaName(activityArea, locale),
+			value: activityArea.id,
+		};
+	});
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+
+		let hasErrors = false;
+
+		if (!email) {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				email: t('field-required', { field: t('email').toLowerCase() }),
+			}));
+			hasErrors = true;
+		} else {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				email: '',
+			}));
+		}
+
+		if (!organization) {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				organization: t('field-required', { field: t('organization').toLowerCase() }),
+			}));
+			hasErrors = true;
+		} else if (organization.length > 25) {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				organization: t('organization-length-error'),
+			}));
+			hasErrors = true;
+		} else {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				organization: '',
+			}));
+		}
+
+		if (!hasErrors) {
+			const formData = new FormData(event.currentTarget);
+			create(formData);
+		}
+	};
 
 	const create = (formData: FormData) => {
 		startTransition(async () => {
@@ -34,25 +89,26 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 						<div className="loading loading-spinner loading-lg"></div>
 					</div>
 				) : (
-					<form action={create}>
+					<form onSubmit={handleSubmit}>
 						<div className="flex flex-row space-x-4 mb-4">
 							<div className="flex flex-col flex-1">
 								<label className="mb-2 text-base font-normal" htmlFor="organization">
 									{t('organization')}
 								</label>
-								<input className="input input-ghost w-full" name="organization" required />
+								<input
+									className="input input-ghost w-full"
+									name="organization"
+									value={organization}
+									onChange={(e) => setOrganization(e.target.value)}
+								/>
+								{errors.organization && <p className="text-error">{errors.organization}</p>}
 							</div>
 							<div className="flex flex-col flex-1">
 								<label className="mb-2 text-base font-normal" htmlFor="activity">
 									{t('activityarea')}
 								</label>
 								<ActivityAreaDropdown
-									items={[
-										{ title: t('activity.scientificClub') },
-										{ title: t('activity.ets') },
-										{ title: t('activity.sve') },
-										{ title: t('activity.aeets') },
-									]}
+									items={items}
 									inputName="activity"
 									onItemChange={(item: string) => setSelectedActivity(item)}
 									customStyle="col-span-2"
@@ -63,7 +119,14 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 							<label className="text-md mb-2" htmlFor="email">
 								{t('email')}
 							</label>
-							<input className="input input-ghost w-full" type="email" name="email" required />
+							<input
+								className="input input-ghost w-full"
+								type="email"
+								name="email"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+							/>
+							{errors.email && <p className="text-error">{errors.email}</p>}
 						</div>
 						<div className="divider my-1"></div>
 						<div className="flex flex-row space-x-4">
@@ -77,7 +140,9 @@ export default function UserCreationModal({ onClose, onCreate }: Props) {
 							>
 								{t('close')}
 							</button>
-							<button className={`btn text-black btn-primary font-normal w-1/5 `}>{t('send')}</button>
+							<button className={`btn text-black btn-primary font-normal w-1/5 `} type="submit">
+								{t('send')}
+							</button>
 						</div>
 					</form>
 				)}

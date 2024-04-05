@@ -13,6 +13,7 @@ import { UserTypes } from '@/models/user-types';
 import HelpButton from '@/components/HelpButton';
 import Avatar from '@/components/Avatar';
 import { useTheme } from '@/utils/provider/ThemeProvider';
+import { getActivityAreaName } from '@/models/activity-area';
 
 interface Props {
 	activePage: string;
@@ -79,7 +80,7 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 						<Avatar />
 					</div>
 					{isDropdownOpen && (
-						<ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-box w-max">
+						<ul tabIndex={0} className="dropdown-content dropdown-z menu p-2 shadow bg-base-300 rounded-box w-max">
 							<li className="pointer-events-none">
 								<div className="flex flex-row pl-2">
 									<Avatar />
@@ -89,7 +90,9 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 										) : (
 											<p className="text-base font-bold ml-0">{user.organization}</p>
 										)}
-										<p className="text-xs ml-0 text-secondary">{user.activityArea}</p>
+										<p className="text-xs ml-0 text-secondary">
+											{user.activityArea ? getActivityAreaName(user.activityArea, locale) : ''}
+										</p>
 									</div>
 								</div>
 							</li>

@@ -16,6 +16,7 @@ import { ToastDelay, useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
 import Avatar from '@/components/Avatar';
 import NewsList from './components/NewsList';
+import { getActivityAreaName } from '@/models/activity-area';
 
 type Props = {
 	organizer: Organizer;
@@ -43,6 +44,12 @@ export default function ProfileClient({ organizer, locale }: Props) {
 		setAskEmailModal(false);
 	};
 
+	const getGridColsClass = (numItems: number) => {
+		const maxItemsPerLine = 4;
+		const numCols = Math.min(numItems, maxItemsPerLine);
+		return `grid-cols-${numCols}`;
+	};
+
 	return (
 		<div className="w-full h-full overflow-auto">
 			<div className="flex flex-row gap-8 h-full overflow-auto">
@@ -58,7 +65,9 @@ export default function ProfileClient({ organizer, locale }: Props) {
 							<Avatar userProfile={organizer} size="w-40 h-40" color="bg-base-300" textSize="text-7xl" />
 						</div>
 						<p className="text-xl font-bold">{organizer.organization}</p>
-						<h4 className="mb-2 text-sm text-secondary">{organizer.activityArea}</h4>
+						<h4 className="mb-2 text-sm text-secondary">
+							{organizer.activityArea ? getActivityAreaName(organizer.activityArea, locale) : ''}
+						</h4>
 						<p className="text-sm mb-4 text-center">{organizer.profileDescription}</p>
 						<div className="flex items-center mb-2">
 							<button className="btn font-normal btn-accent w-64" onClick={() => setAskEmailModal(true)}>
@@ -114,8 +123,8 @@ export default function ProfileClient({ organizer, locale }: Props) {
 							</div>
 						</div>
 
-						<div className="flex mt-2">
-							<div className="grid grid-cols-5 gap-3 w-full">
+						<div className="flex mt-2 justify-center">
+							<div className={`grid gap-3 w-full ${getGridColsClass(organizer.socials.length)}`}>
 								{organizer.socials &&
 									organizer.socials.map((social, index) => (
 										<a href={social.link} target="_blank" rel="noopener noreferrer" key={index} className="avatar">
@@ -125,16 +134,16 @@ export default function ProfileClient({ organizer, locale }: Props) {
 							</div>
 						</div>
 
-						{organizer.interests && organizer.interests.length > 0 && (
+						{organizer.fieldsOfInterests && organizer.fieldsOfInterests.length > 0 && (
 							<>
 								<p className="text-lg mb-2 mt-5 self-start w-full text-bold">{t('interests')}</p>
 								<div className="flex flex-wrap gap-2 self-start w-full">
-									{organizer.interests.map((tag, index) => (
+									{organizer.fieldsOfInterests.map((tag, index) => (
 										<div
-											key={tag}
+											key={tag.id}
 											className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
 										>
-											{tag}
+											{tag.name}
 										</div>
 									))}
 								</div>

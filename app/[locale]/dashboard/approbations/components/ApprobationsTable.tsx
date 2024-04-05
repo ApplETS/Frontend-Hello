@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useCallback, useEffect, useState, useTransition } from 'react';
 import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
@@ -64,7 +64,7 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 		}
 	}, [id, paginatedEvents?.data]);
 
-	useEffect(() => {
+	const callbackSetPaginatedEvents = useCallback(() => {
 		startTransition(async () => {
 			const eventsPaginated = await getNextEventsModerator(
 				currentPage,
@@ -80,6 +80,10 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 				setToast(t('error-fetching-events'), AlertType.error);
 			}
 		});
+	}, [currentPage, pageSize, debouncedSearchTerm, selectedFilter, orderBy, orderByDesc]);
+
+	useEffect(() => {
+		callbackSetPaginatedEvents();
 	}, [currentPage, pageSize, selectedFilter, debouncedSearchTerm, orderBy, orderByDesc]);
 
 	const handleFilterChanged = (filterIndex: number) => {
@@ -125,6 +129,7 @@ export default function ApprobationsTable({ locale, tags, id }: Props) {
 					onClose={() => {
 						setIsModalOpen(false);
 						attemptRevalidation(Constants.tags.approbations);
+						callbackSetPaginatedEvents();
 					}}
 					modalMode={Constants.publicationModalStatus.moderator}
 					tags={tags}

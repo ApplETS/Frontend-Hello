@@ -84,7 +84,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		selectedTags: selectedTags?.map((tag) => tag.name) ?? [],
 	};
 
-	const updateFormData = (formData: FormData) => {
+	const updateFormData = (formData: FormData, isDraft?: boolean) => {
 		// Generate a unique filename for the image using date timestamp
 		const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
 		const filename = `image_${timestamp}.jpg`;
@@ -96,6 +96,9 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		formData.set('eventStartDate', new Date(eventStartDate).toUTCString());
 		formData.set('eventEndDate', new Date(eventEndDate).toUTCString());
 		formData.set('content', content);
+		if (!isDraft || isDraft == undefined) {
+			formData.set('reportCount', '0');
+		}
 
 		if (formData.has('tags')) formData.delete('tags');
 		selectedTags.forEach((tag) => formData.append('tags', tag.id));
@@ -263,7 +266,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 	const handleDraft = async () => {
 		const formData = new FormData();
-		const updatedFormData = updateFormData(formData);
+		const updatedFormData = updateFormData(formData, true);
 
 		startTransition(async () => {
 			const helloEvent = await draftAPublication(updatedFormData);

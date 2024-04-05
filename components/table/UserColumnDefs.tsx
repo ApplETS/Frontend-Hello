@@ -1,11 +1,14 @@
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 import { User } from '@/models/user';
+import { getActivityAreaName } from '@/models/activity-area';
+import Avatar from '../Avatar';
 
 const columnHelper = createColumnHelper<User>();
 
 export const createUserColumnDefs = (
 	t: (key: string) => string,
-	handleUserSelection: (user: User) => void
+	handleUserSelection: (user: User) => void,
+	locale: string
 ): ColumnDef<User, any>[] => {
 	return [
 		columnHelper.accessor('isActive', {
@@ -17,10 +20,21 @@ export const createUserColumnDefs = (
 				</div>
 			),
 		}),
-		columnHelper.accessor('organization', {
+		columnHelper.accessor((row) => row, {
 			id: 'User.Organization',
 			header: () => t('table.organization'),
-			cell: (info) => info.getValue() ?? '-',
+			cell: (info) => (
+				<div className="text-base flex items-center space-x-2">
+					{info.getValue() && (
+						<div className="avatar mr-3">
+							<Avatar userProfile={info.getValue()} size="w-10 h-10" textSize="text-xl" color="bg-base-300" />
+						</div>
+					)}
+					<div>
+						<div>{info.getValue().organization ?? '-'}</div>
+					</div>
+				</div>
+			),
 		}),
 		columnHelper.accessor('email', {
 			id: 'User.Email',
@@ -30,7 +44,7 @@ export const createUserColumnDefs = (
 		columnHelper.accessor('activityArea', {
 			id: 'User.ActivityArea',
 			header: () => t('table.activityarea'),
-			cell: (info) => info.getValue() ?? '-',
+			cell: (info) => (info.getValue() ? getActivityAreaName(info.getValue(), locale) : '-'),
 		}),
 		columnHelper.display({
 			id: 'actions',

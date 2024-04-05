@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useCallback, useEffect, useState, useTransition } from 'react';
 import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
-import Constants from '@/utils/constants';
 import { User } from '@/models/user';
 import UserCreationModal from '@/components/modals/UserCreationModal';
 import { AlertType } from '@/components/Alert';
@@ -17,12 +16,14 @@ import constants from '@/utils/constants';
 import { getNextUsers } from '@/app/actions/get-next-users';
 import Confirmation from '@/components/modals/Confirmation';
 import { toggleUserIsActive } from '@/lib/users/actions/toggle';
+import { ActivityArea } from '@/models/activity-area';
 
 type Props = {
 	locale: string;
+	activityAreas: ActivityArea[];
 };
 
-export default function UsersTable({ locale }: Props) {
+export default function UsersTable({ locale, activityAreas }: Props) {
 	const t = useTranslations('Accounts');
 	const { setToast } = useToast();
 
@@ -54,7 +55,7 @@ export default function UsersTable({ locale }: Props) {
 		};
 	}, [searchTerm]);
 
-	useEffect(() => {
+	const callbackSetPaginatedEvents = useCallback(() => {
 		startTransition(async () => {
 			const usersPaginated = await getNextUsers(currentPage, pageSize, debouncedSearchTerm);
 			if (usersPaginated) {
@@ -65,12 +66,37 @@ export default function UsersTable({ locale }: Props) {
 		});
 	}, [currentPage, pageSize, debouncedSearchTerm, selectedFilter]);
 
+	useEffect(() => {
+		callbackSetPaginatedEvents();
+	}, [currentPage, pageSize, debouncedSearchTerm, selectedFilter]);
+
 	const handleFilterChanged = (filterIndex: number) => {
-		setSelectedFilter(filters[filterIndex].toLowerCase());
+		const selectedStatusKey = statusKeys[filterIndex];
+		setCurrentPage(1);
+		setSelectedFilter(selectedStatusKey);
 	};
 
 	const handleSearchChanged = (search: string) => {
 		setSearchTerm(search);
+	};
+
+	const handlePageChange = (page: number) => {
+		setCurrentPage(page);
+	};
+
+	const handlePageSizeChange = (size: number) => {
+		setPageSize(size);
+		setCurrentPage(1);
+	};
+
+	const handleUserSelection = (user: User) => {
+		setSelectedUser(user);
+
+		if (user.isActive) {
+			setDeactivationModalOpen(true);
+		} else {
+			setActivationModalOpen(true);
+		}
 	};
 
 	const handleUserCreation = (user: User | undefined) => {
@@ -80,10 +106,11 @@ export default function UsersTable({ locale }: Props) {
 	};
 
 	const closeUserSelection = () => {
-		setSelectedUser(undefined);
+		setSelectedUser(null);
 		setDeactivationReason('');
 		setDeactivationModalOpen(false);
 		setActivationModalOpen(false);
+		callbackSetPaginatedEvents();
 	};
 
 	const verifyReason = () => {
@@ -94,6 +121,21 @@ export default function UsersTable({ locale }: Props) {
 		}
 
 		return !correct;
+	};
+
+	const toggleUser = async () => {
+		if (!selectedUser) return;
+
+		const success = await toggleUserIsActive(selectedUser.id, deactivationReaon);
+		if (success) {
+			selectedUser.isActive = !selectedUser.isActive;
+			const message = selectedUser.isActive ? t('activate-success') : t('deactivate-success');
+			setToast(message, AlertType.success);
+		} else {
+			const message = selectedUser.isActive ? t('activate-error') : t('deactivate-error');
+			setToast(message, AlertType.error);
+		}
+		closeUserSelection();
 	};
 
 	return (
@@ -114,7 +156,7 @@ export default function UsersTable({ locale }: Props) {
 			{paginatedUsers && paginatedUsers.data.length > 0 ? (
 				<Table<User>
 					data={paginatedUsers.data}
-					columns={createUserColumnDefs(t, handleUserSelection)}
+					columns={createUserColumnDefs(t, handleUserSelection, locale)}
 					currentPage={currentPage}
 					pageSize={pageSize}
 					totalItems={paginatedUsers.totalRecords}
@@ -124,7 +166,14 @@ export default function UsersTable({ locale }: Props) {
 			) : (
 				<div className="text-center py-4">{t('no-accounts-found')}</div>
 			)}
-			{isModalOpen && <UserCreationModal onClose={toggleModal} onCreate={handleUserCreation} />}
+			{isModalOpen && (
+				<UserCreationModal
+					onClose={toggleModal}
+					onCreate={handleUserCreation}
+					activityAreas={activityAreas}
+					locale={locale}
+				/>
+			)}
 			{deactivationModalOpen && (
 				<Confirmation
 					title={

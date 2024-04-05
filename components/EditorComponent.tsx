@@ -53,7 +53,6 @@ const Editor: FC<EditorProps> = ({ markdown, editorRef, onContentChange }) => {
 const CustomCreateLink = ({ editorRef }: { editorRef: MutableRefObject<MDXEditorMethods | null> | undefined }) => {
 	const t = useTranslations('MDXEditor');
 	const handleCreateLink = () => {
-		console.log(editorRef?.current?.getMarkdown());
 		editorRef?.current?.insertMarkdown(`\\\[${t('link-text')}]\\\(${t('link-url')})`);
 	};
 

@@ -361,5 +361,6 @@
 		"of": "de",
 		"goToPage": "Aller à la page",
 		"show": "Afficher {count}"
-	}
+	},
+	"none": "Aucune"
 }

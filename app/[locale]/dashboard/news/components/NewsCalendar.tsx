@@ -15,6 +15,11 @@ import { CalendarHeader } from './NewsCalendarHeader';
 import EventContainer from './EventContainer';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { ActivityArea } from '@/models/activity-area';
+import { getNextEvents } from '@/app/actions/get-next-events';
+import { useLoading } from '@/utils/provider/LoadingProvider';
+import { useToast } from '@/utils/provider/ToastProvider';
+import { AlertType } from '@/components/Alert';
+import { useTranslations } from 'next-intl';
 
 interface Props {
 	events: HelloEvent[];
@@ -37,11 +42,18 @@ export interface CalendarEvent {
 }
 
 export default function NewsCalendar({ events, locale, handleEventSelect, activityAreas }: Props) {
+	const t = useTranslations('Publications');
+
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>([]);
 	const [viewType, setViewType] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>('dayGridMonth');
 	const [openMoreModal, setOpenMoreModal] = useState<string | null>(null);
 	const [view] = useState('dayGridMonth');
+	const [selectedActivityAreas, setSelectedActivityAreas] = useState<string[]>(
+		activityAreas.map((activity) => activity.id)
+	);
 	const { isLight } = useTheme();
+	const { startTransition } = useLoading();
+	const { setToast } = useToast();
 
 	const calendarRef = createRef<FullCalendar>();
 
@@ -101,6 +113,10 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 	};
 
 	useEffect(() => {
+		updateEvents(events);
+	}, []);
+
+	const updateEvents = (events: HelloEvent[]) => {
 		const updatedEvents = events.map((event) => {
 			const startDate = new Date(event.eventStartDate);
 			const endDate = new Date(event.eventEndDate);
@@ -115,11 +131,30 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 			};
 		});
 		setShownEvents(updatedEvents);
-	}, []);
+	};
 
 	const handleFilterChange = (selectedIndices: number[]) => {
-		// TODO
+		const selectedActivityAreas: string[] = [];
+
+		activityAreas.map((activity, index) => {
+			if (selectedIndices.includes(index)) {
+				selectedActivityAreas.push(activity.id);
+			}
+		});
+
+		setSelectedActivityAreas(selectedActivityAreas);
 	};
+
+	useEffect(() => {
+		startTransition(async () => {
+			const eventsPaginated = await getNextEvents(1, 1000, undefined, undefined, selectedActivityAreas);
+			if (eventsPaginated) {
+				updateEvents(eventsPaginated.data);
+			} else {
+				setToast(t('error-fetching-events'), AlertType.error);
+			}
+		});
+	}, [selectedActivityAreas]);
 
 	function getColorForActivityArea(colors: string[], event: HelloEvent) {
 		return colors[activityAreas.findIndex((activityArea) => activityArea.id == event.organizer?.activityArea?.id)];

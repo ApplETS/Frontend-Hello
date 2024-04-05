@@ -51,8 +51,8 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 		{ id: 3, name: 'AEETS', color: '#E7A455' },
 	];
 
-	const chopEventsByDay = (events: HelloEvent[]): HelloEvent[] => {
-		const choppedEvents: HelloEvent[] = [];
+	const sliceEventsByDay = (events: HelloEvent[]): HelloEvent[] => {
+		const slicedEvents: HelloEvent[] = [];
 
 		events.forEach((event) => {
 			const startDate = new Date(event.eventStartDate);
@@ -70,7 +70,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 					end.setHours(endDate.getHours(), endDate.getMinutes(), endDate.getSeconds());
 				}
 
-				choppedEvents.push({
+				slicedEvents.push({
 					...event,
 					eventStartDate: start.toISOString(),
 					eventEndDate: end.toISOString(),
@@ -80,7 +80,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 			}
 		});
 
-		return choppedEvents;
+		return slicedEvents;
 	};
 
 	const groupEventsByDate = (events: HelloEvent[]): Record<string, HelloEvent[]> => {
@@ -204,8 +204,8 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				shownEvents = generateEventsForWeekView(events);
 				break;
 			case 'dayGridMonth':
-				const choppedEvents = chopEventsByDay(events);
-				shownEvents = Object.entries(groupEventsByDate(choppedEvents))
+				const slicedEvents = sliceEventsByDay(events);
+				shownEvents = Object.entries(groupEventsByDate(slicedEvents))
 					.map(([date, events]) => {
 						const firstEvent = events[0];
 						const additionalEvents = events.slice(1);

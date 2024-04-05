@@ -76,7 +76,8 @@
 		"save": "Enregistrer"
 	},
 	"NewsPage": {
-		"view-profile": "Voir le profil"
+		"view-profile": "Voir le profil",
+		"no-events-message": "Aucune publication trouvée"
 	},
 	"Publications": {
 		"title": "Publications",
@@ -217,7 +218,8 @@
 		"save": "Enregistrer",
 		"cancel": "Annuler",
 		"field-required": "Un {field} est obligatoire",
-		"error-loading-news": "Une erreur est survenue lors du chargement des publications"
+		"error-loading-news": "Une erreur est survenue lors du chargement des publications",
+		"no-results-message": "Aucun résultat trouvé"
 	},
 	"Accounts": {
 		"title": "Comptes",
@@ -240,7 +242,6 @@
 		"filters": {
 			"all": "Tous",
 			"deactivated": "Désactivé",
-			"pending": "En attente",
 			"active": "Activé"
 		},
 		"menu": {

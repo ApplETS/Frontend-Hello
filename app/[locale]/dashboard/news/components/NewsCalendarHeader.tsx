@@ -13,6 +13,8 @@ export type TCalendarHeader = {
 	locale: string;
 	handleFilterChange: (selectedIndices: number[]) => void;
 	filterItems: { id: number; name: string }[];
+	viewType: 'dayGridMonth' | 'timeGridWeek' | 'timeGridDay';
+	setViewType: React.Dispatch<React.SetStateAction<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>>;
 };
 
 export const CalendarHeader = ({
@@ -20,9 +22,10 @@ export const CalendarHeader = ({
 	locale,
 	handleFilterChange,
 	filterItems,
+	viewType,
+	setViewType,
 }: TCalendarHeader): ReactElement => {
 	const [date, setDate] = useState<Moment | null>(moment(calendarRef.current?.getApi().getDate()));
-	const [viewType, setViewType] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>('dayGridMonth');
 	const t = useTranslations('Calendar');
 	const { isLight } = useTheme();
 

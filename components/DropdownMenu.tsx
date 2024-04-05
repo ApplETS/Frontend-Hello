@@ -47,7 +47,7 @@ export default function DropdownMenu({ items, onSelect, itemIndex }: Props) {
 					<FontAwesomeIcon icon={faEllipsisVertical} className="w-5 ml-2" />
 				</button>
 				{isDropdownOpen && (
-					<ul className={'p-2 shadow menu dropdown-content bg-base-100 rounded-box absolute z-10 right-0'}>
+					<ul className={'p-2 shadow menu dropdown-content bg-base-200 rounded-box absolute z-10 right-0'}>
 						{items.map((item, index) => (
 							<li className={`flex ${item.color} w-40`} key={index}>
 								<a href="#" className="flex space-x-2 w-full" onClick={(event) => handleItemClick(event, item.id)}>

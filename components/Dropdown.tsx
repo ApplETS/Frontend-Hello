@@ -48,7 +48,7 @@ export default function Dropdown({ title, items, onFilterChange }: Props) {
 					<FontAwesomeIcon icon={isDropdownOpen ? faAngleUp : faAngleDown} className="w-5 ml-2" />
 				</button>
 				{isDropdownOpen && (
-					<ul className="p-2 shadow menu dropdown-content bg-base-100 rounded-box absolute z-10">
+					<ul className="p-2 shadow menu dropdown-content bg-base-200 rounded-box absolute z-10">
 						{items.map((item, index) => (
 							<li className="w-40" key={index}>
 								<a>{item}</a>

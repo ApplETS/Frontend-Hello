@@ -199,7 +199,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 								{selectedCard === event.cardId && (
 									<>
 										<div
-											className={`text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto h-44 ${
+											className={`text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto markdown-custom-styling h-44 ${
 												event.tags.length > 0 ? 'mb-2' : 'mb-4'
 											}`}
 										>

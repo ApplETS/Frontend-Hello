@@ -80,6 +80,10 @@
 	}
 }
 
+.markdown-custom-styling a {
+	target: _blank;
+}
+
 .animate-out {
 	animation: animateOut 0.3s ease 0.15s both;
 }

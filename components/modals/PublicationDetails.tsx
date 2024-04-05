@@ -19,11 +19,13 @@ import { useUser } from '@/utils/provider/UserProvider';
 import { NewsStates } from '@/models/news-states';
 import Confirmation from './Confirmation';
 import { updatePublicationState } from '@/lib/publications/actions/update-publication-state';
-import { MDXEditor, linkDialogPlugin, linkPlugin } from '@mdxeditor/editor';
+import { MDXEditorMethods } from '@mdxeditor/editor';
 import Modal from './Modal';
 import { draftAPublication } from '@/lib/publications/actions/draft-publication';
 import ImageCropper from '../ImageCropper';
 import { DraftEvent } from '@/models/draft-event';
+import Markdown from 'react-markdown';
+import style from '@/markdown-styles.module.css';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -53,6 +55,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 	const [publishedDate, setPublishedDate] = useState(publication?.publicationDate?.slice(0, 10) || '');
 	const [selectedTags, setSelectedTags] = useState(publication?.tags || []);
 	const [availableTags, setAvailableTags] = useState(tags);
+	const editorRef = React.useRef<MDXEditorMethods | null>(null);
 
 	const [rejectReason, setRejectReason] = useState('');
 	const [deactivateReason, setDeactivateReason] = useState('');
@@ -95,7 +98,7 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 		formData.set('publicationDate', new Date(publishedDate).toUTCString());
 		formData.set('eventStartDate', new Date(eventStartDate).toUTCString());
 		formData.set('eventEndDate', new Date(eventEndDate).toUTCString());
-		formData.set('content', content);
+		formData.set('content', content.replace(/\\\[+/g, '[').replace(/\\\(+/g, '('));
 		if (!isDraft || isDraft == undefined) {
 			formData.set('reportCount', '0');
 		}
@@ -526,28 +529,18 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 									missingFields.includes(t('modal.content')) && <span style={{ color: 'red' }}>*</span>}
 							</label>
 							{!isDisabled ? (
-								<EditorComp markdown={content} onContentChange={handleContentChange} />
+								<EditorComp
+									markdown={content.replace(/\[/g, '\\[').replace(/\(/g, '\\(')}
+									onContentChange={handleContentChange}
+									editorRef={editorRef}
+								/>
 							) : (
 								<div style={{ position: 'relative' }}>
-									<div className={`${isDisabled ? 'border border-base-content rounded-lg' : ''}`}>
-										<MDXEditor
-											className={`text-sm text-justify ${
-												isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
-											}`}
-											plugins={[linkPlugin(), linkDialogPlugin()]}
-											markdown={content}
-										/>
-									</div>
 									<div
-										style={{
-											position: 'absolute',
-											top: 0,
-											right: 0,
-											bottom: 0,
-											left: 0,
-											cursor: 'normal',
-										}}
-									/>
+										className={`${isDisabled ? 'border border-base-content rounded-lg markdown-custom-styling' : ''}`}
+									>
+										<Markdown className={`${style.reactMarkDown} p-2`}>{content}</Markdown>
+									</div>
 								</div>
 							)}
 						</div>

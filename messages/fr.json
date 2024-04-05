@@ -362,5 +362,9 @@
 		"goToPage": "Aller à la page",
 		"show": "Afficher {count}"
 	},
-	"none": "Aucune"
+	"none": "Aucune",
+	"MDXEditor": {
+		"link-text": "Texte du lien",
+		"link-url": "Lien"
+	}
 }

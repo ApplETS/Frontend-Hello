@@ -127,12 +127,18 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 					/>
 
 					<label className="">{t('activity')}</label>
-					<ActivityAreaDropdown
-						items={items}
-						inputName="activity"
-						defaultItem={{ title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '' }}
-						customStyle="col-span-2"
-					/>
+					{user && (
+						<ActivityAreaDropdown
+							items={items}
+							inputName="activity"
+							defaultItem={{
+								title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
+								value: user?.activityArea?.id,
+							}}
+							customStyle="col-span-2"
+						/>
+					)}
+
 					{isOrganizer && (
 						<>
 							<label className="justify-self-center">{t('website')}</label>

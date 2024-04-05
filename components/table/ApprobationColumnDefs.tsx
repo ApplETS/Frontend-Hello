@@ -43,7 +43,7 @@ export const createApprobationColumnDefs = (
 			id: 'Publication.PublicationDate',
 			meta: 'num',
 			header: () => t('table.release-date'),
-			cell: (info) => formatDate(new Date(info.getValue()), locale),
+			cell: (info) => formatDate(new Date(info.getValue()), locale, t),
 		}),
 		columnHelper.accessor('state', {
 			id: 'Publication.State',

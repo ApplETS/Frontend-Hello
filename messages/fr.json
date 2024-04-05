@@ -163,7 +163,8 @@
 				"zoom-hint": "Utilisez ⌘ + scroll (ou ctrl + scroll) pour zoomer l'image"
 			}
 		},
-		"error-fetching-events": "Une erreur est survenue lors du chargement des publications"
+		"error-fetching-events": "Une erreur est survenue lors du chargement des publications",
+		"none": "Aucune"
 	},
 	"Approbations": {
 		"title": "Approbations",
@@ -199,7 +200,8 @@
 		"deactivate-question": "Pourquoi voulez vous désactiver cette annonce?",
 		"deactivate": "Désactiver l'annonce",
 		"give-reason": "Veuillez donner une raison pour cette action",
-		"error-fetching-events": "Une erreur est survenue lors du chargement des publications"
+		"error-fetching-events": "Une erreur est survenue lors du chargement des publications",
+		"none": "Aucune"
 	},
 	"Profile": {
 		"notify-me": "Me notifier",
@@ -279,7 +281,8 @@
 			"delete": "Supprimer",
 			"input-title": "Raison",
 			"give-reason": "Veuillez donner une raison pour la désactivation de ce compte"
-		}
+		},
+		"none": "Aucune"
 	},
 	"Settings": {
 		"title": "Paramètres",

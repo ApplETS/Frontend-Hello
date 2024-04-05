@@ -399,6 +399,7 @@ export default function PublicationDetails({
 														customStyle="w-full"
 														defaultItem={{
 															title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
+															value: user?.activityArea?.id,
 														}}
 													/>
 												</div>

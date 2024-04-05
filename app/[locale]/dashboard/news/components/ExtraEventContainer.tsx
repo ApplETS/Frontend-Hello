@@ -1,9 +1,7 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import Marquee from './Marquee';
 import { CalendarEvent } from './NewsCalendar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
 	index: number;

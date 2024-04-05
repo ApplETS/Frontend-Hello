@@ -63,28 +63,20 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 		const slicedEvents: HelloEvent[] = [];
 
 		events.forEach((event) => {
-			const startDate = new Date(event.eventStartDate);
-			const endDate = new Date(event.eventEndDate);
+			let currentDate = event.eventStartDate.split('T')[0];
+			const endDate = event.eventEndDate.split('T')[0];
 
-			let currentDate = new Date(startDate);
 			while (currentDate <= endDate) {
-				const start = new Date(currentDate);
-				start.setHours(startDate.getHours(), startDate.getMinutes(), startDate.getSeconds());
-
-				const end = new Date(currentDate);
-				end.setHours(23, 59, 59, 999);
-
-				if (currentDate.toDateString() === endDate.toDateString()) {
-					end.setHours(endDate.getHours(), endDate.getMinutes(), endDate.getSeconds());
-				}
+				const startDateTime = `${currentDate}T${event.eventStartDate.split('T')[1]}`;
+				const endDateTime = currentDate === endDate ? event.eventEndDate : `${currentDate}T23:59:59.999`;
 
 				slicedEvents.push({
 					...event,
-					eventStartDate: start.toISOString(),
-					eventEndDate: end.toISOString(),
+					eventStartDate: startDateTime,
+					eventEndDate: endDateTime,
 				});
 
-				currentDate.setDate(currentDate.getDate() + 1);
+				currentDate = addDaysToDate(currentDate, 1);
 			}
 		});
 
@@ -100,7 +92,6 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 	const groupEventsByDate = (events: HelloEvent[]): Record<string, HelloEvent[]> => {
 		return events.reduce((acc, event) => {
 			let currentDate = event.eventStartDate.split('T')[0];
-			console.log(currentDate);
 			const endDate = event.eventEndDate.split('T')[0];
 
 			while (currentDate <= endDate) {
@@ -112,7 +103,6 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 				currentDate = addDaysToDate(currentDate, 1);
 			}
 
-			console.log(acc);
 			return acc;
 		}, {} as Record<string, HelloEvent[]>);
 	};
@@ -128,6 +118,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 
 			startDate.setMinutes(startDate.getMinutes() + 30);
 			endDate.setMinutes(endDate.getMinutes() + 30);
+			console.log(event);
 
 			return {
 				...event,
@@ -135,6 +126,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 				eventEndDate: endDate.toISOString(),
 			};
 		});
+
 		setShownEvents(updatedEvents);
 	};
 
@@ -245,6 +237,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 								title: firstEvent.title,
 								start: firstEvent.eventStartDate,
 								end: firstEvent.eventEndDate,
+								cardId: firstEvent.cardId,
 								color: getColorForActivityArea(colors, firstEvent),
 							},
 						];
@@ -254,6 +247,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 								start: additionalEvents[0].eventStartDate,
 								end: additionalEvents[0].eventEndDate,
 								color: isLight ? '#D0D0D0' : '#B0B0B0',
+								cardId: additionalEvents[0].cardId,
 								extendedProps: {
 									isShowMore: true,
 									events: helloEventsToCalendarEvents(additionalEvents),

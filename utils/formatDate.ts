@@ -1,8 +1,4 @@
-import { useTranslations } from 'next-intl';
-
-export const formatDate = (currentDate: Date, locale: string): string => {
-	const t = useTranslations();
-
+export const formatDate = (currentDate: Date, locale: string, t: (key: string) => string): string => {
 	if (currentDate.getFullYear() === 1969) {
 		return t('none');
 	}

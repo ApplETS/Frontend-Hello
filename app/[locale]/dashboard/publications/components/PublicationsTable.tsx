@@ -20,14 +20,16 @@ import { ApiPaginatedResponse } from '@/models/api-paginated-response';
 import { useUser } from '@/utils/provider/UserProvider';
 import { getNextEventsOrganizer } from '@/app/actions/get-next-events-organizer';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
+import { ActivityArea } from '@/models/activity-area';
 
 type Props = {
 	locale: string;
 	tags: Tag[];
 	id?: string;
+	activityAreas: ActivityArea[];
 };
 
-export default function PublicationsTable({ locale, tags, id }: Props) {
+export default function PublicationsTable({ locale, tags, id, activityAreas }: Props) {
 	const t = useTranslations('Publications');
 	const { setToast } = useToast();
 
@@ -210,6 +212,7 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 						setIsModalOpen(false);
 						attemptRevalidation(Constants.tags.publications);
 					}}
+					activityAreas={activityAreas}
 				/>
 			)}
 			{isDeleteModalOpen && (

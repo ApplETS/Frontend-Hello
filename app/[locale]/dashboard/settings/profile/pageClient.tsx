@@ -26,12 +26,12 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 	const t_default = useTranslationsWithDefault('Settings.profile-section');
 	const t_dialog = useTranslations('Settings.dialog');
 	const { user } = useUser();
+
 	const { startTransition } = useLoading();
 	const { setToast } = useToast();
 	const [formData, setFormData] = useState<FormData>();
 	const formRef = useRef<HTMLFormElement>(null);
 	const isOrganizer = user?.type == UserTypes.ORGANIZER;
-
 	const [image, setImage] = useState<string | null>(null);
 	const [rotation, setRotation] = useState(0);
 	const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);

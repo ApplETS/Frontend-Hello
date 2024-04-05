@@ -6,6 +6,7 @@ export type User = {
 	email: string | null;
 	type: string | null;
 	organization: string | null;
+	activityAreaId: string | null;
 	activityArea: ActivityArea | null;
 	avatarUrl: string | null;
 	profileDescription: string | null;

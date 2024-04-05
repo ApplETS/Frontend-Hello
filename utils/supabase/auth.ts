@@ -133,6 +133,7 @@ export const updateProfile = async (formData: FormData) => {
 	userObject.organization = formData.get('organization') as string;
 	userObject.profileDescription = formData.get('description') as string;
 	userObject.webSiteLink = formData.get('website') as string;
+	userObject.activityAreaId = formData.get('activity') as string;
 
 	const avatarFile = formData.get('avatarFile') as File;
 	avatarForm.set('avatarFile', avatarFile);
@@ -171,6 +172,9 @@ export const updateSocials = async (formData: FormData) => {
 	userObject.tikTokLink = formData.get('tiktok') as string;
 	userObject.redditLink = formData.get('reddit') as string;
 	userObject.xLink = formData.get('x') as string;
+	if (userObject.activityArea) {
+		userObject.activityAreaId = userObject.activityArea?.id;
+	}
 
 	let response: Response;
 

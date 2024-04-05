@@ -26,7 +26,9 @@ export const createApprobationColumnDefs = (
 					</div>
 					<div>
 						<div>{info.getValue()?.organization}</div>
-						<div className="text-secondary">{getActivityAreaName(info.getValue()?.activityArea, locale)}</div>
+						<div className="text-secondary">
+							{info.getValue()?.activityArea ? getActivityAreaName(info.getValue()?.activityArea, locale) : ''}
+						</div>
 					</div>
 				</div>
 			),

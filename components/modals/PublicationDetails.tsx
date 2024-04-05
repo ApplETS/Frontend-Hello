@@ -393,6 +393,9 @@ export default function PublicationDetails({
 														inputName="activity"
 														onItemChange={() => {}}
 														customStyle="w-full"
+														defaultItem={{
+															title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
+														}}
 													/>
 												</div>
 											</div>

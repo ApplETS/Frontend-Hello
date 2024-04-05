@@ -90,9 +90,9 @@
 			"title": "Titre",
 			"release-date": "Date de publication",
 			"event-date": "Date de l'événement",
-			"number-of-views": "Nombre de vues",
 			"status": "Statut",
-			"open": "Ouvrir"
+			"open": "Ouvrir",
+			"none": "Aucun"
 		},
 		"filters": {
 			"all": "Tous",

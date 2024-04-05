@@ -91,9 +91,9 @@
 			"title": "Title",
 			"release-date": "Release date",
 			"event-date": "Event date",
-			"number-of-views": "Number of views",
 			"status": "Status",
-			"open": "Open"
+			"open": "Open",
+			"none": "None"
 		},
 		"filters": {
 			"all": "All",

@@ -29,7 +29,6 @@ export default {
 		[NewsStates.ON_HOLD]: { color: 'bg-yellow', label: 'on-hold' },
 		[NewsStates.PUBLISHED]: { color: 'bg-purple', label: 'published' },
 		[NewsStates.APPROVED]: { color: 'bg-green', label: 'approved' },
-		[NewsStates.DRAFT]: { color: 'bg-blue', label: 'draft' },
 		[NewsStates.DELETED]: { color: 'bg-error', label: 'deleted' },
 		[NewsStates.REFUSED]: { color: 'bg-pink', label: 'refused' },
 	} as NewsStatuses,

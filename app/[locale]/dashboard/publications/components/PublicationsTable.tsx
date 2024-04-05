@@ -81,20 +81,18 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 
 	const callbackSetPaginatedEvents = useCallback(() => {
 		startTransition(async () => {
-			if (user) {
-				const eventsPaginated = await getNextEventsOrganizer(
-					currentPage,
-					pageSize,
-					searchTerm,
-					selectedFilter,
-					orderBy,
-					orderByDesc
-				);
-				if (eventsPaginated) {
-					setPaginatedEvents(eventsPaginated);
-				} else {
-					setToast(t('error-fetching-events'), AlertType.error);
-				}
+			const eventsPaginated = await getNextEventsOrganizer(
+				currentPage,
+				pageSize,
+				searchTerm,
+				selectedFilter,
+				orderBy,
+				orderByDesc
+			);
+			if (eventsPaginated) {
+				setPaginatedEvents(eventsPaginated);
+			} else {
+				setToast(t('error-fetching-events'), AlertType.error);
 			}
 		});
 	}, [currentPage, pageSize, debouncedSearchTerm, selectedFilter, orderBy, orderByDesc]);
@@ -190,7 +188,12 @@ export default function PublicationsTable({ locale, tags, id }: Props) {
 			</div>
 			{paginatedEvents && paginatedEvents.data.length > 0 ? (
 				<Table<HelloEvent>
-					data={paginatedEvents?.data}
+					data={paginatedEvents?.data.map((event) => {
+						if (!event.title) {
+							return { ...event, title: t('table.none') };
+						}
+						return event;
+					})}
 					columns={createEventColumnDefs(menuItems, handleDropdownSelection, t, locale)}
 					currentPage={currentPage}
 					pageSize={pageSize}

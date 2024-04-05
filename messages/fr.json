@@ -92,7 +92,8 @@
 			"event-date": "Date de l'événement",
 			"number-of-views": "Nombre de vues",
 			"status": "Statut",
-			"open": "Ouvrir"
+			"open": "Ouvrir",
+			"none": "Aucun"
 		},
 		"filters": {
 			"all": "Tous",

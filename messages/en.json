@@ -264,7 +264,7 @@
 			},
 			"success": "Account created",
 			"error": "An error occurred",
-			"organization-length-error": "The organization name must be between 1 and 50 characters",
+			"organization-length-error": "The organization name must be between 1 and 25 characters",
 			"activate-success": "Account was successfully activated"
 		},
 		"toggle": {

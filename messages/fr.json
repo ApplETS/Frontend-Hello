@@ -264,7 +264,7 @@
 			"success": "Compte créé avec succès",
 			"error": "Erreur lors de la création du compte",
 			"field-required": "Un {field} est obligatoire",
-			"organization-length-error": "Le nom de l'organisation doit être entre 1 et 50 caractères"
+			"organization-length-error": "Le nom de l'organisation doit être entre 1 et 25 caractères"
 		},
 		"toggle": {
 			"deactivation-title": "Pourquoi voulez-vous désactiver le compte de {organization}?",

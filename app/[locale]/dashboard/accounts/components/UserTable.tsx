@@ -152,7 +152,7 @@ export default function UsersTable({ users, locale, activityAreas }: Props) {
 										</td>
 										<td>
 											<div className="text-base flex items-center space-x-2">
-												{user.avatarUrl ?? (
+												{user.avatarUrl && (
 													<div className="avatar mr-3">
 														<Avatar userProfile={user} size="w-10 h-10" textSize="text-xl" color="bg-base-300" />
 													</div>

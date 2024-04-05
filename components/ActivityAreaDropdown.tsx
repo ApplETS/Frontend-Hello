@@ -48,7 +48,7 @@ export default function ActivityAreaDropdown({
 
 	useEffect(() => {
 		if (onItemChange) {
-			onItemChange(selectedValue.title);
+			onItemChange(selectedValue.value ? selectedValue.value : selectedValue.title);
 		}
 	}, [selectedValue]);
 

@@ -27,6 +27,7 @@ export interface CalendarEvent {
 	end: string;
 	color?: string;
 	cardId?: number;
+	date?: Date;
 	extendedProps?: {
 		isShowMore: boolean;
 		events: CalendarEvent[];
@@ -36,6 +37,7 @@ export interface CalendarEvent {
 export default function NewsCalendar({ events, locale, handleEventSelect }: Props) {
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>([]);
 	const [viewType, setViewType] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>('dayGridMonth');
+	const [openMoreModal, setOpenMoreModal] = useState<string | null>(null);
 	const [view] = useState('dayGridMonth');
 	const { isLight } = useTheme();
 
@@ -250,6 +252,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 			color: filterItems.find((item) => item.name === helloEvent.organizer?.activityArea)?.color,
 			end: helloEvent.eventEndDate,
 			cardId: helloEvent.cardId,
+			date: new Date(helloEvent.eventStartDate),
 		};
 	}
 
@@ -275,17 +278,21 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				eventContent={(arg: EventContentArg) => {
 					if (arg.event.extendedProps.isShowMore) {
 						return (
-							<div className="p-1 w-full text-center">
+							<div className="p-1 w-full text-center z-0">
 								<EventContainer
 									title={arg.event.title}
 									showMoreEvents={arg.event.extendedProps.events}
 									onClickEvent={handleEventSelect}
+									locale={locale}
+									date={arg.event.start}
+									setOpenMoreModal={setOpenMoreModal}
+									openMoreModal={openMoreModal}
 								/>
 							</div>
 						);
 					} else {
 						return (
-							<div className="p-1 cursor-pointer w-full text-center">
+							<div className="p-1 cursor-pointer w-full text-center z-0">
 								<EventContainer title={arg.event.title} />
 							</div>
 						);

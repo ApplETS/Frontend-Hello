@@ -9,7 +9,7 @@ import { faMobileScreen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { AlertType } from '../Alert';
-import Preview from './Preview';
+import Preview, { PreviewInfos } from './Preview';
 import { createPublication } from '@/lib/publications/actions/create-publication';
 import { Tag } from '@/models/tag';
 import { updatePublication } from '@/lib/publications/actions/update-publication';
@@ -24,6 +24,7 @@ import Modal from './Modal';
 import { draftAPublication } from '@/lib/publications/actions/draft-publication';
 import ImageCropper from '../ImageCropper';
 import { DraftEvent } from '@/models/draft-event';
+import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -33,14 +34,26 @@ interface PublicationDetailsProps {
 	publication: DraftEvent | null;
 	tags: Tag[];
 	onClose: () => void;
+	activityAreas: ActivityArea[];
 }
 
-export default function PublicationDetails({ locale, publication, modalMode, tags, onClose }: PublicationDetailsProps) {
+export default function PublicationDetails({
+	locale,
+	publication,
+	modalMode,
+	tags,
+	onClose,
+	activityAreas,
+}: PublicationDetailsProps) {
 	const t = useTranslations('Publications');
 	const ta = useTranslations('Approbations');
 	const { isLight } = useTheme();
 	const { setToast } = useToast();
-	const { user } = useUser();
+	let { user } = useUser();
+
+	if (publication?.organizer) {
+		user = publication.organizer;
+	}
 
 	const [, startTransition] = useTransition();
 	const [title, setTitle] = useState(publication?.title || '');
@@ -57,6 +70,13 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 	const [rejectReason, setRejectReason] = useState('');
 	const [deactivateReason, setDeactivateReason] = useState('');
 
+	const items = activityAreas.map((activityArea) => {
+		return {
+			title: getActivityAreaName(activityArea, locale),
+			value: activityArea.id,
+		};
+	});
+
 	const isDisabled =
 		modalMode === Constants.publicationModalStatus.view ||
 		modalMode === Constants.publicationModalStatus.delete ||
@@ -69,13 +89,13 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 
 	const [imageModalOpen, setImageModalOpen] = useState(false);
 
-	const PublicationInfosForPreview = {
+	const PublicationInfosForPreview: PreviewInfos = {
 		news: t('modal.news'),
 		title: title,
 		imageSrc: imageSrc,
 		altText: imageAltText,
 		author: user?.organization ?? '',
-		activityArea: user?.activityArea ?? '',
+		activityArea: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
 		content: content,
 		eventDateTitle: t('modal.event-date'),
 		eventStartDate: eventStartDate,
@@ -373,15 +393,13 @@ export default function PublicationDetails({ locale, publication, modalMode, tag
 												<label className="block mt-3">{t('modal.activity-area')}</label>
 												<div style={{ pointerEvents: 'none', opacity: 0.5 }}>
 													<ActivityAreaDropdown
-														items={[
-															{ title: t('modal.activity-area-items.scientificClub') },
-															{ title: t('modal.activity-area-items.ets') },
-															{ title: t('modal.activity-area-items.sve') },
-															{ title: t('modal.activity-area-items.aeets') },
-														]}
+														items={items}
 														inputName="activity"
 														onItemChange={() => {}}
 														customStyle="w-full"
+														defaultItem={{
+															title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
+														}}
 													/>
 												</div>
 											</div>

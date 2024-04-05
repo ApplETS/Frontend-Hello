@@ -14,11 +14,18 @@ import { createRef, useEffect, useState } from 'react';
 import { CalendarHeader } from './NewsCalendarHeader';
 import EventContainer from './EventContainer';
 import { useTheme } from '@/utils/provider/ThemeProvider';
+import { ActivityArea } from '@/models/activity-area';
+import { getNextEvents } from '@/app/actions/get-next-events';
+import { useLoading } from '@/utils/provider/LoadingProvider';
+import { useToast } from '@/utils/provider/ToastProvider';
+import { AlertType } from '@/components/Alert';
+import { useTranslations } from 'next-intl';
 
 interface Props {
 	events: HelloEvent[];
 	locale: string;
 	handleEventSelect: (cardId: number | null) => void;
+	activityAreas: ActivityArea[];
 }
 
 export interface CalendarEvent {
@@ -34,22 +41,23 @@ export interface CalendarEvent {
 	};
 }
 
-export default function NewsCalendar({ events, locale, handleEventSelect }: Props) {
+export default function NewsCalendar({ events, locale, handleEventSelect, activityAreas }: Props) {
+	const t = useTranslations('Publications');
+
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>([]);
 	const [viewType, setViewType] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>('dayGridMonth');
 	const [openMoreModal, setOpenMoreModal] = useState<string | null>(null);
 	const [view] = useState('dayGridMonth');
+	const [selectedActivityAreas, setSelectedActivityAreas] = useState<string[]>(
+		activityAreas.map((activity) => activity.id)
+	);
 	const { isLight } = useTheme();
+	const { startTransition } = useLoading();
+	const { setToast } = useToast();
 
 	const calendarRef = createRef<FullCalendar>();
 
-	// TODO : Will need to get from backend
-	const filterItems = [
-		{ id: 0, name: 'Club scientifique', color: '#06B6D4' },
-		{ id: 1, name: 'ETS', color: '#64C788' },
-		{ id: 2, name: 'Service à la vie étudiante', color: '#EA7CB7' },
-		{ id: 3, name: 'AEETS', color: '#E7A455' },
-	];
+	const colors = ['#E7A455', '#EA7CB7', '#06B6D4', '#64C788', '#EA7CB7', '#848BDB'];
 
 	const sliceEventsByDay = (events: HelloEvent[]): HelloEvent[] => {
 		const slicedEvents: HelloEvent[] = [];
@@ -110,6 +118,10 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 	};
 
 	useEffect(() => {
+		updateEvents(events);
+	}, []);
+
+	const updateEvents = (events: HelloEvent[]) => {
 		const updatedEvents = events.map((event) => {
 			const startDate = new Date(event.eventStartDate);
 			const endDate = new Date(event.eventEndDate);
@@ -124,20 +136,34 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 			};
 		});
 		setShownEvents(updatedEvents);
-	}, []);
+	};
 
 	const handleFilterChange = (selectedIndices: number[]) => {
-		if (selectedIndices.length !== 0) {
-			setShownEvents(
-				events.filter((event) => {
-					const selectedItems = selectedIndices.map((index) => filterItems[index].name);
-					return selectedItems.includes(event.organizer?.activityArea ?? '');
-				})
-			);
-		} else {
-			setShownEvents(events);
-		}
+		const selectedActivityAreas: string[] = [];
+
+		activityAreas.map((activity, index) => {
+			if (selectedIndices.includes(index)) {
+				selectedActivityAreas.push(activity.id);
+			}
+		});
+
+		setSelectedActivityAreas(selectedActivityAreas);
 	};
+
+	useEffect(() => {
+		startTransition(async () => {
+			const eventsPaginated = await getNextEvents(1, 1000, undefined, undefined, selectedActivityAreas);
+			if (eventsPaginated) {
+				updateEvents(eventsPaginated.data);
+			} else {
+				setToast(t('error-fetching-events'), AlertType.error);
+			}
+		});
+	}, [selectedActivityAreas]);
+
+	function getColorForActivityArea(colors: string[], event: HelloEvent) {
+		return colors[activityAreas.findIndex((activityArea) => activityArea.id == event.organizer?.activityArea?.id)];
+	}
 
 	const generateEventsForWeekView = (events: HelloEvent[]) => {
 		const generatedEvents: any[] = [];
@@ -178,7 +204,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 						start: startOfDay,
 						end: endOfDay,
 						allDay: isAllDay,
-						color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
+						color: getColorForActivityArea(colors, event),
 					});
 
 					currentDate.setDate(currentDate.getDate() + 1);
@@ -194,7 +220,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 					start: startDate,
 					end: endDate,
 					allDay: isAllDay,
-					color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
+					color: getColorForActivityArea(colors, event),
 				});
 			}
 		});
@@ -212,16 +238,18 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				const slicedEvents = sliceEventsByDay(events);
 				shownEvents = Object.entries(groupEventsByDate(slicedEvents))
 					.map(([date, events]) => {
-						const firstEvents = events.slice(0, 2);
-						const additionalEvents = events.slice(2);
-						const formattedEvents: CalendarEvent[] = firstEvents.map((event) => ({
-							title: event.title,
-							start: event.eventStartDate,
-							end: event.eventEndDate,
-							color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
-						}));
+						const firstEvent = events[0];
+						const additionalEvents = events.slice(1);
+						const formattedEvents: CalendarEvent[] = [
+							{
+								title: firstEvent.title,
+								start: firstEvent.eventStartDate,
+								end: firstEvent.eventEndDate,
+								color: getColorForActivityArea(colors, firstEvent),
+							},
+						];
 						if (additionalEvents.length > 0) {
-							formattedEvents[1] = {
+							formattedEvents.push({
 								title: '+' + additionalEvents.length,
 								start: additionalEvents[0].eventStartDate,
 								end: additionalEvents[0].eventEndDate,
@@ -230,7 +258,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 									isShowMore: true,
 									events: helloEventsToCalendarEvents(additionalEvents),
 								},
-							};
+							});
 						}
 						return formattedEvents;
 					})
@@ -253,7 +281,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 		return {
 			title: helloEvent.title,
 			start: helloEvent.eventStartDate,
-			color: filterItems.find((item) => item.name === helloEvent.organizer?.activityArea)?.color,
+			color: getColorForActivityArea(colors, helloEvent),
 			end: helloEvent.eventEndDate,
 			cardId: helloEvent.cardId,
 			date: new Date(helloEvent.eventStartDate),
@@ -266,7 +294,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				calendarRef={calendarRef}
 				locale={locale}
 				handleFilterChange={handleFilterChange}
-				filterItems={filterItems}
+				activityAreas={activityAreas}
 				viewType={viewType}
 				setViewType={setViewType}
 			/>

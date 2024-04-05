@@ -5,7 +5,8 @@ export async function getEventsPaginated(
 	pageNumber: number = 1,
 	pageSize: number = 100,
 	organizerId?: string,
-	title?: string
+	title?: string,
+	activityAreas?: string[]
 ): Promise<ApiPaginatedResponse> {
 	let url = `events?PageNumber=${pageNumber}&PageSize=${pageSize}`;
 
@@ -13,8 +14,12 @@ export async function getEventsPaginated(
 		url += `&organizerId=${organizerId}`;
 	}
 
-	if (title) {
+	if (title && title.trim() != '') {
 		url += `&title=${title}`;
+	}
+
+	if (activityAreas && activityAreas.length > 0) {
+		url += `&activityAreas=${activityAreas.join('&activityAreas=')}`;
 	}
 
 	const response = await fetchWithSession(url, Method.GET);

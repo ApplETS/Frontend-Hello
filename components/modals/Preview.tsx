@@ -7,24 +7,25 @@ import { faCalendar, faClose, faEllipsisVertical } from '@fortawesome/free-solid
 import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
 import Constants from '@/utils/constants';
 import Modal from './Modal';
-import EventDateAndImage from '../EventDateAndImage';
+
+export interface PreviewInfos {
+	news: string;
+	title: string;
+	imageSrc: string;
+	altText: string;
+	author: string | null;
+	activityArea: string | null;
+	content: string;
+	eventDateTitle: string;
+	eventStartDate: string;
+	eventEndDate: string;
+	publishedDate: string;
+	selectedTags: string[];
+}
 
 interface Props {
 	locale: string;
-	infos: {
-		news: string;
-		title: string;
-		imageSrc: string;
-		altText: string;
-		author: string | null;
-		activityArea: string | null;
-		content: string;
-		eventDateTitle: string;
-		eventStartDate: string;
-		eventEndDate: string;
-		publishedDate: string;
-		selectedTags: string[];
-	};
+	infos: PreviewInfos;
 	onClosePreview: () => void;
 }
 

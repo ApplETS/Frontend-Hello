@@ -44,20 +44,18 @@ export default function SocialsClient() {
 			action={(formData) => handleSubmitForm(formData, updateSocials, startTransition, setToast, t_default)}
 		>
 			<div className="flex-grow">
-				<div className="flex flex-col gap-2">
+				<div className="flex flex-col gap-2 mb-2">
 					<label className="text-xl font-bold">{t('title')}</label>
 					<label className="text-md font-extralight">{t('info')}</label>
 				</div>
-				<div className="grid grid-cols-6 gap-6 justify-left items-center pt-10">
-					{socials.map((social, index) => (
-						<SocialInput
-							key={index}
-							icon={social.icon}
-							inputName={social.inputName}
-							defaultValue={social.defaultValue ?? ''}
-						/>
-					))}
-				</div>
+				{socials.map((social, index) => (
+					<SocialInput
+						key={index}
+						icon={social.icon}
+						inputName={social.inputName}
+						defaultValue={social.defaultValue ?? ''}
+					/>
+				))}
 			</div>
 			<SettingsFooter
 				buttonText={t('save')}

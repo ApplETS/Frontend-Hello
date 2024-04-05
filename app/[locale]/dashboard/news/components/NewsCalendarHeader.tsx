@@ -7,12 +7,13 @@ import { faCalendarDay, faChevronLeft, faChevronRight } from '@fortawesome/free-
 import DropdownSelect from '@/components/DropdownSelect';
 import { useTranslations } from 'next-intl';
 import { useTheme } from '@/utils/provider/ThemeProvider';
+import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 
 export type TCalendarHeader = {
 	calendarRef: RefObject<FullCalendar>;
 	locale: string;
 	handleFilterChange: (selectedIndices: number[]) => void;
-	filterItems: { id: number; name: string }[];
+	activityAreas: ActivityArea[];
 	viewType: 'dayGridMonth' | 'timeGridWeek' | 'timeGridDay';
 	setViewType: React.Dispatch<React.SetStateAction<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>>;
 };
@@ -21,7 +22,7 @@ export const CalendarHeader = ({
 	calendarRef,
 	locale,
 	handleFilterChange,
-	filterItems,
+	activityAreas,
 	viewType,
 	setViewType,
 }: TCalendarHeader): ReactElement => {
@@ -118,7 +119,7 @@ export const CalendarHeader = ({
 			<div className="flex flex-row mb-1 basis-1/3 justify-end">
 				<DropdownSelect
 					title={t('filters')}
-					items={filterItems.map((item) => item.name)}
+					items={activityAreas.map((activityArea) => getActivityAreaName(activityArea, locale))}
 					onFilterChange={handleFilterChange}
 					defaultSelected
 				/>

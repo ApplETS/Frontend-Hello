@@ -4,7 +4,7 @@ import { HelloEvent } from '@/models/hello-event';
 
 export async function getEvents(
 	pageNumber: number = 1,
-	pageSize: number = 100,
+	pageSize: number = 1000,
 	organizerId?: string
 ): Promise<HelloEvent[]> {
 	let url = `events?PageNumber=${pageNumber}&PageSize=${pageSize}`;

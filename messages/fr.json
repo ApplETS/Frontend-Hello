@@ -231,7 +231,7 @@
 		"activate-error": "Une erreur est survenue lors de l'activation du compte",
 		"deactivate-error": "Une erreur est survenue lors de la désactivation du compte",
 		"table": {
-			"organization": "Nom de l'organisation",
+			"organization": "Organisation",
 			"email": "Courriel",
 			"activated": "Actif",
 			"yes": "Oui",

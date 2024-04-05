@@ -360,5 +360,6 @@
 		"of": "of",
 		"goToPage": "Go to page",
 		"show": "Show {count}"
-	}
+	},
+	"none": "None"
 }

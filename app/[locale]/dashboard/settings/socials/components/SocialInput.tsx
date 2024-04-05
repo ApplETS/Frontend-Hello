@@ -10,14 +10,15 @@ type Props = {
 
 export default function SocialInput({ icon, inputName, defaultValue }: Props) {
 	const { setHasChanges } = useSettings();
+
 	return (
-		<div className="flex flex-row justify-evenly gap-6 col-span-3 h-min">
-			<div className="avatar justify-self-center">
+		<div className="flex flex-row justify-start items-center p-2">
+			<div className="avatar px-4">
 				<Image src={icon} alt={inputName} />
 			</div>
 			<input
 				type="text"
-				className="input input-ghost col-span-2"
+				className="input input-ghost flex-grow ml-2"
 				name={inputName}
 				defaultValue={defaultValue}
 				onChange={() => setHasChanges(true)}

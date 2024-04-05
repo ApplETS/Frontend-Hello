@@ -4,12 +4,7 @@ import React, { useEffect, useState, useTransition } from 'react';
 import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
-import Search from '@/components/Search';
 import Constants from '@/utils/constants';
->>>>>>> main
-import { useTranslations } from 'next-intl';
-import Search from '@/components/Search';
-import Dropdown from '@/components/Dropdown';
 import { User } from '@/models/user';
 import UserCreationModal from '@/components/modals/UserCreationModal';
 import { AlertType } from '@/components/Alert';
@@ -21,7 +16,6 @@ import LoadingSpinner from '@/components/modals/LoadingSpinner';
 import constants from '@/utils/constants';
 import { getNextUsers } from '@/app/actions/get-next-users';
 import Confirmation from '@/components/modals/Confirmation';
-<<<<<<< HEAD
 import { toggleUserIsActive } from '@/lib/users/actions/toggle';
 
 type Props = {
@@ -102,7 +96,6 @@ export default function UsersTable({ locale }: Props) {
 		return !correct;
 	};
 
->>>>>>> main
 	return (
 		<div className="flex flex-col flex-grow">
 			<div className="mb-4 flex justify-between items-center space-x-4">

@@ -17,6 +17,7 @@ import { getNextEventsModerator } from '@/app/actions/get-next-events-moderator'
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
 import { ActivityArea } from '@/models/activity-area';
+import { NewsStates } from '@/models/news-states';
 
 type Props = {
 	locale: string;

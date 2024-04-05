@@ -11,7 +11,7 @@ import { handleSubmitForm } from '@/app/actions/settings/submitForm';
 import { updateProfile } from '@/app/actions/settings/update-profile';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import { useToast } from '@/utils/provider/ToastProvider';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Area } from 'react-easy-crop';
 import { getCroppedImgOnly } from '@/utils/canvasUtils';
 

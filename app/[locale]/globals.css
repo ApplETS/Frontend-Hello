@@ -170,3 +170,11 @@
 		transform: translateX(-500px);
 	}
 }
+
+.fc-event .fc-event-main {
+	z-index: unset;
+}
+
+.fc .fc-daygrid-event {
+	z-index: unset;
+}

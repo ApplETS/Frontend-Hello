@@ -12,7 +12,6 @@ import frLocale from '@fullcalendar/core/locales/fr';
 import enLocale from '@fullcalendar/core/locales/en-gb';
 import { createRef, useEffect, useState } from 'react';
 import { CalendarHeader } from './NewsCalendarHeader';
-import { DateTimeFormatOptions } from 'next-intl';
 import EventContainer from './EventContainer';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 
@@ -22,9 +21,23 @@ interface Props {
 	handleEventSelect: (cardId: number | null) => void;
 }
 
+export interface CalendarEvent {
+	title: string;
+	start: string;
+	end: string;
+	color?: string;
+	cardId?: number;
+	date?: Date;
+	extendedProps?: {
+		isShowMore: boolean;
+		events: CalendarEvent[];
+	};
+}
+
 export default function NewsCalendar({ events, locale, handleEventSelect }: Props) {
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>([]);
 	const [viewType, setViewType] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>('dayGridMonth');
+	const [openMoreModal, setOpenMoreModal] = useState<string | null>(null);
 	const [view] = useState('dayGridMonth');
 	const { isLight } = useTheme();
 
@@ -37,6 +50,59 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 		{ id: 2, name: 'Service à la vie étudiante', color: '#EA7CB7' },
 		{ id: 3, name: 'AEETS', color: '#E7A455' },
 	];
+
+	const sliceEventsByDay = (events: HelloEvent[]): HelloEvent[] => {
+		const slicedEvents: HelloEvent[] = [];
+
+		events.forEach((event) => {
+			const startDate = new Date(event.eventStartDate);
+			const endDate = new Date(event.eventEndDate);
+
+			let currentDate = new Date(startDate);
+			while (currentDate <= endDate) {
+				const start = new Date(currentDate);
+				start.setHours(startDate.getHours(), startDate.getMinutes(), startDate.getSeconds());
+
+				const end = new Date(currentDate);
+				end.setHours(23, 59, 59, 999);
+
+				if (currentDate.toDateString() === endDate.toDateString()) {
+					end.setHours(endDate.getHours(), endDate.getMinutes(), endDate.getSeconds());
+				}
+
+				slicedEvents.push({
+					...event,
+					eventStartDate: start.toISOString(),
+					eventEndDate: end.toISOString(),
+				});
+
+				currentDate.setDate(currentDate.getDate() + 1);
+			}
+		});
+
+		return slicedEvents;
+	};
+
+	const groupEventsByDate = (events: HelloEvent[]): Record<string, HelloEvent[]> => {
+		return events.reduce((acc, event) => {
+			const startDate = new Date(event.eventStartDate);
+			const endDate = new Date(event.eventEndDate);
+			let currentDate = new Date(startDate);
+
+			while (currentDate <= endDate) {
+				const dateString = currentDate.toISOString();
+
+				if (!acc[dateString]) {
+					acc[dateString] = [];
+				}
+				acc[dateString].push(event);
+
+				currentDate.setDate(currentDate.getDate() + 1);
+			}
+
+			return acc;
+		}, {} as Record<string, HelloEvent[]>);
+	};
 
 	useEffect(() => {
 		const updatedEvents = events.map((event) => {
@@ -130,6 +196,66 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 		return generatedEvents;
 	};
 
+	function getShownEvents(events: HelloEvent[]) {
+		let shownEvents = [];
+
+		switch (viewType) {
+			case 'timeGridWeek':
+				shownEvents = generateEventsForWeekView(events);
+				break;
+			case 'dayGridMonth':
+				const slicedEvents = sliceEventsByDay(events);
+				shownEvents = Object.entries(groupEventsByDate(slicedEvents))
+					.map(([date, events]) => {
+						const firstEvent = events[0];
+						const additionalEvents = events.slice(1);
+						const formattedEvents: CalendarEvent[] = [
+							{
+								title: firstEvent.title,
+								start: firstEvent.eventStartDate,
+								end: firstEvent.eventEndDate,
+								color: filterItems.find((item) => item.name === firstEvent.organizer?.activityArea)?.color,
+							},
+						];
+						if (additionalEvents.length > 0) {
+							formattedEvents.push({
+								title: '+' + additionalEvents.length,
+								start: date,
+								end: date,
+								color: isLight ? '#D0D0D0' : '#B0B0B0',
+								extendedProps: {
+									isShowMore: true,
+									events: helloEventsToCalendarEvents(additionalEvents),
+								},
+							});
+						}
+						return formattedEvents;
+					})
+					.flat();
+				break;
+			default:
+			case 'timeGridDay':
+				shownEvents = helloEventsToCalendarEvents(events);
+				break;
+		}
+		return shownEvents;
+	}
+
+	function helloEventsToCalendarEvents(helloEvents: HelloEvent[]): CalendarEvent[] {
+		return helloEvents.map((event) => helloEventToCalendarEvent(event));
+	}
+
+	function helloEventToCalendarEvent(helloEvent: HelloEvent): CalendarEvent {
+		return {
+			title: helloEvent.title,
+			start: helloEvent.eventStartDate,
+			color: filterItems.find((item) => item.name === helloEvent.organizer?.activityArea)?.color,
+			end: helloEvent.eventEndDate,
+			cardId: helloEvent.cardId,
+			date: new Date(helloEvent.eventStartDate),
+		};
+	}
+
 	return (
 		<div className="flex flex-col flex-grow h-full">
 			<CalendarHeader
@@ -141,31 +267,36 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 				setViewType={setViewType}
 			/>
 			<FullCalendar
-				viewClassNames={'rounded-lg border border-gray-300'}
+				viewClassNames={'rounded-lg border border-gray-300 overflow-hidden'}
 				ref={calendarRef}
 				height={'100%'}
 				plugins={[dayGridPlugin, interactionPlugin, momentPlugin, timeGridPlugin, timeGridDay]}
 				initialView={view}
 				locales={[frLocale, enLocale]}
 				locale={locale}
-				events={
-					viewType === 'timeGridWeek'
-						? generateEventsForWeekView(shownEvents)
-						: shownEvents.map((event) => {
-								return {
-									title: event.title,
-									start: event.eventStartDate,
-									color: filterItems.find((item) => item.name === event.organizer?.activityArea)?.color,
-									end: event.eventEndDate,
-								};
-						  })
-				}
+				events={getShownEvents(shownEvents)}
 				eventContent={(arg: EventContentArg) => {
-					return (
-						<div className="p-2 cursor-pointer w-full text-center">
-							<EventContainer title={arg.event.title} />
-						</div>
-					);
+					if (arg.event.extendedProps.isShowMore) {
+						return (
+							<div className="p-1 w-full text-center z-0">
+								<EventContainer
+									title={arg.event.title}
+									showMoreEvents={arg.event.extendedProps.events}
+									onClickEvent={handleEventSelect}
+									locale={locale}
+									date={arg.event.start}
+									setOpenMoreModal={setOpenMoreModal}
+									openMoreModal={openMoreModal}
+								/>
+							</div>
+						);
+					} else {
+						return (
+							<div className="p-1 cursor-pointer w-full text-center z-0">
+								<EventContainer title={arg.event.title} />
+							</div>
+						);
+					}
 				}}
 				eventTimeFormat={{
 					hour: '2-digit',
@@ -176,6 +307,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect }: Prop
 					handleEventSelect(events.find((event) => event.title === info.event.title)?.cardId ?? null);
 				}}
 				eventDisplay="block"
+				eventOrder={'start'}
 				headerToolbar={false}
 			/>
 		</div>

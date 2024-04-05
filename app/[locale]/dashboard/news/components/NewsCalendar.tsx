@@ -208,7 +208,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 								color: getColorForActivityArea(colors, firstEvent),
 							},
 						];
-						if (additionalEvents.length > 0) {
+						if (additionalEvents.length > 1) {
 							formattedEvents.push({
 								title: '+' + additionalEvents.length,
 								start: date,
@@ -218,6 +218,13 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 									isShowMore: true,
 									events: helloEventsToCalendarEvents(additionalEvents),
 								},
+							});
+						} else if (additionalEvents.length > 0) {
+							formattedEvents.push({
+								title: additionalEvents[0].title,
+								start: additionalEvents[0].eventStartDate,
+								end: additionalEvents[0].eventEndDate,
+								color: getColorForActivityArea(colors, additionalEvents[0]),
 							});
 						}
 						return formattedEvents;

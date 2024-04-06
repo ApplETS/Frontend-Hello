@@ -11,13 +11,13 @@ import { useToast } from '@/utils/provider/ToastProvider';
 import Table from '@/components/table/Table';
 import { createUserColumnDefs } from '@/components/table/UserColumnDefs';
 import { ApiPaginatedResponse } from '@/models/api-paginated-response';
-import LoadingSpinner from '@/components/modals/LoadingSpinner';
 import constants from '@/utils/constants';
 import { getNextUsers } from '@/app/actions/get-next-users';
 import Confirmation from '@/components/modals/Confirmation';
 import { toggleUserIsActive } from '@/lib/users/actions/toggle';
 import { ActivityArea } from '@/models/activity-area';
 import { UserStates } from '@/models/user-states';
+import { useLoading } from '@/utils/provider/LoadingProvider';
 
 type Props = {
 	locale: string;
@@ -41,7 +41,7 @@ export default function UsersTable({ locale, activityAreas }: Props) {
 	const [deactivationModalOpen, setDeactivationModalOpen] = useState(false);
 	const [deactivationReaon, setDeactivationReason] = useState('');
 	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
-	const [isLoading, startTransition] = useTransition();
+	const { startTransition } = useLoading();
 
 	const filterOrder = [UserStates.ALL, UserStates.ACTIVATED, UserStates.DEACTIVATED];
 	const filters = filterOrder.map((status) => {
@@ -214,7 +214,6 @@ export default function UsersTable({ locale, activityAreas }: Props) {
 					confirmationAction={toggleUser}
 				/>
 			)}
-			{isLoading && <LoadingSpinner localModal={true} />}
 		</div>
 	);
 }

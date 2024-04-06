@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState, useTransition } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
@@ -12,13 +12,13 @@ import { attemptRevalidation } from '@/lib/attempt-revalidation';
 import Table from '@/components/table/Table';
 import { createApprobationColumnDefs } from '@/components/table/ApprobationColumnDefs';
 import { ApiPaginatedResponse } from '@/models/api-paginated-response';
-import LoadingSpinner from '@/components/modals/LoadingSpinner';
 import { getNextEventsModerator } from '@/app/actions/get-next-events-moderator';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
 import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 import { NewsStates } from '@/models/news-states';
 import DropdownSelect from '@/components/DropdownSelect';
+import { useLoading } from '@/utils/provider/LoadingProvider';
 
 type Props = {
 	locale: string;
@@ -41,7 +41,7 @@ export default function ApprobationsTable({ locale, tags, id, activityAreas }: P
 	const [orderBy, setOrderBy] = useState('');
 	const [orderByDesc, setOrderByDesc] = useState(false);
 	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
-	const [isLoading, startTransition] = useTransition();
+	const { startTransition } = useLoading();
 	const [selectedActivityAreas, setSelectedActivityAreas] = useState<string[]>(
 		activityAreas.map((activity) => activity.id)
 	);
@@ -190,7 +190,6 @@ export default function ApprobationsTable({ locale, tags, id, activityAreas }: P
 			) : (
 				<div className="text-center py-4">{t('no-publications')}</div>
 			)}
-			{isLoading && <LoadingSpinner localModal={true} />}
 		</div>
 	);
 }

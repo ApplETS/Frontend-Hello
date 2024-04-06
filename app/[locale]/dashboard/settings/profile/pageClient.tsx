@@ -81,26 +81,29 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 	}
 
 	return (
-		<form className="flex flex-col basis-3/4" ref={formRef} action={(formData) => setFormData(formData)}>
+		<form className="flex flex-col basis-4/5" ref={formRef} action={(formData) => setFormData(formData)}>
 			<div className="flex-grow">
-				<label className="text-xl font-bold">{t('title')}</label>
-				<div className="grid grid-cols-6 gap-6 justify-left items-center pt-10">
-					<ProfilePicture
-						dropzoneText={t('drop-picture')}
-						buttonText={t('delete-picture')}
-						setCroppedAreaPixels={setCroppedAreaPixels}
-						image={image}
-						setImage={setImage}
-						rotation={rotation}
-						setRotation={setRotation}
-					/>
-					<div className="col-span-3" />
+				<label className="text-2xl font-bold">{t('title')}</label>
+				<div className="grid grid-cols-12 gap-6 mt-10 mb-6">
+					<div className="grid grid-cols-3 gap-6 col-span-6">
+						<ProfilePicture
+							dropzoneText={t('drop-picture')}
+							buttonText={t('delete-picture')}
+							setCroppedAreaPixels={setCroppedAreaPixels}
+							image={image}
+							setImage={setImage}
+							rotation={rotation}
+							setRotation={setRotation}
+						/>
+					</div>
+				</div>
+				<div className="grid grid-cols-12 gap-6">
 					{isOrganizer && (
 						<>
-							<label>{t('company-name')}</label>
+							<label className="flex items-center col-span-2">{t('company-name')}</label>
 							<input
 								type="text"
-								className="input input-ghost col-span-2"
+								className="input input-ghost col-span-4"
 								name="organization"
 								defaultValue={user.organization ?? ''}
 								required
@@ -109,48 +112,49 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 					)}
 					{isOrganizer && (
 						<>
-							<label className="justify-self-center align-top row-span-2">{t('description')}</label>
+							<label className="row-span-2 col-span-1 mt-2">{t('description')}</label>
 							<textarea
-								className="textarea textarea-ghost border-current row-span-2 h-full self-start col-span-2"
+								className="textarea textarea-ghost border-current row-span-2 h-full self-start col-span-5"
 								name="description"
 								defaultValue={user.profileDescription ?? ''}
 							/>
 						</>
 					)}
-					<label>{t('email')}</label>
+					{user && (
+						<>
+							<label className="flex items-center col-span-2">{t('activity')}</label>
+							<ActivityAreaDropdown
+								items={items}
+								inputName="activity"
+								defaultItem={{
+									title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
+									value: user?.activityArea?.id,
+								}}
+								customStyle="col-span-4"
+							/>
+						</>
+					)}
+					<label className="flex items-center col-span-2">{t('email')}</label>
 					<input
 						type="text"
-						className="input input-ghost col-span-2"
+						className="input input-ghost col-span-4"
 						name="email"
 						defaultValue={user?.email ?? ''}
 						disabled
 					/>
-
-					<label className="">{t('activity')}</label>
-					{user && (
-						<ActivityAreaDropdown
-							items={items}
-							inputName="activity"
-							defaultItem={{
-								title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
-								value: user?.activityArea?.id,
-							}}
-							customStyle="col-span-2"
-						/>
-					)}
-
 					{isOrganizer && (
 						<>
-							<label className="justify-self-center">{t('website')}</label>
-							<input
-								type="text"
-								className="input input-ghost col-span-2"
-								name="website"
-								defaultValue={user?.webSiteLink ?? ''}
-							/>
+							<label className="flex items-center col-span-1">{t('website')}</label>
+							<div className="flex items-center col-span-5">
+								<input
+									type="text"
+									className="input input-ghost w-full"
+									name="website"
+									defaultValue={user?.webSiteLink ?? ''}
+								/>
+							</div>
 						</>
 					)}
-					<div className="col-span-3" />
 				</div>
 			</div>
 			<SettingsFooter

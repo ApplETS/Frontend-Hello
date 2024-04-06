@@ -68,7 +68,7 @@ export default function ProfilePicture({
 					<Avatar size="w-36 h-36" textSize="text-5xl" color="bg-base-300" />
 				</div>
 			)}
-			<div className="flex flex-col gap-2 col-span-2">
+			<div className="flex flex-col justify-center gap-2 col-span-2">
 				<Dropzone title={dropzoneText} onFileDrop={handleFileDrop} />
 				{image && (
 					<button

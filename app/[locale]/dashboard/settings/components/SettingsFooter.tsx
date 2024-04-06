@@ -32,7 +32,7 @@ export default function SettingsFooter({
 	const { hasChanges } = useSettings();
 
 	return (
-		<footer className="sticky flex justify-end mt-auto gap-2 mb-3">
+		<footer className="flex justify-end gap-4  mt-auto">
 			{hasChanges && <p className="text-error mt-3">{errorText}</p>}
 			<CancelButton buttonText={cancelButtonText} dialogText={dialogText} />
 			<ConfirmButton

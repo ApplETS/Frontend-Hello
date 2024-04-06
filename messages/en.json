@@ -281,7 +281,8 @@
 			"delete": "Delete",
 			"input-title": "Reason",
 			"give-reason": "Please give a reason for this action"
-		}
+		},
+		"error-fetching-users": "An error occured while loading the accounts"
 	},
 	"Settings": {
 		"title": "Settings",

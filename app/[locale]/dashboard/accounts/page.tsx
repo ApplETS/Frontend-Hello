@@ -10,8 +10,7 @@ interface Props {
 }
 
 export default async function Approbations({ params: { locale } }: Props) {
-	const users = await getUsers();
 	const activityAreas = await getActivityAreas();
 
-	return <UsersTable users={users} locale={locale} activityAreas={activityAreas} />;
+	return <UsersTable locale={locale} activityAreas={activityAreas} />;
 }

@@ -39,7 +39,7 @@ const EventCard = ({ event, locale }: EventProps) => (
 			</div>
 		</div>
 		{event.tags.length > 0 && (
-			<div className={`flex flex-row gap-2 p-2 pb-14 mx-2 overflow-x-auto overflow-y-hidden basis-[10%]`}>
+			<div className={`flex flex-row gap-2 px-2 pb-14 mx-2 overflow-x-auto overflow-y-hidden basis-[10%]`}>
 				{event.tags.map((tag, index) => (
 					<div
 						key={tag.id}

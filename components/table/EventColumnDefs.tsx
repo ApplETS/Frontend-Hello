@@ -28,10 +28,32 @@ export const createEventColumnDefs = (
 			cell: (info) => formatDate(new Date(info.getValue()), locale),
 		}),
 		columnHelper.accessor(
-			(row) =>
-				`${formatDate(new Date(row.eventStartDate), locale)} ${
-					new Date(row.eventEndDate).getFullYear() != 1969 ? '- ' + formatDate(new Date(row.eventEndDate), locale) : ''
-				}`,
+			(row) => {
+				const startDate = new Date(row.eventStartDate);
+				const endDate = new Date(row.eventEndDate);
+				const isSameDay = startDate.toDateString() === endDate.toDateString();
+				const isSameMonth = startDate.getMonth() === endDate.getMonth();
+				const isSameYear = startDate.getFullYear() === endDate.getFullYear();
+
+				// When a publication is a draft it puts the year to 1969
+				const formattedEndDate = endDate.getFullYear() !== 1969 ? formatDate(endDate, locale) : '';
+				const formattedStartDate = formatDate(startDate, locale);
+
+				if (isSameDay) {
+					return formattedStartDate;
+				} else if (isSameMonth) {
+					const startDay = startDate.getDate();
+					const endDay = endDate.getDate();
+					const monthYear = formattedEndDate.slice(formattedEndDate.indexOf(' '));
+					return `${startDay} - ${endDay}${monthYear}`;
+				} else if (isSameYear) {
+					const startDayMonth = formattedStartDate.slice(0, formattedStartDate.lastIndexOf(' '));
+					const endDayMonth = formattedEndDate.slice(0, formattedEndDate.lastIndexOf(' '));
+					return `${startDayMonth} - ${endDayMonth} ${startDate.getFullYear()}`;
+				} else {
+					return `${formattedStartDate} - ${formattedEndDate}`;
+				}
+			},
 			{
 				id: 'EventStartDate',
 				meta: 'num',

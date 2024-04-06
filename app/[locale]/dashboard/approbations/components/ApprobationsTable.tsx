@@ -42,7 +42,6 @@ export default function ApprobationsTable({ locale, tags, id, activityAreas }: P
 	const [orderByDesc, setOrderByDesc] = useState(false);
 	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 	const [isLoading, startTransition] = useTransition();
-	const filterAll = t('filters.all').toLowerCase();
 	const [selectedActivityAreas, setSelectedActivityAreas] = useState<string[]>(
 		activityAreas.map((activity) => activity.id)
 	);

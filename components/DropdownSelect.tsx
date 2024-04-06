@@ -27,7 +27,6 @@ export default function DropdownSelect({ title, items, onFilterChange, defaultSe
 	};
 
 	useEffect(() => {
-		// Notify parent component about the selection change
 		if (onFilterChange) {
 			onFilterChange(selectedItems);
 		}
@@ -53,7 +52,7 @@ export default function DropdownSelect({ title, items, onFilterChange, defaultSe
 					<FontAwesomeIcon icon={isDropdownOpen ? faAngleUp : faAngleDown} className="w-5 ml-2" />
 				</button>
 				{isDropdownOpen && (
-					<ul className="p-2 shadow-xl menu bg-base-200 rounded-box absolute z-10" style={{ minWidth: '250px' }}>
+					<ul className="p-2 shadow-xl menu bg-base-200 rounded-box absolute z-10" style={{ minWidth: '300px' }}>
 						{items.map((item, index) => (
 							<li className="flex" key={index}>
 								<a className="flex items-center justify-start space-x-2" onClick={() => handleItemClick(index)}>

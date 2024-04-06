@@ -169,7 +169,7 @@
 		"title": "Approbations",
 		"search": "Rechercher",
 		"no-publications": "Aucune publication",
-		"activity-area-filters": "Filtres par secteur d'activité",
+		"activity-area-filters": "Secteur d'activité",
 		"table": {
 			"author": "Auteur",
 			"title": "Titre",
@@ -344,7 +344,7 @@
 		}
 	},
 	"Calendar": {
-		"filters": "Filtres",
+		"filters": "Secteurs d'activité",
 		"week": "Semaine",
 		"month": "Mois",
 		"day": "Jour"

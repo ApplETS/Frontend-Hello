@@ -16,8 +16,9 @@ import LoadingSpinner from '@/components/modals/LoadingSpinner';
 import { getNextEventsModerator } from '@/app/actions/get-next-events-moderator';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
-import { ActivityArea } from '@/models/activity-area';
+import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 import { NewsStates } from '@/models/news-states';
+import DropdownSelect from '@/components/DropdownSelect';
 
 type Props = {
 	locale: string;
@@ -41,6 +42,10 @@ export default function ApprobationsTable({ locale, tags, id, activityAreas }: P
 	const [orderByDesc, setOrderByDesc] = useState(false);
 	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 	const [isLoading, startTransition] = useTransition();
+	const filterAll = t('filters.all').toLowerCase();
+	const [selectedActivityAreas, setSelectedActivityAreas] = useState<string[]>(
+		activityAreas.map((activity) => activity.id)
+	);
 
 	const { setToast } = useToast();
 
@@ -80,30 +85,40 @@ export default function ApprobationsTable({ locale, tags, id, activityAreas }: P
 
 	const callbackSetPaginatedEvents = useCallback(() => {
 		startTransition(async () => {
-			const eventsPaginated = await getNextEventsModerator(
-				currentPage,
-				pageSize,
-				debouncedSearchTerm,
-				selectedFilter,
-				orderBy,
-				orderByDesc
-			);
-			if (eventsPaginated) {
-				setPaginatedEvents(eventsPaginated);
+			if (selectedActivityAreas.length === 0) {
+				setPaginatedEvents(undefined);
 			} else {
-				setToast(t('error-fetching-events'), AlertType.error);
+				const eventsPaginated = await getNextEventsModerator(
+					currentPage,
+					pageSize,
+					debouncedSearchTerm,
+					selectedFilter,
+					selectedActivityAreas,
+					orderBy,
+					orderByDesc
+				);
+				if (eventsPaginated) {
+					setPaginatedEvents(eventsPaginated);
+				} else {
+					setToast(t('error-fetching-events'), AlertType.error);
+				}
 			}
 		});
-	}, [currentPage, pageSize, debouncedSearchTerm, selectedFilter, orderBy, orderByDesc]);
+	}, [currentPage, pageSize, debouncedSearchTerm, selectedFilter, selectedActivityAreas, orderBy, orderByDesc]);
 
 	useEffect(() => {
 		callbackSetPaginatedEvents();
-	}, [currentPage, pageSize, selectedFilter, debouncedSearchTerm, orderBy, orderByDesc]);
+	}, [currentPage, pageSize, selectedFilter, debouncedSearchTerm, orderBy, orderByDesc, selectedActivityAreas]);
 
 	const handleFilterChanged = (filterIndex: number) => {
 		const selectedStatusKey = statusKeys[filterIndex];
 		setCurrentPage(1);
 		setSelectedFilter(selectedStatusKey);
+	};
+
+	const handleActivityAreaFilterChanged = (selectedIndices: number[]) => {
+		const selectedAreas = selectedIndices.map((index) => activityAreas[index].id);
+		setSelectedActivityAreas(selectedAreas);
 	};
 
 	const handleSearchChanged = (search: string) => {
@@ -153,6 +168,12 @@ export default function ApprobationsTable({ locale, tags, id, activityAreas }: P
 			<div className="mb-4 flex items-center space-x-4">
 				<Search search={t('search')} onSearchTermChange={handleSearchChanged} />
 				<Dropdown title={t('filters.on-hold')} items={filters} onFilterChange={handleFilterChanged} />
+				<DropdownSelect
+					title={t('activity-area-filters')}
+					items={activityAreas.map((activityArea) => getActivityAreaName(activityArea, locale))}
+					onFilterChange={handleActivityAreaFilterChanged}
+					defaultSelected
+				/>
 			</div>
 			{paginatedEvents && paginatedEvents.data.length > 0 ? (
 				<Table<HelloEvent>

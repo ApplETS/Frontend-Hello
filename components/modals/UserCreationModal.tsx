@@ -2,7 +2,7 @@ import { createUser } from '@/lib/users/actions/create';
 import { User } from '@/models/user';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { useTranslations } from 'next-intl';
-import { useState, useTransition } from 'react';
+import { useRef, useState, useTransition } from 'react';
 import ActivityAreaDropdown from '../ActivityAreaDropdown';
 import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 
@@ -72,10 +72,18 @@ export default function UserCreationModal({ onClose, onCreate, activityAreas, lo
 		}
 	};
 
+	const isSubmittingCreateRef = useRef(false);
 	const create = (formData: FormData) => {
+		if (isSubmittingCreateRef.current) {
+			return;
+		}
+
+		isSubmittingCreateRef.current = true;
+
 		startTransition(async () => {
 			formData.set('activity', selectedActivity);
 			const user = await createUser(formData);
+			isSubmittingCreateRef.current = false;
 			onCreate(user);
 		});
 	};

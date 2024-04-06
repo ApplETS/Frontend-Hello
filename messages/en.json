@@ -51,7 +51,8 @@
 		"email": "Email",
 		"send": "Reset your password",
 		"remember": "Already have an account?",
-		"remember-link": "Login here"
+		"remember-link": "Login here",
+		"field-required": "A {field} is required"
 	},
 	"UpdatePassword": {
 		"title": "Reset your password",

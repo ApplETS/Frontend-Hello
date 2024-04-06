@@ -51,7 +51,8 @@
 		"email": "Courriel",
 		"send": "Envoyer",
 		"remember": "Vous avez un compte?",
-		"remember-link": "Connectez-vous"
+		"remember-link": "Connectez-vous",
+		"field-required": "Un {field} est obligatoire"
 	},
 	"UpdatePassword": {
 		"title": "Réinitialiser votre mot de passe",

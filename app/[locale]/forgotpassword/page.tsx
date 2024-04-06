@@ -5,6 +5,7 @@ import Alert, { AlertType } from '@/components/Alert';
 import Footer from '@/components/Footer';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import ForgotPasswordForm from './components/ForgotPasswordForm';
 
 export default function ForgotPassword({
 	searchParams,
@@ -30,16 +31,7 @@ export default function ForgotPassword({
 								icon={faTriangleExclamation}
 							/>
 						)}
-						<form className="flex-1 flex flex-col w-full justify-center gap-2" action={forgotPassword}>
-							<input type="hidden" name="locale" value={params.locale} />
-							<label className="text-md" htmlFor="email">
-								{t('email')}
-							</label>
-							<input className="input input-ghost mb-6" name="email" required />
-							<div className="flex justify-center">
-								<button className="font-normal btn btn-primary rounded-md text-base mb-8 w-64">{t('send')}</button>
-							</div>
-						</form>
+						<ForgotPasswordForm locale={params.locale} />
 					</div>
 
 					<div className="text-s mt-6 pb-10">

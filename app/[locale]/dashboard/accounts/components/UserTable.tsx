@@ -17,6 +17,7 @@ import { getNextUsers } from '@/app/actions/get-next-users';
 import Confirmation from '@/components/modals/Confirmation';
 import { toggleUserIsActive } from '@/lib/users/actions/toggle';
 import { ActivityArea } from '@/models/activity-area';
+import { UserStates } from '@/models/user-states';
 
 type Props = {
 	locale: string;
@@ -42,7 +43,11 @@ export default function UsersTable({ locale, activityAreas }: Props) {
 	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 	const [isLoading, startTransition] = useTransition();
 
-	const filters = Object.values(constants.userStatuses).map((status) => t(`filters.${status.label}`));
+	const filterOrder = [UserStates.ALL, UserStates.ACTIVATED, UserStates.DEACTIVATED];
+	const filters = filterOrder.map((status) => {
+		const statusInfo = constants.userStatuses[status];
+		return t(`filters.${statusInfo.label}`);
+	});
 
 	useEffect(() => {
 		const handler = setTimeout(() => {

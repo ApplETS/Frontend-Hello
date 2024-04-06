@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useTransition } from 'react';
+import React, { useState, useEffect, useTransition, useRef } from 'react';
 import AddTag from '@/components/AddTag';
 import Constants from '@/utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -69,6 +69,7 @@ export default function PublicationDetails({
 	const [selectedTags, setSelectedTags] = useState(publication?.tags || []);
 	const [availableTags, setAvailableTags] = useState(tags);
 	const editorRef = React.useRef<MDXEditorMethods | null>(null);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const [rejectReason, setRejectReason] = useState('');
 	const [deactivateReason, setDeactivateReason] = useState('');
@@ -130,7 +131,14 @@ export default function PublicationDetails({
 	};
 
 	const [missingFields, setMissingFields] = useState<string[]>([]);
+	const isSubmittingRef = useRef(false);
 	const createOrUpdate = (formData: FormData) => {
+		if (isSubmittingRef.current) {
+			return;
+		}
+
+		isSubmittingRef.current = true;
+
 		const newMissingFields = [];
 		if (!title) newMissingFields.push(t('modal.title'));
 		if (!imageSrc) newMissingFields.push(t('modal.image'));
@@ -167,6 +175,7 @@ export default function PublicationDetails({
 				helloEvent ? AlertType.success : AlertType.error
 			);
 
+			isSubmittingRef.current = false;
 			if (!helloEvent) return;
 			else onClose();
 		});

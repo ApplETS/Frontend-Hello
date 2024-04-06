@@ -166,10 +166,12 @@
 				"zoom-hint": "Use ⌘ + scroll (or ctrl + scroll) to zoom the image"
 			}
 		},
-		"error-fetching-events": "An error occured while loading the publications"
+		"error-fetching-events": "An error occured while loading the publications",
+		"none": "None"
 	},
 	"Approbations": {
 		"title": "Approbations",
+		"none": "None",
 		"search": "Search",
 		"no-publications": "No publications found",
 		"activity-area-filters": "Activity area",
@@ -268,7 +270,8 @@
 			"success": "Account created",
 			"error": "An error occurred",
 			"organization-length-error": "The organization name must be between 1 and 50 characters",
-			"activate-success": "Account was successfully activated"
+			"activate-success": "Account was successfully activated",
+			"none": "None"
 		},
 		"toggle": {
 			"deactivation-title": "Why do you want to deactivate the account of {organization}?",

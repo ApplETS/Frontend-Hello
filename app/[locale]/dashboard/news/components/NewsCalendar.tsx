@@ -20,6 +20,7 @@ import { useLoading } from '@/utils/provider/LoadingProvider';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { AlertType } from '@/components/Alert';
 import { useTranslations } from 'next-intl';
+import dayjs from 'dayjs';
 
 interface Props {
 	events: HelloEvent[];
@@ -33,7 +34,7 @@ export interface CalendarEvent {
 	start: string;
 	end: string;
 	color?: string;
-	cardId?: number;
+	groupId?: number;
 	date?: Date;
 	extendedProps?: {
 		isShowMore: boolean;
@@ -63,19 +64,17 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 		const slicedEvents: HelloEvent[] = [];
 
 		events.forEach((event) => {
-			const startDate = new Date(event.eventStartDate);
-			const endDate = new Date(event.eventEndDate);
+			const startDate = dayjs(event.eventStartDate);
+			const endDate = dayjs(event.eventEndDate);
 
-			let currentDate = new Date(startDate);
-			while (currentDate <= endDate) {
-				const start = new Date(currentDate);
-				start.setHours(startDate.getHours(), startDate.getMinutes(), startDate.getSeconds());
+			let currentDate = dayjs(startDate);
 
-				const end = new Date(currentDate);
-				end.setHours(23, 59, 59, 999);
+			while (!currentDate.isAfter(endDate, 'day')) {
+				const start = currentDate.hour(startDate.hour()).minute(startDate.minute()).second(startDate.second());
+				const end = currentDate.hour(23).minute(59).second(59).millisecond(999);
 
-				if (currentDate.toDateString() === endDate.toDateString()) {
-					end.setHours(endDate.getHours(), endDate.getMinutes(), endDate.getSeconds());
+				if (currentDate.isSame(endDate, 'day')) {
+					end.hour(endDate.hour()).minute(endDate.minute()).second(endDate.second());
 				}
 
 				slicedEvents.push({
@@ -84,28 +83,27 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 					eventEndDate: end.toISOString(),
 				});
 
-				currentDate.setDate(currentDate.getDate() + 1);
+				currentDate = currentDate.add(1, 'day').startOf('day');
 			}
 		});
-
 		return slicedEvents;
 	};
 
 	const groupEventsByDate = (events: HelloEvent[]): Record<string, HelloEvent[]> => {
 		return events.reduce((acc, event) => {
-			const startDate = new Date(event.eventStartDate);
-			const endDate = new Date(event.eventEndDate);
-			let currentDate = new Date(startDate);
+			const startDate = dayjs(event.eventStartDate);
+			const endDate = dayjs(event.eventEndDate);
+			let currentDate = dayjs(startDate);
 
-			while (currentDate <= endDate) {
-				const dateString = currentDate.toISOString();
+			while (!currentDate.isAfter(endDate, 'day')) {
+				const dateString = currentDate.format('YYYY-MM-DD');
 
 				if (!acc[dateString]) {
 					acc[dateString] = [];
 				}
 				acc[dateString].push(event);
 
-				currentDate.setDate(currentDate.getDate() + 1);
+				currentDate = currentDate.add(1, 'day');
 			}
 
 			return acc;
@@ -118,11 +116,8 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 
 	const updateEvents = (events: HelloEvent[]) => {
 		const updatedEvents = events.map((event) => {
-			const startDate = new Date(event.eventStartDate);
-			const endDate = new Date(event.eventEndDate);
-
-			startDate.setMinutes(startDate.getMinutes() + 30);
-			endDate.setMinutes(endDate.getMinutes() + 30);
+			const startDate = dayjs(event.eventStartDate).add(30, 'minutes');
+			const endDate = dayjs(event.eventEndDate).add(30, 'minutes');
 
 			return {
 				...event,
@@ -130,7 +125,8 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 				eventEndDate: endDate.toISOString(),
 			};
 		});
-		setShownEvents(updatedEvents);
+		const eventsCards = updatedEvents.map((event, i) => ({ ...event, cardId: i + 1 }));
+		setShownEvents(eventsCards);
 	};
 
 	const handleFilterChange = (selectedIndices: number[]) => {
@@ -168,56 +164,34 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 		const generatedEvents: any[] = [];
 
 		events.forEach((event) => {
-			const startDate = new Date(event.eventStartDate);
-			const endDate = new Date(event.eventEndDate);
+			const startDate = dayjs(event.eventStartDate);
+			const endDate = dayjs(event.eventEndDate);
 
-			const startDay = startDate.getDate();
-			const endDay = endDate.getDate();
-			const startMonth = startDate.getMonth();
-			const endMonth = endDate.getMonth();
+			if (startDate.date() !== endDate.date() || startDate.month() !== endDate.month()) {
+				let currentDate = dayjs(startDate);
+				while (!currentDate.isAfter(endDate, 'day')) {
+					const startOfDay = currentDate.startOf('day');
+					const endOfDay = currentDate.endOf('day');
 
-			if (startDay !== endDay || startMonth !== endMonth) {
-				let currentDate = new Date(startDate);
-				while (currentDate <= endDate) {
-					const startOfDay = new Date(currentDate);
-					startOfDay.setHours(0, 0, 0, 0);
-					const endOfDay = new Date(currentDate);
-					endOfDay.setHours(23, 59, 59, 999);
-
-					if (currentDate.getDate() === startDate.getDate() && currentDate.getMonth() === startDate.getMonth()) {
-						startOfDay.setTime(startDate.getTime());
-						endOfDay.setHours(23, 59, 59, 999);
-					} else if (currentDate.getDate() === endDate.getDate() && currentDate.getMonth() === endDate.getMonth()) {
-						startOfDay.setHours(0, 0, 0, 0);
-						endOfDay.setTime(endDate.getTime());
-					}
-
-					const isAllDay =
-						startOfDay.getHours() === 0 &&
-						startOfDay.getMinutes() === 0 &&
-						endOfDay.getHours() === 23 &&
-						endOfDay.getMinutes() === 59;
+					const isAllDay = startOfDay.isSame(startDate, 'minute') && endOfDay.isSame(endDate, 'minute');
 
 					generatedEvents.push({
 						title: event.title,
-						start: startOfDay,
-						end: endOfDay,
+						start: startOfDay.toDate(),
+						end: endOfDay.toDate(),
 						allDay: isAllDay,
 						color: getColorForActivityArea(colors, event),
 					});
 
-					currentDate.setDate(currentDate.getDate() + 1);
+					currentDate = currentDate.add(1, 'day');
 				}
 			} else {
 				const isAllDay =
-					startDate.getHours() === 0 &&
-					startDate.getMinutes() === 0 &&
-					endDate.getHours() === 23 &&
-					endDate.getMinutes() === 59;
+					startDate.hour() === 0 && startDate.minute() === 0 && endDate.hour() === 23 && endDate.minute() === 59;
 				generatedEvents.push({
 					title: event.title,
-					start: startDate,
-					end: endDate,
+					start: startDate.toDate(),
+					end: endDate.toDate(),
 					allDay: isAllDay,
 					color: getColorForActivityArea(colors, event),
 				});
@@ -235,36 +209,31 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 				break;
 			case 'dayGridMonth':
 				const slicedEvents = sliceEventsByDay(events);
-				shownEvents = Object.entries(groupEventsByDate(slicedEvents))
+				const groupedEventsByDate = groupEventsByDate(slicedEvents);
+
+				shownEvents = Object.entries(groupedEventsByDate)
 					.map(([date, events]) => {
-						const firstEvent = events[0];
-						const additionalEvents = events.slice(1);
-						const formattedEvents: CalendarEvent[] = [
-							{
-								title: firstEvent.title,
-								start: firstEvent.eventStartDate,
-								end: firstEvent.eventEndDate,
-								color: getColorForActivityArea(colors, firstEvent),
-							},
-						];
+						const formattedEvents: CalendarEvent[] = events.slice(0, 3).map((event) => ({
+							title: event.title,
+							start: event.eventStartDate,
+							end: event.eventEndDate,
+							groupId: event.cardId,
+							color: getColorForActivityArea(colors, event),
+						}));
+						const additionalEvents = events.slice(2);
+
 						if (additionalEvents.length > 1) {
-							formattedEvents.push({
+							formattedEvents[2] = {
 								title: '+' + additionalEvents.length,
-								start: date,
-								end: date,
+								start: additionalEvents[0].eventStartDate,
+								end: additionalEvents[0].eventEndDate,
 								color: isLight ? '#D0D0D0' : '#B0B0B0',
+								groupId: additionalEvents[0].cardId,
 								extendedProps: {
 									isShowMore: true,
 									events: helloEventsToCalendarEvents(additionalEvents),
 								},
-							});
-						} else if (additionalEvents.length > 0) {
-							formattedEvents.push({
-								title: additionalEvents[0].title,
-								start: additionalEvents[0].eventStartDate,
-								end: additionalEvents[0].eventEndDate,
-								color: getColorForActivityArea(colors, additionalEvents[0]),
-							});
+							};
 						}
 						return formattedEvents;
 					})
@@ -288,8 +257,8 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 			start: helloEvent.eventStartDate,
 			color: getColorForActivityArea(colors, helloEvent),
 			end: helloEvent.eventEndDate,
-			cardId: helloEvent.cardId,
-			date: new Date(helloEvent.eventStartDate),
+			groupId: helloEvent.cardId,
+			date: dayjs(helloEvent.eventStartDate).toDate(),
 		};
 	}
 
@@ -341,7 +310,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 					hour12: false,
 				}}
 				eventClick={(info) => {
-					handleEventSelect(events.find((event) => event.title === info.event.title)?.cardId ?? null);
+					handleEventSelect(Number(info.event.groupId));
 				}}
 				eventDisplay="block"
 				eventOrder={'start'}

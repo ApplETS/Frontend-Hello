@@ -1,9 +1,7 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import Marquee from './Marquee';
 import { CalendarEvent } from './NewsCalendar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
 	index: number;
@@ -21,8 +19,8 @@ export default function ExtraEventContainer({ index, onClickEvent, event }: Prop
 			style={{ backgroundColor: event.color }}
 			key={index}
 			onClick={() => {
-				if (event.cardId && onClickEvent) {
-					onClickEvent(event.cardId);
+				if (event.groupId && onClickEvent) {
+					onClickEvent(event.groupId);
 				}
 			}}
 		>

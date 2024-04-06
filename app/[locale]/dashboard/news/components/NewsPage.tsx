@@ -3,7 +3,7 @@
 import { CardRotation } from '@/components/CardRotation';
 import NewsCalendar from './NewsCalendar';
 import { HelloEvent } from '@/models/hello-event';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityArea } from '@/models/activity-area';
 
 interface Props {
@@ -18,6 +18,7 @@ export default function NewsPage({ eventsCards, locale, activityAreas }: Props) 
 	const handleEventSelect = (cardId: number | null) => {
 		setSelectedCard(cardId);
 	};
+
 	return (
 		<div className="flex flex-row h-full">
 			<div className="basis-[70%]">

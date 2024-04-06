@@ -27,6 +27,7 @@ import { DraftEvent } from '@/models/draft-event';
 import Markdown from 'react-markdown';
 import style from '@/markdown-styles.module.css';
 import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
+import dayjs from 'dayjs';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -402,7 +403,7 @@ export default function PublicationDetails({
 														className="input input-ghost w-full"
 														onChange={(e) => setPublishedDate(e.target.value)}
 														disabled={isDisabled}
-														min={new Date().toISOString().split('T')[0]}
+														min={dayjs().format('YYYY-MM-DD')}
 													/>
 												</div>
 											</div>

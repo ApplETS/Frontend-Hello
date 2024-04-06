@@ -8,6 +8,9 @@ import { locales } from '../../config';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import NextTopLoader from 'nextjs-toploader';
 import { SettingsProvider } from '@/utils/provider/SettingsProvider';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
 type Props = {
 	children: ReactNode;
@@ -29,6 +32,8 @@ export async function generateMetadata({ params: { locale } }: Omit<Props, 'chil
 export default function RootLayout({ children, params: { locale } }: Props) {
 	unstable_setRequestLocale(locale);
 	const messages = useMessages();
+	dayjs.extend(utc);
+	dayjs.extend(timezone);
 
 	return (
 		<html lang={locale} className={GeistSans.className}>

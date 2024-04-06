@@ -1,6 +1,6 @@
 {
 	"LocaleLayout": {
-		"title": "Frontend-PS",
+		"title": "Hello",
 		"default-error": "An error occurred"
 	},
 	"Dashboard": {
@@ -172,6 +172,7 @@
 		"none": "None",
 		"search": "Search",
 		"no-publications": "No publications found",
+		"activity-area-filters": "Activity area filters",
 		"table": {
 			"author": "Author",
 			"title": "Title",
@@ -283,7 +284,8 @@
 			"delete": "Delete",
 			"input-title": "Reason",
 			"give-reason": "Please give a reason for this action"
-		}
+		},
+		"error-fetching-users": "An error occured while loading the accounts"
 	},
 	"Settings": {
 		"title": "Settings",
@@ -366,5 +368,9 @@
 		"goToPage": "Go to page",
 		"show": "Show {count}"
 	},
-	"none": "None"
+	"none": "None",
+	"MDXEditor": {
+		"link-text": "Link text",
+		"link-url": "Link"
+	}
 }

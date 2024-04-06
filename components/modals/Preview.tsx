@@ -7,6 +7,9 @@ import { faCalendar, faClose, faEllipsisVertical } from '@fortawesome/free-solid
 import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
 import Constants from '@/utils/constants';
 import Modal from './Modal';
+import EventDateAndImage from '../EventDateAndImage';
+import Markdown from 'react-markdown';
+import style from '@/markdown-styles.module.css';
 
 export interface PreviewInfos {
 	news: string;
@@ -144,14 +147,7 @@ export default function Preview({ locale, infos, onClosePreview }: Props) {
 								</div>
 								<div className="px-2 h-40 overflow-y-auto">
 									<div style={{ position: 'relative' }}>
-										<MDXEditor
-											className={` text-sm text-justify ${
-												isLight ? 'light-theme light-editor text-sm' : 'dark-theme dark-editor'
-											}`}
-											plugins={[linkPlugin(), linkDialogPlugin()]}
-											markdown={infos.content}
-										/>
-										<div style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }}></div>
+										<Markdown className={`${style.reactMarkDown} p-2`}>{infos.content}</Markdown>
 									</div>
 								</div>
 								<div className="flex flex-wrap p-4 gap-1">

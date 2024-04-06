@@ -28,9 +28,9 @@ const cardVariants = {
 		zIndex: 10,
 	},
 	notSelected: (i: any) => ({
-		scale: 1 - Math.abs(i * 0.05),
+		scale: 1 - Math.abs(i * 0.05) < 0.8 ? 0.8 : 1 - Math.abs(i * 0.05),
 		y: i ? i * 50 : 0,
-		opacity: 1 - Math.abs(i * 0.35) < 0.15 ? 0.15 : 1 - Math.abs(i * 0.35),
+		opacity: 1 - Math.abs(i * 0.35) < 0.5 ? 0.5 : 1 - Math.abs(i * 0.35),
 		zIndex: 10 - Math.abs(i),
 		transition: { duration: 0.35 },
 	}),
@@ -52,6 +52,12 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 		const halfScroll = (scrollHeight - clientHeight) / 2;
 		containerRef.current.scrollTop = halfScroll;
 	}, [containerRef.current]);
+
+	useEffect(() => {
+		const now = new Date();
+		const futureEvents = events.filter((event) => new Date(event.eventStartDate) >= now);
+		selectCard(futureEvents.length > 0 ? futureEvents[0].cardId ?? 0 : 1);
+	}, []);
 
 	useEffect(() => {
 		if (selectedCard !== null) {
@@ -202,7 +208,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 								{selectedCard === event.cardId && (
 									<>
 										<div
-											className={`text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto h-44 ${
+											className={`text-sm text-justify font-light px-2 whitespace-normal overflow-y-auto markdown-custom-styling h-44 ${
 												event.tags.length > 0 ? 'mb-2' : 'mb-4'
 											}`}
 										>

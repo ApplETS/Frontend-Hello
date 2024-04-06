@@ -1,6 +1,6 @@
 {
 	"LocaleLayout": {
-		"title": "Frontend-PS",
+		"title": "Hello",
 		"default-error": "Une erreur est survenue"
 	},
 	"Dashboard": {
@@ -170,6 +170,7 @@
 		"title": "Approbations",
 		"search": "Rechercher",
 		"no-publications": "Aucune publication",
+		"activity-area-filters": "Filtres par secteur d'activité",
 		"table": {
 			"author": "Auteur",
 			"title": "Titre",
@@ -282,6 +283,7 @@
 			"input-title": "Raison",
 			"give-reason": "Veuillez donner une raison pour la désactivation de ce compte"
 		},
+		"error-fetching-users": "Une erreur est survenue lors du chargement des comptes",
 		"none": "Aucune"
 	},
 	"Settings": {
@@ -365,5 +367,9 @@
 		"goToPage": "Aller à la page",
 		"show": "Afficher {count}"
 	},
-	"none": "Aucune"
+	"none": "Aucune",
+	"MDXEditor": {
+		"link-text": "Texte du lien",
+		"link-url": "Lien"
+	}
 }

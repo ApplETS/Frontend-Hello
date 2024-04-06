@@ -39,7 +39,7 @@ export default function SocialsClient() {
 
 	return (
 		<form
-			className="flex flex-col basis-3/4"
+			className="flex flex-col basis-4/5"
 			ref={formRef}
 			action={(formData) => handleSubmitForm(formData, updateSocials, startTransition, setToast, t_default)}
 		>

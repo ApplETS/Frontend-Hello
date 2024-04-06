@@ -19,13 +19,13 @@ export default function PasswordClient() {
 
 	return (
 		<form
-			className="flex flex-col basis-3/4"
+			className="flex flex-col basis-4/5"
 			ref={formRef}
 			action={(formData) =>
 				handleSubmitForm(formData, updatePassword, startTransition, setToast, t_default, formRef.current)
 			}
 		>
-			<div className="flex-grow p-4">
+			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>
 				<div className="grid grid-cols-4 gap-6 justify-left items-center pt-10">
 					<label>{t('new-password')}</label>

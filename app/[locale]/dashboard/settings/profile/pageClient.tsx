@@ -83,7 +83,7 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 	return (
 		<form className="flex flex-col basis-4/5" ref={formRef} action={(formData) => setFormData(formData)}>
 			<div className="flex-grow">
-				<label className="text-2xl font-bold">{t('title')}</label>
+				<label className="text-xl font-bold">{t('title')}</label>
 				<div className="grid grid-cols-12 gap-6 mt-10 mb-6">
 					<div className="grid grid-cols-3 gap-6 col-span-6">
 						<ProfilePicture
@@ -120,6 +120,14 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 							/>
 						</>
 					)}
+					<label className="flex items-center col-span-2">{t('email')}</label>
+					<input
+						type="text"
+						className="input input-ghost col-span-4"
+						name="email"
+						defaultValue={user?.email ?? ''}
+						disabled
+					/>
 					{user && (
 						<>
 							<label className="flex items-center col-span-2">{t('activity')}</label>
@@ -134,14 +142,6 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 							/>
 						</>
 					)}
-					<label className="flex items-center col-span-2">{t('email')}</label>
-					<input
-						type="text"
-						className="input input-ghost col-span-4"
-						name="email"
-						defaultValue={user?.email ?? ''}
-						disabled
-					/>
 					{isOrganizer && (
 						<>
 							<label className="flex items-center col-span-1">{t('website')}</label>

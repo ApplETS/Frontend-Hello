@@ -295,7 +295,14 @@ export default function PublicationDetails({
 		);
 	};
 
+	const isSubmittingDraftRef = useRef(false);
 	const handleDraft = async () => {
+		if (isSubmittingDraftRef.current) {
+			return;
+		}
+
+		isSubmittingDraftRef.current = true;
+
 		const formData = new FormData();
 		const updatedFormData = updateFormData(formData, true);
 
@@ -307,6 +314,7 @@ export default function PublicationDetails({
 				helloEvent ? AlertType.success : AlertType.error
 			);
 
+			isSubmittingDraftRef.current = false;
 			if (helloEvent) onClose();
 		});
 	};

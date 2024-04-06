@@ -198,4 +198,5 @@
 
 .fc-event-main {
 	overflow: hidden;
+	cursor: pointer;
 }

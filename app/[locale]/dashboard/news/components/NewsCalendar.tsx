@@ -180,6 +180,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 						start: startOfDay.toDate(),
 						end: endOfDay.toDate(),
 						allDay: isAllDay,
+						groupId: event.cardId,
 						color: getColorForActivityArea(colors, event),
 					});
 
@@ -192,6 +193,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 					title: event.title,
 					start: startDate.toDate(),
 					end: endDate.toDate(),
+					groupId: event.cardId,
 					allDay: isAllDay,
 					color: getColorForActivityArea(colors, event),
 				});

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState, useTransition } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Search from '@/components/Search';
 import Dropdown from '@/components/Dropdown';
@@ -19,8 +19,8 @@ import { createEventColumnDefs } from '@/components/table/EventColumnDefs';
 import { ApiPaginatedResponse } from '@/models/api-paginated-response';
 import { useUser } from '@/utils/provider/UserProvider';
 import { getNextEventsOrganizer } from '@/app/actions/get-next-events-organizer';
-import LoadingSpinner from '@/components/modals/LoadingSpinner';
 import { ActivityArea } from '@/models/activity-area';
+import { useLoading } from '@/utils/provider/LoadingProvider';
 
 type Props = {
 	locale: string;
@@ -47,7 +47,7 @@ export default function PublicationsTable({ locale, tags, id, activityAreas }: P
 	const [orderByDesc, setOrderByDesc] = useState(false);
 	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 	const { user } = useUser();
-	const [isLoading, startTransition] = useTransition();
+	const { startTransition } = useLoading();
 
 	const filters = Object.values(Constants.newsStatuses).map((status) => t(`filters.${status.label}`));
 	const menuItems = Constants.publicationMenuItems.map((item) => {
@@ -234,7 +234,6 @@ export default function PublicationsTable({ locale, tags, id, activityAreas }: P
 					confirmationAction={deletePost}
 				/>
 			)}
-			{isLoading && <LoadingSpinner localModal={true} />}
 		</div>
 	);
 }

@@ -170,7 +170,7 @@
 		"title": "Approbations",
 		"search": "Search",
 		"no-publications": "No publications found",
-		"activity-area-filters": "Activity area filters",
+		"activity-area-filters": "Activity area",
 		"table": {
 			"author": "Author",
 			"title": "Title",
@@ -345,7 +345,7 @@
 		}
 	},
 	"Calendar": {
-		"filters": "Filters",
+		"filters": "Activity area",
 		"week": "Week",
 		"month": "Month",
 		"day": "Day"

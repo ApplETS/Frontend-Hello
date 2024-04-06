@@ -7,13 +7,14 @@ interface Props {
 	eventEndDate: string;
 	imageUrl: string;
 	locale: string;
+	customStyle?: string;
 }
 
-export default function EventDateAndImage({ eventStartDate, eventEndDate, imageUrl, locale }: Props) {
+export default function EventDateAndImage({ eventStartDate, eventEndDate, imageUrl, locale, customStyle }: Props) {
 	const t = useTranslations('Profile');
 
 	return (
-		<div>
+		<div className={customStyle}>
 			<div className="mx-4 my-2">
 				{eventStartDate && (
 					<div className="text-sm font-normal">

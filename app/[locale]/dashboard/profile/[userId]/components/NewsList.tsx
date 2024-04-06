@@ -18,25 +18,66 @@ interface EventProps {
 }
 
 const EventCard = ({ event, locale }: EventProps) => (
-	<div className="card justify-center w-full rounded-lg bg-base-200">
-		<div className="grid grid-rows-[auto_auto_auto_1fr_auto] rounded-3xl h-full">
-			<div className="text-xl font-bold px-4 pt-4 h-24 overflow-hidden line-clamp-3">
-				<div className="mb-2">{event.title}</div>
-			</div>
-			<EventDateAndImage
-				eventStartDate={event.eventStartDate}
-				eventEndDate={event.eventEndDate}
-				imageUrl={event.imageUrl}
-				locale={locale}
-			/>
-			<div className="text-sm text-justify font-light p-2 whitespace-normal overflow-y-auto h-44">
-				<div style={{ position: 'relative' }}>
-					<Markdown className={`${style.reactMarkDown} p-2`}>{event.content}</Markdown>
-				</div>
+	<div className="flex flex-col rounded-3xl h-[36rem]">
+		<div className="text-xl font-bold basis-[20%] p-4 overflow-hidden">
+			<div className="line-clamp-2">
+				{event.title}
+				{event.title}
+				{event.title}
 			</div>
 		</div>
-		<div className="flex flex-wrap gap-2 p-6">
-			<div className="flex flex-wrap gap-2 overflow-x-auto">
+		<EventDateAndImage
+			eventStartDate={event.eventStartDate}
+			eventEndDate={event.eventEndDate}
+			imageUrl={event.imageUrl}
+			locale={locale}
+			customStyle="basis-[30%]"
+		/>
+		<div
+			className={`text-sm text-justify p-2 mb-5 font-light whitespace-normal overflow-y-auto ${
+				event.tags.length > 0 ? 'basis-[40%]' : 'basis-[60%]'
+			}`}
+		>
+			<div style={{ position: 'relative' }}>
+				<Markdown
+					className={`${style.reactMarkDown} p-2`}
+				>{`${event.content}${event.content}${event.content}${event.content}${event.content}${event.content}${event.content}${event.content}`}</Markdown>
+			</div>
+		</div>
+		{event.tags.length > 0 && (
+			<div className={`flex flex-row gap-2 p-2 pb-14 mx-2 overflow-x-auto basis-[10%]`}>
+				{event.tags.map((tag, index) => (
+					<div
+						key={tag.id}
+						className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
+					>
+						{tag.name}
+					</div>
+				))}
+				{event.tags.map((tag, index) => (
+					<div
+						key={tag.id}
+						className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
+					>
+						{tag.name}
+					</div>
+				))}
+				{event.tags.map((tag, index) => (
+					<div
+						key={tag.id}
+						className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
+					>
+						{tag.name}
+					</div>
+				))}
+				{event.tags.map((tag, index) => (
+					<div
+						key={tag.id}
+						className={`badge ${Constants.colors[index]} text-black py-4 px-4 flex items-center whitespace-nowrap`}
+					>
+						{tag.name}
+					</div>
+				))}
 				{event.tags.map((tag, index) => (
 					<div
 						key={tag.id}
@@ -46,7 +87,7 @@ const EventCard = ({ event, locale }: EventProps) => (
 					</div>
 				))}
 			</div>
-		</div>
+		)}
 	</div>
 );
 
@@ -162,7 +203,7 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 			<div className="grid grid-cols-3 gap-4 mt-2">
 				{filteredPublications.map((event, index) => (
 					<div
-						className="card justify-center w-full rounded-lg bg-base-200"
+						className="card justify-center w-full rounded-lg bg-base-200 h-full"
 						key={index}
 						ref={index === filteredPublications.length - 1 ? lastEventRef : null}
 					>

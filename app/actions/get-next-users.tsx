@@ -2,10 +2,10 @@
 
 import { getUsers } from '@/lib/get-users';
 
-export async function getNextUsers(page: number, nbPerPage: number, search?: string) {
+export async function getNextUsers(page: number, nbPerPage: number, search?: string, state?: string) {
 	let eventsPaginated;
 	try {
-		eventsPaginated = await getUsers(page, nbPerPage, search);
+		eventsPaginated = await getUsers(page, nbPerPage, search, state);
 	} catch (error) {
 		return null;
 	}

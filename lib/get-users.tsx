@@ -3,11 +3,20 @@ import { ApiPaginatedResponse } from '@/models/api-paginated-response';
 import { User } from '@/models/user';
 import Constants from '@/utils/constants';
 
-export async function getUsers(page?: number, pageSize?: number, search?: string): Promise<ApiPaginatedResponse<User>> {
+export async function getUsers(
+	page?: number,
+	pageSize?: number,
+	search?: string,
+	state?: string
+): Promise<ApiPaginatedResponse<User>> {
 	let url = `moderator/organizer?PageNumber=${page ? page : 1}&PageSize=${pageSize ? pageSize : 1000}`;
 
 	if (search) {
 		url += `&search=${search}`;
+	}
+
+	if (state) {
+		url += `&filter=${state}`;
 	}
 
 	const response = await fetchWithSession(url, Method.GET, null, Constants.tags.users);

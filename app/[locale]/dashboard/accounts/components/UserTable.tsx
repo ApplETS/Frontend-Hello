@@ -56,8 +56,9 @@ export default function UsersTable({ locale, activityAreas }: Props) {
 	}, [searchTerm]);
 
 	const callbackSetPaginatedEvents = useCallback(() => {
+		console.log(selectedFilter);
 		startTransition(async () => {
-			const usersPaginated = await getNextUsers(currentPage, pageSize, debouncedSearchTerm);
+			const usersPaginated = await getNextUsers(currentPage, pageSize, debouncedSearchTerm, selectedFilter);
 			if (usersPaginated) {
 				setPaginatedUsers(usersPaginated);
 			} else {

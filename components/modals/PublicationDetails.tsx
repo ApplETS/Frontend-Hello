@@ -441,6 +441,7 @@ export default function PublicationDetails({
 													className="input input-ghost w-full"
 													onChange={(e) => setEventStartDate(e.target.value)}
 													disabled={isDisabled}
+													max={eventEndDate}
 												/>
 											</div>
 										</div>

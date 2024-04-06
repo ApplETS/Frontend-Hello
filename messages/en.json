@@ -339,7 +339,8 @@
 			"save": "Save",
 			"200": "Password saved",
 			"changes": "Changes detected, save to update",
-			"cancel": "Cancel"
+			"cancel": "Cancel",
+			"passwords-must-match": "Passwords do not match"
 		},
 		"display-section": {
 			"title": "Display",

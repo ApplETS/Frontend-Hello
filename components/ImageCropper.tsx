@@ -60,7 +60,9 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 					<div className="loading loading-spinner loading-lg"></div>
 				</div>
 			) : (
-				<div className="flex flex-col justify-center items-center w-full h-full">
+				<div className="flex flex-col w-full h-full">
+					<h2 className="text-2xl font-semibold pb-2 flex flex-col justify-center items-center">{t('title')}</h2>
+					<p className="mb-2 text-left">{t('subtitle')}</p>
 					<div className="relative w-full h-full">
 						<Cropper
 							image={imageSrc}
@@ -81,7 +83,8 @@ export default function ImageCropper({ imageSrc, handleImageModalClose, handleIm
 							</div>
 						)}
 					</div>
-					<div className="grid grid-cols-2 gap-6 px-24 mt-3">
+					<div className="divider my-1"></div>
+					<div className="flex justify-end gap-4">
 						<button
 							className={`btn px-6 text-black ${isLight ? 'bg-base-300 hover:bg-secondary' : 'btn-secondary'}`}
 							onClick={() => handleImageModalClose()}

@@ -27,7 +27,8 @@
 		"signup": "Inscrivez-vous",
 		"400": "Mauvaises informations de connexion",
 		"401": "Session expirée, veuillez vous reconnecter",
-		"200": "Vérification réussie"
+		"200": "Vérification réussie",
+		"field-required": "Un {field} est obligatoire"
 	},
 	"SignUp": {
 		"title": "Inscription",

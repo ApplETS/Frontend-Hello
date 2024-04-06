@@ -27,7 +27,8 @@
 		"signup": "Sign up",
 		"400": "Wrong credentials",
 		"401": "Session expired, please login again",
-		"200": "Verification successful"
+		"200": "Verification successful",
+		"field-required": "A {field} is required"
 	},
 	"SignUp": {
 		"title": "Sign Up",

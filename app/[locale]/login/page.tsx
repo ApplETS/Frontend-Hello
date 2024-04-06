@@ -8,6 +8,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Footer from '@/components/Footer';
 import EmailInput from '@/components/EmailInput';
 import { getTranslationsWithDefault } from '@/utils/traductions/trads';
+import LoginForm from './components/LoginForm';
 
 export default async function Login({
 	searchParams,
@@ -26,37 +27,13 @@ export default async function Login({
 				<h1 className="py-16 text-4xl font-semibold">{t('welcome')}</h1>
 				<div className="flex-1 flex flex-col w-full px-8 justify-center gap-2">
 					<div className="mx-16">
-						<form className="flex-1 flex flex-col w-full justify-center gap-2" action={signIn}>
-							<input type="hidden" name="locale" value={params.locale} />
-							{(searchParams?.message || searchParams?.code) && (
-								<Alert
-									customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
-									text={searchParams.message ?? t_default(searchParams.code)}
-									alertType={AlertType[searchParams.type as keyof typeof AlertType] as AlertType}
-									icon={faTriangleExclamation}
-								/>
-							)}
-							<label className="text-md" htmlFor="email">
-								{t('email')}
-							</label>
-							<EmailInput />
-							<label className="text-md" htmlFor="password">
-								{t('password')}
-							</label>
-							<PasswordInput />
-							<Checkbox
-								inputName="remember"
-								checked={false}
-								style="self-end pb-6"
-								text={t('remember')}
-								textStyle="text-base"
-							/>
-							<div className="flex justify-center">
-								<button className="font-normal btn btn-primary rounded-md text-base mb-2 w-64">{t('login')}</button>
-							</div>
-						</form>
+						<LoginForm
+							message={searchParams.message}
+							code={searchParams.code}
+							type={searchParams.type}
+							locale={params.locale}
+						/>
 					</div>
-
 					<div className="text-s mt-12 pb-10">
 						<div className="flex justify-center mb-3">
 							<p className="">

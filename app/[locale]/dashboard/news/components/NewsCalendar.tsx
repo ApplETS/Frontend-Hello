@@ -69,7 +69,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 
 			let currentDate = dayjs(startDate);
 
-			while (currentDate.isSame(endDate, 'day') || currentDate.isBefore(endDate, 'day')) {
+			while (!currentDate.isAfter(endDate, 'day')) {
 				const start = currentDate.hour(startDate.hour()).minute(startDate.minute()).second(startDate.second());
 				const end = currentDate.hour(23).minute(59).second(59).millisecond(999);
 
@@ -95,7 +95,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 			const endDate = dayjs(event.eventEndDate);
 			let currentDate = dayjs(startDate);
 
-			while (currentDate.isSame(endDate, 'day') || currentDate.isBefore(endDate, 'day')) {
+			while (!currentDate.isAfter(endDate, 'day')) {
 				const dateString = currentDate.format('YYYY-MM-DD');
 
 				if (!acc[dateString]) {
@@ -116,8 +116,8 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 
 	const updateEvents = (events: HelloEvent[]) => {
 		const updatedEvents = events.map((event) => {
-			const startDate = dayjs(event.eventStartDate).add(30, 'minute');
-			const endDate = dayjs(event.eventEndDate).add(30, 'minute');
+			const startDate = dayjs(event.eventStartDate).add(30, 'minutes');
+			const endDate = dayjs(event.eventEndDate).add(30, 'minutes');
 
 			return {
 				...event,
@@ -169,7 +169,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 
 			if (startDate.date() !== endDate.date() || startDate.month() !== endDate.month()) {
 				let currentDate = dayjs(startDate);
-				while (currentDate.isSame(endDate, 'day') || currentDate.isBefore(endDate, 'day')) {
+				while (!currentDate.isAfter(endDate, 'day')) {
 					const startOfDay = currentDate.startOf('day');
 					const endOfDay = currentDate.endOf('day');
 

@@ -1,13 +1,6 @@
-import Checkbox from '@/components/Checkbox';
-import { signIn } from '@/utils/supabase/auth';
 import Link from 'next/link';
-import PasswordInput from './components/PasswordInput';
-import Alert, { AlertType } from '@/components/Alert';
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Footer from '@/components/Footer';
-import EmailInput from '@/components/EmailInput';
-import { getTranslationsWithDefault } from '@/utils/traductions/trads';
 import LoginForm from './components/LoginForm';
 
 export default async function Login({
@@ -19,7 +12,6 @@ export default async function Login({
 }) {
 	unstable_setRequestLocale(params.locale);
 	const t = await getTranslations('Login');
-	const t_default = await getTranslationsWithDefault('Login');
 
 	return (
 		<div className="flex justify-center items-center h-screen">

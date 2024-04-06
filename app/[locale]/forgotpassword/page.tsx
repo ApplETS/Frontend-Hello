@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import ForgotPasswordForm from './components/ForgotPasswordForm';
+import { useTranslationsWithDefault } from '@/utils/traductions/trads';
 
 export default function ForgotPassword({
 	searchParams,
@@ -16,6 +17,7 @@ export default function ForgotPassword({
 }) {
 	unstable_setRequestLocale(params.locale);
 	const t = useTranslations('ForgotPassword');
+	const t_default = useTranslationsWithDefault('ForgotPassword');
 
 	return (
 		<div className="flex justify-center items-center h-screen">
@@ -26,7 +28,7 @@ export default function ForgotPassword({
 						{(searchParams?.message || searchParams?.code) && (
 							<Alert
 								customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
-								text={searchParams.message ?? t(searchParams.code)}
+								text={searchParams.message ?? t_default(searchParams.code)}
 								alertType={AlertType[searchParams.type as keyof typeof AlertType] as AlertType}
 								icon={faTriangleExclamation}
 							/>

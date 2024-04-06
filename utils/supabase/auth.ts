@@ -40,7 +40,7 @@ export const forgotPassword = async (formData: FormData) => {
 	const supabase = createClient(cookieStore);
 
 	const { error } = await supabase.auth.resetPasswordForEmail(email);
-
+	console.log(error);
 	if (error) {
 		return redirect(`/${locale}/forgotpassword?code=${error.status}&type=error`);
 	}

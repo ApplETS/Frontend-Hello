@@ -52,7 +52,8 @@
 		"send": "Envoyer",
 		"remember": "Vous avez un compte?",
 		"remember-link": "Connectez-vous",
-		"field-required": "Un {field} est obligatoire"
+		"field-required": "Un {field} est obligatoire",
+		"400": "Veuillez saisir une adresse courriel valide."
 	},
 	"UpdatePassword": {
 		"title": "Réinitialiser votre mot de passe",

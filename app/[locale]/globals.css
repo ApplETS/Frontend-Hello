@@ -195,3 +195,7 @@
 .fc .fc-daygrid-event {
 	z-index: unset;
 }
+
+.fc-event-main {
+	overflow: hidden;
+}

@@ -6,6 +6,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import ConfirmButton from '@/components/ConfirmButton';
 import Footer from '@/components/Footer';
+import UpdatePasswordForm from './components/UpdatePasswordForm';
 
 export default function UpdatePassword({
 	searchParams,
@@ -31,45 +32,7 @@ export default function UpdatePassword({
 								icon={faTriangleExclamation}
 							/>
 						)}
-						<form className="flex-1 flex flex-col w-full justify-center gap-2" action={updatePassword}>
-							<input type="hidden" name="locale" value={params.locale} />
-							<label className="text-md" htmlFor="email">
-								{t('token')}
-							</label>
-							<input
-								className="input input-ghost bg-inherit mb-4"
-								name="token"
-								placeholder={t('token-placeholder')}
-								required
-							/>
-							<label className="text-md" htmlFor="email">
-								{t('email')}
-							</label>
-							<input
-								className="input input-ghost bg-inherit mb-4"
-								name="email"
-								defaultValue={searchParams.email}
-								required
-							/>
-							<label className="text-md" htmlFor="password">
-								{t('new-password')}
-							</label>
-							<PasswordInput style="mb-4" />
-							<label className="text-md" htmlFor="password">
-								{t('confirm-password')}
-							</label>
-							<PasswordInput inputName="confirmPassword" />
-							<div className="flex justify-center mt-12">
-								<ConfirmButton
-									buttonText={t('update')}
-									style="btn btn-primary rounded-md text-base mb-8 w-64"
-									inputsConfig={{
-										match: ['password', 'confirmPassword'],
-										filled: ['token', 'email'],
-									}}
-								/>
-							</div>
-						</form>
+						<UpdatePasswordForm locale={params.locale} emailStart={searchParams.email} />
 					</div>
 				</div>
 			</div>

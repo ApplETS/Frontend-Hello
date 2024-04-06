@@ -1,7 +1,6 @@
 'use client';
 
 import Checkbox from '@/components/Checkbox';
-import PasswordInput from './PasswordInput';
 import Alert, { AlertType } from '@/components/Alert';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import EmailInput from '@/components/EmailInput';
@@ -10,6 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState, useTransition } from 'react';
 import { signInAction } from '@/lib/users/actions/sign-in-action';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
+import PasswordInput from '@/components/PasswordInput';
 
 interface Props {
 	message?: string;

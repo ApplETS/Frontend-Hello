@@ -147,11 +147,15 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 
 	useEffect(() => {
 		startTransition(async () => {
-			const eventsPaginated = await getNextEvents(1, 1000, undefined, undefined, selectedActivityAreas);
-			if (eventsPaginated) {
-				updateEvents(eventsPaginated.data);
+			if (selectedActivityAreas.length === 0) {
+				setShownEvents([]);
 			} else {
-				setToast(t('error-fetching-events'), AlertType.error);
+				const eventsPaginated = await getNextEvents(1, 1000, undefined, undefined, selectedActivityAreas);
+				if (eventsPaginated) {
+					updateEvents(eventsPaginated.data);
+				} else {
+					setToast(t('error-fetching-events'), AlertType.error);
+				}
 			}
 		});
 	}, [selectedActivityAreas]);

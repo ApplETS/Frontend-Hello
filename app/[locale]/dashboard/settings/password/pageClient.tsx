@@ -8,6 +8,7 @@ import { handleSubmitForm } from '@/app/actions/settings/submitForm';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { useTranslationsWithDefault } from '@/utils/traductions/trads';
+import { useSettings } from '@/utils/provider/SettingsProvider';
 
 export default function PasswordClient() {
 	const t = useTranslations('Settings.password-section');
@@ -17,6 +18,7 @@ export default function PasswordClient() {
 
 	const { startTransition } = useLoading();
 	const { setToast } = useToast();
+	const { setHasChanges } = useSettings();
 
 	const [password, setPassword] = useState('');
 	const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -43,9 +45,10 @@ export default function PasswordClient() {
 		<form
 			className="flex flex-col basis-4/5"
 			ref={formRef}
-			action={(formData) =>
-				handleSubmitForm(formData, updatePassword, startTransition, setToast, t_default, formRef.current)
-			}
+			action={(formData) => {
+				handleSubmitForm(formData, updatePassword, startTransition, setToast, t_default, formRef.current);
+				setHasChanges(false);
+			}}
 		>
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>

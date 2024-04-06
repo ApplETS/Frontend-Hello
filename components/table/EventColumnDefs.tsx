@@ -25,7 +25,7 @@ export const createEventColumnDefs = (
 			id: 'Publication.PublicationDate',
 			meta: 'num',
 			header: () => t('table.release-date'),
-			cell: (info) => formatDate(new Date(info.getValue()), locale),
+			cell: (info) => formatDate(new Date(info.getValue()), locale, t),
 		}),
 		columnHelper.accessor(
 			(row) => {
@@ -36,8 +36,8 @@ export const createEventColumnDefs = (
 				const isSameYear = startDate.getFullYear() === endDate.getFullYear();
 
 				// When a publication is a draft it puts the year to 1969
-				const formattedEndDate = endDate.getFullYear() !== 1969 ? formatDate(endDate, locale) : '';
-				const formattedStartDate = formatDate(startDate, locale);
+				const formattedEndDate = endDate.getFullYear() !== 1969 ? formatDate(endDate, locale, t) : '';
+				const formattedStartDate = formatDate(startDate, locale, t);
 
 				if (isSameDay) {
 					return formattedStartDate;

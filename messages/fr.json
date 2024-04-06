@@ -328,7 +328,8 @@
 			"save": "Enregistrer",
 			"200": "Profil enregistré",
 			"changes": "Changements détectés, enregistrez pour appliquer les modifications",
-			"cancel": "Annuler"
+			"cancel": "Annuler",
+			"field-required": "Un {field} est obligatoire"
 		},
 		"password-section": {
 			"title": "Mot de passe",

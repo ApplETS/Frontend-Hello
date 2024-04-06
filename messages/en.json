@@ -329,7 +329,8 @@
 			"save": "Save",
 			"200": "Profile updated",
 			"changes": "Changes detected, save to update",
-			"cancel": "Cancel"
+			"cancel": "Cancel",
+			"field-required": "A {field} is required"
 		},
 		"password-section": {
 			"title": "Password",

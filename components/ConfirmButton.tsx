@@ -9,18 +9,20 @@ interface Props {
 	inputsConfig: {
 		match?: string[]; // Names of inputs that need to match (optional)
 		filled?: string[]; // Names of inputs that just need to be filled (optional)
+		changed?: string[]; // Names of inputs that trigger hasChanges (optional)
 	};
 	onClick?: () => void;
 }
 
 export default function ConfirmButton({ buttonText, style, inputsConfig, onClick }: Props) {
-	const [isEnabled, setIsEnabled] = useState(true);
-	const { setHasChanges } = useSettings();
+	const { hasChanges, setHasChanges } = useSettings();
+
+	const [isEnabled, setIsEnabled] = useState(hasChanges);
 
 	useEffect(() => {
-		const { match = [], filled = [] } = inputsConfig;
+		const { match = [], filled = [], changed = [] } = inputsConfig;
 
-		const allInputNames = Array.from(new Set([...match, ...filled]));
+		const allInputNames = Array.from(new Set([...match, ...filled, ...changed]));
 		const inputs = allInputNames
 			.map((name) => document.getElementsByName(name)[0])
 			.filter(Boolean) as HTMLInputElement[];
@@ -35,7 +37,8 @@ export default function ConfirmButton({ buttonText, style, inputsConfig, onClick
 			const allFilled = filledValues.every((value) => value !== '');
 
 			setHasChanges(true);
-
+			console.log(allMatch);
+			console.log(allFilled);
 			setIsEnabled(allMatch && allFilled);
 		};
 
@@ -51,7 +54,11 @@ export default function ConfirmButton({ buttonText, style, inputsConfig, onClick
 			className={`font-normal ${style} ${!isEnabled ? 'btn-disabled' : ''}`}
 			disabled={!isEnabled}
 			type={onClick ? 'button' : 'submit'}
-			onClick={() => (onClick ? onClick() : setHasChanges(false))}
+			onClick={() => {
+				onClick && onClick();
+				setHasChanges(false);
+				setIsEnabled(false);
+			}}
 		>
 			{buttonText}
 		</button>

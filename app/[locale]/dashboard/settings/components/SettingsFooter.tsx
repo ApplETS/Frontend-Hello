@@ -10,6 +10,7 @@ interface SettingsFooterProps {
 	inputsConfig: {
 		match?: string[];
 		filled?: string[];
+		changed?: string[];
 	};
 	cancelButtonText: string;
 	dialogText: {

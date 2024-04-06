@@ -159,6 +159,8 @@
 			},
 			"alt-text-tooltip": "An alt text is a brief written description of an image on a web page, used by screen readers for the visually impaired or when the image cannot be displayed.",
 			"image-cropper": {
+				"title": "Resize the image",
+				"subtitle": "Drag to move the image and adjust the cropping using the mouse wheel.",
 				"crop": "Crop",
 				"cancel": "Cancel",
 				"zoom-hint": "Use ⌘ + scroll (or ctrl + scroll) to zoom the image"
@@ -172,7 +174,7 @@
 		"none": "None",
 		"search": "Search",
 		"no-publications": "No publications found",
-		"activity-area-filters": "Activity area filters",
+		"activity-area-filters": "Activity area",
 		"table": {
 			"author": "Author",
 			"title": "Title",
@@ -348,7 +350,7 @@
 		}
 	},
 	"Calendar": {
-		"filters": "Filters",
+		"filters": "Activity area",
 		"week": "Week",
 		"month": "Month",
 		"day": "Day"

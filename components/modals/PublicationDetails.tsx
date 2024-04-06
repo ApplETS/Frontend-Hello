@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useTransition } from 'react';
+import React, { useState, useEffect, useTransition, useRef } from 'react';
 import AddTag from '@/components/AddTag';
 import Constants from '@/utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -130,7 +130,14 @@ export default function PublicationDetails({
 	};
 
 	const [missingFields, setMissingFields] = useState<string[]>([]);
+	const isSubmittingRef = useRef(false);
 	const createOrUpdate = (formData: FormData) => {
+		if (isSubmittingRef.current) {
+			return;
+		}
+
+		isSubmittingRef.current = true;
+
 		const newMissingFields = [];
 		if (!title) newMissingFields.push(t('modal.title'));
 		if (!imageSrc) newMissingFields.push(t('modal.image'));
@@ -167,6 +174,7 @@ export default function PublicationDetails({
 				helloEvent ? AlertType.success : AlertType.error
 			);
 
+			isSubmittingRef.current = false;
 			if (!helloEvent) return;
 			else onClose();
 		});
@@ -287,7 +295,14 @@ export default function PublicationDetails({
 		);
 	};
 
+	const isSubmittingDraftRef = useRef(false);
 	const handleDraft = async () => {
+		if (isSubmittingDraftRef.current) {
+			return;
+		}
+
+		isSubmittingDraftRef.current = true;
+
 		const formData = new FormData();
 		const updatedFormData = updateFormData(formData, true);
 
@@ -299,6 +314,7 @@ export default function PublicationDetails({
 				helloEvent ? AlertType.success : AlertType.error
 			);
 
+			isSubmittingDraftRef.current = false;
 			if (helloEvent) onClose();
 		});
 	};
@@ -527,7 +543,7 @@ export default function PublicationDetails({
 										)}
 										{imageModalOpen && (
 											<Modal>
-												<div className={`bg-base-200 overflow-y-auto px-7 pt-7 pb-3 w-[50rem] rounded-2xl h-[26rem]`}>
+												<div className={`bg-base-200 overflow-y-auto p-5 w-[50rem] rounded-2xl h-[26rem]`}>
 													<ImageCropper
 														imageSrc={imageSrc}
 														handleImageModalClose={handleImageModalClose}

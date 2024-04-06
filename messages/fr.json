@@ -158,6 +158,8 @@
 			},
 			"alt-text-tooltip": "Un texte alternatif est une courte description écrite d'une image sur une page web, utilisée par les lecteurs d'écran pour les personnes malvoyantes ou lorsque l'image ne peut pas être affichée.",
 			"image-cropper": {
+				"title": "Recadrer l'image",
+				"subtitle": "Glissez pour déplacer l'image et ajuster le recadrage en utilisant la roulette de la souris.",
 				"crop": "Recadrer",
 				"cancel": "Annuler",
 				"zoom-hint": "Utilisez ⌘ + scroll (ou ctrl + scroll) pour zoomer l'image"
@@ -170,7 +172,7 @@
 		"title": "Approbations",
 		"search": "Rechercher",
 		"no-publications": "Aucune publication",
-		"activity-area-filters": "Filtres par secteur d'activité",
+		"activity-area-filters": "Secteur d'activité",
 		"table": {
 			"author": "Auteur",
 			"title": "Titre",
@@ -347,7 +349,7 @@
 		}
 	},
 	"Calendar": {
-		"filters": "Filtres",
+		"filters": "Secteurs d'activité",
 		"week": "Semaine",
 		"month": "Mois",
 		"day": "Jour"

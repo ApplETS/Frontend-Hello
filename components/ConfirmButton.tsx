@@ -20,6 +20,10 @@ export default function ConfirmButton({ buttonText, style, inputsConfig, onClick
 	const [isEnabled, setIsEnabled] = useState(hasChanges);
 
 	useEffect(() => {
+		setIsEnabled(hasChanges);
+	}, [hasChanges]);
+
+	useEffect(() => {
 		const { match = [], filled = [], changed = [] } = inputsConfig;
 
 		const allInputNames = Array.from(new Set([...match, ...filled, ...changed]));
@@ -37,8 +41,6 @@ export default function ConfirmButton({ buttonText, style, inputsConfig, onClick
 			const allFilled = filledValues.every((value) => value !== '');
 
 			setHasChanges(true);
-			console.log(allMatch);
-			console.log(allFilled);
 			setIsEnabled(allMatch && allFilled);
 		};
 
@@ -49,16 +51,23 @@ export default function ConfirmButton({ buttonText, style, inputsConfig, onClick
 		};
 	}, [inputsConfig]);
 
-	return (
+	return onClick ? (
 		<button
 			className={`font-normal ${style} ${!isEnabled ? 'btn-disabled' : ''}`}
 			disabled={!isEnabled}
-			type={onClick ? 'button' : 'submit'}
+			type={'button'}
 			onClick={() => {
-				onClick && onClick();
+				onClick();
 				setHasChanges(false);
-				setIsEnabled(false);
 			}}
+		>
+			{buttonText}
+		</button>
+	) : (
+		<button
+			className={`font-normal ${style} ${!isEnabled ? 'btn-disabled' : ''}`}
+			disabled={!isEnabled}
+			type={'submit'}
 		>
 			{buttonText}
 		</button>

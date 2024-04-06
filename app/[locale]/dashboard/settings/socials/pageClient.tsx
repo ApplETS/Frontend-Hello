@@ -17,14 +17,18 @@ import { useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { useTranslationsWithDefault } from '@/utils/traductions/trads';
 import { updateSocials } from '@/app/actions/settings/update-socials';
+import { useSettings } from '@/utils/provider/SettingsProvider';
 
 export default function SocialsClient() {
 	const t = useTranslations('Settings.socials-section');
 	const t_default = useTranslationsWithDefault('Settings.profile-section');
 	const t_dialog = useTranslations('Settings.dialog');
+
 	const { user } = useUser();
 	const { startTransition } = useLoading();
 	const { setToast } = useToast();
+	const { setHasChanges } = useSettings();
+
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const socials = [
@@ -37,11 +41,16 @@ export default function SocialsClient() {
 		{ icon: xIcon, inputName: 'x', defaultValue: user?.xLink },
 	];
 
+	const inputNames = socials.map((social) => social.inputName);
+
 	return (
 		<form
 			className="flex flex-col basis-4/5"
 			ref={formRef}
-			action={(formData) => handleSubmitForm(formData, updateSocials, startTransition, setToast, t_default)}
+			action={(formData) => {
+				handleSubmitForm(formData, updateSocials, startTransition, setToast, t_default);
+				setHasChanges(false);
+			}}
 		>
 			<div className="flex-grow">
 				<div className="flex flex-col gap-2 mb-2">
@@ -60,7 +69,7 @@ export default function SocialsClient() {
 			<SettingsFooter
 				buttonText={t('save')}
 				errorText={t('changes')}
-				inputsConfig={{}}
+				inputsConfig={{ changed: inputNames }}
 				cancelButtonText={t('cancel')}
 				dialogText={{
 					title: t_dialog('title'),

@@ -69,7 +69,9 @@
 		"201": "Please verify your email",
 		"field-required": "A {field} is required",
 		"field-required-f": "A {field} is required",
-		"passwords-must-match": "Passwords must match"
+		"passwords-must-match": "Passwords must match",
+		"403": "The token has expired or is invalid",
+		"422": "Please enter a valid email address."
 	},
 
 	"SetPassword": {

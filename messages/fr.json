@@ -69,7 +69,9 @@
 		"201": "Veuillez vérifier votre courriel",
 		"field-required": "Un {field} est obligatoire",
 		"field-required-f": "Une {field} est obligatoire",
-		"passwords-must-match": "Les mots de passe doivent correspondre"
+		"passwords-must-match": "Les mots de passe doivent correspondre",
+		"403": "Le code de réinitialisation a expiré ou est invalide",
+		"422": "Veuillez saisir une adresse courriel valide."
 	},
 	"SetPassword": {
 		"title": "Changer le mot de passe temporaire",

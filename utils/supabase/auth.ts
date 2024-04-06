@@ -40,7 +40,7 @@ export const forgotPassword = async (formData: FormData) => {
 	const supabase = createClient(cookieStore);
 
 	const { error } = await supabase.auth.resetPasswordForEmail(email);
-	console.log(error);
+
 	if (error) {
 		return redirect(`/${locale}/forgotpassword?code=${error.status}&type=error`);
 	}
@@ -64,6 +64,7 @@ export const updatePassword = async (formData: FormData) => {
 		type: 'recovery',
 	});
 
+	console.log(resOtp.error);
 	if (resOtp.error) {
 		return redirect(`/${locale}/updatepassword?code=${resOtp.error.status}&type=error`);
 	}
@@ -72,6 +73,7 @@ export const updatePassword = async (formData: FormData) => {
 		password: password,
 	});
 
+	console.log(error);
 	if (error) {
 		return redirect(`/${locale}/updatepassword?code=${error.status}&type=error`);
 	}

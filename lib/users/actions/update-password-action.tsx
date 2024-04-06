@@ -1,6 +1,6 @@
 'use server';
 
-import { updatePassword } from '@/app/actions/settings/update-password';
+import { updatePassword } from '@/utils/supabase/auth';
 
 export async function updatePasswordAction(formData: FormData) {
 	await updatePassword(formData);

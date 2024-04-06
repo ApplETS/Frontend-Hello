@@ -19,8 +19,8 @@ export default function ExtraEventContainer({ index, onClickEvent, event }: Prop
 			style={{ backgroundColor: event.color }}
 			key={index}
 			onClick={() => {
-				if (event.cardId && onClickEvent) {
-					onClickEvent(event.cardId);
+				if (event.groupId && onClickEvent) {
+					onClickEvent(event.groupId);
 				}
 			}}
 		>

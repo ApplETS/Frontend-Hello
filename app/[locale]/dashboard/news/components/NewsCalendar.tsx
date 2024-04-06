@@ -34,7 +34,7 @@ export interface CalendarEvent {
 	start: string;
 	end: string;
 	color?: string;
-	cardId?: number;
+	groupId?: number;
 	date?: Date;
 	extendedProps?: {
 		isShowMore: boolean;
@@ -213,7 +213,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 							title: event.title,
 							start: event.eventStartDate,
 							end: event.eventEndDate,
-							cardId: event.cardId,
+							groupId: event.cardId,
 							color: getColorForActivityArea(colors, event),
 						}));
 						const additionalEvents = events.slice(2);
@@ -224,7 +224,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 								start: additionalEvents[0].eventStartDate,
 								end: additionalEvents[0].eventEndDate,
 								color: isLight ? '#D0D0D0' : '#B0B0B0',
-								cardId: additionalEvents[0].cardId,
+								groupId: additionalEvents[0].cardId,
 								extendedProps: {
 									isShowMore: true,
 									events: helloEventsToCalendarEvents(additionalEvents),
@@ -234,7 +234,6 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 						return formattedEvents;
 					})
 					.flat();
-
 				break;
 			default:
 			case 'timeGridDay':
@@ -254,7 +253,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 			start: helloEvent.eventStartDate,
 			color: getColorForActivityArea(colors, helloEvent),
 			end: helloEvent.eventEndDate,
-			cardId: helloEvent.cardId,
+			groupId: helloEvent.cardId,
 			date: dayjs(helloEvent.eventStartDate).toDate(),
 		};
 	}
@@ -307,7 +306,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 					hour12: false,
 				}}
 				eventClick={(info) => {
-					handleEventSelect(events.find((event) => event.title === info.event.title)?.cardId ?? null);
+					handleEventSelect(Number(info.event.groupId));
 				}}
 				eventDisplay="block"
 				eventOrder={'start'}

@@ -84,7 +84,7 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 		<form className="flex flex-col basis-4/5" ref={formRef} action={(formData) => setFormData(formData)}>
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>
-				<div className="grid grid-cols-12 gap-6 mt-10 mb-6">
+				<div className="grid grid-cols-12 gap-8 mt-10 mb-6">
 					<div className="grid grid-cols-3 gap-6 col-span-6">
 						<ProfilePicture
 							dropzoneText={t('drop-picture')}
@@ -97,7 +97,7 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 						/>
 					</div>
 				</div>
-				<div className="grid grid-cols-12 gap-6">
+				<div className="grid grid-cols-12 gap-8">
 					{isOrganizer && (
 						<>
 							<label className="flex items-center col-span-2">{t('company-name')}</label>

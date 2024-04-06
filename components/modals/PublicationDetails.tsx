@@ -69,7 +69,6 @@ export default function PublicationDetails({
 	const [selectedTags, setSelectedTags] = useState(publication?.tags || []);
 	const [availableTags, setAvailableTags] = useState(tags);
 	const editorRef = React.useRef<MDXEditorMethods | null>(null);
-	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const [rejectReason, setRejectReason] = useState('');
 	const [deactivateReason, setDeactivateReason] = useState('');

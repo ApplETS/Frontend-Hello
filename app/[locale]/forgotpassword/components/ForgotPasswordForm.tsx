@@ -21,7 +21,6 @@ export default function ForgotPasswordForm({ locale }: Props) {
 
 	const validateForm = () => {
 		let isValid = true;
-		console.log(email);
 		if (!email) {
 			setErrors((prevErrors) => ({
 				...prevErrors,

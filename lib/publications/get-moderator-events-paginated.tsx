@@ -6,6 +6,7 @@ export async function getModeratorEventsPaginated(
 	pageSize: number = 100,
 	title?: string,
 	state?: string,
+	activityAreas?: string[],
 	orderBy?: string,
 	orderByDesc?: boolean
 ): Promise<ApiPaginatedResponse> {
@@ -17,6 +18,10 @@ export async function getModeratorEventsPaginated(
 
 	if (state) {
 		url += `&state=${state}`;
+	}
+
+	if (activityAreas && activityAreas.length > 0) {
+		url += `&activityAreas=${activityAreas.join('&activityAreas=')}`;
 	}
 
 	if (orderBy) {

@@ -19,12 +19,12 @@ type TableProps<T> = {
 	columns: ColumnDef<T, any>[];
 	currentPage: number;
 	pageSize: number;
-	orderBy: string;
-	orderByDesc: boolean;
+	orderBy?: string;
+	orderByDesc?: boolean;
 	totalItems: number;
 	onPageChange: (page: number) => void;
 	onPageSizeChange: (size: number) => void;
-	onOrderChange: (id?: string) => void;
+	onOrderChange?: (id?: string) => void;
 };
 
 const Table = <T,>({
@@ -69,7 +69,7 @@ const Table = <T,>({
 
 							return (
 								<th key={header.id}>
-									{header.isPlaceholder ? null : (
+									{header.isPlaceholder ? null : onOrderChange && orderBy && orderByDesc ? (
 										<div
 											onClick={() => {
 												if (header.column.columnDef.meta) {
@@ -82,6 +82,10 @@ const Table = <T,>({
 										>
 											{flexRender(header.column.columnDef.header, header.getContext())}
 											{icon && <FontAwesomeIcon icon={icon} />}
+										</div>
+									) : (
+										<div className={`flex gap-4 items-center`}>
+											{flexRender(header.column.columnDef.header, header.getContext())}
 										</div>
 									)}
 								</th>

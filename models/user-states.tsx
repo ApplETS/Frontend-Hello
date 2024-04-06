@@ -1,5 +1,5 @@
 export enum UserStates {
-	ALL = 7,
+	ALL = 3,
 	DEACTIVATED = 2,
-	ACTIVATED = 4,
+	ACTIVATED = 1,
 }

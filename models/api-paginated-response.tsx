@@ -1,10 +1,8 @@
-import { HelloEvent } from "./hello-event";
-
-export interface ApiPaginatedResponse {
+export interface ApiPaginatedResponse<T> {
 	pageNumber: number;
 	pageSize: number;
 	totalPages: number;
 	totalRecords: number;
-	data: HelloEvent[];
+	data: T[];
 	error: any;
 }

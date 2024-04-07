@@ -3,9 +3,10 @@ import React, { useRef, useLayoutEffect } from 'react';
 interface Props {
 	children: string;
 	parentRef: React.RefObject<HTMLDivElement>;
+	monthview: boolean;
 }
 
-export default function Marquee({ children, parentRef }: Props) {
+export default function Marquee({ children, parentRef, monthview }: Props) {
 	const marqueeRef = useRef<HTMLDivElement>(null);
 
 	useLayoutEffect(() => {
@@ -20,5 +21,9 @@ export default function Marquee({ children, parentRef }: Props) {
 		}
 	}, [children, parentRef]);
 
-	return <span ref={marqueeRef}>{children}</span>;
+	return (
+		<span className={`${monthview ? 'truncate' : ''}`} ref={marqueeRef}>
+			{children}
+		</span>
+	);
 }

@@ -14,6 +14,7 @@ interface Props {
 	date?: Date | null;
 	setOpenMoreModal?: (openMoreModal: string | null) => void;
 	openMoreModal?: string | null;
+	monthview: boolean;
 }
 
 export default function EventContainer({
@@ -24,6 +25,7 @@ export default function EventContainer({
 	date,
 	openMoreModal,
 	setOpenMoreModal,
+	monthview,
 }: Props) {
 	const parentRef = useRef<HTMLDivElement>(null);
 
@@ -49,7 +51,9 @@ export default function EventContainer({
 					}
 				}}
 			>
-				<Marquee parentRef={parentRef}>{title}</Marquee>
+				<Marquee parentRef={parentRef} monthview={monthview}>
+					{title}
+				</Marquee>
 			</div>
 			{showMoreEvents && openMoreModal == date?.toISOString() && (
 				<div className="fixed z-50 flex justify-center items-center">

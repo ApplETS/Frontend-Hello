@@ -11,7 +11,6 @@ import EventDateAndImage from '../EventDateAndImage';
 import Markdown from 'react-markdown';
 import style from '@/markdown-styles.module.css';
 import rehypeRaw from 'rehype-raw';
-import remarkGfm from 'remark-gfm';
 
 export interface PreviewInfos {
 	news: string;
@@ -36,7 +35,6 @@ interface Props {
 
 export default function Preview({ locale, infos, onClosePreview }: Props) {
 	const { isLight } = useTheme();
-	console.log(infos.content);
 
 	return (
 		<Modal>

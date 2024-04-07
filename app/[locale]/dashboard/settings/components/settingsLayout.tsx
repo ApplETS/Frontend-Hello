@@ -58,7 +58,7 @@ export default function SettingsLayout({ children, locale, sectionTitle }: Props
 	};
 
 	return (
-		<div className="flex flex-row h-screen gap-8">
+		<div className="flex flex-row h-screen gap-8 w-full">
 			<div className="flex flex-col gap-2 basis-1/5">
 				<p className="text-left text-2xl pb-10">{sectionTitle}</p>
 				{Object.entries(pages).map(([pageKey, pageValue]) => (

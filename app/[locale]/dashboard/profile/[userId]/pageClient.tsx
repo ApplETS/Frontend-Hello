@@ -75,7 +75,7 @@ export default function ProfileClient({ organizer, locale }: Props) {
 							</button>
 							<div
 								className="tooltip tooltip-bottom ml-2"
-								data-tip={t('tooltip-notify-me', { author: organizer.name })}
+								data-tip={t('tooltip-notify-me', { author: organizer.organization })}
 							>
 								<button className="btn btn-circle bg-base-300 btn-sm text-xs h-8 w-8 flex items-center justify-center">
 									?

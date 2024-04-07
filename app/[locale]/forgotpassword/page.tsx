@@ -5,6 +5,8 @@ import Alert, { AlertType } from '@/components/Alert';
 import Footer from '@/components/Footer';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import ForgotPasswordForm from './components/ForgotPasswordForm';
+import { useTranslationsWithDefault } from '@/utils/traductions/trads';
 
 export default function ForgotPassword({
 	searchParams,
@@ -15,6 +17,7 @@ export default function ForgotPassword({
 }) {
 	unstable_setRequestLocale(params.locale);
 	const t = useTranslations('ForgotPassword');
+	const t_default = useTranslationsWithDefault('ForgotPassword');
 
 	return (
 		<div className="flex justify-center items-center h-screen">
@@ -25,21 +28,12 @@ export default function ForgotPassword({
 						{(searchParams?.message || searchParams?.code) && (
 							<Alert
 								customStyle={'flex flex-1 flex-col w-full pb-2 justify-center gap-2'}
-								text={searchParams.message ?? t(searchParams.code)}
+								text={searchParams.message ?? t_default(searchParams.code)}
 								alertType={AlertType[searchParams.type as keyof typeof AlertType] as AlertType}
 								icon={faTriangleExclamation}
 							/>
 						)}
-						<form className="flex-1 flex flex-col w-full justify-center gap-2" action={forgotPassword}>
-							<input type="hidden" name="locale" value={params.locale} />
-							<label className="text-md" htmlFor="email">
-								{t('email')}
-							</label>
-							<input className="input input-ghost mb-6" name="email" required />
-							<div className="flex justify-center">
-								<button className="font-normal btn btn-primary rounded-md text-base mb-8 w-64">{t('send')}</button>
-							</div>
-						</form>
+						<ForgotPasswordForm locale={params.locale} />
 					</div>
 
 					<div className="text-s mt-6 pb-10">

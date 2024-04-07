@@ -23,6 +23,13 @@ export default function Avatar({ size, textSize, color, userProfile }: Props) {
 
 	useEffect(() => {
 		setUsePlaceholder(false);
+		setLoading(true);
+
+		const timeoutId = setTimeout(() => {
+			setLoading(false);
+		}, 2000);
+
+		return () => clearTimeout(timeoutId);
 	}, [user]);
 
 	return (

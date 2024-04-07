@@ -13,6 +13,7 @@ import Markdown from 'react-markdown';
 import style from '@/markdown-styles.module.css';
 import Avatar from './Avatar';
 import { getActivityAreaName } from '@/models/activity-area';
+import Link from 'next/link';
 
 interface Props {
 	events: HelloEvent[];
@@ -196,12 +197,12 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 										</p>
 									</div>
 									{selectedCard === event.cardId && (
-										<button
+										<Link
 											className="font-normal ml-auto btn btn-primary"
-											onClick={(e) => handleViewProfileClick(e, `/fr/dashboard/profile/${event.organizer?.id}`)}
+											href={`/fr/dashboard/profile/${event.organizer?.id}`}
 										>
 											{t('view-profile')}
-										</button>
+										</Link>
 									)}
 								</div>
 

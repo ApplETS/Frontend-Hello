@@ -11,10 +11,11 @@ import { handleSubmitForm } from '@/app/actions/settings/submitForm';
 import { updateProfile } from '@/app/actions/settings/update-profile';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import { useToast } from '@/utils/provider/ToastProvider';
-import { useRef, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Area } from 'react-easy-crop';
 import { getCroppedImgOnly } from '@/utils/canvasUtils';
 import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
+import { useSettings } from '@/utils/provider/SettingsProvider';
 
 interface Props {
 	locale: string;
@@ -25,16 +26,69 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 	const t = useTranslations('Settings.profile-section');
 	const t_default = useTranslationsWithDefault('Settings.profile-section');
 	const t_dialog = useTranslations('Settings.dialog');
-	const { user } = useUser();
 
+	const { user } = useUser();
 	const { startTransition } = useLoading();
 	const { setToast } = useToast();
-	const [formData, setFormData] = useState<FormData>();
-	const formRef = useRef<HTMLFormElement>(null);
+	const { setHasChanges } = useSettings();
+
 	const isOrganizer = user?.type == UserTypes.ORGANIZER;
+
+	const [formData, setFormData] = useState<FormData>();
 	const [image, setImage] = useState<string | null>(null);
 	const [rotation, setRotation] = useState(0);
 	const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+	const [organization, setOrganization] = useState(user?.organization);
+	const [activity, setActivity] = useState(user?.activityArea?.id);
+	const [errors, setErrors] = useState({ organization: '', activity: '' });
+	const [style, setStyle] = useState<CSSProperties>({ pointerEvents: 'none', opacity: 0.5 });
+
+	const formRef = useRef<HTMLFormElement>(null);
+
+	const validateForm = () => {
+		let isValid = true;
+		if (!organization) {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				organization: t('field-required', { field: t('company-name').toLowerCase() }),
+			}));
+			isValid = false;
+		} else {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				organization: '',
+			}));
+		}
+
+		if (!activity) {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				activity: t('field-required', { field: t('activity').toLowerCase() }),
+			}));
+			isValid = false;
+		} else {
+			setErrors((prevErrors) => ({
+				...prevErrors,
+				activity: '',
+			}));
+		}
+
+		return isValid;
+	};
+
+	useEffect(() => {
+		setOrganization(user?.organization);
+		setActivity(user?.activityArea?.id);
+		if (!user?.activityArea) {
+			setStyle({});
+		}
+	}, [user]);
+
+	useEffect(() => {
+		if (!validateForm() && user) {
+			setHasChanges(true);
+		}
+	}, [organization, activity]);
 
 	const items = activityAreas.map((activityArea) => {
 		return {
@@ -62,13 +116,9 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 		return null;
 	};
 
-	async function handleSubmit() {
-		const form = formRef.current;
-
-		if (form) {
-			form.requestSubmit();
-
-			if (formData) {
+	useEffect(() => {
+		if (formData) {
+			startTransition(async () => {
 				const sendFormData = formData;
 				const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
 				const filename = `image_${timestamp}.jpg`;
@@ -76,81 +126,109 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 				if (blob) sendFormData.set('avatarFile', blob, filename);
 				handleSubmitForm(sendFormData, updateProfile, startTransition, setToast, t_default);
 				setImage('');
-			}
+			});
+		}
+	}, [formData]);
+
+	function handleSubmit() {
+		const form = formRef.current;
+
+		if (form) {
+			form.requestSubmit();
 		}
 	}
 
 	return (
-		<form className="flex flex-col basis-3/4" ref={formRef} action={(formData) => setFormData(formData)}>
+		<form className="flex flex-col basis-4/5" ref={formRef} action={(formData) => setFormData(formData)}>
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>
-				<div className="grid grid-cols-6 gap-6 justify-left items-center pt-10">
-					<ProfilePicture
-						dropzoneText={t('drop-picture')}
-						buttonText={t('delete-picture')}
-						setCroppedAreaPixels={setCroppedAreaPixels}
-						image={image}
-						setImage={setImage}
-						rotation={rotation}
-						setRotation={setRotation}
-					/>
-					<div className="col-span-3" />
-					{isOrganizer && (
-						<>
-							<label>{t('company-name')}</label>
-							<input
-								type="text"
-								className="input input-ghost col-span-2"
-								name="organization"
-								defaultValue={user.organization ?? ''}
-								required
-							/>
-						</>
-					)}
-					{isOrganizer && (
-						<>
-							<label className="justify-self-center align-top row-span-2">{t('description')}</label>
-							<textarea
-								className="textarea textarea-ghost border-current row-span-2 h-full self-start col-span-2"
-								name="description"
-								defaultValue={user.profileDescription ?? ''}
-							/>
-						</>
-					)}
-					<label>{t('email')}</label>
-					<input
-						type="text"
-						className="input input-ghost col-span-2"
-						name="email"
-						defaultValue={user?.email ?? ''}
-						disabled
-					/>
-
-					<label className="">{t('activity')}</label>
-					{user && (
-						<ActivityAreaDropdown
-							items={items}
-							inputName="activity"
-							defaultItem={{
-								title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
-								value: user?.activityArea?.id,
-							}}
-							customStyle="col-span-2"
+				<div className="grid grid-cols-2 gap-8 mt-10 mb-6">
+					<div className="grid grid-cols-3 gap-2">
+						<ProfilePicture
+							dropzoneText={t('drop-picture')}
+							buttonText={t('delete-picture')}
+							setCroppedAreaPixels={setCroppedAreaPixels}
+							image={image}
+							setImage={setImage}
+							rotation={rotation}
+							setRotation={setRotation}
 						/>
-					)}
+					</div>
+				</div>
+				<div className="grid grid-cols-2 gap-8 justify-start items-start">
+					<div className="grid grid-cols-3 gap-4">
+						{isOrganizer && (
+							<>
+								<label className={`flex items-center col-span-1 ${errors.organization && 'mb-8'}`}>
+									{t('company-name')}
+								</label>
+								<div className="flex flex-col gap-2 col-span-2">
+									<input
+										type="text"
+										className="input input-ghost"
+										name="organization"
+										onChange={(e) => setOrganization(e.target.value)}
+										value={organization ?? ''}
+										required
+									/>
+									{errors.organization && <p className="text-error">{errors.organization}</p>}
+								</div>
+							</>
+						)}
+						<label className="flex items-center col-span-1">{t('email')}</label>
+						<input
+							type="text"
+							className="input input-ghost col-span-2"
+							name="email"
+							defaultValue={user?.email ?? ''}
+							disabled
+						/>
+						{user && isOrganizer && (
+							<>
+								<label className={`flex items-center col-span-1 ${errors.activity && 'mb-8'}`}>{t('activity')}</label>
+								<div className="flex flex-col gap-2 col-span-2" style={style}>
+									<ActivityAreaDropdown
+										items={items}
+										inputName="activity"
+										defaultItem={{
+											title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
+											value: user?.activityArea?.id,
+										}}
+										onItemChange={(item) => {
+											setActivity(item);
+										}}
+									/>
+									{errors.activity && <p className="text-error">{errors.activity}</p>}
+								</div>
+							</>
+						)}
+					</div>
 
-					{isOrganizer && (
-						<>
-							<label className="justify-self-center">{t('website')}</label>
-							<input
-								type="text"
-								className="input input-ghost col-span-2"
-								name="website"
-								defaultValue={user?.webSiteLink ?? ''}
-							/>
-						</>
-					)}
-					<div className="col-span-3" />
+					<div className="grid grid-cols-6 gap-4">
+						{isOrganizer && (
+							<>
+								<label className="col-span-1 mt-3">{t('description')}</label>
+								<textarea
+									className="textarea textarea-ghost min-h-[7rem] border-current h-full self-start col-span-5"
+									name="description"
+									defaultValue={user.profileDescription ?? ''}
+								/>
+							</>
+						)}
+						{isOrganizer && (
+							<>
+								<label className="flex items-center col-span-1">{t('website')}</label>
+								<div className="flex items-center col-span-5">
+									<input
+										type="text"
+										className="input input-ghost w-full"
+										name="website"
+										defaultValue={user?.webSiteLink ?? ''}
+									/>
+								</div>
+							</>
+						)}
+					</div>
 				</div>
 			</div>
 			<SettingsFooter
@@ -158,6 +236,7 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 				errorText={t('changes')}
 				inputsConfig={{
 					filled: ['organization', 'email', 'activity'],
+					changed: ['website', 'description', 'fileInput'],
 				}}
 				cancelButtonText={t('cancel')}
 				dialogText={{

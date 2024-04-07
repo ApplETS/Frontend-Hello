@@ -45,12 +45,12 @@ export default function ProfilePicture({
 	return (
 		<>
 			{image ? (
-				<div className="w-36 h-36 relative mask mask-circle">
+				<div className="w-44 h-44 relative mask mask-circle">
 					<Cropper
 						image={image}
 						crop={crop}
 						rotation={rotation}
-						cropSize={{ width: 150, height: 150 }}
+						cropSize={{ width: 175, height: 175 }}
 						zoom={zoom}
 						aspect={1}
 						cropShape="round"
@@ -65,10 +65,10 @@ export default function ProfilePicture({
 				</div>
 			) : (
 				<div className="avatar">
-					<Avatar size="w-36 h-36" textSize="text-5xl" color="bg-base-300" />
+					<Avatar size="w-44 h-44" textSize="text-5xl" color="bg-base-300" />
 				</div>
 			)}
-			<div className="flex flex-col gap-2 col-span-2">
+			<div className="flex flex-col justify-center gap-2 col-span-2">
 				<Dropzone title={dropzoneText} onFileDrop={handleFileDrop} />
 				{image && (
 					<button

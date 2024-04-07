@@ -4,13 +4,12 @@ import React from 'react';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faClose, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
-import { MDXEditor, linkPlugin, linkDialogPlugin } from '@mdxeditor/editor';
 import Constants from '@/utils/constants';
 import Modal from './Modal';
-import EventDateAndImage from '../EventDateAndImage';
 import Markdown from 'react-markdown';
 import style from '@/markdown-styles.module.css';
 import dayjs from 'dayjs';
+import Avatar from '../Avatar';
 
 export interface PreviewInfos {
 	news: string;
@@ -128,7 +127,9 @@ export default function Preview({ locale, infos, onClosePreview }: Props) {
 										isLight ? 'bg-red' : 'bg-gray-700'
 									}`}
 								>
-									<div className="flex bg-white rounded-full h-10 w-10 mr-2 my-1"></div>
+									<div className="flex mr-2 my-1">
+										<Avatar size="h-10 w-10" />
+									</div>
 									<div>
 										<p className="font-bold text-sm">{infos.author}</p>
 										<p className="text-xs text-white">{infos.activityArea}</p>

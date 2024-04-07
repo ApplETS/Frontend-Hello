@@ -27,7 +27,8 @@
 		"signup": "Inscrivez-vous",
 		"400": "Mauvaises informations de connexion",
 		"401": "Session expirée, veuillez vous reconnecter",
-		"200": "Vérification réussie"
+		"200": "Vérification réussie",
+		"field-required": "Un {field} est obligatoire"
 	},
 	"SignUp": {
 		"title": "Inscription",
@@ -50,7 +51,9 @@
 		"email": "Courriel",
 		"send": "Envoyer",
 		"remember": "Vous avez un compte?",
-		"remember-link": "Connectez-vous"
+		"remember-link": "Connectez-vous",
+		"field-required": "Un {field} est obligatoire",
+		"400": "Veuillez saisir une adresse courriel valide."
 	},
 	"UpdatePassword": {
 		"title": "Réinitialiser votre mot de passe",
@@ -63,7 +66,12 @@
 		"remember-link": "Connectez-vous",
 		"401": "Le code de réinitialisation est invalide ou a expiré",
 		"token-placeholder": "Code reçu par courriel",
-		"201": "Veuillez vérifier votre courriel"
+		"201": "Veuillez vérifier votre courriel",
+		"field-required": "Un {field} est obligatoire",
+		"field-required-f": "Une {field} est obligatoire",
+		"passwords-must-match": "Les mots de passe doivent correspondre",
+		"403": "Le code de réinitialisation a expiré ou est invalide",
+		"422": "Veuillez saisir une adresse courriel valide."
 	},
 	"SetPassword": {
 		"title": "Changer le mot de passe temporaire",
@@ -320,7 +328,8 @@
 			"save": "Enregistrer",
 			"200": "Profil enregistré",
 			"changes": "Changements détectés, enregistrez pour appliquer les modifications",
-			"cancel": "Annuler"
+			"cancel": "Annuler",
+			"field-required": "Un {field} est obligatoire"
 		},
 		"password-section": {
 			"title": "Mot de passe",
@@ -329,7 +338,8 @@
 			"save": "Enregistrer",
 			"200": "Mot de passe enregistré",
 			"changes": "Changements détectés, enregistrez pour appliquer les modifications",
-			"cancel": "Annuler"
+			"cancel": "Annuler",
+			"passwords-must-match": "Les mots de passe ne correspondent pas"
 		},
 		"display-section": {
 			"title": "Apparence",

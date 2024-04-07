@@ -12,7 +12,7 @@ export default function Display({ params }: Props) {
 	const t = useTranslations('Settings.display-section');
 
 	return (
-		<form className="flex flex-col basis-3/4">
+		<form className="flex flex-col basis-4/5">
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>
 				<div className="grid grid-cols-2 gap-6 justify-left items-center pt-10 w-1/2">

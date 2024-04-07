@@ -27,7 +27,8 @@
 		"signup": "Sign up",
 		"400": "Wrong credentials",
 		"401": "Session expired, please login again",
-		"200": "Verification successful"
+		"200": "Verification successful",
+		"field-required": "A {field} is required"
 	},
 	"SignUp": {
 		"title": "Sign Up",
@@ -50,7 +51,9 @@
 		"email": "Email",
 		"send": "Reset your password",
 		"remember": "Already have an account?",
-		"remember-link": "Login here"
+		"remember-link": "Login here",
+		"field-required": "A {field} is required",
+		"400": "Please enter a valid email address."
 	},
 	"UpdatePassword": {
 		"title": "Reset your password",
@@ -63,7 +66,12 @@
 		"remember-link": "Login here",
 		"401": "Invalid token",
 		"token-placeholder": "Token received by email",
-		"201": "Please verify your email"
+		"201": "Please verify your email",
+		"field-required": "A {field} is required",
+		"field-required-f": "A {field} is required",
+		"passwords-must-match": "Passwords must match",
+		"403": "The token has expired or is invalid",
+		"422": "Please enter a valid email address."
 	},
 
 	"SetPassword": {
@@ -321,7 +329,8 @@
 			"save": "Save",
 			"200": "Profile updated",
 			"changes": "Changes detected, save to update",
-			"cancel": "Cancel"
+			"cancel": "Cancel",
+			"field-required": "A {field} is required"
 		},
 		"password-section": {
 			"title": "Password",
@@ -330,7 +339,8 @@
 			"save": "Save",
 			"200": "Password saved",
 			"changes": "Changes detected, save to update",
-			"cancel": "Cancel"
+			"cancel": "Cancel",
+			"passwords-must-match": "Passwords do not match"
 		},
 		"display-section": {
 			"title": "Display",

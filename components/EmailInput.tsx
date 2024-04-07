@@ -1,23 +1,26 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-export default function EmailInput() {
-	const [email, setEmail] = useState('');
+interface Props {
+	email: string;
+	setEmail: (email: string) => void;
+}
 
+export default function EmailInput({ email, setEmail }: Props) {
 	useEffect(() => {
 		const storedEmail = localStorage.getItem('loginEmail');
 		if (storedEmail) setEmail(storedEmail);
 	}, []);
 
-	const handleChange = async (e: { target: { value: React.SetStateAction<string> } }) => {
-		await setEmail(e.target.value);
+	const handleChange = (email: string) => {
+		setEmail(email);
 
-		if (e.target.value) {
+		if (email) {
 			const checkbox = document.getElementById('checkbox') as HTMLInputElement;
 			const isChecked = checkbox.checked;
 			if (isChecked) {
-				localStorage.setItem('loginEmail', e.target.value.toString());
+				localStorage.setItem('loginEmail', email);
 			} else {
 				localStorage.removeItem('loginEmail');
 			}
@@ -28,13 +31,13 @@ export default function EmailInput() {
 
 	return (
 		<input
-			className="input input-ghost mb-4"
+			className="input input-ghost"
 			name="email"
 			id="email"
 			type="email"
 			required
 			value={email}
-			onChange={handleChange}
+			onChange={(e) => handleChange(e.target.value)}
 		/>
 	);
 }

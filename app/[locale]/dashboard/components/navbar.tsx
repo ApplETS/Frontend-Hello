@@ -14,6 +14,7 @@ import HelpButton from '@/components/HelpButton';
 import Avatar from '@/components/Avatar';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { getActivityAreaName } from '@/models/activity-area';
+import { useLoading } from '@/utils/provider/LoadingProvider';
 
 interface Props {
 	activePage: string;
@@ -32,6 +33,7 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 	const t = useTranslations('Navbar');
 	const isModerator = user.type == UserTypes.MODERATOR;
 	const { isLight } = useTheme();
+	const { startTransition } = useLoading();
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -43,6 +45,12 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 		document.addEventListener('mousedown', handleClickOutside);
 		return () => document.removeEventListener('mousedown', handleClickOutside);
 	}, []);
+
+	const handleSignOut = (formData: FormData) => {
+		startTransition(async () => {
+			await signOut(formData);
+		});
+	};
 
 	return (
 		<div className={`navbar w-full ${isLight ? 'border-b border-base-300 bg-base-100' : 'bg-base-300'}`}>
@@ -106,7 +114,7 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 							</li>
 							<div className="divider my-0"></div>
 							<li>
-								<form action={signOut}>
+								<form action={(formData) => handleSignOut(formData)}>
 									<input type="hidden" name="redirectLink" value={`/${locale}/login`} />
 									<div className="flex flex-row gap-2">
 										<FontAwesomeIcon icon={faSignOut} className="pt-1" />

@@ -11,10 +11,11 @@ import { handleSubmitForm } from '@/app/actions/settings/submitForm';
 import { updateProfile } from '@/app/actions/settings/update-profile';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import { useToast } from '@/utils/provider/ToastProvider';
-import { useEffect, useRef, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Area } from 'react-easy-crop';
 import { getCroppedImgOnly } from '@/utils/canvasUtils';
 import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
+import { useSettings } from '@/utils/provider/SettingsProvider';
 
 interface Props {
 	locale: string;
@@ -29,6 +30,7 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 	const { user } = useUser();
 	const { startTransition } = useLoading();
 	const { setToast } = useToast();
+	const { setHasChanges } = useSettings();
 
 	const isOrganizer = user?.type == UserTypes.ORGANIZER;
 
@@ -39,6 +41,7 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 	const [organization, setOrganization] = useState(user?.organization);
 	const [activity, setActivity] = useState(user?.activityArea?.id);
 	const [errors, setErrors] = useState({ organization: '', activity: '' });
+	const [style, setStyle] = useState<CSSProperties>({ pointerEvents: 'none', opacity: 0.5 });
 
 	const formRef = useRef<HTMLFormElement>(null);
 
@@ -76,10 +79,15 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 	useEffect(() => {
 		setOrganization(user?.organization);
 		setActivity(user?.activityArea?.id);
+		if (!user?.activityArea) {
+			setStyle({});
+		}
 	}, [user]);
 
 	useEffect(() => {
-		validateForm();
+		if (!validateForm() && user) {
+			setHasChanges(true);
+		}
 	}, [organization, activity]);
 
 	const items = activityAreas.map((activityArea) => {
@@ -178,7 +186,7 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 						{user && isOrganizer && (
 							<>
 								<label className={`flex items-center col-span-1 ${errors.activity && 'mb-8'}`}>{t('activity')}</label>
-								<div className="flex flex-col gap-2 col-span-2" style={{ pointerEvents: 'none', opacity: 0.5 }}>
+								<div className="flex flex-col gap-2 col-span-2" style={style}>
 									<ActivityAreaDropdown
 										items={items}
 										inputName="activity"
@@ -186,7 +194,9 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 											title: user?.activityArea ? getActivityAreaName(user?.activityArea, locale) : '',
 											value: user?.activityArea?.id,
 										}}
-										onItemChange={(item) => setActivity(item)}
+										onItemChange={(item) => {
+											setActivity(item);
+										}}
 									/>
 									{errors.activity && <p className="text-error">{errors.activity}</p>}
 								</div>

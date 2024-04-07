@@ -28,8 +28,7 @@ export default function UsersTable({ locale, activityAreas }: Props) {
 	const t = useTranslations('Accounts');
 	const { setToast } = useToast();
 
-	const statusKeys = Object.keys(constants.userStatuses);
-	const [selectedFilter, setSelectedFilter] = useState(statusKeys[0]);
+	const [selectedFilter, setSelectedFilter] = useState(3);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
@@ -76,7 +75,7 @@ export default function UsersTable({ locale, activityAreas }: Props) {
 	}, [currentPage, pageSize, debouncedSearchTerm, selectedFilter]);
 
 	const handleFilterChanged = (filterIndex: number) => {
-		const selectedStatusKey = statusKeys[filterIndex];
+		const selectedStatusKey = filterOrder[filterIndex].valueOf();
 		setCurrentPage(1);
 		setSelectedFilter(selectedStatusKey);
 	};

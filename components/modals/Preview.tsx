@@ -10,6 +10,8 @@ import Modal from './Modal';
 import EventDateAndImage from '../EventDateAndImage';
 import Markdown from 'react-markdown';
 import style from '@/markdown-styles.module.css';
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 
 export interface PreviewInfos {
 	news: string;
@@ -34,6 +36,7 @@ interface Props {
 
 export default function Preview({ locale, infos, onClosePreview }: Props) {
 	const { isLight } = useTheme();
+	console.log(infos.content);
 
 	return (
 		<Modal>
@@ -147,7 +150,9 @@ export default function Preview({ locale, infos, onClosePreview }: Props) {
 								</div>
 								<div className="px-2 h-40 overflow-y-auto">
 									<div style={{ position: 'relative' }}>
-										<Markdown className={`${style.reactMarkDown} p-2`}>{infos.content}</Markdown>
+										<Markdown rehypePlugins={[rehypeRaw]} className={`${style.reactMarkDown} p-2`}>
+											{infos.content.replace(/\\\[+/g, '[').replace(/\\\(+/g, '(')}
+										</Markdown>
 									</div>
 								</div>
 								<div className="flex flex-wrap p-4 gap-1">

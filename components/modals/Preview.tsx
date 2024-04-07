@@ -10,6 +10,7 @@ import Modal from './Modal';
 import EventDateAndImage from '../EventDateAndImage';
 import Markdown from 'react-markdown';
 import style from '@/markdown-styles.module.css';
+import dayjs from 'dayjs';
 
 export interface PreviewInfos {
 	news: string;
@@ -34,6 +35,47 @@ interface Props {
 
 export default function Preview({ locale, infos, onClosePreview }: Props) {
 	const { isLight } = useTheme();
+
+	function formatDateRange(infos: PreviewInfos) {
+		let formattedDate;
+
+		// If there is only a start date or start date and end date have the same day and month
+		if (
+			infos.eventStartDate &&
+			(!infos.eventEndDate ||
+				(dayjs(infos.eventStartDate).day() === dayjs(infos.eventEndDate).day() &&
+					dayjs(infos.eventStartDate).month() === dayjs(infos.eventEndDate).month()))
+		) {
+			formattedDate = <p>{dayjs(infos.eventStartDate).format('D MMMM YYYY')}</p>;
+		}
+		// If there is a start date and an end date with the same month
+		else if (
+			infos.eventStartDate &&
+			infos.eventEndDate &&
+			dayjs(infos.eventStartDate).month() === dayjs(infos.eventEndDate).month()
+		) {
+			formattedDate = (
+				<p>
+					{dayjs(infos.eventStartDate).format('D')} - {dayjs(infos.eventEndDate).format('D MMMM YYYY')}
+				</p>
+			);
+		}
+		// If there is a start date and an end date not in the same month
+		else if (
+			infos.eventStartDate &&
+			infos.eventEndDate &&
+			dayjs(infos.eventStartDate).month() !== dayjs(infos.eventEndDate).month()
+		) {
+			formattedDate = (
+				<>
+					<p>{dayjs(infos.eventStartDate).format('D MMMM YYYY')} - </p>
+					<p>{dayjs(infos.eventEndDate).format('D MMMM YYYY')}</p>
+				</>
+			);
+		}
+
+		return formattedDate;
+	}
 
 	return (
 		<Modal>
@@ -72,60 +114,7 @@ export default function Preview({ locale, infos, onClosePreview }: Props) {
 										</div>
 										<div>
 											<p>{infos.eventDateTitle}</p>
-											{infos.eventStartDate && (
-												<>
-													{/* If there is only a start date */}
-													{infos.eventStartDate && !infos.eventEndDate && (
-														<p>
-															{new Date(infos.eventStartDate).toLocaleDateString(locale, {
-																day: 'numeric',
-																month: 'long',
-																year: 'numeric',
-															})}
-														</p>
-													)}
-													{/* If there is a start date and a end date with the same month */}
-													{infos.eventStartDate &&
-														infos.eventEndDate &&
-														new Date(infos.eventStartDate).getMonth() === new Date(infos.eventEndDate).getMonth() && (
-															<p>
-																{new Date(infos.eventStartDate).toLocaleDateString(locale, {
-																	day: 'numeric',
-																})}
-																{' - '}
-																{new Date(infos.eventEndDate).toLocaleDateString(locale, {
-																	day: 'numeric',
-																})}{' '}
-																{new Date(infos.eventStartDate).toLocaleDateString(locale, {
-																	month: 'long',
-																	year: 'numeric',
-																})}
-															</p>
-														)}
-													{/* If there is a start date and a end date not in the same month */}
-													{infos.eventStartDate &&
-														infos.eventEndDate &&
-														new Date(infos.eventStartDate).getMonth() !== new Date(infos.eventEndDate).getMonth() && (
-															<>
-																<p>
-																	{new Date(infos.eventStartDate).toLocaleDateString(locale, {
-																		day: 'numeric',
-																		month: 'long',
-																		year: 'numeric',
-																	})}
-																	{' - '}
-																</p>
-																<p>
-																	{new Date(infos.eventEndDate).toLocaleDateString(locale, {
-																		day: 'numeric',
-																		month: 'long',
-																		year: 'numeric',
-																	})}
-																</p>
-															</>
-														)}
-												</>
-											)}
+											{infos.eventStartDate && formatDateRange(infos)}
 										</div>
 									</div>
 								</div>

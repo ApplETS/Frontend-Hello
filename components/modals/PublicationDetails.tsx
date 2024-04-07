@@ -29,6 +29,7 @@ import style from '@/markdown-styles.module.css';
 import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 import dayjs from 'dayjs';
 import rehypeRaw from 'rehype-raw';
+import { useLoading } from '@/utils/provider/LoadingProvider';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -59,7 +60,7 @@ export default function PublicationDetails({
 		user = publication.organizer;
 	}
 
-	const [, startTransition] = useTransition();
+	const { startTransition } = useLoading();
 	const [title, setTitle] = useState(publication?.title || '');
 	const [imageSrc, setImageSrc] = useState(publication?.imageUrl || '');
 	const [imageBinary, setImageBinary] = useState<Blob>();
@@ -132,36 +133,29 @@ export default function PublicationDetails({
 	};
 
 	const [missingFields, setMissingFields] = useState<string[]>([]);
-	const isSubmittingRef = useRef(false);
 	const createOrUpdate = (formData: FormData) => {
-		if (isSubmittingRef.current) {
-			return;
-		}
-
-		isSubmittingRef.current = true;
-
-		const newMissingFields = [];
-		if (!title) newMissingFields.push(t('modal.title'));
-		if (!imageSrc) newMissingFields.push(t('modal.image'));
-		if (!imageAltText) newMissingFields.push(t('modal.alt-text'));
-		if (!content) newMissingFields.push(t('modal.content'));
-		if (!eventStartDate) newMissingFields.push(t('modal.event-start-date'));
-		if (!eventEndDate) newMissingFields.push(t('modal.event-end-date'));
-		if (!publishedDate) newMissingFields.push(t('modal.published-date'));
-
-		setMissingFields(newMissingFields);
-
-		if (newMissingFields.length > 0) {
-			setToast(`${t('modal.error-toast-message')}: ${newMissingFields.join(', ')}`, AlertType.error);
-			return;
-		}
-
-		if (new Date(eventEndDate).getTime() < new Date(eventStartDate).getTime()) {
-			setToast(t('modal.date-error-toast-message'), AlertType.error);
-			return;
-		}
-
 		startTransition(async () => {
+			const newMissingFields = [];
+			if (!title) newMissingFields.push(t('modal.title'));
+			if (!imageSrc) newMissingFields.push(t('modal.image'));
+			if (!imageAltText) newMissingFields.push(t('modal.alt-text'));
+			if (!content) newMissingFields.push(t('modal.content'));
+			if (!eventStartDate) newMissingFields.push(t('modal.event-start-date'));
+			if (!eventEndDate) newMissingFields.push(t('modal.event-end-date'));
+			if (!publishedDate) newMissingFields.push(t('modal.published-date'));
+
+			setMissingFields(newMissingFields);
+
+			if (newMissingFields.length > 0) {
+				setToast(`${t('modal.error-toast-message')}: ${newMissingFields.join(', ')}`, AlertType.error);
+				return;
+			}
+
+			if (new Date(eventEndDate).getTime() < new Date(eventStartDate).getTime()) {
+				setToast(t('modal.date-error-toast-message'), AlertType.error);
+				return;
+			}
+
 			var helloEvent;
 			formData = updateFormData(formData);
 
@@ -176,7 +170,6 @@ export default function PublicationDetails({
 				helloEvent ? AlertType.success : AlertType.error
 			);
 
-			isSubmittingRef.current = false;
 			if (!helloEvent) return;
 			else onClose();
 		});
@@ -297,18 +290,11 @@ export default function PublicationDetails({
 		);
 	};
 
-	const isSubmittingDraftRef = useRef(false);
 	const handleDraft = async () => {
-		if (isSubmittingDraftRef.current) {
-			return;
-		}
-
-		isSubmittingDraftRef.current = true;
-
-		const formData = new FormData();
-		const updatedFormData = updateFormData(formData, true);
-
 		startTransition(async () => {
+			const formData = new FormData();
+			const updatedFormData = updateFormData(formData, true);
+
 			const helloEvent = await draftAPublication(updatedFormData);
 
 			setToast(
@@ -316,7 +302,6 @@ export default function PublicationDetails({
 				helloEvent ? AlertType.success : AlertType.error
 			);
 
-			isSubmittingDraftRef.current = false;
 			if (helloEvent) onClose();
 		});
 	};

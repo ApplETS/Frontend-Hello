@@ -28,6 +28,7 @@ import Markdown from 'react-markdown';
 import style from '@/markdown-styles.module.css';
 import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 import dayjs from 'dayjs';
+import rehypeRaw from 'rehype-raw';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
@@ -561,7 +562,9 @@ export default function PublicationDetails({
 									<div
 										className={`${isDisabled ? 'border border-base-content rounded-lg markdown-custom-styling' : ''}`}
 									>
-										<Markdown className={`${style.reactMarkDown} p-2`}>{content}</Markdown>
+										<Markdown rehypePlugins={[rehypeRaw]} className={`${style.reactMarkDown} p-2`}>
+											{content}
+										</Markdown>
 									</div>
 								</div>
 							)}

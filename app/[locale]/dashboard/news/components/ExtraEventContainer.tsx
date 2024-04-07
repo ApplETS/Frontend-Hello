@@ -24,7 +24,9 @@ export default function ExtraEventContainer({ index, onClickEvent, event }: Prop
 				}
 			}}
 		>
-			<Marquee parentRef={parentRef}>{event.title}</Marquee>
+			<Marquee parentRef={parentRef} monthview={true}>
+				{event.title}
+			</Marquee>
 		</div>
 	);
 }

@@ -180,6 +180,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 						start: startOfDay.toDate(),
 						end: endOfDay.toDate(),
 						allDay: isAllDay,
+						groupId: event.cardId,
 						color: getColorForActivityArea(colors, event),
 					});
 
@@ -192,6 +193,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 					title: event.title,
 					start: startDate.toDate(),
 					end: endDate.toDate(),
+					groupId: event.cardId,
 					allDay: isAllDay,
 					color: getColorForActivityArea(colors, event),
 				});
@@ -293,13 +295,14 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 									date={arg.event.start}
 									setOpenMoreModal={setOpenMoreModal}
 									openMoreModal={openMoreModal}
+									monthview={true}
 								/>
 							</div>
 						);
 					} else {
 						return (
 							<div className="p-1 cursor-pointer w-full text-center z-0">
-								<EventContainer title={arg.event.title} />
+								<EventContainer title={arg.event.title} monthview={viewType == 'dayGridMonth'} />
 							</div>
 						);
 					}

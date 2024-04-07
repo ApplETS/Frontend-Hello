@@ -27,7 +27,7 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 	const t_default = useTranslationsWithDefault('Settings.profile-section');
 	const t_dialog = useTranslations('Settings.dialog');
 
-	const { user, setUser } = useUser();
+	const { user } = useUser();
 	const { startTransition } = useLoading();
 	const { setToast } = useToast();
 	const { setHasChanges } = useSettings();
@@ -86,7 +86,6 @@ export default function ProfileClient({ locale, activityAreas }: Props) {
 
 	useEffect(() => {
 		if (!validateForm() && user) {
-			console.log(user.activityArea);
 			setHasChanges(true);
 		}
 	}, [organization, activity]);

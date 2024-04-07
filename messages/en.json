@@ -110,7 +110,7 @@
 			"on-hold": "On hold",
 			"refused": "Refused",
 			"approved": "Approved",
-			"deleted": "Deleted"
+			"deleted": "Deactivated"
 		},
 		"menu": {
 			"duplicate": "Duplicate",
@@ -197,7 +197,7 @@
 			"on-hold": "On hold",
 			"refused": "Refused",
 			"approved": "Approved",
-			"deleted": "Deleted"
+			"deleted": "Deactivated"
 		},
 		"modal": {
 			"moderator-page-title": "Consult a news",

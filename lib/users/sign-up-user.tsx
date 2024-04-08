@@ -2,11 +2,11 @@ import { fetchWithSession, Method } from '@/lib/fetch-with-refresh';
 import { ApiResponse } from '@/models/api-response';
 import { User } from '@/models/user';
 
-export async function signUpUser(email: string, organization: string, activityArea: string): Promise<User> {
+export async function signUpUser(email: string, organization: string, activityAreaId: string): Promise<User> {
 	const response = await fetchWithSession(`moderator/organizer`, Method.POST, {
 		email: email,
 		organization: organization,
-		activityAreaId: activityArea,
+		activityAreaId: activityAreaId,
 	});
 
 	if (!response.ok) {

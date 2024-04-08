@@ -17,7 +17,7 @@ export default function UserCreationModal({ onClose, onCreate, activityAreas, lo
 	const { isLight } = useTheme();
 	const t = useTranslations('Accounts.create');
 	const [isPending, startTransition] = useTransition();
-	const [selectedActivity, setSelectedActivity] = useState(t('activity.scientificClub'));
+	const [selectedActivityId, setSelectedActivityId] = useState(activityAreas[0].id);
 	const [email, setEmail] = useState('');
 	const [organization, setOrganization] = useState('');
 	const [errors, setErrors] = useState({ email: '', organization: '' });
@@ -81,7 +81,7 @@ export default function UserCreationModal({ onClose, onCreate, activityAreas, lo
 		isSubmittingCreateRef.current = true;
 
 		startTransition(async () => {
-			formData.set('activity', selectedActivity);
+			formData.set('activityAreaId', selectedActivityId);
 			const user = await createUser(formData);
 			isSubmittingCreateRef.current = false;
 			onCreate(user);
@@ -118,7 +118,7 @@ export default function UserCreationModal({ onClose, onCreate, activityAreas, lo
 								<ActivityAreaDropdown
 									items={items}
 									inputName="activity"
-									onItemChange={(item: string) => setSelectedActivity(item)}
+									onItemChange={(item: string) => setSelectedActivityId(item)}
 									customStyle="col-span-2"
 								/>
 							</div>

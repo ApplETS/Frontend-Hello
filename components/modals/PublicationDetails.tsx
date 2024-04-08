@@ -76,6 +76,8 @@ export default function PublicationDetails({
 	const [rejectReason, setRejectReason] = useState('');
 	const [deactivateReason, setDeactivateReason] = useState('');
 
+	const [newImage, setNewImage] = useState(false);
+
 	const items = activityAreas.map((activityArea) => {
 		return {
 			title: getActivityAreaName(activityArea, locale),
@@ -114,7 +116,9 @@ export default function PublicationDetails({
 		// Generate a unique filename for the image using date timestamp
 		const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
 		const filename = `image_${timestamp}.jpg`;
-		if (imageBinary) formData.set('image', imageBinary, filename);
+		if (modalMode === Constants.publicationModalStatus.duplicate && !newImage) {
+			formData.set('imageUrl', publication?.imageUrl ?? '');
+		} else if (imageBinary) formData.set('image', imageBinary, filename);
 
 		formData.set('title', title);
 		formData.set('imageAltText', imageAltText);
@@ -234,6 +238,7 @@ export default function PublicationDetails({
 			setImageSrc(imageSrc);
 			setImageBinary(blob);
 			setImageModalOpen(false);
+			setNewImage(true);
 		} catch (error) {
 			console.error('Error fetching image data:', error);
 		}

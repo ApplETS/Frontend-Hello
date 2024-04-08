@@ -85,6 +85,12 @@ export default function PublicationDetails({
 		};
 	});
 
+	useEffect(() => {
+		if (modalMode === Constants.publicationModalStatus.duplicate) {
+		  setEventEndDate('');
+		}
+	  }, [modalMode]);
+
 	const isDisabled =
 		modalMode === Constants.publicationModalStatus.view ||
 		modalMode === Constants.publicationModalStatus.delete ||

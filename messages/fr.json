@@ -109,7 +109,7 @@
 			"on-hold": "En attente",
 			"refused": "Refusée",
 			"approved": "Approuvée",
-			"deleted": "Supprimée"
+			"deleted": "Desactivée"
 		},
 		"menu": {
 			"duplicate": "Dupliquer",
@@ -195,7 +195,7 @@
 			"on-hold": "En attente",
 			"refused": "Refusée",
 			"approved": "Approuvée",
-			"deleted": "Supprimée"
+			"deleted": "Désactivée"
 		},
 		"modal": {
 			"moderator-page-title": "Consulter une publication",

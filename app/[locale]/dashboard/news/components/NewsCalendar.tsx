@@ -27,6 +27,7 @@ interface Props {
 	locale: string;
 	handleEventSelect: (cardId: number | null) => void;
 	activityAreas: ActivityArea[];
+	newsId?: string;
 }
 
 export interface CalendarEvent {
@@ -42,8 +43,10 @@ export interface CalendarEvent {
 	};
 }
 
-export default function NewsCalendar({ events, locale, handleEventSelect, activityAreas }: Props) {
+export default function NewsCalendar({ events, locale, handleEventSelect, activityAreas, newsId }: Props) {
 	const t = useTranslations('Publications');
+
+	const sharedEvent = events.find((event) => event.id == newsId);
 
 	const [shownEvents, setShownEvents] = useState<HelloEvent[]>([]);
 	const [viewType, setViewType] = useState<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>('dayGridMonth');
@@ -273,6 +276,7 @@ export default function NewsCalendar({ events, locale, handleEventSelect, activi
 				activityAreas={activityAreas}
 				viewType={viewType}
 				setViewType={setViewType}
+				sharedEvent={sharedEvent}
 			/>
 			<FullCalendar
 				viewClassNames={'rounded-lg border border-gray-300 overflow-hidden'}

@@ -20,6 +20,7 @@ interface Props {
 	selectedCard: number | null;
 	setSelectedCard: (cardId: number | null) => void;
 	locale: string;
+	newsId?: string;
 }
 
 const cardVariants = {
@@ -37,7 +38,7 @@ const cardVariants = {
 	}),
 };
 
-export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: Props) => {
+export const CardRotation = ({ events, selectedCard, setSelectedCard, locale, newsId }: Props) => {
 	const t = useTranslations('NewsPage');
 	const router = useRouter();
 	const [{ startY, startScrollTop, isDragging }, setDragStart] = useState({
@@ -55,9 +56,19 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale }: 
 	}, [containerRef.current]);
 
 	useEffect(() => {
-		const now = new Date();
-		const futureEvents = events.filter((event) => new Date(event.eventStartDate) >= now);
-		selectCard(futureEvents.length > 0 ? futureEvents[0].cardId ?? 0 : 1);
+		let event = null;
+		if (newsId) {
+			event = events.find((event) => event.id == newsId);
+			if (event) {
+				selectCard(event.cardId);
+			}
+		}
+
+		if (event != null) {
+			const now = new Date();
+			const futureEvents = events.filter((event) => new Date(event.eventStartDate) >= now);
+			selectCard(futureEvents.length > 0 ? futureEvents[0].cardId ?? 0 : 1);
+		}
 	}, []);
 
 	useEffect(() => {

@@ -67,6 +67,7 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 	const [allNewsLoaded, setAllNewsLoaded] = useState(false);
 	const [page, setPage] = useState(1);
 	const [isLoading, startTransition] = useTransition();
+	const [startedTyping, setStartedTyping] = useState(false);
 	const [showScrollTopButton, setShowScrollTopButton] = useState(false);
 	const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 	const observer = useRef<IntersectionObserver | null>(null);
@@ -98,8 +99,8 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 
 	useEffect(() => {
 		startTransition(async () => {
+			setStartedTyping(false);
 			const response = await getNextEvents(1, nbOfEventsPerPage, organizerId, debouncedSearchTerm);
-
 			if (response) {
 				const newEvents = response.data;
 				setAllNewsLoaded(newEvents.length >= response.totalRecords);
@@ -111,10 +112,14 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 	}, [debouncedSearchTerm]);
 
 	useEffect(() => {
-		const handler = setTimeout(() => {
+		if (searchTerm != debouncedSearchTerm) {
 			setFilteredPublications([]);
+			setStartedTyping(true);
+		}
+
+		const handler = setTimeout(() => {
 			setDebouncedSearchTerm(searchTerm);
-		}, 1000);
+		}, 500);
 
 		return () => {
 			clearTimeout(handler);
@@ -172,10 +177,10 @@ export default function NewsList({ organizerId, locale, searchTerm }: NewsListPr
 						<EventCard event={event} locale={locale} />
 					</div>
 				))}
-				{isLoading && Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} />)}
+				{(isLoading || startedTyping) && Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} />)}
 			</div>
 
-			{!isLoading && filteredPublications.length === 0 && (
+			{!(isLoading || startedTyping) && filteredPublications.length === 0 && (
 				<div className="text-center my-10">{t('no-results-message')}</div>
 			)}
 

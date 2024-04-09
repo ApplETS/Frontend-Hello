@@ -8,7 +8,10 @@ export async function updateFirstPassword(formData: FormData) {
 	const userObject = await getAuthenticatedUser();
 	userObject.hasLoggedIn = true;
 
-	await updateUserProfile(userObject);
+	await updateUserProfile({
+		...userObject,
+		activityAreaId: userObject.activityArea?.id ?? '',
+	});
 
 	return await updatePasswordSettings(formData);
 }

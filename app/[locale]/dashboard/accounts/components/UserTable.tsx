@@ -107,6 +107,7 @@ export default function UsersTable({ locale, activityAreas }: Props) {
 		setIsModalOpen(false);
 		if (user) setToast(t('create.success'), AlertType.success);
 		else setToast(t('create.error'), AlertType.error);
+		callbackSetPaginatedEvents();
 	};
 
 	const closeUserSelection = () => {

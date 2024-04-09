@@ -5,5 +5,5 @@ interface Props {
 }
 
 export default function Index({ params: { locale } }: Props) {
-	return redirect(`${locale}/login`);
+	return redirect(`${locale}/dashboard/news`);
 }

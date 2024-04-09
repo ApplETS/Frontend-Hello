@@ -8,6 +8,7 @@ import DropdownSelect from '@/components/DropdownSelect';
 import { useTranslations } from 'next-intl';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
+import { HelloEvent } from '@/models/hello-event';
 
 export type TCalendarHeader = {
 	calendarRef: RefObject<FullCalendar>;
@@ -16,6 +17,7 @@ export type TCalendarHeader = {
 	activityAreas: ActivityArea[];
 	viewType: 'dayGridMonth' | 'timeGridWeek' | 'timeGridDay';
 	setViewType: React.Dispatch<React.SetStateAction<'dayGridMonth' | 'timeGridWeek' | 'timeGridDay'>>;
+	sharedEvent?: HelloEvent;
 };
 
 export const CalendarHeader = ({
@@ -25,6 +27,7 @@ export const CalendarHeader = ({
 	activityAreas,
 	viewType,
 	setViewType,
+	sharedEvent
 }: TCalendarHeader): ReactElement => {
 	const [date, setDate] = useState<Moment | null>(moment(calendarRef.current?.getApi().getDate()));
 	const t = useTranslations('Calendar');
@@ -34,7 +37,11 @@ export const CalendarHeader = ({
 		const calApi = calendarRef.current?.getApi();
 
 		if (calApi) {
-			setDate(moment(calApi.getDate()));
+			if (sharedEvent) {
+				setDate(moment(sharedEvent.eventStartDate))
+			} else {
+				setDate(moment(calApi.getDate()));
+			}
 		}
 	}, [calendarRef]);
 

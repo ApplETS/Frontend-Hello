@@ -10,9 +10,10 @@ interface Props {
 	eventsCards: HelloEvent[];
 	locale: string;
 	activityAreas: ActivityArea[];
+	newsId?: string;
 }
 
-export default function NewsPage({ eventsCards, locale, activityAreas }: Props) {
+export default function NewsPage({ eventsCards, locale, activityAreas, newsId }: Props) {
 	const [selectedCard, setSelectedCard] = useState<number | null>(null);
 
 	const handleEventSelect = (cardId: number | null) => {
@@ -27,6 +28,7 @@ export default function NewsPage({ eventsCards, locale, activityAreas }: Props) 
 					locale={locale}
 					handleEventSelect={handleEventSelect}
 					activityAreas={activityAreas}
+					newsId={newsId}
 				/>
 			</div>
 			<div className="basis-[30%]">
@@ -35,6 +37,7 @@ export default function NewsPage({ eventsCards, locale, activityAreas }: Props) 
 					selectedCard={selectedCard}
 					setSelectedCard={setSelectedCard}
 					locale={locale}
+					newsId={newsId}
 				/>
 			</div>
 		</div>

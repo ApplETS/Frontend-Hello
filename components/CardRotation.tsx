@@ -59,12 +59,12 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale, ne
 		let event = null;
 		if (newsId) {
 			event = events.find((event) => event.id == newsId);
-			if (event) {
+			if (event && event.cardId) {
 				selectCard(event.cardId);
 			}
 		}
 
-		if (event != null) {
+		if (event == null) {
 			const now = new Date();
 			const futureEvents = events.filter((event) => new Date(event.eventStartDate) >= now);
 			selectCard(futureEvents.length > 0 ? futureEvents[0].cardId ?? 0 : 1);

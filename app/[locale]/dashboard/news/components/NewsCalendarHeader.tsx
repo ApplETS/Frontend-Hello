@@ -37,7 +37,11 @@ export const CalendarHeader = ({
 		const calApi = calendarRef.current?.getApi();
 
 		if (calApi) {
+			if (sharedEvent) {
+				setDate(moment(sharedEvent.eventStartDate))
+			} else {
 				setDate(moment(calApi.getDate()));
+			}
 		}
 	}, [calendarRef]);
 

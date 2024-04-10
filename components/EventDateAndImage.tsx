@@ -6,11 +6,12 @@ interface Props {
 	eventStartDate: string;
 	eventEndDate: string;
 	imageUrl: string;
+	alt: string;
 	locale: string;
 	customStyle?: string;
 }
 
-export default function EventDateAndImage({ eventStartDate, eventEndDate, imageUrl, locale, customStyle }: Props) {
+export default function EventDateAndImage({ eventStartDate, eventEndDate, imageUrl, alt, locale, customStyle }: Props) {
 	const t = useTranslations('Profile');
 
 	return (
@@ -120,7 +121,7 @@ export default function EventDateAndImage({ eventStartDate, eventEndDate, imageU
 				)}
 			</div>
 			<div className="w-full aspect-[2/1] bg-base-300">
-				<img src={imageUrl} alt="event" className="w-full h-full object-cover" />
+				<img src={imageUrl} alt={alt} className="w-full h-full object-cover" />
 			</div>
 		</div>
 	);

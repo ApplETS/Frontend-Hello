@@ -26,6 +26,7 @@ const EventCard = ({ event, locale }: EventProps) => (
 			eventStartDate={event.eventStartDate}
 			eventEndDate={event.eventEndDate}
 			imageUrl={event.imageUrl}
+			alt={event.imageAltText}
 			locale={locale}
 			customStyle="basis-[30%]"
 		/>

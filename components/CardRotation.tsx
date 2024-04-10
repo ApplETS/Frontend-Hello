@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { HelloEvent } from '@/models/hello-event';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import EventDateAndImage from './EventDateAndImage';
 import Constants from '@/utils/constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -40,7 +39,7 @@ const cardVariants = {
 
 export const CardRotation = ({ events, selectedCard, setSelectedCard, locale, newsId }: Props) => {
 	const t = useTranslations('NewsPage');
-	const router = useRouter();
+
 	const [{ startY, startScrollTop, isDragging }, setDragStart] = useState({
 		startY: undefined as any,
 		startScrollTop: undefined as any,
@@ -148,11 +147,6 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale, ne
 		}, delay);
 	};
 
-	const handleViewProfileClick = (e: React.MouseEvent, url: string) => {
-		e.stopPropagation();
-		router.push(url);
-	};
-
 	return (
 		<div
 			className="h-full w-full flex flex-col items-center justify-center max-w-2xl relative"
@@ -195,6 +189,7 @@ export const CardRotation = ({ events, selectedCard, setSelectedCard, locale, ne
 									eventStartDate={event.eventStartDate}
 									eventEndDate={event.eventEndDate}
 									imageUrl={event.imageUrl}
+									alt={event.imageAltText}
 									locale={locale}
 								/>
 								<div className="flex flex-row gap-2 px-6 py-2 items-center">

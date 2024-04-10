@@ -27,7 +27,7 @@ export const CalendarHeader = ({
 	activityAreas,
 	viewType,
 	setViewType,
-	sharedEvent
+	sharedEvent,
 }: TCalendarHeader): ReactElement => {
 	const [date, setDate] = useState<Moment | null>(moment(calendarRef.current?.getApi().getDate()));
 	const t = useTranslations('Calendar');
@@ -38,7 +38,9 @@ export const CalendarHeader = ({
 
 		if (calApi) {
 			if (sharedEvent) {
-				setDate(moment(sharedEvent.eventStartDate))
+				setDate(moment(sharedEvent.eventStartDate));
+				calApi.gotoDate(sharedEvent.eventStartDate);
+				calApi.refetchEvents();
 			} else {
 				setDate(moment(calApi.getDate()));
 			}

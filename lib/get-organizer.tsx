@@ -3,7 +3,7 @@ import { ApiResponse } from '@/models/api-response';
 import { Organizer } from '@/models/organizer';
 
 export async function getOrganizer(organizerId: string): Promise<Organizer> {
-	const response = await fetchWithSession(`moderator/organizer/${organizerId}`, Method.GET);
+	const response = await fetchWithSession(`organizers/${organizerId}`, Method.GET);
 
 	if (!response.ok) {
 		throw new Error('Failed to fetch organizer');

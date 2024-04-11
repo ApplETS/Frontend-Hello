@@ -11,7 +11,7 @@ export async function getModeratorEventsPaginated(
 	orderBy?: string,
 	orderByDesc?: boolean
 ): Promise<ApiPaginatedResponse<HelloEvent>> {
-	let url = `moderator/events?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+	let url = `moderator-events?PageNumber=${pageNumber}&PageSize=${pageSize}`;
 
 	if (title) {
 		url += `&title=${title}`;

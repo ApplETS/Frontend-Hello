@@ -35,7 +35,7 @@ export default function ProfileClient({ organizer, locale }: Props) {
 
 	const notify = (email: string) => {
 		startTransition(async () => {
-			const success = await subscribeToOrganizer(email);
+			const success = await subscribeToOrganizer(email, organizer.id);
 
 			setToast(
 				t(`email-${success ? 'success' : 'error'}-toast-message`),

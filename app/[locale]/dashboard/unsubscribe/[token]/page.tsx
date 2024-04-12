@@ -6,6 +6,6 @@ interface Props {
 	params: { token: string };
 }
 
-export default function Unsubscribe({ params: { token } }: Props) {
+export default function Unsubscribe({ params: { token } }: Readonly<Props>) {
 	return <UnsubscribeClient token={token} />;
 }

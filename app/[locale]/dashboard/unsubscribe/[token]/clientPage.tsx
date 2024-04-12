@@ -11,7 +11,7 @@ interface Props {
 	token: string;
 }
 
-export default function UnsubscribeClient({ token }: Props) {
+export default function UnsubscribeClient({ token }: Readonly<Props>) {
 	const t = useTranslations('UnsubscribeEmail');
 
 	const { startTransition } = useLoading();

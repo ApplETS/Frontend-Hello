@@ -9,7 +9,7 @@ export async function draftPublication(formData: FormData) {
 		}
 	}
 
-	const response = await fetchWithSession('organizer/events/draft', Method.POSTFORM, formData);
+	const response = await fetchWithSession('organizer-drafts', Method.POSTFORM, formData);
 
 	if (!response.ok) {
 		throw new Error('Failed to draft the publication');

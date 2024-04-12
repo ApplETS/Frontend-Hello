@@ -9,7 +9,7 @@ export async function getModeratorEvents(
 	pageNumber: number = 1
 ): Promise<HelloEvent[]> {
 	const response = await fetchWithSession(
-		`moderator/events?PageNumber=${pageNumber}&PageSize=100&state=${state}`,
+		`moderator-events?PageNumber=${pageNumber}&PageSize=100&state=${state}`,
 		Method.GET,
 		undefined,
 		Constants.tags.approbations

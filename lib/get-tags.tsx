@@ -3,7 +3,7 @@ import { ApiResponse } from '@/models/api-response';
 import { Tag } from '@/models/tag';
 
 export async function getTags(): Promise<Tag[]> {
-	const response = await fetchWithSession(`events/tags`, Method.GET);
+	const response = await fetchWithSession(`tags`, Method.GET);
 
 	if (!response.ok) {
 		throw new Error('Failed to fetch tags');

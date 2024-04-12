@@ -1,6 +1,6 @@
 import { fetchWithSession, Method } from '@/lib/fetch-with-refresh';
 
-export async function pathDraft(formData: FormData, id: string) {
+export async function patchDraft(formData: FormData, id: string) {
 	for (const [key, value] of Array.from(formData.entries())) {
 		if (!value || value === 'Invalid Date') {
 			formData.delete(key);

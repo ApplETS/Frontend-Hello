@@ -9,7 +9,7 @@ export async function getPublications(
 	pageNumber: number = 1
 ): Promise<HelloEvent[]> {
 	const response = await fetchWithSession(
-		`organizer/events?PageNumber=${pageNumber}&PageSize=100&state=${state}`,
+		`organizer-events?PageNumber=${pageNumber}&PageSize=100&state=${state}`,
 		Method.GET,
 		undefined,
 		Constants.tags.publications

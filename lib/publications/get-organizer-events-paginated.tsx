@@ -10,7 +10,7 @@ export async function getOrganizerEventsPaginated(
 	orderBy?: string,
 	orderByDesc?: boolean
 ): Promise<ApiPaginatedResponse<HelloEvent>> {
-	let url = `organizer/events?PageNumber=${pageNumber}&PageSize=${pageSize}`;
+	let url = `organizer-events?PageNumber=${pageNumber}&PageSize=${pageSize}`;
 
 	if (title) {
 		url += `&title=${title}`;

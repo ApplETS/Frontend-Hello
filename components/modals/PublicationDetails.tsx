@@ -87,9 +87,9 @@ export default function PublicationDetails({
 
 	useEffect(() => {
 		if (modalMode === Constants.publicationModalStatus.duplicate) {
-		  setEventEndDate('');
+			setEventEndDate('');
 		}
-	  }, [modalMode]);
+	}, [modalMode]);
 
 	const isDisabled =
 		modalMode === Constants.publicationModalStatus.view ||
@@ -306,7 +306,7 @@ export default function PublicationDetails({
 			const formData = new FormData();
 			const updatedFormData = updateFormData(formData, true);
 
-			const helloEvent = await draftAPublication(updatedFormData);
+			const helloEvent = await draftAPublication(updatedFormData, publication?.id);
 
 			setToast(
 				t(`modal.draft-${helloEvent ? 'success' : 'error'}-toast-message`),
@@ -592,7 +592,7 @@ export default function PublicationDetails({
 								modalMode === Constants.publicationModalStatus.moderator ? 'flex justify-between' : 'flex justify-start'
 							}`}
 						>
-							{modalMode !== Constants.publicationModalStatus.modify &&
+							{(modalMode !== Constants.publicationModalStatus.modify || publication?.state === NewsStates.DRAFT) &&
 								modalMode !== Constants.publicationModalStatus.moderator && (
 									<button
 										className="btn btn-info px-8 font-normal"

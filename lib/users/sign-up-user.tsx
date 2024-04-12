@@ -3,7 +3,7 @@ import { ApiResponse } from '@/models/api-response';
 import { User } from '@/models/user';
 
 export async function signUpUser(email: string, organization: string, activityAreaId: string): Promise<User> {
-	const response = await fetchWithSession(`moderator/organizer`, Method.POST, {
+	const response = await fetchWithSession(`organizers`, Method.POST, {
 		email: email,
 		organization: organization,
 		activityAreaId: activityAreaId,

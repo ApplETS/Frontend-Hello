@@ -9,7 +9,7 @@ export async function getUsers(
 	search?: string,
 	state?: number
 ): Promise<ApiPaginatedResponse<User>> {
-	let url = `moderator/organizer?PageNumber=${page ? page : 1}&PageSize=${pageSize ? pageSize : 1000}`;
+	let url = `organizers?PageNumber=${page ? page : 1}&PageSize=${pageSize ? pageSize : 1000}`;
 
 	if (search) {
 		url += `&search=${search}`;

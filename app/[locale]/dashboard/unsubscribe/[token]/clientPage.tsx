@@ -19,7 +19,6 @@ export default function UnsubscribeClient({ token }: Props) {
 	useEffect(() => {
 		startTransition(async () => {
 			await unsubscribeFromOrganizer(token);
-			console.log('fini');
 		});
 	}, []);
 

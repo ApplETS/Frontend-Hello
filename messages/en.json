@@ -372,7 +372,10 @@
 	"UnsubscribeEmail": {
 		"title": "You have successfully unsubscribed from emails!",
 		"message": "Feel free to subscribe back in the profile page of the author.",
-		"back": "Back to the homepage"
+		"back": "Back to the homepage",
+		"error-title": "Unsubscription failed",
+		"error-message": "An error occurred while processing your unsubscription. Please try again later or contact support if the problem persists.",
+		"retry": "Retry"
 	},
 	"Pagination": {
 		"page": "Page",

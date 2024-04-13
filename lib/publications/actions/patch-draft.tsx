@@ -1,18 +1,18 @@
 'use server';
 
-import { draftPublication } from '../draft-publication';
 import { revalidateTag } from 'next/cache';
 import constants from '@/utils/constants';
+import { patchDraft } from '../patch-draft';
 
-export async function draftAPublication(formData: FormData) {
+export async function patchADraft(formData: FormData, draftId: string) {
 	var publication;
 
 	try {
-		publication = await draftPublication(formData);
+		publication = await patchDraft(formData, draftId);
 	} catch (e) {
 		return;
 	}
 
 	revalidateTag(constants.tags.publications);
-	return publication;
+	return true;
 }

@@ -30,6 +30,7 @@ import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 import dayjs from 'dayjs';
 import rehypeRaw from 'rehype-raw';
 import { useLoading } from '@/utils/provider/LoadingProvider';
+import { patchADraft } from '@/lib/publications/actions/patch-draft';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -305,15 +306,20 @@ export default function PublicationDetails({
 		startTransition(async () => {
 			const formData = new FormData();
 			const updatedFormData = updateFormData(formData, true);
+			let result;
 
-			const helloEvent = await draftAPublication(updatedFormData, publication?.id);
+			if (publication?.id) {
+				result = await patchADraft(updatedFormData, publication.id);
+			} else {
+				result = await draftAPublication(updatedFormData);
+			}
 
 			setToast(
-				t(`modal.draft-${helloEvent ? 'success' : 'error'}-toast-message`),
-				helloEvent ? AlertType.success : AlertType.error
+				t(`modal.draft-${result ? 'success' : 'error'}-toast-message`),
+				result ? AlertType.success : AlertType.error
 			);
 
-			if (helloEvent) onClose();
+			if (result) onClose();
 		});
 	};
 

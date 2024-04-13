@@ -17,6 +17,8 @@ import { AlertType } from '@/components/Alert';
 import Avatar from '@/components/Avatar';
 import NewsList from './components/NewsList';
 import { getActivityAreaName } from '@/models/activity-area';
+import { subscribeToOrganizer } from '@/lib/subscriptions/actions/subscribe-to-organizer';
+import { useLoading } from '@/utils/provider/LoadingProvider';
 
 type Props = {
 	organizer: Organizer;
@@ -29,19 +31,20 @@ export default function ProfileClient({ organizer, locale }: Props) {
 	const [askEmailModal, setAskEmailModal] = useState(false);
 	const { setToast } = useToast();
 	const [searchTerm, setSearchTerm] = useState('');
+	const { startTransition } = useLoading();
 
-	const notify = () => {
-		// TODO : Add notification
-		// const success = await sendNotifivation(email);
-		// if (success) publication!.state = NewsStates.REFUSED;
-		const success = 'success';
+	const notify = (email: string) => {
+		startTransition(async () => {
+			const success = await subscribeToOrganizer(email, organizer.id);
 
-		setToast(
-			t(`email-${success ? 'success' : 'error'}-toast-message`),
-			success ? AlertType.success : AlertType.error,
-			ToastDelay.long
-		);
-		setAskEmailModal(false);
+			setToast(
+				t(`email-${success ? 'success' : 'error'}-toast-message`),
+				success ? AlertType.success : AlertType.error,
+				ToastDelay.long
+			);
+
+			setAskEmailModal(false);
+		});
 	};
 
 	const getGridColsClass = (numItems: number) => {

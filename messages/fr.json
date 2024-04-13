@@ -371,7 +371,10 @@
 	"UnsubscribeEmail": {
 		"title": "Vous vous êtes désabonné avec succès des courriels!",
 		"message": "N'hésitez pas à vous réabonner dans la page de profil de l'auteur.",
-		"back": "Retour à l'accueil"
+		"error-title": "Désabonnement échoué",
+		"error-message": "Une erreur s'est produite lors du traitement de votre désabonnement. Veuillez réessayer ultérieurement ou contacter le support si le problème persiste.",
+		"back": "Retour à l'accueil",
+		"retry": "Réessayer"
 	},
 	"Pagination": {
 		"page": "Page",

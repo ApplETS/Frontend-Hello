@@ -30,6 +30,7 @@ import { ActivityArea, getActivityAreaName } from '@/models/activity-area';
 import dayjs from 'dayjs';
 import rehypeRaw from 'rehype-raw';
 import { useLoading } from '@/utils/provider/LoadingProvider';
+import { patchADraft } from '@/lib/publications/actions/patch-draft';
 
 const EditorComp = dynamic(() => import('../EditorComponent'), { ssr: false });
 
@@ -87,9 +88,9 @@ export default function PublicationDetails({
 
 	useEffect(() => {
 		if (modalMode === Constants.publicationModalStatus.duplicate) {
-		  setEventEndDate('');
+			setEventEndDate('');
 		}
-	  }, [modalMode]);
+	}, [modalMode]);
 
 	const isDisabled =
 		modalMode === Constants.publicationModalStatus.view ||
@@ -305,15 +306,20 @@ export default function PublicationDetails({
 		startTransition(async () => {
 			const formData = new FormData();
 			const updatedFormData = updateFormData(formData, true);
+			let result;
 
-			const helloEvent = await draftAPublication(updatedFormData);
+			if (publication?.id) {
+				result = await patchADraft(updatedFormData, publication.id);
+			} else {
+				result = await draftAPublication(updatedFormData);
+			}
 
 			setToast(
-				t(`modal.draft-${helloEvent ? 'success' : 'error'}-toast-message`),
-				helloEvent ? AlertType.success : AlertType.error
+				t(`modal.draft-${result ? 'success' : 'error'}-toast-message`),
+				result ? AlertType.success : AlertType.error
 			);
 
-			if (helloEvent) onClose();
+			if (result) onClose();
 		});
 	};
 
@@ -592,7 +598,7 @@ export default function PublicationDetails({
 								modalMode === Constants.publicationModalStatus.moderator ? 'flex justify-between' : 'flex justify-start'
 							}`}
 						>
-							{modalMode !== Constants.publicationModalStatus.modify &&
+							{(modalMode !== Constants.publicationModalStatus.modify || publication?.state === NewsStates.DRAFT) &&
 								modalMode !== Constants.publicationModalStatus.moderator && (
 									<button
 										className="btn btn-info px-8 font-normal"

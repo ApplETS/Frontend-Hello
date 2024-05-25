@@ -27,6 +27,11 @@
 - Environment variables setup
 - Communicate with [Backend-Hello](https://github.com/ApplETS/Backend-Hello)
 
+## Prerequisite
+- Docker (suppose to be already installed at this point)
+- [Git](https://git-scm.com/downloads)
+- [Node](https://nodejs.org/en/download/package-manager)
+
 ## Clone and run locally
 
 3. Use `cd` to change into the app's directory

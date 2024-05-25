@@ -27,10 +27,11 @@
 - Environment variables setup
 - Communicate with [Backend-Hello](https://github.com/ApplETS/Backend-Hello)
 
-## Prerequisite
+## Prerequisites
 - Docker (suppose to be already installed at this point)
 - [Git](https://git-scm.com/downloads)
 - [Node](https://nodejs.org/en/download/package-manager)
+- [Visual Studio Code](https://code.visualstudio.com/)
 
 ## Clone and run locally
 

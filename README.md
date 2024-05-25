@@ -53,8 +53,11 @@
 
    Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
    All the `RECAPTCHA` related stuff needs to be defined and found in a google cloud project.
-
-6. You can now run the Next.js local development server:
+5. Install dependency
+   ```bash
+   npm install
+   ```
+7. You can now run the Next.js local development server:
 
    ```bash
    npm run dev

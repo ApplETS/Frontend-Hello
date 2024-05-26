@@ -33,8 +33,8 @@
 - [Node](https://nodejs.org/en/download/package-manager)
 - [Visual Studio Code](https://code.visualstudio.com/)
 
-## Clone and run locally
-
+## Installation
+Clone and install dependencies
 3. Use `cd` to change into the app's directory
 
    ```bash
@@ -57,12 +57,14 @@
    ```bash
    npm install
    ```
-7. You can now run the Next.js local development server:
+
+## Running the project locally
+You can now run the Next.js local development server:
 
    ```bash
    npm run dev
    ```
 
-   The frontend should now be running on [localhost:3000](http://localhost:3000/).
+The frontend should now be running on [localhost:3000](http://localhost:3000/).
 
 > Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.

@@ -1,5 +1,6 @@
-import { getSession } from '@/utils/supabase/auth';
-import { Session } from '@supabase/supabase-js';
+import { getServerSession, Session } from "next-auth";
+import { authOptions } from "@/app/[locale]/auth/[...nextauth]/route";
+
 
 export enum Method {
 	GET = 'GET',
@@ -19,22 +20,22 @@ export async function fetchWithSession(
 	tag: string | null = null
 ) {
 	// Get the current session, refreshes it if it's expired
-	const session = await getSession();
+	const session: (Session & { accessToken: string }) | null = await getServerSession(authOptions);
 
 	const fetchOptions: RequestInit = {
 		method:
 			method !== Method.POSTFORM && method !== Method.PATCHFORM
 				? method
 				: method === Method.POSTFORM
-				? Method.POST
-				: Method.PATCH,
+					? Method.POST
+					: Method.PATCH,
 		headers:
 			method !== Method.POSTFORM && method !== Method.PATCHFORM
 				? {
-						'Content-Type': 'application/json',
-						Authorization: 'Bearer ' + session?.access_token,
-				  }
-				: { Authorization: 'Bearer ' + session?.access_token },
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + session?.['accessToken'],
+				}
+				: { Authorization: 'Bearer ' + session?.['accessToken'] },
 		next: {},
 	};
 
@@ -45,6 +46,5 @@ export async function fetchWithSession(
 	if (tag && fetchOptions.next) {
 		fetchOptions.next.tags = [tag];
 	}
-
 	return fetch(`${process.env.API_BASE_URL}/${routeSuffix}`, fetchOptions);
 }

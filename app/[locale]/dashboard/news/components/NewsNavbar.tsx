@@ -25,7 +25,7 @@ export default function NewsNavbar({ locale }: Props) {
 				<div className="divider divider-horizontal before:bg-base-content after:bg-base-content my-2"></div>
 
 				<div className="mr-5">
-					<Link href={`/${locale}/login`} className="btn btn-ghost">
+					<Link href={`/${locale}/auth/signin`} className="btn btn-ghost">
 						<div className="text-base mr-1">{t('login')}</div>
 						<div className="avatar rounded-full bg-base-100">
 							<div className="w-10 pt-2 pr-1">

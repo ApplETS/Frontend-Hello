@@ -1,7 +1,6 @@
 import React, { ReactElement, use } from 'react';
 import DashboardLayout from './components/dashboardLayout';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { signOut } from '@/utils/supabase/auth';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import { UserTypes } from '@/models/user-types';
 import ToastProvider from '@/utils/provider/ToastProvider';
@@ -20,9 +19,11 @@ export default async function Layout({ children, params: { locale } }: Props) {
 	let user;
 	try {
 		user = await getAuthenticatedUser();
+		console.log("🚀", user)
 	} catch (error) {
 		user = null;
 	}
+
 
 	const isOrganizer = user?.type == UserTypes.ORGANIZER;
 	const isModerator = user?.type == UserTypes.MODERATOR;
@@ -55,7 +56,7 @@ export default async function Layout({ children, params: { locale } }: Props) {
 			<ToastProvider>
 				<UserProvider>
 					<LoadingProvider>
-						<DashboardLayout pages={pages} signOut={signOut} user={user} locale={locale}>
+						<DashboardLayout pages={pages} user={user} locale={locale}>
 							{children}
 						</DashboardLayout>
 					</LoadingProvider>

@@ -1,11 +1,10 @@
 import NextAuth, { AuthOptions } from "next-auth"
 import AzureAD from "next-auth/providers/azure-ad"
-
-
+import Authentik from "next-auth/providers/authentik"
 
 export const authOptions: AuthOptions = {
 	providers: [
-		AzureAD({
+		/*AzureAD({
 			clientId: process.env.AUTH_MICROSOFT_ENTRA_ID_ID as string,
 			issuer: process.env.AUTH_MICROSOFT_ENTRA_ID_TENANT_ID,
 			clientSecret: process.env.AUTH_MICROSOFT_ENTRA_ID_SECRET as string,
@@ -14,7 +13,13 @@ export const authOptions: AuthOptions = {
 					scope: "openid profile email User.Read api://bf42ef76-b599-4ab1-a015-6e4b8afa347b/access_as_user",
 				},
 			},
-		}),
+		}),*/
+		Authentik({
+			issuer: process.env.OPENID_ISSUER!,
+			clientId: process.env.OPENID_CLIENT_ID!,
+			clientSecret: null!,
+			wellKnown: `${process.env.OPENID_ISSUER!}/.well-known/openid-configuration`
+		})
 	],
 	secret: process.env.AUTH_SECRET,
 	callbacks: {

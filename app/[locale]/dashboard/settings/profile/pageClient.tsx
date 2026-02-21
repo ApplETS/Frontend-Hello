@@ -8,7 +8,7 @@ import { UserTypes } from '@/models/user-types';
 import { useTranslations } from 'next-intl';
 import { useUser } from '@/utils/provider/UserProvider';
 import { handleSubmitForm } from '@/app/actions/settings/submitForm';
-import { updateProfile } from '@/app/actions/settings/update-profile';
+// import { updateProfile } from '@/app/actions/settings/update-profile';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import { useToast } from '@/utils/provider/ToastProvider';
 import { CSSProperties, useEffect, useRef, useState } from 'react';

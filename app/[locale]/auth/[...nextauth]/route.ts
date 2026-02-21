@@ -17,19 +17,23 @@ export const authOptions: AuthOptions = {
 		Authentik({
 			issuer: process.env.OPENID_ISSUER!,
 			clientId: process.env.OPENID_CLIENT_ID!,
-			clientSecret: null!,
-			wellKnown: `${process.env.OPENID_ISSUER!}/.well-known/openid-configuration`
+			clientSecret: process.env.OPENID_CLIENT_SECRET!/*clientSecret:null!*/,
+			wellKnown: `${process.env.OPENID_ISSUER!}.well-known/openid-configuration`,
+			client: {
+				id_token_signed_response_alg: "HS256",
+			}
 		})
 	],
 	secret: process.env.AUTH_SECRET,
 	callbacks: {
+
 		async signIn(user) {
 			console.log("🚀 ~ file: route.ts ~ line 44 ~ signIn ~ user", user)
 			return true
 		},
 		async jwt({ token, user, account, profile }) {
 			if (user) {
-				token.accessToken = account?.id_token;
+				token.accessToken = account?.access_token;
 			}
 			return token;
 		},

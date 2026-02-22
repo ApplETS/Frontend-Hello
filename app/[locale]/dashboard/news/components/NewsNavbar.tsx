@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignIn } from '@fortawesome/free-solid-svg-icons';
 import { useTranslations } from 'next-intl';
+import SigninButton from './SigninButton';
 
 interface Props {
 	locale: string;
@@ -25,14 +26,7 @@ export default function NewsNavbar({ locale }: Props) {
 				<div className="divider divider-horizontal before:bg-base-content after:bg-base-content my-2"></div>
 
 				<div className="mr-5">
-					<Link href={`/${locale}/auth/signin`} className="btn btn-ghost">
-						<div className="text-base mr-1">{t('login')}</div>
-						<div className="avatar rounded-full bg-base-100">
-							<div className="w-10 pt-2 pr-1">
-								<FontAwesomeIcon icon={faSignIn} size="xl" />
-							</div>
-						</div>
-					</Link>
+					<SigninButton />
 				</div>
 			</div>
 		</div>

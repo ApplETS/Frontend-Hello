@@ -15,6 +15,7 @@ import Avatar from '@/components/Avatar';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { getActivityAreaName } from '@/models/activity-area';
 import { useLoading } from '@/utils/provider/LoadingProvider';
+import { signOut } from 'next-auth/react';
 
 interface Props {
 	activePage: string;
@@ -46,8 +47,8 @@ export default function Navbar({ activePage, pages, user, locale }: Props) {
 	}, []);
 
 	const handleSignOut = () => {
-		startTransition(async () => {
-			// await signOut();
+		startTransition(() => {
+			signOut({callbackUrl: process.env.NEXTAUTH_URL});
 		});
 	};
 

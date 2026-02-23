@@ -66,7 +66,7 @@ async function refreshToken(token: JWT): Promise<JWT>{
 		"scope": "profile email openid offline_access"
 	});
 
-	const refreshResponse = await fetch(`${process.env.OPENID_BASE_URL!}token`, {
+	const refreshResponse = await fetch(`${process.env.OPENID_BASE_URL!}token/`, {
 		method: "POST",
 		body: parameters.toString(),
 		headers: {

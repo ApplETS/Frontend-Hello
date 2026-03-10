@@ -56,7 +56,7 @@ export default function DropdownSelect({ title, items, onFilterChange, defaultSe
 						{items.map((item, index) => (
 							<li className="flex" key={index}>
 								<a className="flex items-center justify-start space-x-2" onClick={() => handleItemClick(index)}>
-									<input type="checkbox" className="checkbox w-5 h-5" checked={selectedItems.includes(index)} />
+									<input type="checkbox" className="checkbox w-5 h-5" checked={selectedItems.includes(index)} readOnly />
 									<span>{item}</span>
 								</a>
 							</li>

@@ -1,5 +1,4 @@
 import NextAuth, { AuthOptions } from "next-auth"
-import AzureAD from "next-auth/providers/azure-ad"
 import Authentik from "next-auth/providers/authentik"
 import { JWT } from "next-auth/jwt";
 
@@ -78,6 +77,10 @@ async function refreshToken(token: JWT): Promise<JWT>{
 		console.log("Failed to refresh");
 		const text = await refreshResponse.text();
 		console.log(text);
+		return {
+			...token,
+			error: "RefreshTokenError"
+		}
 	}
 	const response = await refreshResponse.json();
 
@@ -108,4 +111,4 @@ declare module "next-auth/jwt" {
     refresh_token?: string
     error?: "RefreshTokenError"
   }
-};
+}

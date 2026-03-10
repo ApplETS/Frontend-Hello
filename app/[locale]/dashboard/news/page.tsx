@@ -3,11 +3,13 @@ import NewsPage from './components/NewsPage';
 import { getActivityAreas } from '@/lib/get-activity-areas';
 
 interface Props {
-	params: {locale: string};
-	searchParams: {id: string};
+	params: Promise<{ locale: string }>;
+	searchParams: Promise<{id: string}>;
 }
 
-export default async function News({ params: {locale}, searchParams: {id} }: Props) {
+export default async function News({ params, searchParams }: Props) {
+	const { id } = await searchParams;
+	const { locale } = await params;
 	const events = await getEvents();
 	const activityAreas = await getActivityAreas();
 	const eventsCards = events.map((event, i) => ({ ...event, cardId: i + 1 }));

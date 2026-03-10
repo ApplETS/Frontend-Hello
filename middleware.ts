@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
-
+import {routing} from './i18n/routing'
 import type { NextRequest } from 'next/server';
 import { localePrefix, locales, pathnames } from './config';
 import { getServerSession } from 'next-auth/next';
@@ -25,12 +25,7 @@ export async function middleware(req: NextRequest) {
 	return NextResponse.next();
 }
 
-export default createMiddleware({
-	locales,
-	pathnames,
-	localePrefix,
-	defaultLocale: 'fr',
-});
+export default createMiddleware(routing);
 
 export const config = {
 	matcher: ['/((?!api|_next|static|public|favicon.ico).*)'],

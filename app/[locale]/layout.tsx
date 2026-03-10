@@ -3,25 +3,27 @@ import './globals.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import '@mdxeditor/editor/style.css';
 import { ReactNode } from 'react';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { locales } from '../../config';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { locales } from '@/config';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import NextTopLoader from 'nextjs-toploader';
 import { SettingsProvider } from '@/utils/provider/SettingsProvider';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import React from 'react';
 
 type Props = {
 	children: ReactNode;
-	params: { locale: string };
+	params: Promise<{ locale: string }>;
 };
 
 export function generateStaticParams() {
 	return locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params: { locale } }: Omit<Props, 'children'>) {
+export async function generateMetadata({ params }: Omit<Props, 'children'>) {
+	const { locale } = await params;
 	const t = await getTranslations({ locale, namespace: 'LocaleLayout' });
 
 	return {
@@ -29,24 +31,25 @@ export async function generateMetadata({ params: { locale } }: Omit<Props, 'chil
 	};
 }
 
-export default function RootLayout({ children, params: { locale } }: Props) {
-	unstable_setRequestLocale(locale);
+export default function RootLayout({ children, params }: Props) {
+	const { locale } = React.use(params);
+	setRequestLocale(locale);
 	const messages = useMessages();
 	dayjs.extend(utc);
 	dayjs.extend(timezone);
 
 	return (
 		<html lang={locale} className={GeistSans.className}>
-			<body className="bg-base-300 text-base-content">
-				<NextTopLoader showSpinner={false} />
-				<main className="flex flex-col h-screen">
-					<SettingsProvider>
-						<NextIntlClientProvider locale={locale} messages={messages}>
-							{children}
-						</NextIntlClientProvider>
-					</SettingsProvider>
-				</main>
-			</body>
+		<body className="bg-base-300 text-base-content">
+		<NextTopLoader showSpinner={false} />
+		<main className="flex flex-col h-screen">
+			<SettingsProvider>
+				<NextIntlClientProvider locale={locale} messages={messages}>
+					{children}
+				</NextIntlClientProvider>
+			</SettingsProvider>
+		</main>
+		</body>
 		</html>
 	);
 }

@@ -2,7 +2,7 @@ import { Pathnames } from "next-intl/navigation";
 
 export const locales = ["en", "fr"] as const;
 
-export const api = "http://localhost:8080/api";
+export const api = "http://localhost:5010/api";
 
 export const pathnames = {
 	"/": "/",

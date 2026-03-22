@@ -1,6 +1,6 @@
 'use client';
 
-import { User } from '@/models/user';
+import { DefaultSession } from 'next-auth';
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from 'react';
 
 type Props = {
@@ -8,14 +8,14 @@ type Props = {
 };
 
 interface UserContextType {
-	user: User | undefined;
-	setUser: Dispatch<SetStateAction<User | undefined>>;
+	user: DefaultSession['user'] | undefined;
+	setUser: Dispatch<SetStateAction<DefaultSession['user'] | undefined>>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export default function UserProvider({ children }: Props) {
-	const [user, setUser] = useState<User>();
+	const [user, setUser] = useState<DefaultSession['user']>();
 
 	const value = {
 		user,

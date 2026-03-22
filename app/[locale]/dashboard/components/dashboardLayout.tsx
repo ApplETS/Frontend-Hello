@@ -9,17 +9,16 @@ import { useToast } from '@/utils/provider/ToastProvider';
 import Toast from '@/components/Toast';
 import { useLoading } from '@/utils/provider/LoadingProvider';
 import LoadingSpinner from '@/components/modals/LoadingSpinner';
-import SetPassword from '@/components/modals/SetPassword';
 import { useUser } from '@/utils/provider/UserProvider';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import { useTheme } from '@/utils/provider/ThemeProvider';
+import { getSession } from 'next-auth/react';
 
 interface Props {
 	children: ReactElement;
 	pages: {
 		[key: string]: Page;
 	};
-	signOut: (formData: FormData) => Promise<never>;
 	user: User | null;
 	locale: string;
 }
@@ -30,13 +29,14 @@ export interface Page {
 	isVisible: boolean;
 }
 
-export default function DashboardLayout({ children, pages, signOut, user, locale }: Props) {
+export default function DashboardLayout({ children, pages, user, locale }: Props) {
 	const pathname = usePathname();
 	const activePage = pathname.split('/').pop() ?? 'dashboard';
 	const { show, message, alertType, showToast } = useToast();
 	const { isLoading } = useLoading();
 	const { setUser } = useUser();
 	const { isLight } = useTheme();
+	console.log(user)
 
 	useEffect(() => {
 		if (user) {
@@ -50,7 +50,7 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 			highlightColor={`${isLight ? '#ffffff' : '#1d232a'}`}
 		>
 			{user !== null ? (
-				<Navbar activePage={activePage} pages={pages} signOut={signOut} user={user} locale={locale} />
+				<Navbar activePage={activePage} pages={pages} user={user} locale={locale} />
 			) : (
 				<NewsNavbar locale={locale} />
 			)}
@@ -63,7 +63,6 @@ export default function DashboardLayout({ children, pages, signOut, user, locale
 				{pages[activePage]?.title && activePage !== 'news' && pages[activePage]?.isVisible && (
 					<div className="text-2xl mb-7">{pages[activePage].title}</div>
 				)}
-				{user !== null && !user.hasLoggedIn && <SetPassword />}
 				{children}
 				{isLoading && <LoadingSpinner />}
 			</div>

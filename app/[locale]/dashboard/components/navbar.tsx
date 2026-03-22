@@ -15,18 +15,18 @@ import Avatar from '@/components/Avatar';
 import { useTheme } from '@/utils/provider/ThemeProvider';
 import { getActivityAreaName } from '@/models/activity-area';
 import { useLoading } from '@/utils/provider/LoadingProvider';
+import { signOut } from 'next-auth/react';
 
 interface Props {
 	activePage: string;
 	pages: {
 		[key: string]: Page;
 	};
-	signOut: (formData: FormData) => Promise<never>;
 	user: User;
 	locale: string;
 }
 
-export default function Navbar({ activePage, pages, signOut, user, locale }: Props) {
+export default function Navbar({ activePage, pages, user, locale }: Props) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 	const dropdownRef = useRef<HTMLDivElement>(null);
@@ -46,9 +46,9 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 		return () => document.removeEventListener('mousedown', handleClickOutside);
 	}, []);
 
-	const handleSignOut = (formData: FormData) => {
-		startTransition(async () => {
-			await signOut(formData);
+	const handleSignOut = () => {
+		startTransition(() => {
+			signOut({callbackUrl: process.env.NEXTAUTH_URL});
 		});
 	};
 
@@ -60,9 +60,8 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 						pageValue.isVisible && (
 							<Link
 								key={pageKey}
-								className={`btn min-h-min h-min py-2 px-4 rounded-lg ${
-									activePage === pageKey ? 'btn-primary ' : 'btn-ghost'
-								}`}
+								className={`btn min-h-min h-min py-2 px-4 rounded-lg ${activePage === pageKey ? 'btn-primary ' : 'btn-ghost'
+									}`}
 								href={pageValue.link}
 							>
 								<span className={`px-4 text-base`}>{pageValue.title}</span>
@@ -114,8 +113,8 @@ export default function Navbar({ activePage, pages, signOut, user, locale }: Pro
 							</li>
 							<div className="divider my-0"></div>
 							<li>
-								<form action={(formData) => handleSignOut(formData)}>
-									<input type="hidden" name="redirectLink" value={`/${locale}/login`} />
+								<form action={() => handleSignOut()}>
+									<input type="hidden" name="redirectLink" value={`/${locale}/auth/signin`} />
 									<div className="flex flex-row gap-2">
 										<FontAwesomeIcon icon={faSignOut} className="pt-1" />
 										<button>{t('sign-out')}</button>

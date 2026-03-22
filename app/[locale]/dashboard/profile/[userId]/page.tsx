@@ -11,14 +11,21 @@ import redditIcon from '@/public/Socials/Reddit.svg';
 import xIcon from '@/public/Socials/X.svg';
 
 type Props = {
-	params: { locale: string; userId: string };
+	params: Promise<{ locale: string; userId: string }>;
 };
 
-export default async function Profile({ params: { userId, locale } }: Props) {
-	const organizer = await getOrganizer(userId);
+export default async function Profile(props: Props) {
+    const params = await props.params;
 
-	organizer.socials = [];
-	if (organizer.facebookLink) {
+    const {
+        userId,
+        locale
+    } = params;
+
+    const organizer = await getOrganizer(userId);
+
+    organizer.socials = [];
+    if (organizer.facebookLink) {
 		organizer.socials.push({
 			icon: facebookIcon,
 			inputName: 'facebookIcon',
@@ -26,7 +33,7 @@ export default async function Profile({ params: { userId, locale } }: Props) {
 		});
 	}
 
-	if (organizer.discordLink) {
+    if (organizer.discordLink) {
 		organizer.socials.push({
 			icon: discordIcon,
 			inputName: 'discordIcon',
@@ -34,7 +41,7 @@ export default async function Profile({ params: { userId, locale } }: Props) {
 		});
 	}
 
-	if (organizer.instagramLink) {
+    if (organizer.instagramLink) {
 		organizer.socials.push({
 			icon: instagramIcon,
 			inputName: 'instagramIcon',
@@ -42,7 +49,7 @@ export default async function Profile({ params: { userId, locale } }: Props) {
 		});
 	}
 
-	if (organizer.linkedInLink) {
+    if (organizer.linkedInLink) {
 		organizer.socials.push({
 			icon: linkedinIcon,
 			inputName: 'linkedinIcon',
@@ -50,7 +57,7 @@ export default async function Profile({ params: { userId, locale } }: Props) {
 		});
 	}
 
-	if (organizer.tikTokLink) {
+    if (organizer.tikTokLink) {
 		organizer.socials.push({
 			icon: tiktokIcon,
 			inputName: 'tiktokIcon',
@@ -58,7 +65,7 @@ export default async function Profile({ params: { userId, locale } }: Props) {
 		});
 	}
 
-	if (organizer.redditLink) {
+    if (organizer.redditLink) {
 		organizer.socials.push({
 			icon: redditIcon,
 			inputName: 'redditIcon',
@@ -66,7 +73,7 @@ export default async function Profile({ params: { userId, locale } }: Props) {
 		});
 	}
 
-	if (organizer.xLink) {
+    if (organizer.xLink) {
 		organizer.socials.push({
 			icon: xIcon,
 			inputName: 'xIcon',
@@ -74,5 +81,5 @@ export default async function Profile({ params: { userId, locale } }: Props) {
 		});
 	}
 
-	return <ProfileClient organizer={organizer} locale={locale} />;
+    return <ProfileClient organizer={organizer} locale={locale} />;
 }

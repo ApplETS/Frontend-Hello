@@ -1,17 +1,19 @@
+import { use } from "react";
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import ThemeDropdown from './components/ThemeDropdown';
 import LanguageDropdown from './components/LanguageDropdown';
 
 type Props = {
-	params: { locale: string };
+	params: Promise<{ locale: string }>;
 };
 
-export default function Display({ params }: Props) {
-	unstable_setRequestLocale(params.locale);
-	const t = useTranslations('Settings.display-section');
+export default function Display(props: Props) {
+    const params = use(props.params);
+    setRequestLocale(params.locale);
+    const t = useTranslations('Settings.display-section');
 
-	return (
+    return (
 		<form className="flex flex-col basis-4/5">
 			<div className="flex-grow">
 				<label className="text-xl font-bold">{t('title')}</label>

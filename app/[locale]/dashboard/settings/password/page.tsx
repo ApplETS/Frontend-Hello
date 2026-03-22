@@ -1,12 +1,13 @@
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import PasswordClient from './pageClient';
 
 type Props = {
-	params: { locale: string };
+	params: Promise<{ locale: string }>;
 };
 
 export default async function Password({ params }: Props) {
-	unstable_setRequestLocale(params.locale);
+	const { locale } = await params;
+	setRequestLocale(locale);
 
 	return <PasswordClient />;
 }

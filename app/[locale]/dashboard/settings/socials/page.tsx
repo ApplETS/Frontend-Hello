@@ -1,12 +1,13 @@
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import SocialsClient from './pageClient';
 
 type Props = {
-	params: { locale: string };
+	params: Promise<{ locale: string }>;
 };
 
-export default async function Socials({ params }: Props) {
-	unstable_setRequestLocale(params.locale);
+export default async function Socials(props: Props) {
+    const params = await props.params;
+   setRequestLocale(params.locale);
 
-	return <SocialsClient />;
+    return <SocialsClient />;
 }

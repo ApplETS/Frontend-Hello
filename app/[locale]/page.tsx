@@ -1,9 +1,10 @@
 import { redirect } from 'next/navigation';
 
 interface Props {
-	params: { locale: string };
+	params:  Promise<{ locale: string }>;
 }
 
-export default function Index({ params: { locale } }: Props) {
+export default async function Index({ params }: Props) {
+	const {locale} = await params
 	return redirect(`${locale}/dashboard/news`);
 }

@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 
-export default function Settings({ params }: { params: { locale: string } }) {
-	return redirect(`/${params.locale}/dashboard/settings/profile`);
+export default async function Settings(props: { params: Promise<{ locale: string }> }) {
+    const params = await props.params;
+    return redirect(`/${params.locale}/dashboard/settings/profile`);
 }

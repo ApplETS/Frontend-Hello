@@ -1,11 +1,18 @@
 'use client';
+import { use } from "react";
 
 import UnsubscribeClient from './clientPage';
 
 interface Props {
-	params: { token: string };
+	params: Promise<{ token: string }>;
 }
 
-export default function Unsubscribe({ params: { token } }: Readonly<Props>) {
-	return <UnsubscribeClient token={token} />;
+export default function Unsubscribe(props: Props) {
+    const params = use(props.params);
+
+    const {
+        token
+    } = params;
+
+    return <UnsubscribeClient token={token} />;
 }

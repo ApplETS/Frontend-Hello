@@ -1,18 +1,28 @@
 import React, { ReactElement } from 'react';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import SettingsLayout from './components/settingsLayout';
 
 type Props = {
 	children: ReactElement;
-	params: { locale: string };
+	params: Promise<{ locale: string }>;
 };
 
-export default async function Layout({ children, params: { locale } }: Props) {
-	unstable_setRequestLocale(locale);
+export default async function Layout(props: Props) {
+    const params = await props.params;
 
-	const t = await getTranslations('Settings');
+    const {
+        locale
+    } = params;
 
-	return (
+    const {
+        children
+    } = props;
+
+   setRequestLocale(locale);
+
+    const t = await getTranslations('Settings');
+
+    return (
 		<SettingsLayout locale={locale} sectionTitle={t('title')}>
 			{children}
 		</SettingsLayout>

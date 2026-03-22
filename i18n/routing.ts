@@ -9,12 +9,5 @@ export const routing = defineRouting({
 			'en': '/en',
 			'fr': '/fr'
 		}
-	},
-	pathnames: {
-		'/': '/',
-		'/dashboard': {
-			'en': '/dashboard',
-			'fr': '/tableau de bord'
-		}
 	}
 });

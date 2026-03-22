@@ -4,7 +4,8 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import '@mdxeditor/editor/style.css';
 import { ReactNode } from 'react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { locales } from '@/config';
+
+import {routing } from '@/i18n/routing';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 import NextTopLoader from 'nextjs-toploader';
 import { SettingsProvider } from '@/utils/provider/SettingsProvider';
@@ -13,12 +14,14 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import React from 'react';
 
+
 type Props = {
 	children: ReactNode;
 	params: Promise<{ locale: string }>;
 };
 
 export function generateStaticParams() {
+	const locales = routing.locales;
 	return locales.map((locale) => ({ locale }));
 }
 

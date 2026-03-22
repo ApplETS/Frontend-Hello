@@ -79,7 +79,7 @@ async function refreshToken(token: JWT): Promise<JWT>{
 		console.log(text);
 		return {
 			...token,
-			error: "RefreshTokenError"
+			error: "RefreshTokenError",
 		}
 	}
 	const response = await refreshResponse.json();

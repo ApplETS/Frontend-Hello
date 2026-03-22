@@ -78,6 +78,7 @@ async function refreshToken(token: JWT): Promise<JWT>{
 		console.log("Failed to refresh");
 		const text = await refreshResponse.text();
 		console.log(text);
+		throw new Error("Failed to refresh token");
 	}
 	const response = await refreshResponse.json();
 

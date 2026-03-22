@@ -1,6 +1,6 @@
 import React, { ReactElement, use } from 'react';
 import DashboardLayout from './components/dashboardLayout';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getAuthenticatedUser } from '@/lib/get-authenticated-user';
 import { UserTypes } from '@/models/user-types';
 import ToastProvider from '@/utils/provider/ToastProvider';
@@ -9,11 +9,12 @@ import UserProvider from '@/utils/provider/UserProvider';
 
 type Props = {
 	children: ReactElement;
-	params: { locale: string };
+	params: Promise<{ locale: string }>;
 };
 
-export default async function Layout({ children, params: { locale } }: Props) {
-	unstable_setRequestLocale(locale);
+export default async function Layout({ children, params }: Props) {
+	const { locale } = await params;
+	setRequestLocale(locale);
 
 	const t = await getTranslations('Dashboard');
 	let user;
